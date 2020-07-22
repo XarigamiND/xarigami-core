@@ -1,0 +1,35 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Module Deactivation with dependents still active</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Dependents still Active</xar:mlstring>
+            </h2>
+
+            <xar:if condition="count($dependencies['active']) ne 0">
+                <ul>
+                    <xar:foreach in="$dependencies['active']" value="$modInfo">
+                        <li>#xarML($modInfo['displayname'])#</li>
+                    </xar:foreach>
+                </ul>
+            </xar:if>
+
+            <form action="&xar-modurl-modules-admin-deactivate;" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="xar-align-center">
+                    <input type="hidden" name="id" id="id" value="#$id#" />
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="submit" name="command" id="command" value="#xarML('Deactivate All')#" class="xar-margin-thickright" />
+                    <p>
+                        <a href="#xarModURL('modules', 'admin', 'list')#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

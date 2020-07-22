@@ -1,0 +1,54 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Countrylisting property provides a drop down selection
+        list of countries.
+    </p>
+    <p>
+        The Country names are displayed in the dropdown list while the
+        ISO-3166 country code is the value captured in forms. On output the selected country name is displayed.
+    </p>
+
+    <h2>Attributes</h2>
+
+    <ul>
+
+        <li>
+            <strong>firstline</strong>: [default='Please select']
+            <br />
+            This attribute is inherited from the parent 'dropdown' selection property,
+            and enables you to specify a first line in the selection list displayed
+            as an instruction to the user.
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent <strong>Dropdown List</strong> property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the countrylisting type to capture data in forms
+        without the need to define a property.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="countrylisting" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <p>
+        You can capture data for this bound property in your templates with the data input tag.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['countrylisting']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="countrylisting" id="mycountry"
+            name="mycountry" firstline="Please select your country" /&gt;
+    </pre>
+</div>

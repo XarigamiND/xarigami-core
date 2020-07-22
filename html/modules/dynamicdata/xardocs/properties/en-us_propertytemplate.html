@@ -1,0 +1,64 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        Put some description of the property here. On input something happens ...
+    </p>
+    <p>
+        Put some description of the property for output display. On output something happens.
+    </p>
+    <p>
+        Put some description of what is saved in the database if anything.
+    </p>
+
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>someattribute</strong>: [default='something']
+                <br />Explanation of the attribute.
+
+        </li>
+        <li>
+            <strong>another attribute</strong>: [default='something']
+            <br />Explanation of the attribute.
+        </li>
+    </ul>
+
+    <p>
+        Other attributes may be inherited from the <strong>[put parent property or grandparent property here]</strong> parent property.
+    </p>
+    
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <ul>
+        <li>
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property.
+        </li>
+    </ul>
+
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="[propertyname]" country="$country" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+     <ol>
+        <li>
+            Defining your data property: You can define the attributes in the Configuration screen.
+        </li>
+        <li>
+            Using the data-input tag: you can use the data-input tag to capture data for this property
+            and pass in attributes for the data property input.
+        </li>
+    </ol>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['statelisting']"
+            country="$country" <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="[propertyname]" id="countrystate"
+            name="countrystate" country="au,sg"  firstline="Please select your State" /&gt;
+    </pre>
+</div>

@@ -1,0 +1,86 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Array property (type 999) provides a GUI for input of an associative or non-associative array. This can be defined
+        by passing in attribute values in the data input tag or in the configuration of a bound property.
+    </p>
+    <p>The array is displayed by default as a list of option-value pairs, one per line with option value pairs separated by a comma.</p>
+    <p>The database value is stored as a serialized array of option value pairs.
+    </p>
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>associative_array</strong>: [default=0]
+            <br />
+            Defines whether an associative array is used or not. A value of 1 will provide an key-value input
+            for the <em>array</em> data property, and a minimum of two columns. A non-associative array will display one column by default.
+        </li>
+        <li>
+            <strong>allowinput</strong>: [default=0]
+            <br />
+            Defines whether the user can add (1) or delete (2) rows from the array. The default is 0 so only the original number of defined rows
+             are displayed.
+        </li>
+        <li>
+            <strong>rows</strong>: [default=1]
+            <br />
+            The number of rows to display at start.
+        </li>
+        <li>
+            <strong>maxrows</strong>: [default=10]
+            <br />
+            The maximum number of rows allowed. A value of 0 enables unlimited rows.
+        </li>        
+        <li>
+            <strong>columns</strong>: [default=1]
+            <br />
+            The number of columns to display not including the key.
+        </li>
+        <li>
+            <strong>keylabel</strong>: [default=""]
+            <br />
+            The label for the Key column
+        </li>
+        <li>
+            <strong>valuelabel</strong>: [default=""]
+            <br />
+            The label for the Value column. If there is more than one column, multiple value labels can be entered separated by semicolons (;)
+        </li>
+        <li>
+            <strong>fixedkeys</strong>: [default=0]
+            <br />
+            If fixed keys is set to 1, users cannot edit keys once the value is input and saved.
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>array</em> type to capture data in forms
+        without the need to define a property.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="array" name="myarray" id="myarray" associative_array="1"
+           rows="2" columns="2" allowinput="2" keylabel="Option" valuelabel="Value" <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h3>Defined Data Property</h3>
+    <p>
+        You can capture data for this bound property in your templates with the data input tag.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['arraylist']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="array" id="myitems"
+            name="myitems" rows="1" columns="2" associative_array="1" keylabel="Pet name" valuelabel="Animal type" /&gt;
+    </pre>
+</div>

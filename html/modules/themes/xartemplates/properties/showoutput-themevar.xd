@@ -1,0 +1,3 @@
+<xar:if condition="isset($showoutput)">
+#$showoutput#
+</xar:if>

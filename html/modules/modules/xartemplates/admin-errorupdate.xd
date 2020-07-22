@@ -1,0 +1,76 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <!-- Error Information -->
+        <h1> <xar:mlstring>Module Error Information</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>An error has been detected in the module versions!</xar:mlstring>
+            </h2>
+
+            <p>
+                <xar:mlstring>There is a discrepancy between the module version stored in the database and the module version found in the file system.  If you continue to run with an older version of the module files, you can severely corrupt your data.</xar:mlstring>
+            </p>
+
+            <table>
+                <tr>
+                    <th>
+                        <xar:mlstring>Module</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Database Version</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Filesystem Version</xar:mlstring>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        #$modname#
+                    </td>
+                    <td>
+                        #$dbversion#
+                    </td>
+                    <td>
+                        #$fileversion#
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                <xar:mlstring>The module has been marked inactive until this discrepancy is corrected.</xar:mlstring>
+            </p>
+
+            <h3>
+                <xar:mlstring>You have two choices:</xar:mlstring>
+            </h3>
+
+            <ul>
+                <li>
+                    <strong>
+                        <xar:mlstring>Update the modules files.</xar:mlstring>
+                    </strong>
+                    <xar:set name="homepage">!empty($homepage)?$homepage:'http://xarigami.com'</xar:set>
+                    <xar:mlstring>Download the latest version of module</xar:mlstring>&#160;#$modname#&#160;<xar:mlstring>from</xar:mlstring>&#160;<a href="#$homepage#">#$homepage#</a>&#160;<xar:mlstring>and update your file system.</xar:mlstring>
+                </li>
+                <li>
+                    <strong>
+                        <xar:mlstring>Update the module version in the database.</xar:mlstring>
+                    </strong>
+                </li>
+            </ul>
+
+            <p>
+                <xar:mlstring>If modules files are up to date, you can update the database to the current version.  Only do this if you are absolutely certain the module files are up to date.</xar:mlstring>
+            </p>
+            <p>
+                <a href="&xar-modurl-modules-admin-updateversion;&amp;id=#$regId#">Click here to update the module version in the database.</a>
+            </p>
+        <div class="xar-mod-content">
+    </div>
+</div>

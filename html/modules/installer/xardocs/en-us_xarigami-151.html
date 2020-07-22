@@ -1,0 +1,30 @@
+<div class="installnotes">
+    <h4>1.5.1 Notes</h4>
+    <p>Version 1.5.1 is a bug fix release with some usability improvements.</p>
+    <ol>
+        <li><xar:mlstring>xgami-001026 Update of the Sessions table to handle IPV6. Overlooked and not pushed to the current branch and requires table adjustment handled with the session hashing below. </li>
+        <li>xgami-001027 Hashing of sessions. This upgrade will adjust your session_info table.<br />
+        However, if you have a a large xar_session_info table, you may be better to alter your xar_session_info table manually prior to running upgrade. If you are not reliant on having the sessions retained and the table is large, you are better to flush (empty) the session_info table before upgrade.
+        To manually alter the table:
+        <ul>
+                <li>Alter xar_sessid to varchar 254</li>
+                <li>Alter xar_ipaddr to varchar 40</li>
+                <li>Check to ensure the PRIMARY index is also now 254 not 32 in size.
+                </li>
+                <li>Please be aware that if you are upgrading from a php without session hashing to one using session hashing, PHP will create new sessions for all users in the database and any existing session data will be lost.
+                </li>
+             </ul>
+           </xar:mlstring>
+        </li>
+        <li>xgami-001025 Fix to some cases where menulinks looses passed parameters </li>
+        <li>xgami-001028 Type casting issue in blocks</li>
+        <li>xgami-001029 $pending variable not set  in registration for cases where user registration is marked as pending</li>
+        <li>xgami-001030 In some cases when a theme directory doesn't exist, the default theme identification on start up ends with a related error of unknown function</li>
+        <li>xgami-001032 PHP5.4 xarMod breaks on hooks methods using arrays as callerItemType</li>
+        <li>xgami-001037 Themevars are not initialized after install</li>
+        <li>Improvements in install process in usability and error messages</li>
+        <li>xgami-001050 Proxy login broken for short time in 1.5.0 branch</li>
+      <li><xar:mlstring>  It is very important that you have a database BACKUP prior to running this script and check the upgrade documentation. You should also run the Site Health Checks after the intial upgrade step, and before finalizing this upgrade process.</xar:mlstring></li>
+          </ol>
+     <p></p>
+</div>

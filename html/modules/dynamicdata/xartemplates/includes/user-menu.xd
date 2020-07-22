@@ -1,0 +1,42 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Common Administration menu</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="displayname">xarModGetDisplayableName()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="action">isset($action)?$action:''</xar:set>
+<xar:set name="itemtype">xarRequestGetVar('itemtype');</xar:set>
+<xar:set name="menulinks">xarModAPIFunc($request[0], 'user', 'getmenulinks')</xar:set>
+<xar:if condition="xarModGetVar('themes','showusermodheader')">
+<div class="xar-mod-title">
+    <xar:if condition="!isset($pagetitle)">
+       #$displayname#
+    <xar:else />
+        #$pagetitle#
+    </xar:if>
+</div>
+</xar:if>
+<xar:template type="module" module="dynamicdata" file="user-breadcrumb" />
+ #xarTplGetMessage()#
+<xar:if condition="!empty($menulinks)and is_array($menulinks)">
+    <ul class="xar-tabs">
+
+         <xar:foreach in="$menulinks" key="$menukey" value="$menulink">
+            <xar:if condition="isset($itemtype) and ($itemtype eq $menulink['itemtype']) AND !in_array($activetab,$menulink['active'])">
+             <xar:set name="tabclass">'xar-tab-active'</xar:set>
+            <xarelse:if condition="isset($itemtype) and ($itemtype eq $menulink['itemtype']) AND !empty($action) AND is_array($menulink['active']) AND in_array($action, $menulink['active']) AND !in_array($activetab,$menulink['active'])"/>
+                <xar:set name="tabclass">'xar-tab-active'</xar:set>
+            <xar:elseif condition="isset($itemtype) and ($itemtype eq $menulink['itemtype'])  AND isset($menulink['active']) AND in_array($activetab, $menulink['active']) AND empty($action) AND !in_array($action, $menulink['active'])"/>
+                <xar:set name="tabclass">'xar-tab-active'</xar:set>
+            <xar:else />
+                <xar:set name="tabclass">'xar-tab'</xar:set>
+            </xar:if>
+
+            <li class="#$tabclass#">
+                 <a href="#$menulink.url#" title="#$menulink.title#">
+                    #$menulink.label#
+                </a>
+            </li>
+        </xar:foreach>
+    </ul>
+</xar:if>

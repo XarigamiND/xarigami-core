@@ -1,0 +1,93 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:comment>We have to manually include headers here</xar:comment>
+         <xar:if condition="xarModGetVar('themes','showmodheader')">
+             <xar:if condition="xarSecurityCheck('AdminDynamicData',0)">
+                <div class="xar-mod-title"><xar:mlstring>Dynamic Data Administration</xar:mlstring></div>
+            <xar:else />
+                <div class="xar-mod-title">
+                <xar:ml>
+                    <xar:mlstring>#(1) Administration</xar:mlstring>
+                     <xar:mlvar>#$object:label#</xar:mlvar>
+                </xar:ml>
+                </div>
+            </xar:if>
+        </xar:if>
+        <xar:if condition="xarSecurityCheck('DeleteDynamicData',0)">
+            <xar:template type="module" module="dynamicdata" file="admin-menu" />
+        <xar:else />
+            <xar:template type="module" module="dynamicdata" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:ml>
+                <xar:mlstring>Creating New Item in #(1)</xar:mlstring>
+                <xar:mlvar>#$object:label#</xar:mlvar>
+            </xar:ml>
+        </h1>
+        <p class="xar-align-right">
+            <xar:if condition="!xarSecurityCheck('ModerateDynamicData',0)">
+                <xar:mlstring>Return to </xar:mlstring><a href="#xarModURL('dynamicdata','user','view',array('itemtype'=>$object->itemtype, 'template'=>$template))#"><xar:mlstring>List items</xar:mlstring></a>
+            <xar:elseif condition="isset($table) and !empty($table) and xarSecurityCheck('AdminDynamicData',0)" />
+                <xar:mlstring>Return to: </xar:mlstring><a href="&xar-modurl-dynamicdata-admin-view;&amp;itemid=#$object:objectid#&amp;table=#$table#&amp;template=#$template#"><xar:mlstring>Table Operations - Item List View</xar:mlstring></a>
+            <xar:else />
+                <a href="&xar-modurl-dynamicdata-admin-view;&amp;itemid=#$object:objectid#&amp;template=#$template#s"><xar:mlstring>Return to Object List View</xar:mlstring></a>
+            </xar:if>
+        </p>
+        <div class="xar-mod-content">
+            <xar:if condition="!empty($preview)">
+                <h3>
+                    <xar:mlstring>Preview</xar:mlstring>
+                </h3>
+
+                <xar:data-display object="$object" />
+                                <xar:if condition="!empty($displayhooks)">
+                  <xar:foreach in="$displayhooks" key="$module" value="$output">
+                      <xar:if condition="$module ne 'dynamicdata'">
+                          #$output#
+                      </xar:if>
+                  </xar:foreach>
+                </xar:if>
+            </xar:if>
+
+            <xar:set name="isupload">#$object:upload#</xar:set>
+
+            <xar:if condition="!empty($isupload)">
+                <xar:set name="enc_type">'multipart/form-data'</xar:set>
+            <xar:else/>
+                <xar:set name="enc_type">'application/x-www-form-urlencoded'</xar:set>
+            </xar:if>
+
+            <form method="post" action="#xarModURL('dynamicdata','admin','create')#" enctype="#$enc_type#">
+              <fieldset>
+                <legend><xar:mlstring>Item details</xar:mlstring></legend>
+                <xar:data-form object="$object" />
+                <xar:if condition="!empty($hooks)">
+                    <xar:foreach in="$hooks" key="$module" value="$output">
+                        #$output#
+                    </xar:foreach>
+                </xar:if>
+              </fieldset>
+                <div class="xar-form-footer">
+                  <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                  <input type="hidden" name="modid" id="modid" value="#$object:moduleid#" />
+                  <input type="hidden" name="itemtype" id="itemtype" value="#$object:itemtype#" />
+                  <input type="hidden" name="join" id="join" value="#$object:join#" />
+                  <input type="hidden" name="table" id="table" value="#$object:table#" />
+                  <input type="hidden" name="itemid" id="itemid" value="#$object:itemid#" />
+                  <xar:if condition="!empty($return_url)">
+                    <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+                  </xar:if>
+                  <input type="submit" name="preview" value="#xarML('Preview')#" class="xar-margin-thickright" />
+                  <input type="submit" value="#xarML('Create')#" class="xar-margin-thickleft" />
+                </div>
+
+            </form>
+            <xar:if condition="!xarSecurityCheck('ModerateDynamicDataItem',0,'Item',$object:moduleid.':'.$object:itemtype.':All')">
+                <xar:mlstring>You may not be able to make changes once you click Create, depending on your access level, so please check your entry.</xar:mlstring>
+            </xar:if>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+<object name="users">
+  <objectid>8</objectid>
+  <label>Users</label>
+  <moduleid>27</moduleid>
+  <itemtype>0</itemtype>
+  <urlparam>uid</urlparam>
+  <maxid>0</maxid>
+  <config>a:0:{}</config>
+  <isalias>0</isalias>
+  <properties>
+    <property name="showonline">
+      <id>60</id>
+      <label>Show online status?</label>
+      <type>checkbox</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>6</status>
+      <order>1</order>
+      <validation>a:5:{s:13:"xv_allowempty";s:1:"1";s:17:"xv_display_layout";s:7:"default";s:12:"xv_cansearch";s:1:"1";s:11:"xv_hasvalue";s:3:"Yes";s:13:"xv_hasnovalue";s:2:"No";}</validation>
+    </property>
+    <property name="website">
+      <id>61</id>
+      <label>Website</label>
+      <type>urlicon</type>
+      <default>http://</default>
+      <source>dynamic_data</source>
+      <status>1</status>
+      <order>2</order>
+      <validation></validation>
+    </property>
+    <property name="avatar_type">
+      <id>62</id>
+      <label>My Avatar</label>
+      <type>radio</type>
+      <default>0</default>
+      <source>dynamic_data</source>
+      <status>6</status>
+      <order>3</order>
+      <validation>a:5:{s:13:"xv_optionlist";s:79:"0,None;1,Selected Picture;2,My Picture (URL);3,My Picture (uploaded);4,Gravatar";s:7:"xv_size";s:1:"1";s:13:"xv_allowempty";s:1:"1";s:17:"xv_display_layout";s:7:"default";s:12:"xv_cansearch";s:1:"1";}</validation>
+    </property>
+    <property name="avatar_select">
+      <id>63</id>
+      <label>My Picture (selected)</label>
+      <type>imagelist</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>6</status>
+      <order>4</order>
+      <validation>a:6:{s:13:"xv_allowempty";s:1:"1";s:17:"xv_display_layout";s:7:"default";s:11:"xv_file_ext";s:22:"(gif|jpg|jpeg|png|bmp)";s:10:"xv_basedir";s:19:"var/uploads/avatars";s:11:"xv_longname";s:1:"1";s:10:"xv_display";s:1:"1";}</validation>
+    </property>
+    <property name="avatar_url">
+      <id>64</id>
+      <label>My Picture (URL)</label>
+      <type>image</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>6</status>
+      <order>4</order>
+      <validation>a:6:{s:7:"xv_size";s:2:"50";s:13:"xv_allowempty";s:1:"1";s:17:"xv_display_layout";s:7:"default";s:15:"xv_image_source";s:3:"url";s:11:"xv_file_ext";s:20:"gif,jpg,jpeg,png,bmp";s:19:"xv_allow_duplicates";s:1:"0";}</validation>
+    </property>
+    <property name="avatar_upload">
+      <id>65</id>
+      <label>My Picture (uploaded)</label>
+      <type>fileupload</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>6</status>
+      <order>5</order>
+      <validation>a:8:{s:13:"xv_allowempty";s:1:"1";s:17:"xv_display_layout";s:7:"default";s:11:"xv_file_ext";s:20:"gif,jpg,jpeg,png,bmp";s:10:"xv_basedir";s:11:"var/uploads";s:19:"xv_allow_duplicates";s:1:"2";s:16:"xv_max_file_size";s:7:"1000000";s:10:"xv_display";s:1:"1";s:16:"xv_display_width";s:2:"60";}</validation>
+    </property>
+    <property name="facebook">
+      <id>66</id>
+      <label>Facebook</label>
+      <type>facebook</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>1</status>
+      <order>6</order>
+      <validation></validation>
+    </property>
+    <property name="Twitter">
+      <id>67</id>
+      <label>Twitter</label>
+      <type>twitter</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>1</status>
+      <order>7</order>
+      <validation></validation>
+    </property>
+    <property name="msnm">
+      <id>68</id>
+      <label>MSN Messenger</label>
+      <type>msn</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>8</order>
+      <validation></validation>
+    </property>
+    <property name="aim">
+      <id>69</id>
+      <label>AIM Address</label>
+      <type>aim</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>9</order>
+      <validation></validation>
+    </property>
+    <property name="yim">
+      <id>70</id>
+      <label>Yahoo Messenger</label>
+      <type>yahoo</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>10</order>
+      <validation></validation>
+    </property>
+    <property name="icq">
+      <id>71</id>
+      <label>ICQ Number</label>
+      <type>icq</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>11</order>
+      <validation></validation>
+    </property>
+    <property name="location">
+      <id>72</id>
+      <label>Location</label>
+      <type>textbox</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>12</order>
+      <validation>a:5:{s:13:"xv_allowempty";i:1;s:17:"xv_display_layout";s:7:"default";s:7:"xv_size";i:50;s:13:"xv_min_length";s:1:"0";s:13:"xv_max_length";s:3:"100";}</validation>
+    </property>
+    <property name="occupation">
+      <id>73</id>
+      <label>Occupation</label>
+      <type>textbox</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>16</order>
+      <validation>a:5:{s:13:"xv_allowempty";i:1;s:17:"xv_display_layout";s:7:"default";s:7:"xv_size";i:50;s:13:"xv_min_length";s:1:"0";s:13:"xv_max_length";s:3:"100";}</validation>
+    </property>
+    <property name="interests">
+      <id>74</id>
+      <label>Interests</label>
+      <type>textbox</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>17</order>
+      <validation>a:5:{s:13:"xv_allowempty";i:1;s:17:"xv_display_layout";s:7:"default";s:7:"xv_size";i:50;s:13:"xv_min_length";s:1:"0";s:13:"xv_max_length";s:3:"150";}</validation>
+    </property>
+    <property name="signature">
+      <id>75</id>
+      <label>Signature</label>
+      <type>textarea_small</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>17</order>
+      <validation>a:4:{s:13:"xv_allowempty";i:1;s:17:"xv_display_layout";s:7:"default";s:7:"xv_rows";s:1:"8";s:7:"xv_cols";s:2:"35";}</validation>
+    </property>
+    <property name="extra_info">
+      <id>76</id>
+      <label>Extra info</label>
+      <type>textarea_medium</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>17</order>
+      <validation>a:4:{s:13:"xv_allowempty";i:1;s:17:"xv_display_layout";s:7:"default";s:7:"xv_rows";s:1:"8";s:7:"xv_cols";s:2:"35";}</validation>
+    </property>
+  </properties>
+</object>

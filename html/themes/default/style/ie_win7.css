@@ -1,0 +1,22 @@
+.col1 {
+        width:100%;
+    }
+ul.xar-tabs {
+    height: 21px;
+    display: block;
+}
+ul.xar-tabs li.xar-tabs-label {
+    float: left;
+    display: inline;
+}
+ul.xar-tabs li.xar-tab, ul.xar-tabs li.xar-tab-active {
+    float: left;
+    display: inline;
+    margin-top: 0;
+}
+ul.xar-tabs li.xar-tab a, ul.xar-tabs li.xar-tab-active a {
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+}

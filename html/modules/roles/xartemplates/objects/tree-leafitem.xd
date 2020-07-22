@@ -1,0 +1,3 @@
+<a href="#$leafitemurl#" title="#$leafitemtitle#" style="vertical-align: middle;text-decoration: none;" class="#$leafitemimage#">
+    <span>#$leafitemtitle#</span>
+</a>

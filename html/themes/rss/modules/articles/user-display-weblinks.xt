@@ -1,0 +1,7 @@
+<item>
+<title>#$title#</title>
+<link>#$notes#</link>
+<description>#$summary#</description>
+<author>#$author#</author>
+<PubDate>#xarLocaleFormatUTCDate("%a, %d %b %Y %H:%M:%S GMT",$pubdate)#</PubDate>
+</item>

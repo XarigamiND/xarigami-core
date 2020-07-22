@@ -1,0 +1,38 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <div class="xar-mod-content">
+            <img src="#xarTplGetImage('info.png','base')#" alt="#xarML('official icon')#" width="96" height="96" class="xar-module-icon" />
+
+            <h2>
+                <xar:mlstring>Help File Not Found</xar:mlstring>
+            </h2>
+
+            <p>
+                <xar:mlstring>There is no help information for this Xarigami extension.</xar:mlstring>
+            </p>
+            <p>
+               <xar:mlstring>The Xarigami help system is not fully implemented at this stage.
+               Most links display an existing extension Overview. This link will be replaced in the near future by a
+               global Help system.
+               </xar:mlstring>
+            </p>
+            <p>
+                <xar:mlstring>You can report a missing Overview file by lodging a bug report at </xar:mlstring>
+                <a href="http://bugs.xaraya.com">http://bugs.xaraya.com</a>
+                <xar:mlstring> If you are interested in helping to write an Overview for a module
+                see </xar:mlstring><strong>modules/example/xartemplates/admin-main.xd</strong><xar:mlstring> as an example.</xar:mlstring>
+            </p>
+
+             <p class="xar-sub">
+                 <strong>&#160;<xar:mlstring>Xarigami Help System </xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.0.0&nbsp; 2006-02-26
+             </p>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,47 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Manage realms</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:if condition="xarModGetVar('privileges','showrealms')">
+                <xar:template type="module" file="admin-realms" />
+                <table class="xar-items">
+                    <tr>
+                        <th style="text-align: left; padding-left: .5em;">
+                            <xar:mlstring>Name</xar:mlstring>
+                        </th>
+                        <th style="text-align: center; padding-left: .5em;">
+                            <xar:mlstring>Actions</xar:mlstring>
+                        </th>
+                    </tr>
+                    <xar:loop name="$realms">
+                        <tr class="xar-norm-outline xar-padding-thickends xar-align-left">
+                            <td >
+                                <a href="&xar-modurl-privileges-admin-modifyrealm;&amp;rid=#$loop:item['rid']#">#xarVarPrepForDisplay($loop:item['name'])#</a>
+                            </td>
+                            <td class="xar-align-center">
+                                <a href="&xar-modurl-privileges-admin-modifyrealm;&amp;rid=#$loop:item['rid']#" title="#xarML('Modify this realm')#"  class="esprite xs-modify xar-displayinline"><span>#xarML('Modify')#</span></a>&#160;
+                                <a href="&xar-modurl-privileges-admin-deleterealm;&amp;rid=#$loop:item['rid']#" title="#xarML('Delete this realm')#" class="esprite xs-delete xar-displayinline"><span>#xarML('Delete')#</span></a>
+                            </td>
+                        </tr>
+                    </xar:loop>
+                </table>
+            <xar:else />
+            <h2>
+                    <xar:mlstring>Manage Realms</xar:mlstring>
+            </h2>
+              <p>
+                    <xar:mlstring>
+                    You can use Realms to 'slice' or divide your site into different areas. You can 'slice' in various ways, such as by theme or domain name.
+                    You must </xar:mlstring><a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=realms" title="#xarML('Enable the Realms options')#"><xar:mlstring>enable Realms on your site</xar:mlstring></a>
+                    <xar:mlstring> in the Privileges config options. The realms create and modify options will then display here.</xar:mlstring></p>
+            </xar:if>
+        </div>
+    </div> <!-- mod body -->
+</div>

@@ -1,0 +1,121 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="warning">xarML('You must select an item to move')</xar:set>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:comment>Include the js code for the reordering</xar:comment>
+<xar:template type="module" module="blocks" file="jq-reorder" />
+<xar:set name="tabindex">1</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify Group</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form action="#xarModURL('blocks', 'admin', 'update_group')#" method="post" enctype="application/x-www-form-urlencoded" >
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Group options</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="group_name" title="#xarML('Enter the name of the group.  This value is used in your theme template to call the block group.')#" class="xar-form-label">
+                            <xar:mlstring>Group name:</xar:mlstring>
+                        </label>
+                        #$group.name#
+                        <input type="hidden" name="group_name" id="group_name" value="#$group['name']#" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="group_template" title="#xarML('If you wish to override the default template you may do so by entering a template name.  Otherwise the default.xt template will be used.')#" class="xar-form-label">
+                            <xar:mlstring>Default Template (optional):</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="group_template" id="group_template" value="$group['template']" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="group_instances" title="#xarML('You may reorder the members in this block group by selecting the block to reorder and then using the up and down arrows to chose the position.')#" class="xar-form-label">
+                            <xar:mlstring>Members:</xar:mlstring>
+                        </label>
+                        <xar:if condition="$instance_count gt 0">
+                            <div id="js_usescript" class="xar-floatleft xar-displaynone">
+                                <div class="xar-floatleft">
+                                    <button  id="goup"  onclick="return xar_base_reorder('group_instances', true, 'group_instance_order');"  title="#$moveuplabel#" class="xar-displayblock xar-margin-thickbottom">
+                                        <p class="sprite xs-go-up xar-displayinline"><span>#$moveuplabel#</span></p>
+                                    </button>
+                                    <button id="godown" onclick="return xar_base_reorder('group_instances', false, 'group_instance_order');"  title="#$movedownlabel#" class="xar-displayblock xar-margin-thicktop">
+                                        <p class="sprite xs-go-down xar-displayinline"><span>#$movedownlabel#</span></p>
+                                    </button>
+                                </div>
+                                <div class="xar-floatleft xar-margin-thickleft">
+                                    <xar:if condition="$instance_count gt 2">
+                                        <xar:set name="list_size">#$instance_count#</xar:set>
+                                    <xar:else />
+                                        <xar:set name="list_size">3</xar:set>
+                                    </xar:if>
+                                    <xar:data-input type="dropdown" name="group_instances" id="group_instances" size="$instance_count" value="" validation="$instanceoptions" tabindex="$tabindex++" />
+                                   </div>
+                            </div>
+                            <div id="js_noscript">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><xar:mlstring>Instances</xar:mlstring></th>
+                                            <th scope="col" class="xar-align-right"><xar:mlstring>Actions</xar:mlstring></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <xar:set name="rowclass">'xar-norm'</xar:set>
+                                        <xar:set name="iter">1</xar:set>
+                                        <xar:set name="uptitle">xarML('Move instance up')</xar:set>
+                                        <xar:set name="downtitle">xarML('Move instance down')</xar:set>
+                                        <xar:foreach in="$group['instances']" value="$inst">
+                                            <tr class="#$rowclass#">
+                                                <td>
+                                                    #$inst['name']#
+                                                    <xar:if condition="!empty($inst['title'])">
+                                                        (#$inst['title']#)
+                                                    </xar:if>
+                                                </td>
+                                                <td class="xar-align-right">
+                                                    <xar:if condition="$iter gt 1">
+                                                        <a class="sprite xs-go-up" title="#xarML('Move up')#" href="#xarModURL('blocks', 'admin', 'update_group', array('moveinst' => $inst['id'], 'gid' => $group['id'], 'group_name' => $group['name'], 'group_template' => $group['template'], 'authid' => $authid, 'direction' => 'up'))#">
+                                                        <span><xar:mlstring>Move up</xar:mlstring></span>
+                                                        </a>
+                                                    <xar:else />
+                                                    <p class="sprite xs-blank xar-displayinline"><span>#$movedownlabel#</span></p>
+                                                    </xar:if>
+
+                                                    <xar:if condition="$iter lt $instance_count">
+                                                        <a class="sprite xs-go-down" title="#xarML('Move down')#" href="#xarModURL('blocks', 'admin', 'update_group', array('moveinst' => $inst['id'], 'gid' => $group['id'], 'group_name' => $group['name'], 'group_template' => $group['template'], 'authid' => $authid, 'direction' => 'down'))#">
+                                                         <span><xar:mlstring>Move down</xar:mlstring></span>
+                                                        </a>
+                                                    <xar:else />
+                                                         <p class="sprite xs-blank xar-displayinline"><span>#$movedownlabel#</span></p>
+                                                    </xar:if>
+                                                </td>
+                                            </tr>
+                                            <xar:set name="rowclass">$rowclass=='xar-norm'?'xar-alt':'xar-norm'</xar:set>
+                                            <xar:set name="iter">$iter+1</xar:set>
+                                        </xar:foreach>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        <xar:else />
+                            [ <xar:mlstring>none</xar:mlstring> ]
+                        </xar:if>
+                    </div>
+                </fieldset>
+
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
+                    <input type="hidden" name="group_instance_order" id="group_instance_order" value="" />
+                    <input type="submit" value="#xarML('Update Group')#" class="xar-margin-thick" tabindex="#$tabindex++#" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

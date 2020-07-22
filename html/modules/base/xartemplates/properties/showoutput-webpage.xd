@@ -1,0 +1,5 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:if condition="$srcpath ne ''" >
+    #$srcpath#
+</xar:if>

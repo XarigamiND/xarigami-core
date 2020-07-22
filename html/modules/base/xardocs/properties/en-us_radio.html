@@ -1,0 +1,73 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Radio property provides a set of radio buttons with values that are user definable.
+    </p>
+
+   <p>
+        The value stored in the database depends on whether you have defined an associative or non-associative array of values for your radiobuttons.
+        The <strong>id</strong> not the value of an option is used. eg In the case of options defined as <code>1,Yes;2,No;3,Maybe</code>, the 1, 2 or 3 is stored in the database.
+        If you define your options as <code>Yes;No;Maybe</code> then those values become the ids themselves and are stored in the database on selection.
+    </p>
+    <p>
+        The display value of the chosen option is always displayed on output, not the id.
+    </p>
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>class</strong>: [default='']
+            <br />
+            The class can be specified and will be applied to the select tag that is generated
+            from the <em>dropdown</em> data property.
+        </li>
+        <li>
+            <strong>function</strong>: [default='']
+            <br />
+            Add a xarigami function that delivers an array of values to populate the radio button options.
+        </li>
+        <li>
+            <strong>options</strong>: [default=array()]
+            <br />
+            This list can be specified as an array of values
+            to populate the radio buttons eg
+            <pre style="font-size:smaller"> <code>1,Yes;2,No;3,Maybe</code></pre>
+            or
+            <pre style="font-size:smaller"> <code>Yes;No;Maybe</code></pre>
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the Drop Down Select parent property. Not all of these may be applicable to Radio Buttons.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>radio</em> type to capture data in forms
+        without the need to define a property.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="radio" name="myfield" id="myfield" options="$myoptions"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <p> The 'options' array is in the form of a non-associative or associative array of id=>'value' options eg:
+        <p style="font-size:smaller"><code>array(1=>'Yes', 2=>'No', 3=>'Maybe')</code></p>
+    <p>
+        Note that 'validation' is an equivalent legacy attribute and still honoured at this time.
+    </p>
+    <h3>Defined Data Property</h3>
+    <p>
+        You can capture data for this bound property in your templates with the data input tag.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['myradiobuttons']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="radio" id="myresponses"
+            name="myresponses /&gt;
+    </pre>
+</div>

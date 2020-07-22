@@ -1,0 +1,79 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Theme Error Information</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+
+            <h3>
+                <xar:mlstring>An error has been detected in the theme versions!</xar:mlstring>
+            </h3>
+
+            <p>
+                <xar:mlstring>There is a discrepancy between the theme version stored in the database and the theme version found in the file system.
+                If you continue to run with an older version of the theme you may have unexpected results data.</xar:mlstring>
+            </p>
+
+            <table>
+                <tr>
+                    <th>
+                        <xar:mlstring>Theme</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Database Version</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Filesystem Version</xar:mlstring>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        #$themename#
+                    </td>
+                    <td>
+                        #$dbversion#
+                    </td>
+                    <td>
+                        #$fileversion#
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                <xar:mlstring>The theme has been marked inactive until this discrepancy is corrected.</xar:mlstring>
+            </p>
+
+            <h3>
+                <xar:mlstring>You have two choices:</xar:mlstring>
+            </h3>
+
+            <ul>
+                <li>
+                    <strong>
+                        <xar:mlstring>Update the theme files.</xar:mlstring>
+                    </strong>
+                    <xar:mlstring>Download the latest version of theme</xar:mlstring>&#160;#$themename#&#160;
+                    <xar:mlstring>from</xar:mlstring>&nbsp;<a href="http://www.xarigami.com">xarigami.com</a>&nbsp;<xar:mlstring>and update your file system.</xar:mlstring>
+                </li>
+                <li>
+                    <strong>
+                        <xar:mlstring>Update the theme version in the database.</xar:mlstring>
+                    </strong>
+                </li>
+            </ul>
+
+            <p>
+                <xar:mlstring>If theme files are up to date, you can update the database to the current version.  Only do this if you are absolutely certain the theme files are up to date.</xar:mlstring>
+            </p>
+            <p>
+                <a href="&xar-modurl-themes-admin-updateversion;&amp;id=#$regId#">Click here to update the theme version in the database.</a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,246 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<xar:set name="tab">isset($tab)?$tab:''</xar:set>
+<xar:set name="infolinks">array
+('restrict'=>xarML('Site and User Restrictions'),
+ 'sitelock'=>xarML('Site Lock')
+)
+</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Site Restrictions &amp; Lock</xar:mlstring></h1>
+        <ul class="xar-tabs">
+            <li class="xar-tabs-label"  title="#xarML('Choose a set of configuration options to modify')#">
+                <xar:mlstring> Modify:</xar:mlstring>
+            </li>
+            <xar:foreach in="$infolinks" key="$whatid" value="$name">
+                <xar:set name="tabclass">$tab == $whatid?'active':''</xar:set>
+                <xar:if condition="$tabclass eq 'active'">
+                    <xar:set name="tabclass">'xar-tab-active'</xar:set>
+                <xar:else />
+                    <xar:set name="tabclass">'xar-tab'</xar:set>
+                </xar:if>
+                <li class="#$tabclass#">
+                    <a title="#$name#" href="#xarModURL('base','admin','restrictions',array('tab'=>$whatid))#">
+                        #$name#
+                    </a>
+                </li>
+            </xar:foreach>
+        </ul>
+        <div class="xar-mod-content">
+            <xar:comment>
+                ------------------- Begin Site Restriction Options ---------------------
+            </xar:comment>
+            <xar:if condition="$tab eq 'restrict'">
+                <form action="#xarModUrl('base', 'admin', 'updaterestrictions')#" method="post" id="restrictform" enctype="application/x-www-form-urlencoded">
+                   <fieldset>
+                        <legend>
+                            <xar:mlstring>Site Restrictions</xar:mlstring>
+                        </legend>
+
+                        <div class="xar-form-input-wrapper">
+                                <label for="disallowedemails" title="#xarML('Email addresses which cannot be used')#" class="xar-form-label">
+                                    <xar:mlstring>
+                                        Disallowed Email Addresses:
+                                    </xar:mlstring>
+                                </label>
+                                <div class="xar-form-container-after">
+                                    <xar:data-input type="textarea_medium" name="disallowedemails" id="disallowedemails" value="$emails" tabindex="$tabindex++" class="xar-form-textarealarge" />
+                                </div>
+                         </div>
+                         <div class="xar-form-container-after">
+                                    <xar:mlstring>
+                                        Note: Enter each email on a single line. Do not separate with comma or other punctuation.
+                                    </xar:mlstring>
+                        </div>
+                         <div class="xar-form-input-wrapper">
+                                <label for="disallowednames" title="#xarML('usernames and display names which cannot be used')#" class="xar-form-label">
+                                    <xar:mlstring>
+                                        Disallowed User and Display names:
+                                    </xar:mlstring>
+                                </label>
+                                <div class="xar-form-container-after">
+                                    <xar:data-input type="textarea_medium" name="disallowednames" id="disallowednames" value="$disallowednames" tabindex="$tabindex++" class="xar-form-textarealarge" />
+                                </div>
+                         </div>
+                         <div class="xar-form-container-after">
+                                    <xar:mlstring>
+                                        Note: Enter each name on a single line. Names are case sensitive.  Do not separate with comma or other punctuation.
+                                    </xar:mlstring>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                                <label for="disallowedips" title="#xarML('IP addresses which cannot be used')#" class="xar-form-label">
+                                    <xar:mlstring>
+                                        Disallowed IP Addresses:
+                                    </xar:mlstring>
+                                </label>
+                                <div class="xar-form-container-after">
+                                    <xar:data-input type="textarea_medium" name="disallowedips" id="disallowedips" value="$disallowedips" tabindex="$tabindex++" class="xar-form-textarealarge" />
+                                </div>
+                         </div>
+                         <div class="xar-form-container-after">
+                                    <xar:mlstring>
+                                        Note: Enter each IP on a single line.  Do not separate with comma or other punctuation.
+                                    </xar:mlstring>
+                        </div>
+                        </fieldset>
+
+                    <fieldset>
+                        <div class="xar-form-input-wrapper-after">
+                            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                            <input type="submit" value="#xarML('Update Restrictions')#" tabindex="#$tabindex++#" />
+                        </div>
+                    </fieldset>
+                </form>
+                <xar:comment>
+                    ----------------- Begin Sitelock Options -------------------
+                </xar:comment>
+            <xar:elseif condition="$tab eq 'sitelock'" />
+
+                <form action="#xarModURL('base', 'admin', 'updaterestrictions')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                    <legend>
+                        <xar:mlstring>Status</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                #$statusmessage#
+                            </label>
+                            <input type="submit" name="toggle_lock" id="sitelock" value="#$togglelabel#" />
+                        </div>
+                </fieldset>
+
+                <h3>
+                    <xar:mlstring>Configuration</xar:mlstring>
+                </h3>
+
+                <p>
+                    <xar:mlstring>On a locked site only the following users and groups will have access.</xar:mlstring>
+                </p>
+
+                <p>
+                    <xar:mlstring>Entering a group name allows access to the users of that group.  Unknown names will be ignored.</xar:mlstring>
+                </p>
+
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Groups</xar:mlstring>
+                    </legend>
+                    <xar:loop name="$roles">
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                #$loop:item['name']#
+                            </label>
+                            <xar:if condition="$loop:item['notify'] == 'true'">
+                                <input type="checkbox" name="notify[]" id="notify_#$loop:item['uid']#" value="#$loop:item['uid']#" checked="checked" />
+                            <xar:else />
+                                <input type="checkbox" name="notify[]" id="notify_#$loop:item['uid']#" value="#$loop:item['uid']#" />
+                            </xar:if>
+                            <label for="notify_#$loop:item['uid']#" title="xarML('Toggle notifications sent to this Group')#">
+                                <xar:ml>
+                                    <xar:mlstring>Notify #(1)</xar:mlstring>
+                                    <xar:mlvar>#$loop:item['name']#</xar:mlvar>
+                                </xar:ml>
+                            </label>
+
+                            <xar:if condition="count($roles) gt 1">
+                                <input type="submit" name="delete[#$loop:item['uid']#]" id="delete_#$loop:item['uid']#" value="#$deletelabel#" class="xar-margin-thickleft" />
+                            <xar:else />
+                                <input type="submit" name="delete[#$loop:item['uid']#]" id="delete_#$loop:item['uid']#" value="#$deletelabel#" disabled="disabled" class="xar-margin-thickleft" />
+                            </xar:if>
+                        </div>
+                    </xar:loop>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="newname" title="#xarML('Add a Group to the lock notification list')#" class="xar-form-label">
+                            <xar:mlstring>Add Group:</xar:mlstring>
+                        </label>
+                        <input type="text" name="newname" id="newname" value="" class="xar-form-textlong xar-margin-thickright" />
+                        <input type="submit" name="add" id="addgroup" value="#xarML('Add')#" class="xar-margin-thickleft" />
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Logged On Users</xar:mlstring>
+                    </legend>
+                <p>
+                    <xar:mlstring>When Sitelock is turned on, you can choose to log off any users that are logged on at that time, except for the nominated Groups.
+                       Be aware that some users may be in the middle of adding content, and that content will be lost. It would be usual
+                       to provide some warning of the sitelock time to logged on users if you use this.</xar:mlstring>
+                </p>
+                <div class="xar-form-input-wrapper-after">
+                            <xar:if condition="$killactive">
+                                <input type="checkbox" name="killactive" id="killactive" value="1" checked="checked" />
+                                <xar:else />
+                                <input type="checkbox" name="killactive" id="killactive" value="1" />
+                            </xar:if>
+                            <label for="killactive" title="#xarML('Log off Active Users except for any in nominated Groups')#">
+                                <xar:mlstring>
+                                    Log off Active Users (except those in nominated Groups)
+                                </xar:mlstring>
+                            </label>
+                        </div>
+               </fieldset>
+                <p>
+                    <xar:mlstring>The following message will be emailed to members in the above list when the site is locked or unlocked.</xar:mlstring>
+                </p>
+
+                <p>
+                    <xar:mlstring>It is prefaced by a short: "Site &lt;sitename&gt; has been locked/unlocked".</xar:mlstring>
+                </p>
+
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Email
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                            <label for="notifymsg" title="#xarML('Message sent when site lock status changes')#" class="xar-form-label">
+                                <xar:mlstring>Site Lock Email:</xar:mlstring>
+                            </label>
+                            <div class="xar-form-container-after">
+                                <textarea name="notifymsg" id="notifymsg" class="xar-form-textarealarge">#$notifymsg#</textarea>
+                            </div>
+                        </div>
+                </fieldset>
+
+                <p>
+                    <xar:mlstring>The following message will be displayed to members who are locked out when they try to login:</xar:mlstring>
+                </p>
+
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Message
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                            <label for="notifymsg" title="#xarML('Text shown to users attempting to log in to a locked site')#" class="xar-form-label">
+                                <xar:mlstring>Site Lock Message:</xar:mlstring>
+                            </label>
+                            <div class="xar-form-container-after">
+                                <textarea name="lockedoutmsg" id="lockedoutmsg" class="xar-form-textarealarge">#$lockedoutmsg#</textarea>
+                            </div>
+                        </div>
+                </fieldset>
+
+                <div class="xar-form-footer">
+                    <input type="hidden" name="serialroles" id="serialroles" value="#$serialroles#" />
+                    <input type="hidden" name="toggle" id="toggle" value="#$toggle#" />
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="submit" name="save" id="savesitelock" value="#xarML('Save Site Lock Settings')#" />
+                </div>
+                </form>
+            </xar:if>
+        </div>
+    </div>
+</div>

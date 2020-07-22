@@ -1,0 +1,72 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Table operations</xar:mlstring></h1>
+        <xar:template type="module" file="tableops-menu" />
+        <div class="xar-mod-content">
+            <xar:if condition="isset($msg) and !empty($msg)">
+                    <h4>#$msg#</h4>
+                    <p><a href="#$cancelurl#"><xar:mlstring>Cancel</xar:mlstring></a></p>
+            <xar:else />
+                <p><xar:mlstring>NOTE: Column editing support is limited. Use a dedicated application for complex editing. </xar:mlstring></p>
+                <form method="post" action="#xarServerGetCurrentURL()#">
+                    <fieldset>
+                        <legend>
+                            <xar:ml>
+                                <xar:mlstring>Editing column '#(1)' in table '#(2)'</xar:mlstring>
+                                <xar:mlvar>#$fname#</xar:mlvar>
+                                <xar:mlvar>#$table#</xar:mlvar>
+                            </xar:ml>
+                        </legend>
+
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label" for="fname" ><xar:mlstring>Column Name</xar:mlstring></label>
+                            <xar:data-input type="textbox" id="fname" name="fname" value="$fname"  />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label" for="ftype" ><xar:mlstring>Column Type</xar:mlstring></label>
+                            <xar:data-input type="dropdown" id="ftype" name="ftype" value="$type" validation="$ftypelist" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label" for="fattributes" ><xar:mlstring>Attributes</xar:mlstring></label>
+                            <xar:data-input type="dropdown" id="fattributes" name="fattributes" value="$attributes" validation="$attriboptions" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label" for="fdefault" ><xar:mlstring>Default</xar:mlstring></label>
+                            <xar:data-input type="textbox" id="fdefault" name="fdefault" value="$default"  />
+                        </div>
+
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label" for="fother" ><xar:mlstring>Other</xar:mlstring></label>
+                            <xar:data-input type="dropdown" id="fother" name="fother" value="$other" validation="$otheroptions" />
+                        </div>
+                        <div>
+                            <label class="xar-form-label" for="fnull" ><xar:mlstring>Null</xar:mlstring></label>
+                            <xar:data-input type="radio" id="fnull" name="fnull" value="$null" validation="$nulloptions" />
+                        </div>
+
+
+                    </fieldset>
+                    <div class="xar-form-footer">
+                        <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                        <input type="hidden" name="db" id="db" value="#$db#" />
+                        <input type="hidden" name="pkey" id="pkey" value="#$pkey#" />
+                        <input type="hidden" name="oldcolumn" id="oldname" value="#$oldcolumn#" />
+                        <input type="hidden" name="scale" id="scale" value="#$scale#" />
+                        <input type="hidden" name="maxlength" id="maxlength" value="#$maxlength#" />
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="table" id="table" value="#$table#" />
+                        <input type="hidden" name="confirm" id="confirm" value="true" />
+                        <input type="submit" value="#xarML('Edit column')#" class="xar-margin-thickleft" />
+                        <a href="#$cancelurl#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </div>
+                </form>
+            </xar:if>
+        </div>
+    </div>
+</div>

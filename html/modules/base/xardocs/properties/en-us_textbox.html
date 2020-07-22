@@ -1,0 +1,96 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Textbox data property provides an input box for text entry.
+    </p>
+    <p>
+        The property display output proves the text value prepared for allowed HTML output
+    </p>
+    
+    <p>
+        The actual value of the input text is saved in the database,
+    </p>
+    <h2>Attributes</h2>
+
+    <ul>
+        <li>
+            <strong>default</strong>: [default = '']
+            <br />This is the default text displayed in the input box.
+        </li>
+        <li>
+            <strong>min</strong>: [default = '']
+            <br />This is the minimum number of characters required for valid input.
+        </li>
+        <li>
+            <strong>max</strong>: [default = '250']
+            <br />This is the maximum number of characters accepted for valid input.
+        </li>
+        <li>
+            <strong>regex</strong>: [default = '']
+            <br />This is a regular expression that is applied to the text and used to validate input.
+        </li>
+        <li>
+            <strong>size</strong>: [default = 50]
+            <br />This is the character width of the input box on display.
+        </li>
+        <li>
+            <strong>autocomplete</strong>: [default = 'on']
+            <br />Turn of autocomplete of this field if available. This attribute is valid only HTML5 only.
+        </li>
+        <li>
+            <strong>placeholder</strong>: [default = '']
+            <br />This is placeholder text displayed in the body of the textbox on input which usually would be used to give the user a clue to input.
+             This attribute is valid only HTML5 only.
+        </li>
+        <li>
+            <strong>class</strong>: [default = 'xar-form-text*']
+            <br />If defined, the class will be added to the text input tag and applied otherwise a default class is used
+            determined by the size of the text box. The fallback default can be overridden by adding an empty space character to the class input box.
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>textbox</em> type in forms without the need to define a property
+        to capture data. As well as the attributes available in GUI configurations above, standalone properties also accept
+        valid HTML5 and ARIA WAI attributes passed in the tag.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="textbox" default="$defaulttext" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <h4>In the Dynamic Data Configuration:</h4>
+    <ul>
+        <li>
+            you can force a value to be unique by checking the Unique checkbox.
+            This should be used with caution. You should evaluate whether this is suitable when working with large amounts of data
+            and be especially careful using on long or complex field values  It will affect performance.
+        </li>
+         <li>
+            you can set other validation and display rules in the configuration such as placeholder text, regex requirements and so on.
+        </li>
+    </ul>
+    <p>
+        When you define this property you can add a default text value in the 'Default' input box.
+    </p>
+    <p>
+         In your template forms you can use the data-input tag to capture data for this property.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['textbox']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="textbox" id="myfield" name="myfield"
+        min="4" max="10" default="Any text" /&gt;
+    </pre>
+</div>

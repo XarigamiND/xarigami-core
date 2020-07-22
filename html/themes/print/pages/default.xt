@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://xaraya.com/bl1/DTD/bl1-strict.dtd">
+<?xar type="page"?>
+<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://xaraya.com/2004/blocklayout" dtd="xhtml1-strict">
+<xar:set name="sitelang">#xarMLSGetLanguageFromLocale()#</xar:set>
+<xar:set name="sitecharset">#xarMLSGetCharsetFromLocale()#</xar:set>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#$sitelang#" lang="#$sitelang#">
+    <head>
+        <title>#$tpl:pageTitle#</title>
+        <base href="&xar-baseurl;index.php" />
+        <style type="text/css">@import url(&xar-baseurl;#xarTplGetThemeDir()#/style/style.css); </style>
+        <link rel="stylesheet" type="text/css" href="modules/base/xarstyles/xarcore-xhtml1-strict.css" media="screen" />
+        <xar:additional-styles />
+    </head>
+    <body>
+    <div id="main">
+        <xar:module id="modulespace" main="true" />
+    </div>
+    </body>
+</html>
+</xar:blocklayout>

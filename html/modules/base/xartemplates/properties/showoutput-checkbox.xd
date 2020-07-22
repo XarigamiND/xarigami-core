@@ -1,0 +1,9 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="yes">$hasvalue</xar:set>
+<xar:set name="no">$hasnovalue</xar:set>
+
+<xar:if condition="!empty($value)" >
+#$yes#
+<xar:else />
+#$no#
+</xar:if>

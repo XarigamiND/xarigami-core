@@ -1,0 +1,8 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+    <span class="xar-error"><xar:mlstring>Warning: the template showinput-[property type].xd or showinput-[template].xd is missing for this property !</xar:mlstring></span>
+<br/>
+    <input type="text" id="#$id#" name="#$name#" value="#$value#"#$html5##$evts#/>
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>
+

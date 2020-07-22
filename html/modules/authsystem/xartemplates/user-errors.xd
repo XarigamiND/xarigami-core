@@ -1,0 +1,87 @@
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <div class="xar-mod-title"><xar:mlstring>Login error</xar:mlstring></div>
+    </div>
+    <div class="xar-mod-body">
+        <fieldset>
+            <legend><xar:mlstring>Problem Logging In</xar:mlstring></legend>
+            <img src="#xarTplGetImage('user-error.png','base')#" alt="#xarML('System Message')#" width="96" height="96" class="xar-module-icon"/>
+            <xar:if condition="!isset($errortype)">
+                <div class="xar-padding-thick">
+                    <xar:mlstring>No error message is available. </xar:mlstring>
+                <br />
+                    <xar:mlstring>Please contact the system administrator.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'no_cookies'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>You must enable cookies on your browser to run Xarigami. </xar:mlstring>
+                    <br />
+                    <xar:mlstring>Check the browser configuration options to make sure cookies are enabled.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'locked_out'"/>
+                <div class="xar-padding-thick">
+                    <xar:ml>
+                        <xar:mlstring>Your account has been locked for #(1) minutes.</xar:mlstring>
+                        <xar:mlvar>#$var1#</xar:mlvar>
+                    </xar:ml>
+                </div>
+            <xar:elseif condition="$errortype eq 'bad_data'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>The username or password entered is not valid. </xar:mlstring>
+                    <br />
+                    <xar:mlstring>Try logging in again or contact the system administrator if you think this is an error.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'missing_data'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>You need to enter both a username and password to log in.. </xar:mlstring>
+                    <br />
+                    <xar:mlstring>Try logging in again or contact the system administrator if you think this is an error.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'account_deleted'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>Your account has been removed at your request or at the adminstrator&#39;s discretion.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'account_inactive'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>Your account has been marked as inactive. </xar:mlstring>
+                    <br />
+                    <xar:mlstring>Contact the system adminstrator for further details.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'bad_try'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>The username or password entered is not valid. </xar:mlstring>
+                    <br />
+                    <xar:ml>
+                        <xar:mlstring>You have tried to log in #(1) times.</xar:mlstring>
+                        <xar:mlvar>#$var1#</xar:mlvar>
+                    </xar:ml>
+                </div>
+            <xar:elseif condition="$errortype eq 'bad_tries_exceeded'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>The username or password entered is not valid. </xar:mlstring>
+                    <br />
+                    <xar:ml>
+                        <xar:mlstring>Your account has been locked for  #(1)  minutes.</xar:mlstring>
+                        <xar:mlvar>#$var1#</xar:mlvar>
+                    </xar:ml>
+                </div>
+            <xar:elseif condition="$errortype eq 'account_pending'"/>
+                <div class="xar-padding-thick">
+                    <xar:mlstring>Your account is pending awaiting site administrator approval.</xar:mlstring>
+                    <br />
+                    <xar:mlstring>Contact the system adminstrator for further details.</xar:mlstring>
+                </div>
+            <xar:elseif condition="$errortype eq 'site_locked'"/>
+             <xar:set name="var1">nl2br($var1)</xar:set>
+                <div class="xar-padding-thick">#$var1#</div>
+            <xar:else />
+                <div class="xar-padding-thick">
+                    <xar:mlstring>No error message is available.</xar:mlstring>
+                    <br />
+                    <xar:mlstring>Please contact the system administrator.</xar:mlstring>
+                </div>
+            </xar:if>
+        </fieldset>
+    </div>
+</div>

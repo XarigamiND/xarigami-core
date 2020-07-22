@@ -1,0 +1,59 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify config</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" id="post" action="#xarModURL('dynamicdata','admin','updateconfig')#" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend><xar:mlstring>System Options</xar:mlstring></legend>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="itemsperpage" class="xar-form-label" title="#xarML('Number of admin items per page')#">
+                            <xar:mlstring>Admin Items Per Page:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="integerbox" name="itemsperpage" id="itemsperpage" value="$itemsperpage" maxlength="3" class="xar-form-textshort" />
+                        [<xar:mlstring>The $numitems in the data list tag overrides this value, and if zero will default to 30</xar:mlstring>]
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="useritemsperpage" class="xar-form-label" title="#xarML('Number of user items per page - 0 is unlimited, or set elsewhere')#">
+                            <xar:mlstring>User Items Per Page:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="integerbox" name="useritemsperpage" id="useritemsperpage" value="$useritemsperpage" maxlength="3" class="xar-form-textshort" />
+                        [<xar:mlstring>If set to zero, no paging is applied. The $numitems in the data view tag overrides this value.</xar:mlstring>]
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="systemobjects" class="xar-form-label" title="#xarML('List of system objects')#">
+                            <xar:mlstring>System objects:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkboxlist" name="systemobjects" id="systemobjects" value="$systemobjects" validation="$sysobjectoptions" layout="column" columns="2"/>
+                       <p class="xar-form-container-after xar-clearleft">
+                        <xar:mlstring>Objects checked here will display in object lists for Administrators only. Objects and Properties objects are system objects by default.</xar:mlstring>
+                       </p>
+                       <p class="xar-form-container-after xar-clearleft">
+                        <xar:mlstring>You can also use privileges to fine tune access to objects for different users or groups.</xar:mlstring>
+                       </p>
+                    </div>
+
+                </fieldset>
+                <xar:if condition="!empty($hooks)">
+                <fieldset>
+                    <legend><xar:mlstring>Enabled Hooks</xar:mlstring></legend>
+                        <xar:foreach in="$hooks" key="$hookmodule">
+                            #$hooks[$hookmodule]#
+                        </xar:foreach>
+                </fieldset>
+                </xar:if>
+
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="submit" value="#xarML('Update Configuration')#" />
+                </div>
+             </form>
+        </div>
+    </div>
+</div>

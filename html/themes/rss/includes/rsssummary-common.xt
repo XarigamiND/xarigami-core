@@ -1,0 +1,9 @@
+<item>
+<title>#xarVarTransform($rsstitle, 'HTML', 'XML')#</title>
+<link>#xarVarTransform($link, 'HTML', 'XML')#</link>
+<pubDate><xar:set name="gmpubdate">gmdate("D, d M Y H:i:s",$pubdate)</xar:set>#$gmpubdate# GMT</pubDate>
+<content:format rdf:resource="http://www.w3.org/1999/xhtml" />
+<content:encoded><![CDATA[ #xarVarTransform($summary, 'HTML', 'XML')# ]]></content:encoded>
+<description>#xarVarTransform($rsssummary, 'HTML', 'XML')#</description>
+<guid isPermaLink="true">#xarVarTransform($link, 'HTML', 'XML')#</guid>
+</item>

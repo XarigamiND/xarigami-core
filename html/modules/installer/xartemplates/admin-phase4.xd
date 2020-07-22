@@ -1,0 +1,162 @@
+<xar:set name="active_step">4</xar:set>
+<div id="install">
+    <xar:template file="status" />
+    <div id="step">
+        <h1>
+            <xar:mlstring>Database Settings Collection</xar:mlstring>
+        </h1>
+
+        <form action="install.php" method="post">
+            <input type="hidden" name="install_language" id="install_language" value="#$language#" />
+            <p>
+                <xar:mlstring>Enter your database settings. You can connect to databases on
+                non-standard ports using 'hostname:port' or 'hostIP:port' in the host field.
+                (For php 5.3 and over use IP eg 127.0.0.1 instead of 'localhost'.)
+                </xar:mlstring>
+            </p>
+            <p><xar:mlstring>Note the following:</xar:mlstring>
+                <ul>
+                    <li><xar:mlstring>If you do not have root access to your database (due to virtual hosting etc),
+                        you will need to have a pre-existing database installed and configured before you proceed.</xar:mlstring>
+                    </li>
+                    <li><xar:mlstring>If you plan to use SQLite or PostgreSQL please ensure your database already exists before your proceed.</xar:mlstring></li>
+                    <li><xar:mlstring>Make sure you only use valid characters in the username and password for the database
+                       (eg no spaces, '$' or others which may not be supported by your database type.</xar:mlstring></li>
+                   <li><xar:mlstring>We recommend that you choose the default UTF-8 database encoding. The default collation will be used for that encoding.
+                   If your would like another encoding or collation other than those provided please create the database first before running install.</xar:mlstring></li>
+                </ul>
+            </p>
+            <h3>
+                <xar:mlstring>Database Information</xar:mlstring>
+            </h3>
+
+            <div class="simpleform">
+              <p>
+                    <label for="install_database_type">
+                        <xar:mlstring>Database Type</xar:mlstring>
+                    </label>
+                    <select name="install_database_type" id="install_database_type">
+                        <xar:foreach in="$database_types" key="$adodbdriver" value="$info">
+                            <xar:if condition="!$info.available">
+                                <option value="#$adodbdriver#" disabled="disabled">#$info.name# <xar:mlstring>[not available]</xar:mlstring></option>
+                            <xar:else/>
+                                <xar:if condition="$database_type == $adodbdriver">
+                                    <option selected="selected" value="#$adodbdriver#">#$info.name#</option>
+                                <xar:else/>
+                                    <option value="#$adodbdriver#">#$info.name#</option>
+                                </xar:if>
+                            </xar:if>
+                        </xar:foreach>
+                    </select>
+                </p>
+                <p>
+                    <label for="install_database_host">
+                        <xar:mlstring>Host</xar:mlstring>
+                    </label>
+                    <input type="text" name="install_database_host" id="install_database_host" maxlength="80" value="#$database_host#" autocomplete="off"/>
+                    <br class="clear" />
+                </p>
+                <p style="line-height:0.9em;">
+                    <label>
+                        &#160;
+                    </label>
+                    <span class="xar-sub">
+                        <xar:mlstring>SQLite installs - use full path to database directory instead of host</xar:mlstring>
+
+                     </span>
+                    <br class="clear" />
+                </p>
+                <p>
+                    <label for="install_database_username">
+                        <xar:mlstring>Username</xar:mlstring>
+                    </label>
+                    <input type="text" name="install_database_username" id="install_database_username" maxlength="80" value="#$database_username#" autocomplete="off"/>
+                    <br class="clear" />
+                    <xar:if condition="!empty($invalid['username']) and (count($invalid['username']) gt 0)">
+                        <xar:foreach in="$invalid['username']" key="$k" value="$v">
+                            <span style="color: red; font-size:small;">#$v# </span>
+                        </xar:foreach>
+                   </xar:if>
+                </p>
+
+                <p>
+                    <label for="install_database_password">
+                        <xar:mlstring>Password</xar:mlstring>
+                    </label>
+                    <input type="password" name="install_database_password" id="install_database_password" maxlength="80" value="#$database_password#" autocomplete="off"/>
+                     <span class="xar-sub"><xar:mlstring>Valid characters only please.</xar:mlstring></span>
+                    <br class="clear" />
+                </p>
+                <p style="line-height:0.9em;">
+                    <label>
+                        &#160;
+                    </label>
+                    <span class="xar-sub">
+
+                        <xar:mlstring>SQLite - leave password and username blank</xar:mlstring>
+                     </span>
+                    <br class="clear" />
+                </p>
+                <p>
+                    <label for="install_database_name">
+                        <xar:mlstring>Database Name</xar:mlstring>
+                    </label>
+                    <input type="text" name="install_database_name" id="install_database_name" maxlength="80" value="#$database_name#" autocomplete="off"/>
+                    <br class="clear" />
+                </p>
+                <p>
+                   <xar:if condition="!empty($invalid['database']) and (count($invalid['database']) gt 0)">
+                        <xar:foreach in="$invalid['database']" key="$k" value="$v">
+                            <span style="color: red; font-size:small;">#$v# </span>
+                        </xar:foreach>
+                    </xar:if>
+                </p>
+                <p>
+                    <label for="install_database_prefix">
+                        <xar:mlstring>Table Prefix</xar:mlstring>
+                    </label>
+                    <input type="text" name="install_database_prefix" id="install_database_prefix" maxlength="10" value="#$database_prefix#" autocomplete="off"/>
+                    <span class="xar-sub">
+                        <xar:mlstring>(for Table Sharing)</xar:mlstring>
+                    </span>
+                    <xar:if condition="!empty($invalid['prefix']) and (count($invalid['prefix']) gt 0)">
+                        <xar:foreach in="$invalid['prefix']" key="$k" value="$v">
+                            <span style="color: red; font-size:small;">#$v# </span>
+                        </xar:foreach>
+                   </xar:if>
+                </p>
+                <p>
+                    <label class="xar-form-label" for="install_database_charset">
+                       <xar:mlstring>Character Set</xar:mlstring>
+                    </label>
+                    <select name="install_database_charset" id="install_database_charset">
+                        <xar:foreach in="$database_charsets" key="$charset" value="$info">
+                            <xar:if condition="$database_charset eq $charset">
+                                <option selected="selected" value="#$charset#">#$info#</option>
+                            <xar:else/>
+                                <option value="#$charset#">#$info#</option>
+                            </xar:if>
+                    </xar:foreach>
+                    </select>
+                </p>
+            </div>
+            <p>
+                <label class="block" for="install_create_database">
+                    <input type="checkbox" name="install_create_database" id="install_create_database" value="1" />
+                    <xar:mlstring>Create the database</xar:mlstring>
+                    <span class="xar-sub"><xar:mlstring> (MySQL only, for others you must create the database first)</xar:mlstring></span>
+                </label>
+            </p>
+            <p class="xar-sub">
+                <xar:mlstring>If checked, this Create the Database option allows the install process to create an empty database for you rather than just populating an existing one. If you cannot create databases through phpMyAdmin because of virtual hosting or MySQL security settings, the installer will <strong>not</strong> be able to create the database for you. It will be able to populate an already existing database.</xar:mlstring>
+            </p>
+            <input type="hidden" name="install_phase" id="install_phase" value="5" />
+            <xar:set name="buttonnext">
+                <xar:mlstring>Continue</xar:mlstring>
+            </xar:set>
+        <div class="center">
+            <input type="submit" value="#$buttonnext#" />
+        </div>
+        </form>
+    </div>
+</div>

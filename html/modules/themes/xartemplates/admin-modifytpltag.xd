@@ -1,0 +1,75 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>List Template Tags</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Modify Template Tag</xar:mlstring>
+            </h2>
+            <form class="xar-fullwidth" method="post" action="#$updateurl#" enctype="application/x-www-form-urlencoded">
+              <fieldset>
+                <legend><xar:mlstring>Tag details</xar:mlstring></legend>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="tag_module" title="#xarML('The module which provides this tag')#" class="xar-form-label">
+                        <xar:mlstring>Module:</xar:mlstring>
+                    </label>
+                    <xar:data-input type="textbox" name="tag_module" id="tag_module" value="$module" class="xar-form-textlong" tabindex="$tabindex++" />
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="tag_name" title="#xarML('The name of the tag')#" class="xar-form-label">
+                        <xar:mlstring>Tag Name:</xar:mlstring>
+                    </label>
+                    <xar:data-input type="textbox" name="tag_name" id="tag_name" value="$tagname" class="xar-form-textlong" tabindex="$tabindex++" />
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="tag_handler" title="#xarML('The function that handles this tag')#" class="xar-form-label">
+                        <xar:mlstring>Handler:</xar:mlstring>
+                    </label>
+                    <xar:data-input type="textbox" name="tag_handler" id="tag_handler" value="$handler" class="xar-form-textxlong" tabindex="$tabindex++" />
+                </div>
+
+                <xar:comment>TODO
+                    <div class="xar-form-input-wrapper">
+                        <label for="FOR" title="#xarML('Attributes of this tag')#" class="xar-form-label">
+                            <xar:mlstring>Attributes:</xar:mlstring>
+                        </label>
+                        <xar:for start="$i=0" test="$i lt $max_attrs" iter="$i++">
+                            <xar:set name="current_name">''</xar:set>
+                            <xar:if condition="isset($attributes[$i])">
+                                <xar:set name="current_name">#$attributes[$i]['name']#</xar:set>
+                            </xar:if>
+
+                            <xar:data-input type="textbox" name="tag_attrname[$i]" id="tag_attrname_$i" value="$current_name" tabindex="$tabindex++" />
+                        </xar:for>
+                    </div>
+                </xar:comment>
+              </fieldset>
+                <div class="xar-form-footer">
+                    <!-- the same function is used for updates and inserts, therefore we
+                         tell the function what to do -->
+                    <xar:if condition="$tagname == ''">
+                        <input type="hidden" name="tag_action" value="insert" />
+                    <xar:else />
+                        <input type="hidden" name="tag_action" value="update" />
+                    </xar:if>
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="submit" value="#xarML('Update Tag')#" class="xar-margin-thickright"  tabindex="#$tabindex++#" />
+                     <p>
+                        <a href="#xarModURL('themes', 'admin', 'listtpltags')#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

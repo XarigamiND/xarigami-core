@@ -1,0 +1,250 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.all.min" style="ui.css" position="body"/>
+<xar:comment>Include the js code for the tree view and related plugin</xar:comment>
+<xar:template type="module" module="modules" file="jq-list" />
+<xar:comment>Only translate once</xar:comment>
+<xar:set name="activate"><xar:mlstring>Activate</xar:mlstring></xar:set>
+<xar:set name="deactivate"><xar:mlstring>Deactivate</xar:mlstring></xar:set>
+<xar:set name="install"><xar:mlstring>Install</xar:mlstring></xar:set>
+<xar:set name="upgrade"><xar:mlstring>Upgrade</xar:mlstring></xar:set>
+<xar:set name="remove"><xar:mlstring>Remove</xar:mlstring></xar:set>
+<xar:set name="error"><xar:mlstring>Warning</xar:mlstring></xar:set>
+<xar:set name="disabled"><xar:mlstring>Disabled</xar:mlstring></xar:set>
+<xar:set name="hooks"><xar:mlstring>Hooks for this module</xar:mlstring></xar:set>
+<xar:set name="info"><xar:mlstring>Information</xar:mlstring></xar:set>
+<xar:set name="modstatus">xarSessionGetVar('statusmsg')</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View modules</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h3>
+                     <xar:ml>
+                    <xar:mlstring>Listing #(1) of #(2) selected modules</xar:mlstring>
+                    <xar:mlvar>#$totalitems#</xar:mlvar>
+                    <xar:mlvar>#$itemcount#</xar:mlvar>
+                </xar:ml>
+            </h3>
+
+            <form method="post" action="#xarModURL('modules','admin','settings')#">
+                <xar:comment> Module List Sort and Filter Controls table </xar:comment>
+                <table class="xar-item-controls">
+                    <thead>
+                    <tr>
+                        <th>
+                            <label class="xar-mod-title"><xar:mlstring>Style</xar:mlstring></label>
+                        </th>
+                        <th>
+                            <label class="xar-mod-title"><xar:mlstring>View</xar:mlstring></label>
+                        </th>
+
+                        <th>
+                            <label class="xar-mod-title"><xar:mlstring>Hide</xar:mlstring></label>
+                        </th>
+                        <th>
+                            <label class="xar-mod-title" for="reload"><xar:mlstring>Action</xar:mlstring></label>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="xar-align-center">
+                            <xar:data-input type="checkbox" name="useicons" id="useicons" checked="$useicons"  />
+                            <label for="useicons"><xar:mlstring>Use Icons</xar:mlstring></label>
+
+                        </td>
+                        <td class="xar-align-center">
+                            <select name="selfilter" id="selfilter">
+                                <xar:foreach in="$filter" key="$key" value="$value">
+                                    <xar:if condition="$key eq $selfilter">
+                                        <option value="#$key#" selected="selected">#$value#</option>
+                                    <xar:else />
+                                        <option value="#$key#">#$value#</option>
+                                    </xar:if>
+                                </xar:foreach>
+                            </select>
+                        </td>
+
+                        <td class="xar-nowrap xar-align-center">
+                            <xar:data-input type="checkbox" name="hidecore" id="hidecore" checked="$hidecore"  />
+                            <label for="hidecore">
+                                <xar:mlstring>Core Modules</xar:mlstring>
+                            </label>
+                        </td>
+                        <td class="xar-align-center">
+                            <input type="submit" name="reload" id="reload" value="#$reloadlabel#" />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <xar:if condition="$modstatus">
+                    <xar:comment> lets display latest status on core modules upgrades if any </xar:comment>
+                    <p>
+                        <xar:mlstring>Latest status - the following core modules have been successfully upgraded:</xar:mlstring>
+                    </p>
+                    <p>
+                        #$modstatus#
+                    </p>
+                </xar:if>
+            <xar:if condition="!empty($invalid) AND is_array($invalid)">
+                <div class="xar-form-input-wrapper">
+                    <p class="xar-error">There were errors detected when flushing the property cache. Please correct the errors which may prevent some module properties loading:</p>
+                    <ul>
+                        <xar:foreach in="$invalid" key="$key" value="$value">
+                            <li>#$value#</li>
+                        </xar:foreach>
+                    </ul>
+                </div>
+            </xar:if>
+            <xar:if condition="$useicons and ($totalmods gt $numitems)">
+                <div class=" xar-form-footer">
+                    <p class="sprite xs-activate xar-displayinline" title="#$activate#">&#160;#$activate#</p>&#160;
+                    <p class="sprite xs-deactivate xar-displayinline" title="#$deactivate#">&#160;#$deactivate#</p>&#160;
+                    <p class="sprite xs-software-install xar-displayinline" title="#$install#">&#160;#$install#</p>&#160;
+                    <p class="sprite xs-software-upgrade xar-displayinline" title="#$upgrade#">&#160;#$upgrade#</p>&#160;
+                    <p class="esprite xs-remove xar-displayinline" title="#$remove#">&#160;#$remove#</p>&#160;
+                    <p class="sprite xs-hooks xar-displayinline" title="#$hooks#">&#160;#$hooks#</p>&#160;
+                    <p class="sprite xs-disabled xar-displayinline" title="#$disabled#">&#160;#$disabled#</p>&#160;
+                    <p class="sprite xs-dialog-warning xar-displayinline" title="#$error#">&#160;#$error#</p>
+                </div>
+            </xar:if>
+            <table class="xar-items">
+                <thead>
+                <tr>
+
+                    <th>
+                        <a href="&xar-modurl-modules-admin-list;&amp;order=name&amp;sort=#$dsort#" title="#xarML('Sort by Name')#">
+                            <xar:mlstring>Name</xar:mlstring>
+                        </a>
+                        <xar:if condition="$sortimage['name']">
+                            <span class="#$sortimgclass#" title="#$sortimglabel#">&#160;<span>#$sortimglabel#</span></span>
+                        </xar:if>
+                    </th>
+                    <th>
+                        <xar:mlstring>Version</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Info</xar:mlstring>
+                    </th>
+                    <th>
+                             <xar:mlstring>Status</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Actions</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Hooks</xar:mlstring>
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <xar:set name="rowclass">'xar-norm'</xar:set>
+                <xar:foreach in="$listrowsitems" value="$modinfo">
+                    <tr class="#$rowclass#">
+
+                        <td id="#$modinfo['name']#">
+                            <xar:comment> if module is active and configurable (admin type) make its name a link to module main admin function </xar:comment>
+                            <xar:if condition="$modinfo['modconfigurl'] ne ''">
+                                <a href="#$modinfo['modconfigurl']#" title="#$modinfo['adminurltitle']#&#160;#$modinfo['displayname']#">#$modinfo['name']#</a>
+                            <xar:else />
+                                #$modinfo['name']#
+                            </xar:if>
+                        </td>
+                        <td class="xar-align-right">
+                            #$modinfo['version']#
+                        </td>
+                        <td class="xar-align-center">
+                            <xar:if condition="$useicons" >
+                                <a href="#$modinfo['infourl']#" class="#$infoimg# xar-info" title="#$info#"><span>#$info#</span></a>
+                            <xar:else />
+                                <a href="#$modinfo['infourl']#" class="xar-info"><xar:mlstring>Info</xar:mlstring></a>
+                            </xar:if>
+                        </td>
+                        <td>
+                            <xar:if condition="isset($modinfo['statelabelicon']) and $useicons">
+                                <span class="#$modinfo['statelabelicon']# xar-displayinline" title="#$modinfo['statelabel']#">&#160;</span>
+                            </xar:if>
+                            #$modinfo['statelabel']#
+
+                        </td>
+
+                        <td class="xar-item-actions">
+                            <xar:if condition="$useicons">
+                                <xar:if condition="$modinfo['actionurl'] eq ''">
+                                    <p class="#$modinfo['actionimg1']# xar-displayinline #$modinfo['statelabelclass']#" title="#$modinfo['actionlabel']#"><span>#$modinfo['actionlabel']#</span></p>
+                                <xar:else />
+                                    <a href="#$modinfo['actionurl']#" class="#$modinfo['actionimg1']#  xar-displayinline #$modinfo['statelabelclass']#" title="#$modinfo['actionlabel']#" ><span>#$modinfo['actionlabel']#</span></a>
+                                </xar:if>
+                                &#160;
+                                <xar:if condition="$modinfo['removeurl'] eq ''">
+                                    <p class="#$modinfo['actionimg2']# xar-displayinline" title="#$modinfo['actionlabel2']#"><span>#$modinfo['actionlabel2']#</span></p>
+                                <xar:else />
+                                    <a href="#$modinfo['removeurl']#" class="#$modinfo['actionimg2']# xar-displayinline" title="#$modinfo['actionlabel2']#"><span>#$modinfo['actionlabel2']#</span></a>
+                                </xar:if>
+                            <xar:else />
+                                <xar:if condition="$modinfo['coremod']">
+                                    <xar:if condition="$modinfo['state'] eq XARMOD_STATE_UPGRADED or $modinfo['state'] eq XARMOD_STATE_INACTIVE">
+                                        <a href="#$modinfo['actionurl']#" class="#$modinfo['statelabelclass']#">#$modinfo['actionlabel']#</a>
+                                    <xar:else />
+                                        #$modinfo['actionlabel']#
+                                    </xar:if>
+                                <xar:else />
+                                    <a href="#$modinfo['actionurl']#" class="#$modinfo['statelabelclass']#">#$modinfo['actionlabel']#</a>
+                                    <xar:if condition="$modinfo['state'] eq XARMOD_STATE_MISSING_FROM_UNINITIALISED ">
+                                        | <a href="#$modinfo['removeurl']#">#$modinfo['removelabel']#</a>
+                                    </xar:if>
+                                </xar:if>
+                            </xar:if>
+                        </td>
+
+                        <td class="xar-align-center">
+                            <xar:if condition="$useicons">
+                                <xar:if condition="$modinfo['editurl'] ne ''">
+                                    <a href="#$modinfo['editurl']#" class="#$editimg# xar-displayinline#$modinfo['statelabelclass']#"  title="#xarML('Review all hooks for this module')#"><span>#$hooks#</span></a>
+                                <xar:else />
+                                    <p class="#$editimg# xar-icon-disabled xar-displayinline #$modinfo['statelabelclass']#" title="#$nalabel#"><span>#$modinfo['actionlabel2']#</span></p>
+                                </xar:if>
+
+                            <xar:else />
+                                <xar:if condition="$modinfo['editurl'] ne ''">
+                                    <a href="#$modinfo['editurl']#" class="#$modinfo['statelabelclass']#">#$modinfo['edit']#</a>
+                                <xar:else />
+                                    #$modinfo['edit']#
+                                </xar:if>
+                            </xar:if>
+                        </td>
+                    </tr>
+                    <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                </xar:foreach>
+                </tbody>
+            </table>
+            </form>
+            <xar:if condition="!empty($pager)">
+            <div class="xar-align-center xar-padding-thick">
+                #$pager#
+            </div>
+            </xar:if>
+            <p>
+                <xar:mlstring>Removal of core modules from the GUI is disabled.</xar:mlstring>
+            </p>
+            <xar:if condition="$useicons">
+                <div class="xar-form-footer">
+                    <p class="sprite xs-activate xar-displayinline" title="#$activate#">&#160;#$activate#</p>&#160;
+                    <p class="sprite xs-deactivate xar-displayinline" title="#$deactivate#">&#160;#$deactivate#</p>&#160;
+                    <p class="sprite xs-software-install xar-displayinline" title="#$install#">&#160;#$install#</p>&#160;
+                    <p class="sprite xs-software-upgrade xar-displayinline" title="#$upgrade#">&#160;#$upgrade#</p>&#160;
+                    <p class="esprite xs-remove xar-displayinline" title="#$remove#">&#160;#$remove#</p>&#160;
+                    <p class="sprite xs-hooks xar-displayinline" title="#$hooks#">&#160;#$hooks#</p>&#160;
+                    <p class="sprite xs-disabled xar-displayinline" title="#$disabled#">&#160;#$disabled#</p>&#160;
+                    <p class="sprite xs-dialog-warning xar-displayinline" title="#$error#">&#160;#$error#</p>
+                </div>
+            </xar:if>
+        </div>
+    </div>
+</div>

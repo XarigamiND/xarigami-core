@@ -1,0 +1,14 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+         <h1><xar:mlstring>Roles Tree</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            #$chart#
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:comment>Include the js code for the tree view and related plugin</xar:comment>
+<xar:template type="module" module="privileges" file="jq-viewprivileges" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View privileges</xar:mlstring></h1>
+        <div>
+            <ul class="xar-tabs">
+              <li class="xar-tabs-label" title="#xarML('Choose an action to perform on this privilege')#">
+                <xar:mlstring>Manage privilege</xar:mlstring> :
+              </li>
+              <li class="xar-tab-active">
+                <a href="&xar-modurl-privileges-admin-displayprivilege;&amp;pid=#$ppid#"><xar:mlstring>Display</xar:mlstring></a>
+              </li>
+              <li class="xar-tab">
+                <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$ppid#"><xar:mlstring>Modify</xar:mlstring></a>
+              </li>
+              <li class="xar-tab">
+                <a href="&xar-modurl-privileges-admin-deleteprivilege;&amp;pid=#$ppid#" ><xar:mlstring>Delete</xar:mlstring></a>
+              </li>
+              <li class="xar-tab">
+                <a href="&xar-modurl-privileges-admin-viewroles;&amp;pid=#$ppid#"><xar:mlstring>Groups/Users</xar:mlstring></a>
+              </li>
+            </ul>
+        </div>
+        <div class="xar-mod-content">
+            <xar:if condition="count($parents) ne 0">
+                <div>
+                     <ul class="xar-tabs xar-alt xar-norm-outline">
+                        <li class="xar-tabs-label"  title="These are the privileges that contain #$pname# as a component"><xar:mlstring>Used in</xar:mlstring> :
+                        </li>
+                        <xar:set name="prevgroup">""</xar:set>
+                        <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
+
+                            <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
+                                <li class="xar-tab">
+                                    <a class="xar-norm xar-norm-outline" href="&xar-modurl-privileges-admin-displayprivilege;&amp;pid=#$parents.$i.parentid#" title="#xarML('Show this privilege')#">#$parents[$i]['parentname']#</a>
+                                </li>
+                            </xar:if>
+                            <xar:set name="prevgroup">#$parents[$i]['parentname']#</xar:set>
+                        </xar:for>
+                    </ul>
+                </div>
+            </xar:if>
+
+
+            <fieldset>
+              <legend><xar:mlstring>Privilege properties</xar:mlstring></legend>
+              <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Name:</xar:mlstring></label>
+                <span>#$pname#</span>
+              </div>
+
+              <xar:if condition="$ptype eq 'empty'">
+                <p class="xar-form-input-wrapper-after">
+                  <xar:mlstring>This is an empty container for other privileges.</xar:mlstring>
+                </p>
+              </xar:if>
+
+              <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Realm:</xar:mlstring></label>
+                <span>#$prealm#</span>
+              </div>
+
+              <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Module:</xar:mlstring></label>
+                <span>#$pmodule#</span>
+              </div>
+
+              <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Component:</xar:mlstring></label>
+                <span>#$pcomponent#</span>
+              </div>
+
+              <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Level:</xar:mlstring></label>
+                <span>
+                    <xar:foreach in="$levelvalues" key="$level" value="$levelname">
+                        <xar:if condition="$plevel eq $level">
+                            #$levelname#
+                            <break />
+                        </xar:if>
+                    </xar:foreach>
+                </span>
+              </div>
+              <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Instances:</xar:mlstring></label>
+                <span>#$instance#</span>
+              </div>
+              <div class="xar-form-input-wrapper">
+                 <label class="xar-form-label"><xar:mlstring>Description:</xar:mlstring></label>
+                 <span>#$pdescription#</span>
+              </div>
+            </fieldset>
+            <br class="xar-clearboth" />
+
+            <fieldset>
+              <legend>
+                <xar:ml>
+                  <xar:mlstring>The Components of '#(1)':</xar:mlstring>
+                  <xar:mlvar>#$pname#</xar:mlvar>
+                </xar:ml>
+              </legend>
+              <div id="treewrapper">
+                #$tree#
+              </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

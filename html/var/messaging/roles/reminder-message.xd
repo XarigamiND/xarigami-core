@@ -1,0 +1,38 @@
+<xar:set name="advreset">xarModGetVar('roles','advpasswordreset')?true:false;</xar:set>
+<xar:set name="usetimereset">xarModGetVar('roles','resetexpiry')?xarModGetVar('roles','resetexpiry'):0;</xar:set>
+<xar:set name="resetlink">xarModURL('roles','user','resetpassword',array('phase'=>'valreset'),false);</xar:set>
+Hello #$recipientname#,
+
+<xar:if condition="$advreset">
+You have requested to change your password. Please click on the link
+below and follow the steps to reset your password. 
+
+#$resetlink#
+
+
+Use the following reset code when prompted: #$password#
+
+
+Username: #$username#
+
+
+<xar:if condition="$usetimereset gt 0">
+This reset code expires within #$usetimereset# hours of your request to reset your password.
+</xar:if>
+
+
+If you did not request to change your password, then ignore this email and your current password will continue to work.
+
+
+<xar:else />
+
+Here is your new password for #$sitename#. You may now login to #$siteurl#
+
+using the following username and password:
+
+username: #$username#
+
+password: #$password#
+</xar:if>
+
+-- #$siteadmin#

@@ -1,0 +1,125 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:template type="module" module="modules" file="jq-modify" />
+
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Module Settings and Hooks</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:ml>
+                    <xar:mlstring>For Module: #(1)</xar:mlstring>
+                    <xar:mlvar>#$displayname# </xar:mlvar>
+                </xar:ml>
+            </h2>
+            <p>
+                <xar:ml>
+                    <xar:mlstring>Use hooks from the modules listed below to extend the functionality of #(1).</xar:mlstring>
+                    <xar:mlvar>#$displayname#</xar:mlvar>
+                </xar:ml>
+            </p>
+        <!-- The form for editting the module settings and hooks -->
+            <form action="#xarModURL('modules','admin','update')#" method="post" enctype="application/x-www-form-urlencoded">
+                <xar:comment>
+                    <label for="newdisplayname">
+                        <xar:mlstring>Enter new display name (Does not work) </xar:mlstring>
+                    </label>
+                    <div class="xar-form-input-wrapper">
+                        <label for="displayname" title="#xarML('The name which will be shown to identify this module.')#" class="xar-form-label">
+                            <xar:mlstring>For Module: </xar:mlstring>
+                        </label>
+                        #$displayname#
+                    </div>
+                </xar:comment>
+                <xar:if condition="count($hooklist) eq 0">
+                    <p>
+                        <xar:ml>
+                            <xar:mlstring>No hooks available for #(1) </xar:mlstring>
+                            <xar:mlvar>#$displayname#</xar:mlvar>
+                        </xar:ml>
+                    </p>
+                <xar:else />
+                    <div class="xar-form-section">
+                        <h3>
+                            <xar:ml>
+                                <xar:mlstring>Hooks to  #(1): </xar:mlstring>
+                                <xar:mlvar>#$displayname#</xar:mlvar>
+                            </xar:ml>
+                            <xar:comment>
+                                Not really useful to toggle details anymore [<a href="#$DetailsURL#">#$DetailsLabel#</a>]
+                            </xar:comment>
+                        </h3>
+                        <p class="checkcontrols"></p>
+                        <xar:foreach in="$hooklist" value="$hookmod">
+                            <fieldset>
+                                <legend>
+                                    <xar:ml>
+                                        <xar:mlstring>&#8227; From module: #(1)</xar:mlstring>
+                                        <xar:mlvar>#$hookmod['modname']#</xar:mlvar>
+                                    </xar:ml>
+                                </legend>
+                                <div class="fieldwrapper">
+                                    <div class="xar-floatleft xar-halfwidth">
+                                        <p>
+                                            <xar:mlstring>Enable hooks for: </xar:mlstring>
+                                        </p>
+                                        <div class="xar-clearboth">
+                                            <xar:if condition="!empty($hookmod['checked'][0])">
+                                                <input type="checkbox" name="hooks_#$hookmod['modname']#[0]" id="hooks_#$hookmod['modname']#_0" value="1" checked="checked" />
+                                            <xar:else />
+                                                <input type="checkbox" name="hooks_#$hookmod['modname']#[0]" id="hooks_#$hookmod['modname']#_0" value="1" />
+                                            </xar:if>
+                                            <label for="hooks_#$hookmod['modname']#_0">
+                                                <xar:mlstring>All </xar:mlstring>
+                                            </label>
+                                        </div>
+                                        <xar:foreach in="$itemtypes" key="$typeid" value="$itemtype">
+                                            <div class="xar-clearboth">
+                                                <xar:if condition="!empty($hookmod['checked'][$typeid])">
+                                                    <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" checked="checked" />
+                                                <xar:else />
+                                                    <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" />
+                                                </xar:if>
+                                                <label for="hooks_#$hookmod['modname']#_#$typeid#">
+                                                    #$itemtype['label']#
+                                                </label>
+                                            </div>
+                                        </xar:foreach>
+                                    </div>
+                                    <div style="float: left;width: 48%;">
+                                        <p>
+                                            <xar:mlstring>Available hooks: </xar:mlstring>
+                                        </p>
+                                        <ul>
+                                            <xar:foreach in="$hookmod['hooks']" key="$hook">
+                                                <li>
+                                                    #$hook#
+                                                </li>
+                                            </xar:foreach>
+                                        </ul>
+                                    </div><br class="xar-clearboth" />
+                                </div>
+                            </fieldset>
+                        </xar:foreach>
+                    </div>
+
+                </xar:if>
+                <div class="xar-form-footer">
+                    <xar:if condition="!empty($return_url)">
+                        <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+                    </xar:if>
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="id" id="id" value="#$id#" />
+                    <input type="hidden" name="displayname" id="displayname" value="#$displayname#" />
+                    <input type="hidden" name="newdisplayname" id="newdisplayname" value="#$displayname#" />
+                    <input type="submit" value="#xarML('Save Changes')#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

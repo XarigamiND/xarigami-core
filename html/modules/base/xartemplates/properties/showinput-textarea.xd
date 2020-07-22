@@ -1,0 +1,90 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:if condition="empty($rows)">
+    <xar:set name="classtype">'xar-form-textareamedium'</xar:set>
+<xar:elseif condition="$rows gt 15"/>
+    <xar:set name="classtype">'xar-form-textarealarge'</xar:set>
+<xar:elseif condition="$rows lt 5"/>
+    <xar:set name="classtype">'xar-form-textareasmall'</xar:set>
+<xar:else/>
+    <xar:set name="classtype">'xar-form-textareamedium'</xar:set>
+</xar:if>
+
+<xar:comment>We want to be able to override the class from validation class passed in</xar:comment>
+<xar:if condition="empty($class)">
+   <xar:set name="class">$classtype</xar:set>
+</xar:if>
+
+<xar:comment>
+    Additional CSS support for "pseudo-dynamic" resizing of textareas
+    (as in bug http://bugs.xaraya.com/show_bug.cgi?id=4765)
+
+    The fix works in themes which comply with post-RC3 styleguide and support
+    core (common) css + embedded styles on their page templates via xar:additional-styles tag
+
+    NOTE 1: a row (height) is measured as 1.6em (a usual line height in typography)
+    but a column (width) is 1 em - roughly 1 charachter m wide
+
+    NOTE 2: every embedded style is being defined against the element's ID (which must
+    be unique page-wide for the system to work, though it's outside of scope of this fix )
+
+    NOTE 3: if your theme/module are not happy with the above assumptions or below solution,
+    you know what todo, override this template or adjust the object values via DD UI
+
+    WARNING: the only sensible limitations that can be provided by css are max(min)-width and
+    max(min)-height, but unfortunately if you use IE-Win, these standard properties aren't supported
+    and as a consequence the textareas dimensions will be affected by the DD values alone..
+    I'm hesitant to pass along ie-only workarounds at this moment, so be aware of this! (andyv)
+</xar:comment>
+
+<xar:set name="textareasource">'
+<!--
+textarea#'.$id.' {
+    max-width: 99%;
+    width: '. $cols.'em;
+    height: '. ($rows * 1.6) .'em;
+}
+-->
+'</xar:set>
+
+<xar:style method="embed" source="'.$textareasource.'" media="all" />
+
+    <xar:if condition="!empty($max_length)">
+
+        <xar:base-include-javascript libname="jquery" libfile="jquery.min" position="body"/>
+        <xar:set name="ddcodetextarea">"
+            function limit_chars(textid, limit) {
+                var contents = jQuery('#'+textid).val();
+
+                if (contents.length > limit) {
+                    jQuery('#'+textid).val(contents.substr(0, limit));
+                    return false;
+                } else {
+                    jQuery('#'+textid).prev('div').children('span').html(limit - contents.length);
+                    return true;
+                }
+            }
+
+            jQuery(function() {
+                var contents = jQuery('#".$id."').val();
+                jQuery('#".$id."').prev('div').children('span').html(".$max_length." - contents.length);
+
+                jQuery('#".$id."').keyup(function() {
+                    limit_chars('".$id."', ".$max_length.");
+                });
+            });
+        "</xar:set>
+        <xar:comment>We want the code to load once for each instance on the page so give each a unique index to load</xar:comment>
+        <xar:set name="codeindex">'index_'.$id</xar:set>
+        <xar:base-include-javascript type="code" code="$ddcodetextarea" index="$codeindex" position="body" />
+        <div class="xar-property-character-count">
+            <xar:ml>
+                <xar:mlstring>Characters remaining: <span>#(1)</span></xar:mlstring>
+                <xar:mlvar>#$max_length#</xar:mlvar>
+            </xar:ml>
+        </div>
+    </xar:if>
+    <textarea name="#$name#" class="#$class#" rows="#$rows#" cols="#$cols#" id="#$id#" tabindex="#$tabindex#"#$html5##$evts# >#$value#</textarea>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

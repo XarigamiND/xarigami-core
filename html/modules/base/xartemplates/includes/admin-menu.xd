@@ -1,0 +1,62 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Common Administration menu</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="currenturl">xarServerGetCurrentURL(array(),false);</xar:set>
+<xar:comment>Make provision for some items on same active function</xar:comment>
+<xar:if condition="isset($tab)">
+    <xar:set name="action">$tab</xar:set>
+<xar:elseif condition="isset($action)" />
+    <xar:set name="action">$action</xar:set>
+<xar:else />
+    <xar:set name="action">''</xar:set>
+</xar:if>
+<xar:if condition="!empty($action) and (strripos($currenturl,$action) === FALSE)">
+ <xar:set name="action">''</xar:set>
+</xar:if>
+<xar:if condition="!isset($menumod) or empty($menumod)">
+    <xar:set name="menumod">$request[0]</xar:set>
+</xar:if>
+<xar:set name="modinfo">xarModGetInfo(xarModGetIDFromName($menumod))</xar:set>
+<xar:set name="displayname">$modinfo['displayname']</xar:set>
+<xar:set name="menulinks">isset($menulinks)?$menulinks:xarModAPIFunc($menumod, 'admin', 'getmenulinks')</xar:set>
+
+<xar:if condition="xarModGetVar('themes','showmodheader') and (xarModGetVar('themes','usedashboard') ne 1)">
+<div class="xar-mod-title">
+    <xar:if condition="!isset($pagetitle)">
+    <xar:ml>
+        <xar:mlstring>#(1) Administration</xar:mlstring>
+        <xar:mlvar>#$displayname#</xar:mlvar>
+    </xar:ml>
+    <xar:else />
+        #$pagetitle#
+    </xar:if>
+</div>
+</xar:if>
+<xar:template type="module" module="base" file="admin-breadcrumb" subdata="array('menumod'=&gt;$menumod)" />
+#xarTplGetMessage()#
+<xar:if condition="xarModGetVar('themes','adminpagemenu') and $request.2 ne 'controlpanel' and !empty($menulinks)">
+    <ul class="xar-tabs">
+        <xar:comment> Add action label if necessary
+        <li class="xar-tabs-label" title="#xarML('Choose an action to perform')#">
+            <xar:mlstring>Select:</xar:mlstring>
+        </li>
+        </xar:comment>
+        <xar:loop name="$menulinks">
+            <xar:if condition="!empty($action) AND in_array($action, $loop-&gt;item['active']) OR in_array($activetab, $loop-&gt;item['active'])">
+                <xar:set name="tabclass">'xar-tab-active'</xar:set>
+            <xar:elseif condition="in_array($activetab, $loop-&gt;item['active'])"/>
+                <xar:set name="tabclass">'xar-tab-active'</xar:set>
+            <xar:else />
+                <xar:set name="tabclass">'xar-tab'</xar:set>
+            </xar:if>
+            <li class="#$tabclass#">
+                 <a href="#$loop:item.url#" title="#$loop:item.title#">
+                    #$loop:item.label#
+                </a>
+            </li>
+        </xar:loop>
+    </ul>
+</xar:if>

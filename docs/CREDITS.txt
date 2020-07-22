@@ -1,0 +1,65 @@
+Please read the credit files for the individual projects and softwares listed at the end of this file.
+
+Xarigami Core Contributors in Alphabetical order
+=====================
+
+Dan Barabas (baraboom)
+Phill Brown (phill)
+Jo Dalle Nogare (jojo)
+Jason Judge (judgej)
+Arnaud Tetaz  (lakys)
+
+
+Theme, Module, Languages, QA/Bugs, Documentation
+====================
+Ray Dunegan (roller24)
+Thomas Marczinkowski (tmms)
+Karsten Poppe (naphta)
+Maria Victoria Robardo (shouri)
+Steve Williams (ccd)
+
+
+And the many others who have submitted bugs, suggestions, and given feedback and time in IRC or on the xarigami forums.
+
+Other Credits
+=============
+* Xaraya
+Copyright (c) 2002-2010 The Digital Development Foundation
+http://www.xaraya.com
+Please see the CREDITS.txt file in the Xaraya distribution for a list of all Xaraya core and related contributor credits.
+
+* jQuery
+Copyright (c) John Resig and the jQuery Team <http://jquery.com>
+
+* jQuery UI
+Copyright (c) 2009 Paul Bakaus and the jQuery UI Team <http://www.jqueryui.com>
+
+* Tango Icons
+CC-by-SA 2009 Tango Desktop Project <http://tango.freedesktop.org>
+
+* PHP
+http://www.php.net
+
+* ADODB
+http://php.weblogs.com/ADODB
+
+* PHPMailer
+http://phpmailer.sourceforge.net
+
+* xmlParser
+Copyright (c) 2000-2003 Reverend Jim
+http://revjim.net/code/xmlParser/
+
+* xmlrpc server and client
+Copyright (c) 1999,2000,2001 Edd Dumbill
+http://phpxmlrpc.sourceforge.net
+
+* SOAP classes
+Copyright (c) 2002 Nusphere Corporation
+http://www.nusphere.com
+
+* Reused the drivers from the Log Class from PEAR
+http://pear.php.net/package-info.php?package=Log
+
+* Initial code for xarCharset class
+Mikolaj Jedrzejak <http://www.mikkom.pl>

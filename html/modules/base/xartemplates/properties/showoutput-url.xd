@@ -1,0 +1,4 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="outputclass">(isset($class) and !empty($class))? 'class="'.$class.' "': ''</xar:set>
+<xar:set name="target">(isset($target) and !empty($target))? 'target="'.$target.' "': ''</xar:set>
+<a #$outputclass##$target#href="#$value#">#$value#</a>

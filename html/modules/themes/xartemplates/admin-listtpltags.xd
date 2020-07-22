@@ -1,0 +1,80 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" position="body" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:set name="tplcode">"
+jQuery(document).ready(function() {
+    var dialog_width = 300;
+    var dialog_height = 200;
+    jQuery('table.xar-items a[id^=delete]').click(function() {
+        var a = this;
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+        jQuery('#" . "xardialogtarget').html('<p>" . xarML('Delete this template tag?') . "</p><p style=\'text-align: center;\'>' + jQuery.trim(jQuery(this).parent().parent().children(':first').text()) + '</p>');
+        jQuery('#" . "xardialogtarget').dialog({
+            title: '" . xarML('Delete template tag') . "',
+            width: dialog_width,
+            height: dialog_height,
+            buttons: {
+                '". xarML('Cancel') . "': function() { jQuery(this).dialog('close'); },
+                '". xarML('Delete') . "': function() { a.setAttribute('href', a.getAttribute('href') + '&confirm=1');jQuery(this).dialog('close');window.location = a.getAttribute('href'); }
+            },
+            bgiframe: true,
+            modal: true,
+            draggable: false,
+            resizable: false
+        });
+        return false;
+    });
+});"
+</xar:set>
+<xar:base-include-javascript type="code" code="$tplcode" position="body"/>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Template Tags</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <p>
+                <xar:mlstring>
+                    This list contains core system template tags and is supplied for developer convenience.
+                    You should not have to visit this page or modify any tags here unless you are a developer
+                    creating your own template tags. In this latter case, the tags would usually
+                    be registered during the initialization of the module that supplies the tag.
+                </xar:mlstring>
+            </p>
+            <p class="xar-align-right"><a href="#$addurl#" class="esprite xs-add">&#160;<xar:mlstring>Add a new Tag</xar:mlstring></a></p>
+            <table class="xar-items">
+                <tr>
+                    <th>
+                        <xar:mlstring>Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Module</xar:mlstring>
+                    </th>
+                    <th class="xar-align-center">
+                        <xar:mlstring>Actions</xar:mlstring>
+                    </th>
+                </tr>
+                <xar:foreach in="$tags" value="$item">
+                    <tr>
+                        <td>
+                            &lt;xar:#$item['name']#&gt;
+                        </td>
+                        <td>
+                            #$item['module']#
+                        </td>
+                        <td class="xar-action-items xar-align-center">
+                            <a href="#$item['editurl']#" class="esprite xs-modify"  title="#xarML('Edit')#"><span>#xarML('Edit')#</span></a>&#160;
+                            <a href="#$item['deleteurl']#" id="delete_#$item['id']#" class="esprite xs-delete" title="#xarML('Delete')#"><span>#xarML('Delete')#</span></a>
+                        </td>
+                    </tr>
+                </xar:foreach>
+            </table>
+        </div>
+    </div>
+</div>

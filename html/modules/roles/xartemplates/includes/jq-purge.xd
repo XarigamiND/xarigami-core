@@ -1,0 +1,15 @@
+<xar:set name="checkall"><xar:mlstring>Check all</xar:mlstring></xar:set> 
+<xar:set name="checknone"><xar:mlstring>Uncheck all</xar:mlstring></xar:set> 
+<xar:set name="toggleall"><xar:mlstring>Toggle</xar:mlstring></xar:set> 
+<xar:set name="rolescode">"
+$(document).ready(function(){
+    var checkall = \"$checkall\";
+    var checknone = \"$checknone\";
+    var toggleall = \"$toggleall\";   
+    $('.checkcontrols').append('<a href=\"#\" id=\"items_checkall\">'+checkall+'</a> | <a href=\"#\" id=\"items_checknone\">'+checknone+'</a> | <a href=\"#\" id=\"items_checktoggle\">'+toggleall+'</a>');
+    jQuery('a#" . "items_checkall').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; });
+    jQuery('a#" . "items_checknone').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; });
+    jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').each(function() { jQuery(this).attr('checked', !jQuery(this).attr('checked')); });return false; });
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$rolescode" position="body" />

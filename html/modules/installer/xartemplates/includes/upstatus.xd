@@ -1,0 +1,28 @@
+<xar:set name="steptext">
+array(
+    0 => xarML('Select language'),
+    1 => xarML('Review requirements'),
+    2 => xarML('Upgrade status'),
+    3 => xarML('Running upgrade'),
+    4 => xarML('Database health checks'),
+    5 => xarML('Finalising upgrade')
+
+)
+</xar:set>
+
+<div id="status">
+            <xar:for start="$phase = 0" test="$phase lt $active_step" iter="$phase++">
+                <p class="complete">
+                    #$steptext[$phase]#
+                </p>
+            </xar:for>
+            <p class="active">
+                #$steptext[$active_step]#
+            </p>
+            <xar:for start="$phase = $active_step + 1" test="$phase le 5" iter="$phase++">
+                <p class="greyed">
+                    #$steptext[$phase]#
+                </p>
+            </xar:for>
+    <div id="status_foot"></div>
+</div>

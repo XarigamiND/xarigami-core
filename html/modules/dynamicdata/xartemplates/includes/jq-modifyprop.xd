@@ -1,0 +1,99 @@
+<xar:set name="submiturl">#xarModURL('dynamicdata','admin','modifyprop',array('objectid'=>$objectid,'modid'=>$modid,'itemtype'=>$itemtype),false)#</xar:set>
+<xar:set name="hide">xarML('Hide')</xar:set>
+<xar:set name="thisurl">xarServerGetCurrentURL(array(),false);</xar:set>
+<xar:set name="show">xarML('Display')</xar:set>
+<xar:set name="movemsg">xarML('Drag me to a new position')</xar:set>
+<xar:set name="togglemsg">xarML('Click to display/hide property details and editing form')</xar:set>
+<xar:set name="toggleit">"
+jQuery(document).ready(function() {
+    //preview form
+    var dialog_width = Math.floor(jQuery(window).width() * .65);
+    var dialog_height = Math.floor(jQuery(window).height() * .85);
+    var thispage = \"$thisurl\";
+    var preview_trigger = function() {
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('".chr(60)."div id=\'xardialogtarget\' style=\'display: none;text-align:left;\'".chr(62).chr(60)."/div".chr(62)."');
+        jQuery('#" . "xardialogtarget').load(this.getAttribute('href') + '".chr(38)."pageName=module .xar-mod-body ".chr(62)." *').dialog(
+            {
+                title: jQuery(this).text(),
+                width: dialog_width,
+                height: dialog_height,
+                modal: true,
+                draggable: true,
+                resizable: false,
+                buttons: {
+                    '" . xarML('Close') . "': function() { jQuery(this).dialog('close'); },
+                }
+            }
+        );
+        return false;
+    }
+    jQuery('li#preview_form a').click(preview_trigger);
+
+    var dialog_trigger = function() {
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('".chr(60)."div id=\'xardialogtarget\' style=\'display: none;\'".chr(62).chr(60)."/div".chr(62)."');
+
+    }
+
+    jQuery('[id^=propertylist_] a').click(dialog_trigger);
+
+    //toggle code
+    var showText=\"$show\";
+    var hideText=\"$hide\";
+    var togglemsg=\"$togglemsg\";
+    var submiturl=\"$submiturl\";
+    var movemsg=\"$movemsg\";
+    jQuery('span[class=js_disabled]').hide();
+    jQuery('#contain').attr('style','padding:1em 0');
+    jQuery('#propertyeditlist legend').append(' (<a href=\"#\" class=\"toggleLink\" title=\"'+togglemsg+'\">'+showText+'</a>)');
+    jQuery('#propertyeditlist legend').prepend('&#160;<span title=\"'+movemsg+'\" class=\"esprite xs-move xar-displayinline \" />');
+    // hide all of the elements with a class of 'toggle'
+    jQuery('.toggle').hide();
+    jQuery('a.toggleLink').click(function() {
+        jQuery(this).html (jQuery(this).html()==hideText ? showText : hideText);
+        jQuery(this).parent().next('.toggle').toggle('fast');
+        return false;
+    });
+    //main drag and sort
+    jQuery('.xs-move').css('cursor','move');
+    jQuery('#propertyeditlist').sortable({
+        handle : '.xs-move',
+        placeholder: 'xar-move xar-alt-outline xar-alt',
+        containment: '#modifyprop-form',
+        cursor: 'move',
+        opacity: 0.6,
+        smooth:false,
+        forcePlaceholderSize: true,
+        update : function () {
+            var pidorder = jQuery(this).sortable('serialize');
+            var orderlist = pidorder.replace(/propertylist\[\]\=/g, '');
+            jQuery.ajax({
+            type: 'GET',
+            url: submiturl,
+            data: {orderarray: orderlist}
+            });
+        }
+    });
+
+
+    jQuery('a.xar-info').click(function() {
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+        jQuery('#" . "xardialogtarget').load(this.getAttribute('href').replace('&theme=print', '&pageName=module') + ' .xar-mod-body > *').dialog({
+        title: jQuery(this).attr('title'),
+        width: dialog_width,
+        height: 'auto',
+        modal: true,
+        draggable: true,
+        resizable: true,
+        position: 'top',
+        buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
+        });
+        return false;
+    });
+
+});
+"
+</xar:set>
+<xar:base-include-javascript code="$toggleit" position="body"/>

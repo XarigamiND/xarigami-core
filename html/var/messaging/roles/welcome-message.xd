@@ -1,0 +1,30 @@
+<xar:if condition="$mypassword != ''">
+Your account at #$sitename# has been created and is now active. 
+    
+Here are the details that were provided
+
+IP Address of the person creating that account: <xar:var name="myipaddress"/>
+
+
+User Name:  <xar:var name="myusername"/>
+
+
+<xar:if condition="xarModGetVar('registration', 'chooseownpassword')">
+Password: --use your chosen password --
+<xar:else />
+Password:  #$mypassword#
+</xar:if>
+
+
+<xar:set name="editaccount">xarModURL('roles','user','account')</xar:set>
+Once you are logged into the website, you can change your password by editing your profile from your account page:
+#$editaccount#
+
+
+Thank you, and welcome to our community.
+
+<xar:else />
+Your account  at  #$sitename#  is now active.  
+
+Thank you, and welcome to our community.
+</xar:if>

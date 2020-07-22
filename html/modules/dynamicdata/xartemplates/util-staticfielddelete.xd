@@ -1,0 +1,45 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style scope="module" file="dd" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Table Operations</xar:mlstring></h1>
+        <xar:template type="module" file="tableops-menu" />
+        <div class="xar-mod-content">
+            <xar:if condition="isset($msg) and !empty($msg)">
+                <h4>#$msg#</h4>
+                <p><a href="#$cancelurl#"><xar:mlstring>Cancel</xar:mlstring></a></p>
+            <xar:else />
+
+                <form method="post" action="#xarServerGetCurrentURL()#">
+                    <fieldset>
+                        <legend>
+                            <xar:ml>
+                                <xar:mlstring>Delete column '#(1)' in table '#(2)' ?</xar:mlstring>
+                                <xar:mlvar>#$fielddisplay#</xar:mlvar>
+                                <xar:mlvar>#$table#</xar:mlvar>
+                            </xar:ml>
+                        </legend>
+                        <p><xar:mlstring>If you delete this field, any data in the this field will also be deleted for every record in the table</xar:mlstring></p>
+                    </fieldset>
+                    <div class="xar-form-input-wrapper">
+                        <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                        <input type="hidden" name="table" id="table" value="#$table#" />
+                        <input type="hidden" name="db" id="db" value="#$db#" />
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="confirm" id="confirm" value="true" />
+                        <label for="submit" class="xar-form-label">
+                            <input type="submit" value="#xarML('Delete column')#" class="xar-margin-thickleft" />
+                        </label>
+                        <a href="#$cancelurl#"><xar:mlstring>Cancel</xar:mlstring></a>
+
+                    </div>
+                </form>
+            </xar:if>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:set name="join">""</xar:set>
+<xar:foreach in="$options" value="$option">
+    #$join# #$option['name']#
+    <xar:set name="join">" | "</xar:set>
+</xar:foreach>
+

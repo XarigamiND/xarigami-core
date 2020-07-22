@@ -1,0 +1,108 @@
+<xar:set name="editvalidation">xarML('Edit configuration for property "#(1)"',$field['name'])</xar:set>
+<xar:set name="otherfields">xarML('Edit property "#(1)"',$field['name'])</xar:set>
+<xar:set name="moveup"><xar:mlstring>Move up</xar:mlstring></xar:set>
+<xar:set name="nomoveup"><xar:mlstring>Cannot move up</xar:mlstring></xar:set>
+<xar:set name="nomovedown"><xar:mlstring>Cannot move down</xar:mlstring></xar:set>
+<xar:set name="movedown"><xar:mlstring>Move down</xar:mlstring></xar:set>
+<xar:set name="edit"><xar:mlstring>Click to edit this property</xar:mlstring></xar:set>
+<xar:set name="info"><xar:mlstring>Property Information</xar:mlstring></xar:set>
+<xar:set name="thispage">xarServerGetCurrentURL();</xar:set>
+<fieldset id="propertylist_#$field['id']#">
+    <legend >
+        <span class="js_disabled">
+            <xar:if condition="empty($field['upurl'])">
+                <span  class="sprite xs-blank xar-displayinline" title="#$nomoveup#"><span>#$nomoveup#</span></span>
+            <xar:else />
+                <a href="#$field.upurl#" class="sprite xs-go-up xar-displayinline" title="#$moveup#"><span>#$moveup#</span></a>
+            </xar:if>
+
+            <xar:if condition="empty($field['downurl'])">
+               <span class="sprite xs-blank xar-displayinline" title="#$nomovedown#"><span>#$movedown#</span></span>
+            <xar:else />
+                <a href="#$field.downurl#" class="sprite xs-go-down xar-displayinline"  title="#$movedown#" ><span>#$movedown#</span></a>
+            </xar:if> &#160;
+        </span>
+        <xar:if condition="!empty($field['name'])">
+                &#160;#$field['label']# :
+        </xar:if>
+        <xar:if condition="!empty($field['name'])">
+                #$field['name']#
+        <xar:else />
+                <xar:mlstring>[unnamed property]</xar:mlstring>
+        </xar:if>
+
+        &#160;[#$labels['id']#: #$field['id']#]
+
+    </legend>
+    <xar:set name="fieldidtag">'fieldwrapper_'.$field['id']</xar:set>
+    <div id="#$fieldidtag#" class="toggle">
+        <p class="xar-form-input-wrapper">
+            <label class="xar-form-label">#$labels.id#</label>
+            #$field.id#
+        </p>
+        <p class="xar-form-input-wrapper">
+            <label class="xar-form-label">#$labels.name#</label>
+            #$field.name#
+        </p>
+
+        <p class="xar-form-input-wrapper">
+            <label for="dd_label_#$field['id']#" class="xar-form-label">
+                #$labels['label']#:
+            </label>
+           <xar:set name="fieldlabel">xarVarPrepForDisplay($field['label'])</xar:set>
+            <input type="text" name="dd_label[#$field['id']#]" id="dd_label_#$field['id']#" value="#$fieldlabel#" class="xar-form-textmedium" />
+
+        </p>
+
+        <p class="xar-form-input-wrapper">
+            <label class="xar-form-label">
+                #$labels['source']#:
+            </label>
+            #$field['source']#
+        </p>
+
+        <p class="xar-form-input-wrapper-after">
+            <a href="&xar-modurl-dynamicdata-admin-modify;&amp;objectid=2&amp;itemid=#$field.id#">
+                <xar:var name="otherfields" prep="true"/>
+            </a>
+        </p>
+
+        <p class="xar-form-input-wrapper">
+
+            <label for="dd_type_#$field.id#" class="xar-form-label">
+                 <xar:if condition="isset($field['type']) and !empty($field['type'])">
+                     <a href="#xarModURL('dynamicdata','admin','propinfo',array('propid'=>$field['type']))#" class="sprite xs-info xar-info" title="#$info#"><span>#$info#</span></a>
+                </xar:if>
+                #$labels['type']#:
+            </label>
+            <xar:data-input property="$fieldtypeprop" name="dd_type['.$field['id'].']" id="old_dd_type_'.$field['id'].'" value="$field['type']" />
+        </p>
+
+        <p class="xar-form-input-wrapper">
+            <label for="dd_default_#$field.id#" class="xar-form-label">
+                #$labels['default']#:
+            </label>
+            <input type="text" name="dd_default[#$field['id']#]" id="dd_default_#$field['id']#" value="#xarVarPrepForDisplay($field['default'])#" class="xar-form-textmedium" />
+        </p>
+
+        <p class="xar-form-input-wrapper">
+            <label for="dd_validation_#$field.id#" class="xar-form-label">
+                #$labels['validation']#:
+            </label>
+            <!--
+            <input type="text" name="dd_validation[#$field['id']#]" id="dd_validation_#$field['id']#" value="#xarVarPrepForDisplay($field['validation'])#" class="xar-form-textmedium" />
+            -->
+            <a href="#xarModURL('dynamicdata','admin','showpropval',array('itemid'=>$field.id, 'objectid'=>$objectid))#" title="#xarVarPrepForDisplay($editvalidation)#">
+                <xar:mlstring>Edit Configuration</xar:mlstring>
+            </a>
+        </p>
+
+        <p class="xar-form-input-wrapper">
+            <label for="dd_status_#$field.id#" class="xar-form-label">
+                #$labels['status']#:
+            </label>
+            <xar:data-input property="$fieldstatusprop" name="dd_status['.$field['id'].']" id="dd_status_'.$field['id'].'" size="1" value="$field['status']" />
+        </p>
+    </div>
+
+</fieldset>

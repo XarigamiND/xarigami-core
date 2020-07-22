@@ -1,0 +1,108 @@
+<xar:style scope="block" file="onlineblock" />
+<xar:comment>
+    the above stylesheet has been included more like example
+    how to include a stylesheet in a block rather than a pure necessity here.
+    Tables really shouldn't be used for layout, only for tablular data,
+    but since it's used it could be put right via css
+    (comment by andyv)
+</xar:comment>
+<table class="xar-fullwidth xar-roles-nicetable">
+     <xar:if condition="!empty($test1)">
+         <tr>
+             <td class="xar-threequarterswidth">
+                 <xar:mlstring>Users</xar:mlstring>
+             </td>
+             <td>
+                 &nbsp;
+             </td>
+             <td colspan="2">
+                 <xar:if condition="xarModIsAvailable('messages')">
+                     <xar:mlstring>Messages</xar:mlstring>
+                     <xar:else />
+                     &nbsp;
+                 </xar:if>
+             </td>
+         </tr>
+         <xar:if condition="xarModIsAvailable('messages')">
+             <tr>
+                 <td>
+                     &nbsp;
+                 </td>
+                 <td>
+                     &nbsp;
+                 </td>
+                 <td class="xar-align-center">
+                     <img class="xar-noborder" src="#xarTplGetImage('icons/mail-unread.png','base')#" alt="#xarML('Unread messages')#" title="#xarML('Unread messages')#" />
+                 </td>
+                 <td class="xar-align-center">
+                     <img class="xar-noborder" src="#xarTplGetImage('icons/mail-total.png','base')#"  alt="#xarML('Total messages')#"  title="#xarML('Total messages')#" />
+                 </td>
+             </tr>
+         </xar:if>
+         <xar:foreach in="$test1" value="$dd">
+         <xar:comment> Use $test2 if you only want to show those with online status propery allowed</xar:comment>
+             <tr>
+                 <td>
+                    <xar:if condition="!empty($dd['userurl'])">
+                        <img class="xar-noborder xar-valign-middle" src="#xarTplGetImage('icons/system-user.png','base')#"  alt="" />
+                    <xar:else />
+                        <img class="xar-noborder xar-valign-middle" src="#xarTplGetImage('icons/system-user-other.png','base')#"  alt="" />
+                    </xar:if>
+                     <a href="#$dd['userurl']#">
+                         #xarVarPrepForDisplay($dd['name'])#
+                     </a>
+                 </td>
+                 <td>
+                     &nbsp;
+                 </td>
+                 <td class="xar-align-center">
+                     <a href="#$dd['messagesurl']#">
+                         #$dd['unread']#
+                     </a>
+                 </td>
+                 <td class="xar-align-center">
+                     <a href="#$dd['messagesurl']#">
+                         #$dd['total']#
+                     </a>
+                 </td>
+             </tr>
+         </xar:foreach>
+     </xar:if>
+     <tr>
+         <td colspan="4">
+             &nbsp;
+         </td>
+     </tr>
+     <tr>
+         <td>
+             <img class="xar-noborder xar-valign-middle" src="#xarTplGetImage('icons/system-users.png','base')#"  alt="" />
+             <xar:mlstring>Total users</xar:mlstring>
+         </td>
+         <td>
+         </td>
+         <td class="xar-align-center" colspan="2">
+             #$numusers#
+             <xar:comment>#$numusers2#</xar:comment>
+         </td>
+     </tr>
+     <tr>
+         <td>
+             <img class="xar-noborder xar-valign-middle" src="#xarTplGetImage('icons/system-users-anon.png','base')#" alt=""  />
+             <xar:mlstring>Total guests</xar:mlstring>
+         </td>
+         <td>
+         </td>
+         <td class="xar-align-center" colspan="2">
+             #$numguests#
+             <xar:comment>#$numguests2#</xar:comment>             
+         </td>
+     </tr>
+</table>
+<xar:if condition="isset($lastuser)">
+     <p>
+         <xar:mlstring>Welcome to our latest member,</xar:mlstring>
+         <a href="&xar-modurl-roles-user-display;&amp;uid=#$lastuser['uid']#">
+             #xarVarPrepForDisplay($lastuser['name'])#
+         </a>
+     </p>
+</xar:if>

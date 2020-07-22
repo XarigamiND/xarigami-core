@@ -1,0 +1,29 @@
+<xar:set name="checkall"><xar:mlstring>Display all</xar:mlstring></xar:set> 
+<xar:set name="checknone"><xar:mlstring>Hide all</xar:mlstring></xar:set> 
+<xar:set name="toggleall"><xar:mlstring>Toggle</xar:mlstring></xar:set> 
+<xar:set name="hookscode">"
+jQuery(document).ready(function() {
+    var checkall = \"$checkall\";
+    var checknone = \"$checknone\";
+    var toggleall = \"$toggleall\"; 
+    jQuery('.checkcontrols').append('<a href=\"#\" id=\"items_checkall\">'+checkall+'</a> | <a href=\"#\" id=\"items_checknone\">'+checknone+'</a> | <a href=\"#\" id=\"items_checktoggle\">'+toggleall+'</a>');
+    jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() {
+        jQuery(this).parent().children('div.fieldwrapper').toggle();
+    }).hover(function() {
+        jQuery(this).css('cursor', 'pointer');
+    });
+    jQuery('a#items_checkall').click(function() {
+        jQuery(this).parent().parent().find('div.fieldwrapper').show();
+        return false;
+    });
+    jQuery('a#items_checknone').click(function() {
+        jQuery(this).parent().parent().find('div.fieldwrapper').hide();
+        return false;
+    });
+    jQuery('a#items_checktoggle').click(function() {
+        jQuery(this).parent().parent().find('div.fieldwrapper').toggle();
+        return false;
+    });
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$hookscode" position="body"/>

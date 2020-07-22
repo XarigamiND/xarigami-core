@@ -1,0 +1,14 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.datepicker.min,ui.slider.min" style="ui.css" />
+<xar:template type="module" module="base" file="jq-datetime" />
+<xar:if condition="empty($tabindex)">
+    <input class="xar-form-textlong" type="text" name="#$name#" id="#$id#" value="#xarLocaleFormatDate($dateformat,$value)#" size="20" maxlength="19"#$html5##$evts# />
+<xar:else />
+    <input class="xar-form-textlong" type="text" name="#$name#" id="#$id#" value="#xarLocaleFormatDate($dateformat,$value)#" size="20" maxlength="19" tabindex="#$tabindex#"#$html5##$evts# />
+</xar:if>
+<xar:set name="cleanformat">str_replace('%','', $dateformat);</xar:set>
+<span class="js_disabled"><xar:mlstring>Format:</xar:mlstring> #$cleanformat#</span>
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>
+

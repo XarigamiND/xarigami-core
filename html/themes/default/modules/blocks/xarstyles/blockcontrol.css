@@ -1,0 +1,52 @@
+/* Block Controls */
+div.xar-block-control {
+    position: relative;
+    z-index: 200;
+    margin-right: 5px;
+    font-size: 0.8em;
+    vertical-align: text-top;
+    float: right;
+}
+div.xar-block-title div.xar-block-control, div.xar-block-title-right div.xar-block-control {
+    margin-top: 5px;
+}
+div.xar-block-control ul.sf-menu-admin li.main ul {
+    margin-top: 0px; margin-left: -3.4em; font-size: 11px; min-width: 6em; max-width: 6em; text-align: right;
+}
+div.xar-block-control, div.xar-block-control ul.sf-menu-admin, div.xar-block-control ul.sf-menu-admin li.main {
+    background: transparent;
+}
+div.xar-block-control .sf-menu-admin a.clicker:focus, div.xar-block-control ul.sf-menu-admin a.clicker:hover,
+div.xar-block-control ul.sf-menu-admin a.clicker:active, div.xar-block-control li.sf-current a.sf-current:hover {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+div.xar-block-control ul.sf-menu-admin li a.clicker{
+    list-style-type: none;
+    background: transparent url(../xarimages/gear.png) no-repeat 0 top;
+    height: 18px;
+    margin: 0;
+    padding:0;
+    width: 28px;
+}
+div.xar-block-control li, div.xar-block-control ul {
+    float: right;
+}
+div.xar-block-control ul.sf-menu-admin .sf-sub-indicator {
+    display:  none;
+}
+div.xar-block-control ul.sf-menu-admin li:hover a.clicker{
+     background: transparent url(../xarimages/gear.png) no-repeat 0 bottom;
+}
+div.xar-block-control ul.sf-menu-admin li a span.clickerhide {
+    display: none;
+}
+div.xar-block-control ul.sf-menu-admin {
+    background-color: transparent;
+}
+div.xar-block-control .sf-shadow ul {
+    -moz-border-radius-bottomleft: 17px;
+    -webkit-border-bottom-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+}

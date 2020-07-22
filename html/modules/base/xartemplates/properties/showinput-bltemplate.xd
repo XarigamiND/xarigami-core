@@ -1,0 +1,18 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="class">!empty($class)? "$class" :''</xar:set>
+<xar:comment>
+    Don't display the select box unless there are options to be displayed, as per xhtml
+</xar:comment>
+<span>Directory: #$bltbasedir# </span><br />
+<div class="xar-form-input-wrapper-after">
+<xar:if condition="count($options) gt 0">
+    <xar:set name="firstline">array('id' => '', 'name' => xarML('Select template'))</xar:set>
+    <xar:data-input type="filelist" name="$name" id="$id" class="$class" value="$value" basedir="$basedir" extensions="$extensions" longname="$longname" firstline="$firstline"/>
+<xar:else />
+    <span id="#$id#">No template files available for specified configuration.</span>
+</xar:if>
+</div>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

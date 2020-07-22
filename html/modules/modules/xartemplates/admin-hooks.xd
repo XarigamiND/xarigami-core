@@ -1,0 +1,32 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+
+<xar:if condition="empty($return_url)">
+    <xar:comment>When this template is not included somewhere else, build some header stuff</xar:comment>
+    <div class="xar-mod-page">
+        <div class="xar-mod-head">
+            <xar:if condition="!xarRequestIsAJAX()">
+                <xar:template type="module" module="base" file="admin-menu" />
+            </xar:if>
+        </div>
+        <div class="xar-mod-body">
+            <h1><xar:mlstring>Configure Hooks</xar:mlstring></h1>
+            <div class="xar-mod-content">
+                <p>
+                    <xar:mlstring>Extend the functionality of your modules via hooks supplied from the following modules.</xar:mlstring>
+                </p>
+                <ol>
+                    <li><xar:mlstring>Select the module providing the extra (hook) functionality you would like to use (eg Comments)</xar:mlstring></li>
+                    <li><xar:mlstring>Choose the module you would like to enable with that functionality (eg Articles, to allow commenting on articles)</xar:mlstring></li>
+                </ol>
+                <xar:template file="hooks-mainpart" module="modules" />
+            </div>
+        </div>
+    </div>
+ <xar:else/>
+        <xar:comment>
+        Just show the list
+        </xar:comment>
+
+        <xar:template file="hooks-mainpart" module="modules" return_url="$return_url"/>
+</xar:if>

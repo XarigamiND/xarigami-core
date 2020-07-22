@@ -1,0 +1,69 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The StateListing property provides a drop down selection
+        list of states or provinces for one or more specified countries.
+    </p>
+    <p>
+        The State or Province names are displayed in the form in a dropdown while the
+        ISO-3166-2 State or Province code is the value captured in forms and saved in the database.
+    </p>
+    <p>
+        On output the State or Province name is displayed.
+    </p>
+
+    <h2>Attributes</h2>
+
+    <ul>
+        <li>
+            <strong>country</strong>: [default = 'us,ca,au' to support legacy installs]
+                <br />The two character country code abbreviation as defined in ISO 3166.
+                You may specify a single country code or a list separated by commas.
+                Unsupported country codes are ignored.
+        </li>
+        <li>
+            <strong>firstline</strong>: [default = 'Please select']
+            <br />This attribute is inherited from the parent 'dropdown' selection property,
+            and enables you to specify a first line in the selection list displayed
+            as an instruction to the user.
+
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the <strong>Dropdown List </strong> parent property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>statelisting</em> type in forms without the need to define a property
+        to capture data.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="statelisting" country="$country" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <ul>
+        <li>
+            <strong>In the Dynamic Data Configuration:</strong>  you can add country options when defining your data property
+            by adding the country code(s) to the <strong>Other</strong> field in the validation page.
+        </li>
+        <li>
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property.
+        </li>
+    </ul>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['statelisting']"
+            country="$country" <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="statelisting" id="countrystate"
+            name="countrystate" country="au,sg"  firstline="Please select your State" /&gt;
+    </pre>
+
+</div>

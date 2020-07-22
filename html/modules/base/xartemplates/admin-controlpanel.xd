@@ -1,0 +1,28 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Control Panel</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <h2><xar:mlstring>Welcome to Xarigami</xar:mlstring></h2>
+
+            <p>
+                Please take some time to get to know your website and how to administer it.
+            </p>
+
+            <p>
+                <xar:mlstring>For more information on Xarigami, please visit <a href="http://xarigami.com">xarigami.com</a>.</xar:mlstring>
+            </p>
+
+            <p>
+             </p>
+        </div>
+    </div>
+</div>

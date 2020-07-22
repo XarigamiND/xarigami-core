@@ -1,0 +1,15 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:if condition="!empty($value) or $obmethod eq '1'">
+    <xar:if condition="$obmethod eq '1'">
+        <xar:comment>We can only use the full link for this method using rot13 and js</xar:comment>
+        #$link#
+    <xar:else />
+        <xar:comment>For more control using binhex method you can use options such as</xar:comment>
+        <xar:if condition="isset($useimage) and ($useimage eq '1')">
+           <a href="mailto:#$value#"><img class="xar-noborder" src="#xarTplGetImage('icons/mail.png','base')#" alt="#xarML('Email')#" /> &#160;#$linktext#</a>
+        <xar:else />
+            <a href="mailto:#$value#">#$linktext#</a>
+        </xar:if>
+
+    </xar:if>
+</xar:if>

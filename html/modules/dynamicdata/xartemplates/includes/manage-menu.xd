@@ -1,0 +1,40 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Common Administration menu</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:sec mask="EditDynamicData" catch="false">
+
+<ul class="xar-tabs">
+    <li class="xar-tabs-label" title="#xarML('Select object function')#">
+            <xar:mlstring>Manage</xar:mlstring>
+    </li>
+    <xar:sec mask="ViewDynamicData" catch="false">
+        <xar:set name="tabclass">$activetab=='display'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-admin-display;&amp;itemtype=#$itemtype#&amp;itemid=#$itemid#&amp;template=#$template#">
+               <xar:mlstring>Display Item</xar:mlstring>
+            </a>
+        </li>
+    </xar:sec>
+    <xar:sec mask="EditDynamicDataItem" catch="false">
+            <xar:set name="tabclass">$activetab=='modify'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-admin-modify;&amp;itemtype=#$itemtype#&amp;itemid=#$itemid#&amp;template=#$template#">
+               <xar:mlstring>Edit Item</xar:mlstring>
+            </a>
+        </li>
+    </xar:sec>
+    <xar:sec mask="DeleteDynamicDataItem" catch="false">
+            <xar:set name="tabclass">$activetab=='delete'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-admin-delete;&amp;itemtype=#$itemtype#&amp;itemid=#$itemid#&amp;template=#$template#">
+               <xar:mlstring>Delete Item</xar:mlstring>
+            </a>
+        </li>
+    </xar:sec>
+</ul>
+
+<xar:else />
+<p><xar:mlstring>You do not have the required level of access to view this object.</xar:mlstring></p>
+</xar:sec>

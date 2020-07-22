@@ -1,0 +1,38 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+   <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Theme Variable Export as PHP</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:if condition="$vartype eq 'all'">
+                    <xar:set name="outputtype"><xar:mlstring>All system and site </xar:mlstring></xar:set>
+                <xar:else />
+                    <xar:set name="outputtype"><xar:mlstring>Site </xar:mlstring></xar:set>
+                </xar:if>
+                <xar:ml>
+                    <xar:mlstring>#(1) variables for #(2) theme</xar:mlstring>
+                    <xar:mlvar>#$outputtype#</xar:mlvar>
+                    <xar:mlvar>#$themename#</xar:mlvar>
+                </xar:ml>
+            </h2>
+            <p>
+                <xar:mlstring>
+                    The following code can be pasted into the <strong>xartheme.php</strong> file that is used to define the key attributes for a theme.
+                    Once these variables are pasted into that xartheme.php file, they will be loaded as System Theme Variables in any site where the theme is installed.
+                </xar:mlstring>
+            </p>
+            <form>
+                <p>
+                    <textarea name="varcode" id="varcode" rows="30" cols="80">#$varcode#</textarea>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,2 @@
+Version 1.4.6 - 2013/3/19
+http://www.jacklmoore.com/colorbox

@@ -1,0 +1,30 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="advreset">xarModGetVar('roles','advpasswordreset')?true:false;</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+
+    <xar:if condition="TRUE eq $advreset">
+        <div class="xar-mod-body">
+            <div class="xar-mod-content">
+                <h2><xar:mlstring>Password Reset Request</xar:mlstring></h2>
+                <p>
+                    <xar:mlstring>We have received your request to reset your password. An email has been sent to the registered
+                    email address that we have for you on record at this site.  Your password will only be reset if you confirm
+                     your request and complete the steps in the email.
+                    </xar:mlstring>
+                </p>
+            </div>
+        </div>
+    <xar:else />
+        <div class="xar-mod-body">
+             <div class="xar-mod-content">
+                <h2><xar:mlstring>Password Sent</xar:mlstring></h2>
+                <p><xar:mlstring>Your new password has been sent to your email address on record.  You will want to change this new password once you have logged in.</xar:mlstring></p>
+            </div>
+        </div>
+    </xar:if>
+</div>

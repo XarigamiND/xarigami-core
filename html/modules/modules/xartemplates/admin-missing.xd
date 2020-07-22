@@ -1,0 +1,83 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Module Error Information</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Module is missing or inaccessible!</xar:mlstring>
+            </h2>
+
+            <p>
+                <xar:mlstring>The module directory has either been deleted or has become unreadable by Xarigami.</xar:mlstring>
+            </p>
+
+            <table>
+                <tr>
+                    <th>
+                        <xar:mlstring>Module</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Database Version</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Filesystem Version</xar:mlstring>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        #$modname#
+                    </td>
+                    <td>
+                        #$dbversion#
+                    </td>
+                    <td>
+                        #$fileversion#
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                <xar:mlstring>The module has been marked inactive until this condition is corrected.</xar:mlstring>
+            </p>
+
+            <h3>
+                <xar:mlstring>You have the choice of:</xar:mlstring>
+            </h3>
+                <ol>
+                   <li>
+                    <strong>
+                        <xar:mlstring>Removing the module from the database</xar:mlstring>
+                    </strong>
+                    <xar:mlstring>You can do this by clicking on the Remove link for the respective module</xar:mlstring>
+                </li>
+
+                <li>
+                    <strong>
+                        <xar:mlstring>Restore the module files to the modules directory </xar:mlstring>
+                    </strong>
+
+                    <ul>
+                        <li>
+                            <xar:mlstring>Files may be present but not readable. Check the file system permissions for [web root]/modules/</xar:mlstring>#$modname# <xar:mlstring> on your web server.</xar:mlstring>
+
+                        </li>
+                        <li>
+                            <xar:mlstring>Replace the files by downloading the latest version of module</xar:mlstring>&nbsp;#$modname#&nbsp;<xar:mlstring>from</xar:mlstring>&nbsp;<a href="http://xarigami.com">xarigami.com</a>&nbsp;<xar:mlstring>and update your file system.</xar:mlstring>
+                        </li>
+
+
+                    </ul>
+                </li>
+            </ol>
+
+            <p>
+                <xar:mlstring>Once the module becomes accessible, you can rectivate it.</xar:mlstring>
+            </p>
+        </div>
+    </div>
+</div>

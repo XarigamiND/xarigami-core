@@ -1,0 +1,86 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Delete Block Type</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <p>
+                <strong><xar:mlstring>DEVELOPER OPTION: </xar:mlstring></strong>
+            </p>
+            <p>
+                <xar:mlstring>
+                    This utility function is useful for managing and testing new blocks types during their development,
+                    and should not be used in the normal set up or maintenance of your website. Block types
+                    will normally be installed and deleted at the time you install or remove a module.
+                </xar:mlstring>
+            </p>
+            <form method="post" action="&xar-modurl-blocks-admin-delete_type;" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                          Do you wish to continue and delete this block type?
+                        </xar:mlstring>
+                    </legend>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="modname" class="xar-form-label">
+                            <xar:mlstring>Module Name: </xar:mlstring>
+                        </label>
+                        <strong><xar:var id="modname" name="$modulename" /></strong>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="blocktype" class="xar-form-label">
+                            <xar:mlstring>Block Type: </xar:mlstring>
+                        </label>
+                        <strong><xar:var id="blocktype" name="$blocktype" /></strong>
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="instances" class="xar-form-label">
+                            <xar:mlstring>Existing block instances: </xar:mlstring>
+                        </label>
+
+                        <xar:if condition="count($blockinstances) gt 0">
+                            <div class="xar-form-container-after">
+                                <span id="instances" class="xar-error">Warning: Block instances listed below will also be deleted</span>
+                                <ul>
+                                    <xar:loop name="$blockinstances">
+                                        <li>
+                                            <a href="#xarModURL('blocks', 'admin', 'modify_instance', array('bid' =>$loop:item['bid']))#">#$loop:item['name']# : #$loop:item['title']#</a>
+                                            <xar:if condition="$loop:item['gcount'] gt 0">
+                                                <xar:mlstring>in </xar:mlstring> #$loop:item['gcountname']#
+                                                <xar:loop name="$loop:item['groups']">
+                                                        <a href="#xarModURL('blocks','admin','modify_group',array('gid'=>$loop:item.gid))#">#$loop:item.name#</a> &#160;
+                                                </xar:loop>
+                                            </xar:if>
+                                        </li>
+                                    </xar:loop>
+                                </ul>
+                            </div>
+                        <xar:else />
+                            <div>
+                                [
+                                <xar:mlstring>
+                                    none
+                                </xar:mlstring>
+                                ]
+                            </div>
+                        </xar:if>
+                    </div>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="confirm" id="confirm" value="true" />
+                    <input type="hidden" name="blocktype" id="blocktype" value="#$blocktype#" />
+                    <input type="hidden" name="modulename" id="modulename" value="#$modulename#" />
+                    <input type="submit" value="#xarML('Delete Block Type')#" class="xar-margin-thick" />
+                    <p><a href="#$returnurl#" title="#xarML('Cancel and return to View Block Types')#"><xar:mlstring>Cancel and return to View Block Types</xar:mlstring></a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

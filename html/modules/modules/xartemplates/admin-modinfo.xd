@@ -1,0 +1,159 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Module information</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <div class="xar-floatright" style="width: 96px;">
+                <img alt="#xarML('icon')#" src="#$modiconurl#" />
+            </div>
+            <h2>
+                <xar:ml>
+                    <xar:mlstring>Module Information: #(1)</xar:mlstring>
+                    <xar:mlvar>#$moddispname#</xar:mlvar>
+                </xar:ml>
+            </h2>
+
+            <!-- Icon -->
+            <div class="xar-form-input-wrapper xar-clearboth">
+                <label class="xar-form-label">
+                    <xar:mlstring>Icon:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modiconmsg#
+                </div>
+            </div>
+
+            <!-- Module Name -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Name:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    <a href="#$homepage#">#$modname#</a>
+                </div>
+            </div>
+
+            <!-- Module Display Name -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Display Name:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$moddispname#
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Description:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$moddispdesc#
+                </div>
+            </div>
+
+            <!-- Module Directory -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Directory:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$moddir#
+                </div>
+            </div>
+
+            <!-- Module ID -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Module ID:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modid#
+                </div>
+            </div>
+
+            <!-- Module Class -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Class:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modclass#
+                </div>
+            </div>
+
+            <!-- Module Category -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Category:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modcat#
+                </div>
+            </div>
+
+            <!-- Module Version -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Version:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modver#
+                </div>
+            </div>
+
+            <!-- Module Author -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Author(s):</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modauthor#
+                </div>
+            </div>
+
+            <!-- Module Contact -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Contact(s):</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    #$modcontact#
+                </div>
+            </div>
+
+            <!-- Module Dependency -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                        <xar:mlstring>Dependency:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                        <xar:if condition="is_array($moddependency)">
+                            <xar:foreach in="$moddependency" key="$k" value="$dep">
+                                #$dep#<br />
+                            </xar:foreach>
+                        <xar:else />
+                            #$moddependency#
+                        </xar:if>
+                </div>
+            </div>
+            <xar:comment>
+            <!-- Module Navigation -->
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Modules List:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    <a href="#$modlisturl#"><xar:mlstring>View</xar:mlstring></a>
+                </div>
+            </div>
+            </xar:comment>
+        </div>
+    </div>
+</div>

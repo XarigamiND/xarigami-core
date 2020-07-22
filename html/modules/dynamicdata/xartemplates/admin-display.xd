@@ -1,0 +1,46 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="layout">isset($layout)?$layout:'default'</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+     <xar:if condition="!xarRequestIsAJAX()">
+            <p class="xar-floatright">
+                <xar:if condition="$referertype eq 'admin' and xarSecurityCheck('ModerateDynamicData',0)">
+                    <xar:if condition="isset($table) and !empty($table) ">
+                        <xar:mlstring>Return to: </xar:mlstring><a href="#xarModURL('dynamicdata','user','view',array('itemid'=>$object:objectid,'table'=>$table,'template'=>$template))#"><xar:mlstring>Table Operations - Item List View</xar:mlstring></a>
+                    <xar:else />
+                        <a href="#xarModURL('dynamicdata','admin','view',array('itemid'=>$object:objectid,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                    </xar:if>
+                <xar:else />
+                    <a href="#xarModURL('dynamicdata','user','view',array('itemtype'=>$object:itemtype,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                </xar:if>
+            </p>
+        </xar:if>
+        <h1>
+            <xar:ml>
+                <xar:mlstring>Display Item #(1) in #(2)</xar:mlstring>
+                <xar:mlvar>#$object:itemid#</xar:mlvar>
+                <xar:mlvar>#$object:label#</xar:mlvar>
+            </xar:ml>
+        </h1>
+        <xar:template type="module" file="manage-menu" />
+        <div class="xar-mod-content">
+            <xar:if condition="!empty($object)">
+                <h2><xar:data-label object="$object" /></h2>
+                <xar:data-display object="$object" />
+            <xar:else />
+                <xar:data-display module="$module" itemtype="$itemtype" itemid="$itemid" layout="$layout" />
+            </xar:if>
+
+            <xar:if condition="!empty($hooks)">
+                <xar:foreach in="$hooks" key="$module" value="$output">
+                    #$output#
+                </xar:foreach>
+            </xar:if>
+        </div>
+    </div>
+</div>

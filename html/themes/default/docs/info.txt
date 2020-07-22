@@ -1,0 +1,6 @@
+This theme is based on a number of techniques gleaned from the following
+css gurus including (but not exclusively):
+
+- Dan Cederholm http://simplebits.com/
+- Ethan Marcotte. http://unstoppablerobotninja.com
+- Matthew James Taylor http://matthewjamestaylor.com/

@@ -1,0 +1,7 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="altinfo">isset($title)?$title:'IM'</xar:set>
+<xar:if condition="!empty($link)">
+  <a href="#$link#">
+    <img class="#$cssclass#" src="#$image#" alt="#$altinfo#" title="#$altinfo#" width="16" height="16"/>
+  </a>
+</xar:if>

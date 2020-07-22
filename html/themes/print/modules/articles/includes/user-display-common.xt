@@ -1,0 +1,6 @@
+<h3><xar:var name="title"/></h3>
+<xar:var name="body"/>
+<br />
+<span class="xar-quote">
+    <xar:var name="notes"/>
+</span>

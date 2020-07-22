@@ -1,0 +1,19 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:template type="module" module="roles" file="jq-showusers" />
+
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View roles</xar:mlstring></h1>
+       <div class="xar-mod-content">
+            <div id="treewrapper">
+            #$tree#
+            </div>
+        </div>
+    </div>
+</div>

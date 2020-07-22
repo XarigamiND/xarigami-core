@@ -1,0 +1,29 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Reset Your Password</xar:mlstring></h1>
+        <div class="xar-mod-content">
+        <xar:if condition="isset($readytoreset) and (($readytoreset eq TRUE) or ($readytoreset eq 1))">
+            <p><xar:mlstring>You will be redirected to reset your password.</xar:mlstring></p>
+            <p>&#160;</p>
+            <p class="xar-error" style="font-weight:bold;"><xar:mlstring>You must reset your password to enable you to login again!</xar:mlstring></p>
+            <p>
+                <xar:ml>
+                <xar:mlstring>If you are not redirected automatically in a few seconds, please go <a href="#(1)">your account</a> to reset your password.</xar:mlstring>
+                  <xar:mlvar>
+                   #$resetlink#
+                </xar:mlvar>
+                </xar:ml>
+            </p>
+        <xar:else />
+           <p><xar:mlstring>You have reached here in error. Please report this to administration.</xar:mlstring></p>
+
+        </xar:if>
+        </div>
+    </div>
+</div>

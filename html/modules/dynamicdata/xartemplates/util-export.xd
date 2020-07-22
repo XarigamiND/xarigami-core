@@ -1,0 +1,73 @@
+<xar:comment>
+    License: GPL http://www.gnu.org/copyleft/gpl.html
+</xar:comment>
+<xar:style scope="module" file="dd" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+         <h1><xar:mlstring>Utilities</xar:mlstring></h1>
+        <xar:template type="module" file="utility-menu" />
+        <div class="xar-mod-content">
+            <h2><xar:mlstring>Export Dynamic Data Object Definition </xar:mlstring></h2>
+            <form method="post" action="&xar-modurl-dynamicdata-util-export;">
+                    <fieldset>
+                        <legend>Select Object</legend>
+                        <div class="xar-form-input-wrapper">
+                            <label for="xml" class="xar-form-label">Object :</label>
+                            <div class="xar-form-container-after">
+                                <xar:data-input type="object" name="objectid" value="$objectid" display_prop="name" store_prop="objectid" onchange="submit()"/>
+                                <input type="submit" value="Refresh"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            <form>
+                <fieldset>
+                    <legend>
+                        #$label#
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="xml" class="xar-form-label">
+                            <xar:mlstring>
+                                Definition
+                            </xar:mlstring>
+                            :
+                        </label>
+                        <div class="xar-form-container-after">
+                            <textarea name="xml" id="xml" class="xar-form-textarealarge">#$xml#</textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <xar:if condition="!empty($convertlink)">
+                <a href="#$convertlink#">
+                    <xar:mlstring>
+                        Create dedicated table for this object
+                    </xar:mlstring>
+                </a>
+            </xar:if>
+            <xar:if condition="!empty($formlink)">
+                <p class="xar-align-center">
+                    <a href="#$formlink#">
+                        <xar:mlstring>
+                            Export Data for all Items to Browser
+                        </xar:mlstring>
+                    </a>
+                </p>
+            </xar:if>
+            <xar:if condition="!empty($filelink)">
+                <p class="xar-align-center">
+                    <a href="#$filelink#">
+                        <xar:mlstring>
+                            Export Data for all Items to File
+                        </xar:mlstring>
+                    </a>
+                </p>
+            </xar:if>
+        </div>
+    </div>
+</div>

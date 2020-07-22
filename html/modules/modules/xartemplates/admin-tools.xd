@@ -1,0 +1,30 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<!-- modules module template: file admin-tools.xd -->
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Toolbox</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" action="&xar-modurl-modules-admin-tools;">
+                <p>
+                    <xar:mlstring>Module Information Generator/Validator</xar:mlstring>
+                </p>
+
+                <p>
+                       <xar:mlstring>Although the Xarigami modules system still recognises the 'old style' modinfo
+                    from xarversion.php, we strongly encourage all module developers to re-generate
+                    their module's information to comply with the 'new' XML format.</xar:mlstring>
+                </p>
+
+                <p>
+                    <xar:mlstring>Please select the module for which you wish to generate/validate the information:</xar:mlstring>
+                </p>
+
+            </form>
+        </div>
+    </div>
+</div>

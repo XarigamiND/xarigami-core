@@ -1,0 +1,46 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+         <p class="xar-floatright xar-valign-center"><a href="#xarModURL('base','admin','performance')#"><xar:mlstring>Manage cache &amp; Dynamic CSS</xar:mlstring></a></p>
+         <h1 class="xar-align-left"><xar:mlstring>Configure themes</xar:mlstring></h1>
+         <xar:template type="module" file="theme-submenu" />
+            <div class="xar-mod-content">
+            <h2 class="xar-floatleft">
+                <xar:mlstring>Customize theme:</xar:mlstring> #$themename#
+            </h2>
+
+            <div class="xar-align-right">
+                <xar:set name="options">#xarModAPIFunc('themes','user','dropdownlist')#</xar:set>
+                <form method="post" id="themelist" action="#xarModURL('themes','admin','themewizard', array('themeid'=>$regid),false)#">
+                    <xar:data-input type="dropdown" options="$options" name="themeid" id="themeidselect" value="$regid" onchange="javascript:this.form.submit();" class="xar-displayinline"/>
+                    <input type="submit" value="#xarML('Select Theme')#" class="xar-displayinline" />
+                </form>
+            </div>
+            <div class="xar-fullwidth xar-clearleft">
+                <p>
+                    <xar:mlstring>Some theme variables are also used as dynamic CSS skin variables.
+                    You will need to turn on Dynamic CSS processing to use these.
+                    </xar:mlstring>
+                </p>
+                <p>
+                    <xar:mlstring>Hover over the theme variable label for more information about its use and variable name.
+                    </xar:mlstring>
+                </p>
+                <form action="#xarModURL('themes','admin','themewizard')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <xar:data-input type="themeconfig" themename="$themename" />
+                    <div class="xar-form-footer">
+                        <input type="submit" value="#xarML('Save values')#" />
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="action" id="action" value="update" />
+                        <input type="hidden" name="themeid" id="themeid" value="#$regid#" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

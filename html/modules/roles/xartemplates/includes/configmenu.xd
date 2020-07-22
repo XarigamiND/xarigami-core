@@ -1,0 +1,59 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Roles Modify Config Menu</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+
+<xar:if condition="xarModGetVar('themes','adminpagemenu')">
+
+<ul class="xar-tabs">
+    <li class="xar-tabs-label" title="#xarML('Choose an action to perform')#">
+      <xar:mlstring>Configure:</xar:mlstring>
+    </li>
+    <xar:set name="tabclass">($activetab == 'modifyconfig' AND $tab == 'general') ? 'xar-tab-active' :  'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=general">
+        <xar:mlstring>General</xar:mlstring>
+        </a>
+    </li>
+<!-- Restrictions moved to Base, Password to General
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'restrictions')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+            <xar:mlstring>Restrictions</xar:mlstring>
+        </a>
+    </li>
+-->
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'duvs')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=duvs">
+        <xar:mlstring>User Variables</xar:mlstring>
+        </a>
+    </li>
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'hooks')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=hooks">
+        <xar:mlstring>User Hooks</xar:mlstring>
+        </a>
+    </li>
+<!--
+    <xar:if condition="$activetab eq 'modifyconfig' and $tab eq 'grouphooks'">
+        <xar:set name="tabclass">'active'</xar:set>
+    <xar:else />
+        <xar:set name="tabclass">''</xar:set>
+    </xar:if>
+    <li  class="#$tabclass#">
+      <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=grouphooks">
+        <xar:mlstring>Group Hooks</xar:mlstring>
+      </a>
+    </li>
+-->
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'memberlist')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
+        <xar:mlstring>Member Options</xar:mlstring>
+        </a>
+    </li>
+</ul>
+
+</xar:if>

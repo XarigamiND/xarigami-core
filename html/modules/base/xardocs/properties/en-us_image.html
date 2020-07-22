@@ -1,0 +1,82 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Image property provides input options for an image.
+        Input can be either an image URI in a textbox, selection of an image
+        from from a local image repository, or upload of an image.
+        The method depends on the configuration.
+    </p>
+    <p>On output display, the image is displayed.
+    </p>
+    <p>The base file name of the image is saved to the database without path information.
+    </p>
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>image_source</strong>: [default='url'][url|local|upload]
+                <br />Sets the input source of the image as either an image URI,
+                browsing to a local image file or an image file upload.
+
+        </li>
+        <li>
+            <strong>extensions</strong>: [default='gif,jpg,jpeg,png,bmp']
+            <br />A listing of allowable file type extension for the image.
+        </li>
+        <li>
+            <strong>maxsize</strong>: [default='']
+            <br />The maximum file size allowed for upload.
+        </li>
+        <li>
+            <strong>basedir</strong>: [default='']
+            <br />The local directory to browse from (local), or directory to upload the image to for File upload source type.
+        </li>
+        <li>
+            <strong>longname</strong>: [default=false]
+            <br />Option to display the file extension in the selector box (local) and on display.
+        </li>
+                <li>
+            <strong>display</strong>: [default=0]
+            <br />Display an image file on input.
+        </li>
+
+    </ul>
+
+    <p>
+        Other attributes may be inherited from the <strong>Textbox</strong> parent property or added for upload (file upload) or local (filelist) image source.
+    </p>
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <ul>
+        <li>
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property.
+        </li>
+    </ul>
+
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="image" basedir="var/uploads" name="myimage" image_source="local"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+     <h4>In the Dynamic Data Configuration:</h4>
+    <ul>
+        <li>
+            you can add a default value in the 'Default' input box.
+            Enter other configuration values as required such as a minimum (min) or maximum (max) value for this property.
+        </li>
+    </ul>
+    <p> Using the data-input tag: you can use the data-input tag to capture data for this property
+            and pass in attributes for the data property input.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['image']"
+             <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="image" id="myavatar"
+           basdir="var/uploads" file_ext='png,gif,jpg'  /&gt;
+    </pre>
+</div>

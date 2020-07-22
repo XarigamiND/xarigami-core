@@ -1,0 +1,258 @@
+/* =INITIAL
+   v2.1, by Faruk Ates - www.kurafire.net
+   Addendum by Robert Nyman - www.robertnyman.com */
+
+/* Neutralize styling:
+   Elements we want to clean out entirely: */
+html, body, form, fieldset {
+        margin: 0;
+        padding: 0;
+}
+html, body {
+        font: 14px/25px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+        background:#fff;
+}
+
+/* Neutralize styling:
+   Elements with a vertical margin: */
+h1, h2, h3, h4, h5, h6, p, pre,
+blockquote, ul, ol, dl, address {
+        margin: 1em 0;
+        padding: 0;
+}
+
+/* Apply left margin:
+   Only to the few elements that need it: */
+li, dd, blockquote {
+        margin-left: 1em;
+}
+
+
+/* Miscellaneous conveniences: */
+form label {
+        cursor: pointer;
+}
+fieldset {
+        border: none;
+}
+input, select, textarea {
+        font-size: 100%;
+}
+img { border:none; }
+
+#wrapper {
+    margin:0 auto;
+    margin-top:48px;
+    width:787px;
+    min-height:561px;
+    background:#efefef;
+    border:black 1px solid;
+    position:relative;
+}
+#header {
+    height:112px;
+    background:#57c6de url(../modules/installer/images/xarigami-installer.png) no-repeat 0 bottom;
+    border-bottom:white 10px solid;
+}
+
+h1 {
+    margin:0.5em 0 1em 0;
+    font-size:36px;
+}
+#header h1 {
+    margin:0;
+    padding:0;
+    text-align:right;
+    line-height:112px;
+    vertical-align:middle;
+    color:white;
+    padding-right:24px;
+}
+#install h1, h2, h3 {
+    color:#57c6de;
+}
+
+#status {
+    float:right;
+    width:180px;
+    font-weight:bold;
+    font-size:14px;
+    line-height:14px;
+    color:#888;
+}
+
+#step {
+    background:white;
+    border:1px solid #999;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 15px 15px 15px 15px;
+    width:534px;
+    margin-left:32px;
+    margin-top:32px;
+    margin-bottom:64px;
+}
+#step.complete {
+    margin:0 auto;
+    margin-top:32px;
+    margin-bottom:64px;
+}
+#footer {
+    width:100%;
+    clear:right;
+    position:absolute;
+    bottom:0;
+    text-align:center;
+    background:#fff;
+    border-top:black 1px solid;
+}
+
+#footer ul {
+    list-style:none;
+}
+
+#footer li {
+    display:inline;
+}
+
+#footer a {
+    text-decoration:none;
+    color:#57c6de;
+}
+
+
+/* forms */
+form p.center { text-align: center; }
+
+form label {
+    font-weight: bold;
+    margin: 0 .5em;
+    color: gray;
+}
+
+textarea#license {
+    height: 14.8em;
+}
+
+label.block {
+    display: block;
+    padding: .5em 0;
+    clear: both;
+}
+
+div.configuration {
+    width: 460px;
+}
+
+div.simpleform {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    border: 1px solid #B6A4BB;
+    background-color: #efefef;
+}
+
+div.simpleform p {
+    width: 100%;
+    padding: .35em 0;
+    margin: 0 auto;
+    text-align: left;
+    border-bottom: #ffffff;
+    border-width: 0 0 1px 0;
+    border-style: none none solid none;
+}
+
+div.simpleform label {
+    width: 30%;
+    float: left;
+    padding: 0 .5em;
+    margin: 0;
+}
+
+div.simpleform input {
+    width: 30%;
+    float: left;
+    padding: 0;
+    margin: 0 .25em;
+}
+
+div.scroller {
+    padding: 5px;
+    margin-bottom: .5em;
+    width:440px;
+    overflow: auto;
+    height: 150px;
+    border: 1px solid black;
+}
+div.scroller p, div.scroller input {
+    line-height: 1em;
+    padding: .25em 0;
+    margin: 0;
+}
+
+.xar-sub {
+    font-size:10px;
+    font-style:italic;
+    line-height:14px;
+}
+
+/* phase 1 */
+#license {
+    width:94%;
+    font-size:14px;
+    line-height:20px;
+    padding:6px;
+    margin-right:12px;
+}
+
+/* phase 3 */
+.failure {
+    color:red;
+}
+
+.warning {
+    color:orange;
+}
+
+.success {
+    color:green;
+}
+
+/* status */
+.complete {
+
+}
+
+.active {
+    color:green;
+    font-size:18px;
+    line-height:24px;
+}
+
+.greyed {
+    color:#57c6de;
+}
+
+.center, .xar-align-center {
+    text-align:center;
+}
+div.installnotes {
+ margin:4px;
+ padding:10px;
+ background-color: #efefef;
+}
+.installnotes p {
+    padding: 4px 8 px;
+}
+    .installnotes ol {
+        padding: 4px 8px;
+    }
+    .installnotes li {
+        padding: 4px 0;
+    }
+.highlight {
+    color: red;
+}

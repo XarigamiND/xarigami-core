@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://xarigami.com/bl1/DTD/bl1-strict.dtd">
+<?xar type="page" ?>
+<xar:blocklayout content="text/html" xmlns:xar="http://xarigami.org/2004/blocklayout" version="1.0" dtd="xhtml1-strict">
+<xar:set name="sitelang">#xarMLSGetLanguageFromLocale()#</xar:set>
+<xar:set name="sitecharset">#xarMLSGetCharsetFromLocale()#</xar:set>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#$sitelang#" lang="#$sitecharset#">
+<head>
+    <xar:comment>
+        Pages are loaded top down. So we need to define any blocks and block groups
+        early so we ensure any specific block styles are loaded in the page.
+        We set them in a variable and then use the variable later in the theme.
+    </xar:comment>
+    <xar:set name="topnavgroup"><xar:blockgroup name="topnav" id="topnav" /></xar:set>
+    <xar:set name="bottomnavgroup"><xar:blockgroup name="bottomnav" id="bottomnav" /></xar:set>
+    <xar:set name="rightgroup"><xar:blockgroup name="right" id="right" /></xar:set>
+    <xar:set name="leftgroup"><xar:blockgroup name="left" id="left" /></xar:set>
+    <xar:set name="centergroup"><xar:blockgroup name="center" id="center" /></xar:set>
+    <xar:set name="admingroup"><xar:blockgroup name="admin" id="admin" /></xar:set>
+    <xar:set name="footergroup"><xar:blockgroup name="footer" id="footer" /></xar:set>
+    <xar:set name="sitename"><xar:var scope="module" module="themes" name="SiteName" /></xar:set>
+    <xar:set name="siteslogan"><xar:var scope="module" module="themes" name="SiteSlogan" /></xar:set>
+    <xar:set name="sitefooter"><xar:var scope="module" module="themes" name="SiteFooter" /></xar:set>
+    <xar:set name="sitecopyright"><xar:var scope="module" module="themes" name="SiteCopyRight" /></xar:set>
+    <xar:set name="shownavbar">xarThemeGetVar('default','shownavbar');</xar:set>
+    <xar:if condition="$shownavbar">
+        <xar:set name="adminnav"><xar:block module="base" type="adminmenu" menutype="adminpanel" template="topnav;" showall="true" /></xar:set>
+    </xar:if>
+    <xar:set name="themedir">xarTplGetThemeDir()</xar:set>
+    <xar:comment>setting container class for 1, 2, 3 col layouts</xar:comment>
+    <xar:if condition="!empty($leftgroup) and !empty($rightgroup)">
+         <xar:set name="keyclass">'container'</xar:set>
+    <xar:elseif condition="!empty($leftgroup)" />
+          <xar:set name="keyclass">'leftonly'</xar:set>
+    <xar:elseif condition="!empty($rightgroup)" />
+         <xar:set name="keyclass">'rightonly'</xar:set>
+    <xar:else />
+        <xar:set name="keyclass">'nocolumns'</xar:set>
+    </xar:if>
+    <title>#$tpl:pageTitle#</title>
+    <xar:blockgroup name="header" id="header" />
+    <xar:comment>Ensure we set the base URL for the site.</xar:comment>
+    <base href="&xar-baseurl;" />
+    <link rel="shortcut icon" href="#$themedir#/images/2skiesfav.ico" type="image/gif" />
+    <xar:comment>Load core css including sprite css</xar:comment>
+    <xar:style scope="common" />
+    <xar:comment>Load theme specific css and overrides</xar:comment>
+    <xar:style scope="theme" file="default" />
+    <xar:style scope="theme" file="ie_win7" condition="lt IE 8" />
+    <xar:comment>Ensure we load styles in theme, module and block templates as required </xar:comment>
+    <xar:additional-styles />
+    <xar:comment>Ensure we load all head javascript from modules and other templates with js tag</xar:comment>
+    <xar:base-render-javascript position="head" />
+</head>
+<body>
+    <div id="sitewrapper">
+    <xar:if condition="$shownavbar">
+        <div id="adminmenu">
+            <xar:var name="adminnav"/>
+        </div>
+    </xar:if>
+        <div id="siteheader">
+            <div>
+                <p id="sitename">
+                    <a href="&xar-baseurl;" title="#xarML('Home')# - #$sitename#" >#$sitename#</a>
+                </p>
+                <p id="siteslogan">
+                    #$siteslogan#
+                </p>
+            </div>
+        </div>
+        <div id="sitetopnav">
+            <xar:if condition="!empty($topnavgroup)"><xar:var name="topnavgroup" /></xar:if>
+        </div>
+        <div class="wrapper #$keyclass#">
+            <xar:if condition="!empty($leftgroup) and !empty($rightgroup)">
+                 <xar:template type="theme" file="leftandright"/>
+            <xar:elseif condition="!empty($leftgroup)" />
+                 <xar:template type="theme" file="left"/>
+            <xar:elseif condition="!empty($rightgroup)" />
+                <xar:template type="theme" file="right"/>
+            <xar:else />
+                <xar:template type="theme" file="none"/>
+            </xar:if>
+        </div>
+        <!-- start footer -->
+        <div id="footer">
+            <ul>
+                <li class="xar-sub">#$sitecopyright#</li>
+                <li class="xar-sub" id="pagetimer">#xarThemeGetVarDisplayed('default','pagetimer')#</li>
+                <li class="xar-logo-trans"><a href="http://xarigami.org" title="#xarML('Powered by Xarigami')#"><span>xar</span>igami</a></li>
+            </ul>
+        </div>
+        <!-- End footer -->
+    </div>
+    <xar:comment>Ensure we load all body javascript from modules and other templates with js tag</xar:comment>
+    <xar:base-render-javascript position="body" />
+</body>
+</html>
+</xar:blocklayout>

@@ -1,0 +1,133 @@
+/* XARAYA REQUIRED CLASSES */
+html {
+   font-family: Tahoma,Verdana,Arial,Helvetica,sans-serif;
+}
+
+body {
+      background-color: #FFF;
+}
+
+A {
+   text-decoration: none;
+   color: #000000;
+   font-weight: bold;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: overline underline;
+}
+
+@media print {
+    /* Rely on paper margins from browser */
+    #main {
+    }
+    /* Don't print navtabs but show them on screen */
+    .xar-tabs {
+    display: none;
+    }
+}
+
+@media screen {
+    #main {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border:1px solid #000; 
+    background: #fff;
+    padding: 20px;
+    padding-right: 20px;
+    }
+}
+
+BLOCKQUOTE {
+   margin-left: 0em;
+   padding: 0.5em 1em;
+   border-left: 2px solid #E0E0E0;
+   font-size: 66%;
+}
+BODY {
+   color: #000000;
+}
+CODE {
+   font-family: Courier,fixed-width;
+}
+h1 { font-size: 160%; }
+h2 { font-size: 150%; }
+h3 { font-size: 130%; }
+h4 { font-size: 120%; }
+TH {
+   font-weight: bolder;
+   background-color:#CDD5F8;
+}
+TD {
+}
+TABLE {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+THEAD {}
+TBODY {}
+TFOOT {
+   color: #000000;
+   font-weight: bolder;
+   background-color:#CDD5F8;
+}
+P {
+}
+PRE {
+   font-size: 85%;
+   font-family: Courier,fixed-width;
+}
+IMG {
+   border: 0px;
+}
+LI, UL,OL {
+   line-height: 150%;
+   margin-bottom: 0.5em;
+}
+SUP, SUB{
+   font-size: 66%;
+}
+
+
+/*  THEME SPECIFIC CLASSES */
+H5, H6 {
+   font-size: 110%;
+   font-weight: bold;
+   margin-top: 0;
+   margin-bottom: 0;
+}
+HR {
+   color:#C0C0C0;
+}
+
+/*  XARAYA REQUIRED INDIVIDUAL CLASSES */
+TD.xar-norm {}
+TD.xar-alt {}
+
+/*  XARAYA REQUIRED ANONYMOUS CLASSES  */
+.xar-mod-head {
+   display: none;
+}
+.xar-mod-title { /*presumably not displayed in xar-mod-head */
+   color: #000000;
+   font-weight: bold;
+}
+.xar-mod-body {
+}
+.xar-mod-foot {}
+
+.xar-norm {background-color: #FFFFFF; }
+.xar-norm-outline {border: 1px solid #C0C0C0; }
+.xar-alt {background-color: #EEEEEE; }
+.xar-alt-outline {border: 1px solid #E47C55; }
+.xar-accent {background-color: #E0E0E0; }
+.xar-accent-outline {border: 1px solid #CCE6FF; }
+.xar-sub {font-size: smaller; }
+.xar-title {font-weight: bold; }
+.xar-error {
+   color: #FF0000;
+}

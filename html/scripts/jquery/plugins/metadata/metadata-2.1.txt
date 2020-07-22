@@ -1,0 +1,2 @@
+Version 2.1
+http://plugins.jquery.com/search/node/metadata

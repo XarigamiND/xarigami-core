@@ -1,0 +1,10 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="separator">isset($displaydelimiter)?$displaydelimiter:'|'</xar:set>
+<xar:set name="join">''</xar:set>
+<xar:if condition="isset($options)">
+<xar:foreach in="$options" value="$option">
+    <xar:if condition="in_array($option['id'],$value)">#$join##$option['name']#
+         <xar:set name="join">#$displaydelimiter#</xar:set>
+    </xar:if>
+</xar:foreach>
+</xar:if>

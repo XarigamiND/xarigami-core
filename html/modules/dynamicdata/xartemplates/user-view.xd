@@ -1,0 +1,38 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="dynamicdata" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+         <div class="xar-mod-content">
+        <xar:if condition="!empty($object)">
+            <h2>
+                <xar:mlstring>View</xar:mlstring> <xar:data-label object="$object" numitems="2"/>
+            </h2>
+
+             <p class="xar-align-right">
+                 <a class="dsprite xs-system-search xar-displayinline" href="#xarModURL('dynamicdata','user','search',array('itemtype'=>$itemtype))#"><xar:mlstring>&#160;Search</xar:mlstring></a>&#160;
+                 <xar:if condition="!empty($newlink)">
+                 <a class="esprite xs-add xar-displayinline" href="#$newlink#"><xar:mlstring>&#160;Create a new item</xar:mlstring></a>
+                 </xar:if>
+            </p>
+
+            <xar:data-view layout="$layout" module="$modid" itemtype="$itemtype" numitems="$numitems" startnum="$startnum"/>
+        <xar:elseif condition="!empty($modid)" />
+            <!-- here we only retrieve the parameters in the function, and we let the data-view tag retrieve the complete object list -->
+            <h2>
+                <xar:mlstring>View</xar:mlstring> #$label#
+            </h2>
+            <xar:data-view layout="$layout" module="$modid" itemtype="$itemtype" join="$join" table="$table" param="$param" numitems="$numitems" startnum="$startnum" catid="$catid" />
+        <xar:else />
+            <div class="xar-align-center">
+                <a href="&xar-modurl-dynamicdata-user-main;">
+                    <xar:mlstring>Please select one of the available objects</xar:mlstring>
+                </a>
+            </div>
+            </xar:if>
+        </div>
+    </div>
+</div>

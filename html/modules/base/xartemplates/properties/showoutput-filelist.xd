@@ -1,0 +1,10 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:if condition="$value ne ''" >
+    <xar:if condition="$filepath ne ''">
+        <xar:comment>Can use size (in bytes), kbsize, or kbsizeformatted</xar:comment>
+        <a href="#$baseurl#/#$value#" alt="#$value#" />#$value#</a>  #$kbsizeformatted# kb
+    <xar:else />
+        #$value#
+    </xar:if>
+</xar:if>

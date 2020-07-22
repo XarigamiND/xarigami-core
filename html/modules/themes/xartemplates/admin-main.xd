@@ -1,0 +1,228 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="ortransform"><xar:mlstring>or for transform add </xar:mlstring></xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Overview</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <img src="#xarTplGetImage('admin.png','themes')#" alt="official icon" width="96" height="96" class="xar-module-icon" />
+            <h2><xar:mlstring>What is it?</xar:mlstring></h2>
+            <p>
+                <xar:mlstring>The Themes Module controls the the display of your website by managing the themes available
+                for use in your Xarigami installation. It also allows you to set various theme related variables and meta data,
+                caching options, and provides theme developer options.</xar:mlstring>
+            </p>
+
+            <h2><xar:mlstring>How to use it?</xar:mlstring></h2>
+            <p>
+                <xar:mlstring>From the menu, you have three choices:</xar:mlstring>
+            </p>
+            <ol>
+               <li><xar:mlstring><strong>Manage Themes</strong>: Displays the themes currently installed on your
+               system, and their current state, as well as configure variable options for each theme.</xar:mlstring></li>
+               <li><xar:mlstring><strong>Template tags</strong>: Allows you view, edit or delete template tags
+               on the system, as well as add new tags</xar:mlstring></li>
+               <li><xar:mlstring><strong>Modify Configuration </strong>: Allows you to set various site wide
+               configuration options. This is an important option in particular the Site Performance option of template caching.</xar:mlstring></li>
+            </ol>
+            <h3><xar:mlstring>Manage Themes</xar:mlstring></h3>
+            <p>
+                <xar:mlstring>The Manage Themes option displays a list of all themes that are potentially available in your Xarigami installation.
+                 All valid Xarigami themes found in your Xarigami themes directory are listed here.</xar:mlstring>
+            </p>
+            <ol>
+                <li><xar:mlstring>There are three types of themes.</xar:mlstring>
+                    <ul>
+                        <li><xar:mlstring>System themes - including the default and install theme that are part of the core install.</xar:mlstring></li>
+                        <li><xar:mlstring>Utility themes - that perform specific functions such as RSS or Print displays/</xar:mlstring></li>
+                        <li><xar:mlstring>User themes - that are provided by 3rd party theme developers and create the look of your site.</xar:mlstring></li>
+                    </ul>
+                </li>
+               <li><xar:mlstring>You can add more themes to this list at any time by adding them to your Xarigami
+               themes directory and refreshing the listing.</xar:mlstring></li>
+               <li><xar:mlstring>Themes must be installed and active to be available for use on your Xarigami site.</xar:mlstring></li>
+                <li><xar:mlstring>You can display your themes by usving various selection and sorting options such as
+                 Style of display, View (by Status), and Sort by.</xar:mlstring></li>
+               <li>
+                <xar:mlstring>Each theme has further options including general theme information, Status, and Actions available to you for each theme. The Default
+                Theme used to display your site is also indicated.</xar:mlstring>
+              </li>
+            </ol>
+            <h4><xar:mlstring>Configure Themes and Theme Variables</xar:mlstring></h4>
+            <p>
+                <xar:mlstring>
+                    Each installed theme has an option for configuring additional features of that theme. These features are controlled by Theme variables. Theme variables can be placed in your theme templates to provide additional functionality.
+                    There are two sorts of theme variables.
+                </xar:mlstring>
+            </p>
+            <ol>
+                <li><xar:mlstring><strong>System Theme Variables:</strong>
+                     These are defined by the theme creator and are loaded into your database when you install the theme.
+                     These variables enable the theme author to provide additional functionality in your theme that are portable from site to site with the theme.
+                     They cannot be removed, but can have values customized in the specific Theme Configuration page.
+                     </xar:mlstring>
+                </li>
+                <li><xar:mlstring><strong>Site Theme Variables:</strong>
+                     Anyone with appropriate Theme Admin permission can create Site theme variables for a specific theme, and use them in your theme templates.
+                     They can be added and removed, but you should not remove them before you remove them from your theme templates.
+                     </xar:mlstring>
+                </li>
+            </ol>
+            <h4><xar:mlstring>Theme developer options</xar:mlstring></h4>
+            <p>
+                <xar:mlstring>
+                    One of the benefits of Theme Variables is the ability to make themes with special functionality
+                     that is portable from site to site with the theme. You can define your values and any new Site Theme vars in the Theme Configuration page.
+                    </xar:mlstring>
+            </p>
+              <p>
+                <xar:mlstring>
+                     If you decide you want to create a more permanent version of your theme, or move the variables to another site, you can
+                     export your System and/or Site Theme variables at any time in the php format used to define them in themes.
+                     This code is placed in the specific theme's xartheme.php file and where they then all become System Theme variables associated with that
+                     specific theme. They will be installed at any site that installs the theme, along with any values or configurations you have defined.
+                </xar:mlstring>
+            </p>
+            <p><xar:mlstring>You can place the output from a theme variable in your templates using any of the following, with or without transforming:</xar:mlstring></p>
+            <ul>
+                <li><strong>&lt;xar:var name="themevarname" scope="theme" theme="themename" /&gt;</strong> #$ortransform# <strong>transform="1"</strong> </li>
+                <li><strong>&#038;xar-theme-themename-themevarname;</strong> #$ortransform# <strong>&#038;xar-theme-themename-themevarname-1;</strong></li>
+                <li><strong>##xarThemeGetVar('themename','varname')##</strong> #$ortransform# <strong>##xarThemeGetVar('themename','varname',0,1)##</strong> </li>
+            </ul>
+            <br />
+
+            <h3><xar:mlstring>Modify Config</xar:mlstring></h3>
+
+            <p>
+                <xar:mlstring>You have a four main groups of configuration options.</xar:mlstring>
+            </p>
+            <ol>
+               <li><xar:mlstring><strong>Site Display Options</strong><br />
+                These are Theme Module variables that can be inserted into your templates for display on your site.
+                They are guaranteed to always be available for use on your site no matter what theme you are using unlike Theme Variables.
+                To display these variables on your site,
+                insert them in your templates with the <code>&lt;xar:var /&gt;</code> blocklayout tag.</xar:mlstring>
+
+               <ul>
+                   <li><xar:mlstring><em>Site Name</em> : add your site name with <br />
+                   <code>&lt;xar:var scope="module" module="themes" name="SiteName" /&gt;</code></xar:mlstring></li>
+                   <li><xar:mlstring><em>Site Slogan</em>: Add your slogan and display it with <br />
+                   <code>&lt;xar:var scope="module" module="themes" name="SiteSlogan" /&gt;</code></xar:mlstring></li>
+                   <li><xar:mlstring><em>Copyright</em>: Defaults to "&copy;
+                   Copyright 2003 &lt;administrator name&gt;". Change the text as necessary and
+                   insert in your theme with <br /><code>&lt;xar:var scope="module" module="themes" name="SiteCopyRight" /&gt;</code></xar:mlstring></li>
+                   <li><xar:mlstring><em>Footer note</em>: The 'footer' is displayed at the
+                   bottom (the 'foot') of each and every page on your site in the Default theme. Display this footer
+                   note with <br /><code>&lt;xar:var scope="module" module="themes" name="SiteFooter" /&gt;</code></xar:mlstring></li>
+                </ul>
+              </li>
+                <li><strong><xar:mlstring>Site Performance Options</xar:mlstring></strong>
+                   <p>
+                   <xar:mlstring>This is one of the most important options in your site.</xar:mlstring>
+                   </p>
+                   <p><xar:mlstring>Xarigami uses compiled templates. These can be cached and reused without compiling, and so reduce page load times.
+                            Always run your live sites with template caching turned on. Remember to clear your template cache when you upgrade,
+                            or make changes to your templates.
+                       </xar:mlstring>
+                   </p>
+               </li>
+               <li><strong><xar:mlstring>Admin Dashboard</xar:mlstring></strong>
+                   <ul>
+                   <li><xar:mlstring><em>Enable the Admin Dashboard</em>: The Admin Dashboard is a special template that uses the <code>dashboard.xt</code>
+                    template (by default) if it exists in your <code>themes/yourtheme/pages</code> directory. If you check this option
+                    the Admin Dashboard provides admin options in a special Admin page view instead of through the Admin Menu.</xar:mlstring></li>
+                   <li><xar:mlstring><em>Dashboard Template Name</em>: This is the name of the Admin Dashboard template located in your <code>themes/yourtheme/pages</code> directory.
+                   By default it is called <code>dashboard.xt</code> but you can change it with this option. Do not include the .xt extension when using this option.</xar:mlstring></li>
+                   </ul>
+               </li>
+               <li><strong><xar:mlstring>Page Title Options</xar:mlstring></strong>
+                   <ul>
+                   <li><xar:mlstring><em>Page Title Separator</em>: This will be the separation character(s) in
+                   your title. Example: "Themes - Your Site Slogan - Your Site Name"</xar:mlstring></li>
+                   <li><xar:mlstring><em>Page Title Order</em>: Determines how the page title is displayed.
+                   The results of the display options are:</xar:mlstring></li>
+                   </ul>
+               </li>
+               <li><strong><xar:mlstring>Template Debugging Options</xar:mlstring></strong>
+               <ul>
+                   <li><xar:mlstring><strong>Show php comment block header in compiled templates</strong>: This feature enables you to inspect a compiled template and know which template it refers to.</xar:mlstring></li>
+
+                   <li><xar:mlstring><strong>Show template filenames in HTML comments</strong>: When you view the source
+                   of a page, checking this option will display the start and end point of each template used in the page.
+                   It is very useful for identifying which template to override and edit when you need to customize your
+                   theme. Turn this option off on a live site.</xar:mlstring></li>
+
+                   <li><xar:mlstring><strong>Cache templates</strong>: This option enables caching of templates.
+                   It is important for performance that you have Cache Templates checked and active on a site.
+                   Turn it of when developing your theme.</xar:mlstring></li>
+
+                   <li><xar:mlstring><em>Debug Templates by Showing Variables Available</em>: Shows the variables
+                   used in each template which is handy for debugging template errors.</xar:mlstring></li>
+                   </ul>
+                </li>
+            </ol>
+
+            <h3><xar:mlstring>Template Tags</xar:mlstring></h3>
+            <p>
+                <xar:mlstring>It is rare that you would have to access any options on this page unless you are a
+                developer or wish to install a new tag that has not yet been installed in the usual way.</xar:mlstring>
+            </p>
+            <p>
+                <xar:mlstring>Template tags are custom Block Layout tags that developers can create to provide extra
+                functionality or easy access to functionality in their modules. This page lists the available custom
+                tags, in addition to Block Layout tags, available for use in creating your templates. These tags are
+                usually always installed when the module is installed or upgraded.</xar:mlstring>
+            </p>
+            <br />
+            <h2><xar:mlstring>Included Blocks</xar:mlstring></h2>
+
+            <p>
+                <xar:mlstring>The Themes Module supplies the Metablock. The meta block is installed by default at
+                installation time. You can edit this block by going to Blocks -> View Instances and clicking on Edit
+                next to the Meta block entry.</xar:mlstring>
+            </p>
+
+            <p>
+                <xar:mlstring>The Meta block allows you to enter a meta description for your site, activate GEOUrl and
+                set usability pages. You can also set Keywords or activate Dynamic Keywords supplied by Articles or Keywords
+                modules.</xar:mlstring>
+            </p>
+
+            <h2><xar:mlstring>Included Hooks</xar:mlstring></h2>
+
+            <p>
+                <xar:mlstring>The Themes module supplies a user menu hook.  A user menu hook displays additional
+                functionality in the user's account page. When activated, this Themes user menu hook allows the
+                users of your Xarigami site to change their preferred theme for browsing your site. They can choose
+                a theme from any of those installed and active on your site.</xar:mlstring>
+            </p>
+
+            <p>
+                <xar:mlstring>To activate the hook:</xar:mlstring>
+            </p>
+            <ul>
+              <li><xar:mlstring>go to <code>Modules -> Configure Hooks</code></xar:mlstring></li>
+              <li><xar:mlstring>click on Themes</xar:mlstring></li>
+              <li><xar:mlstring>Scroll down to the Roles module and check the checkbox to activate the Themes hook for the roles module</xar:mlstring></li>
+            </ul>
+           <h2><xar:mlstring>Further Information</xar:mlstring></h2>
+           <p>
+              <xar:mlstring>Further information on the Themes module can be found at</xar:mlstring>
+           </p>
+           <ul>
+              <li><xar:mlstring>Related tutorials and documentation on Themes module found at the Xarigami Core project </xar:mlstring> <a href="http://http://xarigami.com/project/xarigami_core" title="#xarML('Related documentation on Themes')#"><xar:mlstring>Resources Page.</xar:mlstring></a>
+              </li>
+          </ul>
+        </div>
+        <div class="xar-mod-footer">
+          <p class="xar-sub">
+            <strong>&nbsp;<xar:mlstring>Themes Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Revision</xar:mlstring> 1.8.0&nbsp; 2010-12-12
+          </p>
+        </div>
+    </div>
+</div>
+

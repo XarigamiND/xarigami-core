@@ -1,0 +1,73 @@
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+    </div>
+    <div class="xar-mod-body">
+        <img src="#xarTplGetImage('user-error.png', 'base')#" alt="#xarML('Icon')#" class="xar-module-icon"/>
+        <h1>
+            <xar:mlstring>403 Forbidden</xar:mlstring>
+        </h1>
+       <div class="xar-mod-content">
+            <h2>Access to this page is restricted</h2>
+            <xar:if condition="!empty($msg)">
+                <p class="xar-padding-thicktop">
+                    <strong><xar:var name="msg"/></strong>
+                </p>
+            </xar:if>
+            <!-- Insert login check here -->
+            <xar:set name="adminemail">xarModGetVar('mail','adminmail')</xar:set>
+            <xar:set name="obfuemail">xarModAPIFunc('mail','user','obfuemail',array('email'=>$adminemail,'text'=>xarML('contact the Site Administrator')))</xar:set>
+
+            <p class="xar-padding-thicktop">
+                <xar:mlstring>Your access level is insufficient to view this page</xar:mlstring>
+                <xar:if condition="!empty($referer)">
+                    <xar:mlstring>at </xar:mlstring> #$referer#
+                </xar:if>
+                .
+                <xar:if condition="!xarUserIsLoggedIn() and xarModGetVar('privileges','exceptionredirect')">
+                    <xar:mlstring> You may need to log in to the web site.</xar:mlstring>
+                    <div style="width:250px">
+                    <xar:block type="login" module="authsystem" />
+                    </div>
+                </xar:if>
+
+            </p>
+            <br />
+             <p>
+                <xar:ml>
+                    <xar:mlstring>If you believe you should have access to this page and do not, please #(1).</xar:mlstring>
+                    <xar:mlvar>#$obfuemail.link#</xar:mlvar>
+                </xar:ml>
+            </p>
+            <xar:set name="opmode">xarSystemVars::get(sys::CONFIG, 'Operation.Mode',true)?xarSystemVars::get(sys::CONFIG, 'Operation.Mode',true):'developer'</xar:set>
+            <br />
+            <xar:if condition="$opmode eq 'developer' and isset($title) and isset($file)">
+            <p>[Developer Mode]</p>
+                <div style="width:95%;">
+                    <h3>#$title#</h3>
+        <pre style="text-align: left;">
+            #$short#
+        </pre>
+                    <p>
+                        Raised in: #$file#, line #$line#
+                    </p>
+                    <xar:if condition="isset($long) and $long ne ''">
+                        <h3>Explanation:</h3>
+                        <p>#$long#</p>
+                    </xar:if>
+                    <xar:if condition="isset($trace)">
+                        <h3>Further Information:</h3>
+                        <pre>#$trace#</pre>
+                    </xar:if>
+                    <xar:if condition="isset($stack) and $stack ne ''">
+                        <h3>Stack:</h3>
+        <pre style="text-align: left;">
+            #$stack#
+        </pre>
+                    </xar:if>
+                </div>
+            </xar:if>
+        </div>
+    </div>
+</div>
+

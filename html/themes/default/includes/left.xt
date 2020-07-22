@@ -1,0 +1,21 @@
+<xar:comment> Left column - no right column</xar:comment>
+
+<div class="leftwrap">
+    <div class="midwrap">
+        <!-- Middle column -->
+        <div class="midcol">
+            <div id="content">
+                <xar:var name="centergroup" />
+                <xar:module class="modulespace" main="true" />
+            </div>
+        </div>
+    </div>
+    
+    <!-- End Middle column -->
+    <!-- Start left column -->
+    <div class="leftcol">
+        <div class="column-padding">
+            <xar:var name="leftgroup" />
+        </div>
+    </div>
+</div>

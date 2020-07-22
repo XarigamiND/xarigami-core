@@ -1,0 +1,50 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Remove Theme</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <form action="&xar-modurl-themes-admin-remove;" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                   <legend><xar:mlstring>Remove </xar:mlstring>#$themeInfo['displayname']#</legend>
+
+                    <div class="xar-form-input-wrapper">
+                         <xar:set name="usernum">$count==1?'user':'users';</xar:set>
+                                <p class="xar-form-label">
+                                    <xar:ml>
+                                        <xar:mlstring>The #(1) theme you are trying to remove is currently in use by #(2) #(3) on your site.</xar:mlstring>
+                                        <xar:mlvar>#$themeInfo['displayname']#</xar:mlvar>
+                                        <xar:mlvar>#$count#</xar:mlvar>
+                                        <xar:mlvar>#$usernum#</xar:mlvar>
+                                    </xar:ml>
+                                </p>
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                                <label for="confirml">
+                                    <xar:mlstring>Do you still wish to delete this theme?</xar:mlstring>
+                                </label>
+                                <xar:data-input type="checkbox" name="confirm" id="confirm" value="1" />
+                    </div>
+                    <div class="xar-align-center">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="checkedforvars" id="checkedforvars" value="1" />
+                        <input type="hidden" name="id" id="regid" value="#$themeInfo['regid']#" />
+                        <input type="submit" value="#xarML('Delete Theme')#" />
+                    </div>
+                    <div class="xar-form-input-wrapper-before">
+                        <a href="#xarModURL('themes','admin','list')#">
+                            <xar:mlstring>Cancel and return to theme listing</xar:mlstring>
+                       </a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

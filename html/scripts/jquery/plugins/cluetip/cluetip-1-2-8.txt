@@ -1,0 +1,8 @@
+http://plugins.learningjquery.com/cluetip/
+http://plugins.jquery.com/project/cluetip/
+Version 1-2-8.txt
+
+Additional note by Lakys:
+This version has been modified to add some 'abs' position mode. Two elseif tests. This is only on the non minified version.
+
+

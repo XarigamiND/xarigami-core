@@ -1,0 +1,34 @@
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<ul class="xar-tabs">
+    <li class="xar-tabs-label" title="#xarML('Choose an action to perform ')#">
+      <xar:mlstring>Mail:</xar:mlstring>
+    </li>
+    <xar:set name="tabclass">($activetab=='createmail') ? 'xar-tab-active' :  'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-roles-admin-createmail;">
+        <xar:mlstring>Send mail</xar:mlstring>
+      </a>
+    </li>
+    <xar:sec mask="AdminRole" catch="false" >
+        <xar:set name="tabclass">($activetab=='modifyemail') ? 'xar-tab-active' :  'xar-tab'</xar:set>
+         <li class="#$tabclass#">
+          <a href="&xar-modurl-roles-admin-modifyemail;">
+            <xar:mlstring>Edit Mail Templates</xar:mlstring>
+          </a>
+        </li>
+        <xar:set name="tabclass">($activetab=='modifynotice') ? 'xar-tab-active' :  'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+          <a href="&xar-modurl-roles-admin-modifynotice;">
+            <xar:mlstring>Configure Notifications</xar:mlstring>
+          </a>
+        </li>
+        <xar:set name="tabclass">($activetab=='configformat') ? 'xar-tab-active' :  'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+          <a href="&xar-modurl-roles-admin-modifyemailformat;">
+            <xar:mlstring>Configure Mail Format</xar:mlstring>
+          </a>
+        </li>
+    </xar:sec>
+
+</ul>

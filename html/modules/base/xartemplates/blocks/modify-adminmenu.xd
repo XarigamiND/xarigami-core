@@ -1,0 +1,69 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript module="base" filename="toggle.js" />
+<div class="xar-form-input-wrapper">
+    <label for="menustyle" title="#xarML('How should the menu items be ordered?')#" class="xar-form-label">
+        <xar:mlstring>Sort Admin Menu Items:</xar:mlstring>
+    </label>
+    <xar:data-input type="dropdown" options="$sortorder" name="menustyle" id="menustyle" value="$menustyle" />
+
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="menutype" title="#xarML('What sort of menu?')#" class="xar-form-label">
+        <xar:mlstring>Menu type</xar:mlstring>
+    </label>
+    <xar:data-input type="dropdown" options="$menutypes" name="menutype" id="menutype" value="$menutype" />
+
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="showlogout" id="showlogout#$blockid#" checked="$showlogout" />
+    <label for="showlogout#$blockid#" title="#xarML('By checking this box a logout link will be shown in the panel instance.')#">
+        <xar:mlstring>Show A Logout Link In This Admin Menu</xar:mlstring>
+    </label>
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="showhelp" id="showhelp#$blockid#" checked="$showhelp" />
+    <label for="showhelp#$blockid#" title="#xarML('By checking this box a Help link will be shown in the panel instance.')#">
+        <xar:mlstring>Show A Help Link In This Admin Menu</xar:mlstring>
+    </label>
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="showall" id="showall#$blockid#" checked="$showall" />
+    <label for="showall#$blockid#" title="#xarML('Checking this box includes all module menus in the block.')#">
+        <xar:mlstring>Show sub menus of non-current modules</xar:mlstring>
+    </label>
+</div>
+
+<div class="xar-form-input-wrapper">
+    <label for="allmods#$blockid#" class="xar-form-label" title="#xarML('Uncheck this box to select modules for your menu links.')#">
+        <xar:mlstring>Display All Modules?</xar:mlstring>
+    </label>
+    <xar:data-input type="checkbox" name="allmods" id="allmods#$blockid#" checked="$allmods" />
+
+    <span class="xar-form-input-wrapper"><xar:mlstring>To display selected modules, uncheck and select modules from the list below.</xar:mlstring></span>
+</div>
+<p />
+
+<div class="xar-form-input-wrapper-after" >
+   <xar:comment> jojo - not so sure this is beneficial for admin - could lead to problems, best display them all outright
+        <strong>
+        <a href="javascript:void(0);" onclick="return toggleDisplay('modlistwrapper');"><label for="modlist#$blockid#" title="#xarML('Check the active modules to be displayed in the admin menu.')#">
+            <xar:mlstring>[Click to toggle module list]</xar:mlstring>
+        </label></a>
+        </strong>
+        <div class="xar-form-input-wrapper" id="modlistwrapper" style="display:none;" >
+        <xar:data-input type="checkboxlist" name="modlist" id="modlist2" value="$modlist" layout="vertical" validation="$activemods" />
+        </div>
+        <noscript>
+            <div class="xar-form-input-wrapper" >
+                <xar:data-input type="checkboxlist" name="modlist" id="modlist1" value="$modlist" layout="column" columns="2" validation="$activemods" />
+            </div>
+        </noscript>
+   </xar:comment>
+
+        <label for="modlist#$blockid#" title="#xarML('Check the active modules to be displayed in the admin menu.')#">
+            <xar:mlstring>If <strong> Display All Modules</strong> is unchecked, display the following selected modules:</xar:mlstring>
+        </label>
+        <div class="xar-form-input-wrapper" id="modlistwrapper" >
+            <xar:data-input type="checkboxlist" name="modlist" id="modlist#$blockid#" value="$modlist" layout="column" validation="$activemods" />
+        </div>
+</div>

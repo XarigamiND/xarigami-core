@@ -1,0 +1,200 @@
+PLEASE READ ALL OF THIS UPGRADE.txt BEFORE UPGRADING OR USING AN EXISTING Xarigami or Xaraya installation.
+
+You are Upgrading to Xarigami cumulus 1.5.5
+PHP 5.3.x is a requirement to run Xarigami 1.5.5
+
+If you are sure you have copied in the new version files, backed up your database and files,
+and made appropriate updates to your custom theme templates you can commence to
+upgrade you database by browsing to:
+
+http://yoursite.com/upgrade.php
+
+Follow the upgrade prompts and carefully read any instructions.
+
+PLEASE ENSURE YOU HAVE PREPARED TO UPGRADE FIRST!
+If you do have the time we advise you to read the the upgrade instructions first.
+You can read up to date documentation online at
+http://xarigami.com/resources/upgrading_to_the_latest_xarigami
+
+
+PREPARE TO UPGRADE
+==================
+
+*   when using the word "replace" or "replacing" in the instructions below we
+    mean you must DELETE all old files and copy the new ones in.
+    Do not overwrite the old files with the new ones. THIS IS IMPORTANT.
+
+* Always check and compare your custom theme templates against the corresponding core template before you ugprade your site.
+  Ensure you have this  'upgraded' theme ready for use with the upgraded site.
+
+1.  Check the VERSION CHANGES at the end of this file and make note of any
+    template or site changes you may need to make if you haven't done so
+    already
+
+    Before you run upgrade.php, test the upgrade locally if possible on a
+    non-production site. Make sure you pay particular attention to changes you
+    must make to the specific files or templates at:
+
+    - <xarroot>/var/config.system.php file
+    - <xarroot>/var/messages
+    - <xarroot>/themes/<yourtheme>
+
+2.  Backup your existing Xarigami or Xaraya installation & database
+
+3.  Log in to your existing Xarigami or Xaraya site with administration rights.
+
+4.  Ensure you backup and protect any custom content or themes you have in:
+    - <xarroot>/var/messages
+    - <xarroot>/var/ subdirectories (eg uploads, processes etc)
+    - <xarroot>/themes/
+    - <xarroot>/var/config.system.php
+
+    You can use your backup of these custom files to copy back after you put in
+    place the new Xarigami files.
+
+5.  Make a backup of all custom content including themes and other data or image files
+
+6.  Replace all existing Xarigami or Xaraya files, directories, and modules
+    with the new Xarigami files EXCEPT:
+
+        - <xarroot>/var/config.system.php
+
+        - custom directories and files below the var directory which may
+          contain data from your site (typically uploads, processes etc)
+
+        - your custom themes/<yourtheme> directory
+
+7.  Make a backup (yes, we know this was already mentioned)
+
+    The existing <xarroot>/var/config.system.php must be retained.
+    The upgrade script reads database settings from this file.
+    However, you should check for any config.system.php.dist file changes
+    and update your existing config.system.php file if necessary.
+
+8.  Check permissions and ownership of the new files
+
+9.  Make sure you have cleared all your cache files in
+        <xarroot>/var/cache/templates and
+        <xarroot>/var/cache/styles  and
+        <xarroot>/var/cache/rss
+
+    If you use xarcachemanager, clear your output cache files.
+
+10. In the browser window where you are logged in as administrator,
+    point your browser to upgrade.php in your root directory and run this
+    script.
+
+    For example, http://www.mywebsite.com/upgrade.php.
+
+    Carefully read and follow the instructions in the upgrade script.
+
+11. Make sure you always run the Site Health Checks at the end of upgrade, and any time you install modules that might be 'older' and not upgrade.
+
+12. After the upgrade has completed, remove or rename install.php
+    from your web directory  and ensure that <xarroot>/var/config.system.php
+    is read only by your web server.
+
+12. Go to Admin->Modules->View All.
+    Upgrade all required modules that are show the status of UPGRADE.
+    Remember to Activate them after upgrade if required.
+    Run upgrade.php again and the Site Health Checks to ensure any inactive and now active modules are fully upgraded.
+
+
+Check the COMMON UPGRADE PROBLEMS at the end of this file if you are experiencing upgrade difficulties.
+
+VERSION CHANGES
+===============
+Please check and update your installation including custom theme templates,
+where necessary, before running upgrade.php
+
+1. config.system.php.dist changes between versions
+---------------------------------------------------
+1.1.3 - cumulus 1.1.5 :  None
+1.1.5 - cumulus 1.3.5 :  Operation.Mode, SystemTimeZone, Exception.503 variables
+
+
+2. Core Template Changes between versions
+------------------------------------
+Please ensure you use the  Xarigami default Skyone theme for testing.
+
+Always check and compare your custom theme templates against the corresponding core template.
+You should use a good diff application and ensure you have any new variables or functionality included in your theme templates.
+
+
+
+3. Core DB Changes between versions
+----------------------------------------------------
+1.1.3 - cumulus 1.1.5 : Privileges have changed for Blocks module.
+    The Upgrade process does make provision for this, however
+    it is impossible to cater for all privilege situations related to blocks.
+    Once upgrade has completed you should revise your privileges for any blocks,
+    remove old ineffective privileges and create new ones as necessary.
+    (see http://xarigami.com/resources/add_a_privilege_to_deny_a_block_display)
+
+1.1.6   - Privileges for Roles has changed and are now based on UID not name.
+
+        - Theme name can now be different to theme directory. You must have a
+          'file friendly' theme name in your theme's xartheme.php file,
+           and your site theme name must be placed in the
+           'theme' module var called 'default' in your database BEFORE running upgrade.
+        - You need to have the 'System Default' theme in your theme directory.
+
+ 1.1.6 You must ensure the following BEFORE running upgrade.php:
+    a.  Check your theme's xartheme.php info file and make sure the there is a $themeinfo['name']
+        variable that in Xarigami should not have spaces or special characters - just like
+        a file name. You must also make sure this is the same name that exists in your database
+        in the entry for this theme in the theme table.
+
+    b. Check the 'themes' module variable called 'default' with modid 6 (for themes module) in
+        your module_vars table. This should also be the name of your site theme,
+        as in point 1 above.
+
+1.1.7  The major changes are in the template where sprite usage has been added. If you are missing
+       icons in your admin areas then check you have the new core css and sprite css loaded.
+
+1.1.8  Privilege changes for roles to use UID instead of name.
+       Masks have been changed so that moderation is now higher than masks for edit level.
+       This makes a difference in modules that make use of this such as Xarigami articles.
+
+1.3.0  Changes in core mod vars with both changed and additional module vars.
+       Some dynamic data properties have changed and storage in the database.
+
+1.3.3   Added index on theme variables table
+        Added new column in theme variables table
+
+1.3.5   Some DD property formats have changed for validation and values. These
+        are handled in the upgrade process.
+
+1.4.0   All DD properties have been reworked and the main properties and object classes.
+        - Property input and output templates have changed
+        - label.xd for label output has changed.
+        Make sure you diff any override templates for properties
+        - Make sure you var/cache/style directory exists and is writeable.
+
+1.4.1   -
+
+1.5.0	- State tables for modules and themes is removed 
+	and state integrated to modules and themes tables respectively
+
+1.5.1	- sessions_info table has changed size of the sess_id and ipaddr columns to cater for hashed sessions and ipv6.
+
+1.5.4   - query upgrade to latest V 1.9.1
+
+1.5.5   - no database changes
+
+Common Upgrade Problems
+==========================
+
+*   If you are getting errors after upgrade, clear your template and rss cache
+    files. Clear your xarcachemanager output cache if you have this module
+    installed.
+
+*   If you are having difficulty accessing a module, check to see if it
+    needs upgrading, and also ensure it is activated if required
+
+*   If you are using a default theme, ensure it is active and also
+    does not need upgrading.
+
+*   The <xarroot>var/cache/rss and <xarroot>/var/cache/templates directories
+    need to be writable and executable
+

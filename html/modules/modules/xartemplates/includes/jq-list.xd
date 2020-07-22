@@ -1,0 +1,24 @@
+<xar:set name="modulescode">"
+jQuery(document).ready(function() {
+    jQuery('form table.xar-item-controls select').add('form table.xar-item-controls input[type=checkbox]').change(function() { this.form.submit(); })
+    
+    var dialog_width = Math.floor(jQuery(window).width() * .65);
+    var dialog_height = Math.floor(jQuery(window).height() * .85);
+    
+    jQuery('a.xar-info, a.xar-errorstate, a.xar-missing').click(function() {
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+        jQuery('#" . "xardialogtarget').load(this.getAttribute('href').replace('&theme=print', '&pageName=module') + ' .xar-mod-body > *').dialog({
+        title: jQuery(this).attr('title'),
+        width: dialog_width,
+        height: dialog_height,
+        modal: true,
+        draggable: false,
+        resizable: false,
+        buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
+        });
+        return false;
+    });
+});    
+"</xar:set>
+<xar:base-include-javascript type="code" code="$modulescode" position="body"/>

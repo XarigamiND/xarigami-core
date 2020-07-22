@@ -1,0 +1,6 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:if condition="isset($dbformat) and $dbformat eq 'timestamp'">
+    #xarLocaleGetFormattedDate($dateformat,$value)#
+<xar:else />
+    #xarLocaleFormatDate($dateformat,$value)#
+</xar:if>

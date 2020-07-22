@@ -1,0 +1,43 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">rand(1,100)</xar:set>
+<form action="&xar-modurl-authsystem-user-login;" method="post" class="xar-margin-none">
+    <p>
+        <input type="hidden" name="redirecturl" id="returnurl#$blockid#" value="#$return_url#" />
+        <label for="uname#$blockid#" title="#xarML('Enter your user name')#">
+            <xar:mlstring>Username:</xar:mlstring>
+        </label>
+        <xar:set name="unameid">'uname'.$blockid</xar:set>
+        <xar:data-input type="textbox" name="uname" id="$unameid" maxlength="64" tabindex="$tabindex++" autocomplete="off"/>
+    </p>
+    <p>
+        <label for="pass#$blockid#" title="#xarML('Enter your password')#">
+            <xar:mlstring>Password:</xar:mlstring>
+        </label>
+        <xar:set name="passid">'pass'.$blockid</xar:set>
+        <xar:data-input type="password" name="pass" id="$passid" maxlength="64" autocomplete="off" tabindex="$tabindex++"/>
+    </p>
+    <xar:if condition="xarConfigGetVar('Site.Session.SecurityLevel') ne 'High'">
+    <p>
+
+            <label class="xar-displayblock" for="rememberme#$blockid#">
+                <input type="checkbox" name="rememberme" id="rememberme#$blockid#" value="1" tabindex="#$tabindex++#"/>
+                <xar:mlstring>Remember me</xar:mlstring>
+            </label>
+    </p>
+
+    </xar:if>
+    <p>
+        <input type="submit" value="#xarML('Log In')#" tabindex="#$tabindex++#"/>
+        <xar:comment>
+            The following will only work if you have 'useauthcheck' set to ON in the Authsystem modifyconfig page
+            Using the authid check will prevent output caching for a page with this block.
+        </xar:comment>
+        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+    </p>
+
+    <p>
+        <a href="&xar-modurl-roles-user-lostpassword;">
+            <xar:mlstring>Request new password</xar:mlstring>
+        </a>
+    </p>
+</form>

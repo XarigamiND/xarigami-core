@@ -1,0 +1,63 @@
+<xar:comment>
+    License: GPL http://www.gnu.org/copyleft/gpl.html
+</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Delete Group</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" action="&xar-modurl-blocks-admin-delete_group;">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Confirm deleting this group?
+                        </xar:mlstring>
+                    </legend>
+                    <p>
+                        <xar:mlstring>
+                            Name:
+                        </xar:mlstring>
+                        <xar:var name="$group['name']" />
+                    </p>
+                    <p>
+                        <xar:mlstring>
+                            Members:
+                        </xar:mlstring>
+                        <xar:if condition="!empty($group['instances'])">
+                            <xar:loop name="$group['instances']">
+                                #$loop:item['title']#
+                            </xar:loop>
+                            <xar:else />
+                            [
+                            <xar:mlstring>
+                                none
+                            </xar:mlstring>
+                            ]
+                        </xar:if>
+                    </p>
+                    <p>
+                        <xar:mlstring>
+                            Template:
+                        </xar:mlstring>
+                        <xar:var name="$group['template']" />
+                    </p>
+                </fieldset>
+                <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="confirm" id="confirm" value="true" />
+                        <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
+                        <input type="submit" value="#xarML('Delete Group')#" class="xar-margin-thick" />
+                        <xar:set name="returnurl">
+                            #xarModURL('blocks', 'admin', 'view_groups')#
+                        </xar:set>
+                        <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                        <input type="submit" name="cancel" id="cancel" value="#xarML('Cancel')#" class="xar-margin-thick" />
+                 </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+Xarigami Changes
+
+- All xarigami changes are marked with XARIGAMI MODIFICATION start and end 
+Changes as of xarigami cumulus 1.1.8:
+- Updated to latest php mailier for php5/6 V5.1
+Changes as of xarigami cumulus 1.1.7:
+- Updated to latest php mailier for php5/6 V 5.0.2
+- Adjustments for ini_set in those versions that need it
+- php5.3 check for deprecated ini
+- added IP address check

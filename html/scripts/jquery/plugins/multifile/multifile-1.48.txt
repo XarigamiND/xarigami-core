@@ -1,0 +1,2 @@
+Version 1.48
+http://www.fyneworks.com/jquery/multiple-file-upload/

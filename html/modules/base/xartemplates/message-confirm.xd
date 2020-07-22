@@ -1,0 +1,45 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>
+***********
+* WARNING
+* Modify this template at your own risk.
+* If the template contains errors, the exception system will not be able to process
+* it correctly, leading to unexpected results
+***********
+</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+
+    </div>
+    <div class="xar-mod-body">
+        <img src="&xar-baseurl;#xarTplGetImage('confirm.png', 'base')#" alt="#xarML('Confirmation Icon')#" class="xar-module-icon" />
+        <h1>
+            <xar:mlstring>Confirmation</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <h2>
+                 #$title#
+           </h2>
+
+            <p>#$short#</p>
+
+            <xar:if condition="isset($long) and $long ne ''">
+                <h3>
+                    <xar:mlstring>Explanation:</xar:mlstring>
+                </h3>
+
+                <p>#$long#</p>
+            </xar:if>
+
+            <xar:if condition="isset($hint) and $hint ne ''">
+                <h3>
+                    <xar:mlstring>Further Information:</xar:mlstring>
+                </h3>
+
+                <p>#$hint#</p>
+            </xar:if>
+
+            <br class="xar-clearboth" />
+        </div>
+    </div>
+</div>

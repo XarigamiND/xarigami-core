@@ -1,0 +1,108 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="tabindex">0</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Language &amp; Places</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form action="#xarModUrl('base', 'admin', 'updatelang')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Timezone Configuration</xar:mlstring>
+                    </legend>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="defaulttimezone" title="#xarML('This will be the global timezone')#" class="xar-form-label">
+                            <xar:mlstring>Site Default Timezone:</xar:mlstring>
+                        </label>
+                        <xar:set name="timezone">#xarConfigGetVar('Site.Core.TimeZone')#</xar:set>
+                        <xar:data-input type="timezone" name="defaulttimezone" id="defaulttimezone" value="$sitetime" tabindex="$tabindex++" />
+                        <xar:set name="tzurl">xarModURL('roles','admin','modifyconfig',array('tab'=>'duvs'))</xar:set>
+                        <xar:set name="tzlink">'<a href="'.$tzurl.'">Roles</a>'</xar:set>
+                        <xar:ml>
+                            <xar:mlstring>You can activate user timezones in #(1)</xar:mlstring>
+                            <xar:mlvar>#$tzlink#</xar:mlvar>
+                        </xar:ml>
+                    </div>
+                     <div class="xar-form-input-wrapper">
+                        <label for="systemtimezone" title="#xarML('This is the host computer time zone setting')#" class="xar-form-label">
+                            <xar:mlstring>System Default Timezone:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="timezone" name="systemtimezone" id="systemtimezone" value="$hosttime" tabindex="$tabindex++" />
+                    </div>
+
+                        <xar:set name="strftime">strftime('%A, %H:%M');</xar:set>
+                        <xar:set name="gmstrftime">gmstrftime('%A, %H:%M');</xar:set>
+                    <div class="xar-form-input-wrapper-after xar-padding-thick">
+                        <table class="xar-items">
+                            <tr>
+                                <th><xar:mlstring>Example Format</xar:mlstring></th>
+                                <th><xar:mlstring>Output</xar:mlstring></th>
+                            </tr>
+                            <tr>
+                                <td>strftime('%A, %H:%M')</td>
+                                <td>#$strftime#</td>
+                            </tr>
+                            <tr>
+                                <td>gmstrftime(...)</td>
+                                <td>#$gmstrftime#</td>
+                            </tr>
+                            <tr>
+                                <td>xarLocaleFormatDate(...)</td>
+                                <td>#xarLocaleFormatDate('%A, %H:%M')#</td>
+                            </tr>
+                            <tr>
+                                <td>xarLocaleGetFormattedUTCDate('shortdate')</td>
+                                <td>#xarLocaleGetFormattedUTCDate('shortdate')#</td>
+                            </tr>
+                            <tr>
+                                <td>xarLocaleGetFormattedDate('mediumdate')</td>
+                                <td>#xarLocaleGetFormattedDate('mediumdate')#</td>
+                            </tr>
+                            <tr>
+                                <td>xarLocaleGetFormattedDate('longdate')</td>
+                                <td>#xarLocaleGetFormattedDate('longdate')#</td>
+                            </tr>
+                            <tr>
+                                <td>xarLocaleGetFormattedDate('full')</td>
+                                <td>#xarLocaleGetFormattedDate('full')#</td>
+                            </tr>
+                        </table>
+                     </div>
+
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Turn MLS System Off/On
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                    <xar:mlstring>The MLS System can be turned off if you do not wish to utilize translations or
+                       locales other than the default language (en-US). Switching off the MLS system will provide some peformance improvements.
+                       </xar:mlstring>
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:data-input type="checkbox" id="MLSEnabled" name="MLSEnabled" checked="$MLSEnabled" tabindex="$tabindex++" />
+                        <label for="MLSEnabled">
+                            <xar:mlstring>
+                                Turn the MLS System On?
+                            </xar:mlstring>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <xar:template file="modifyconfig-locales" module="base" type="module" />
+                <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                         <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                        <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

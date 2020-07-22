@@ -1,0 +1,48 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-include-javascript libname="jquery" position="body" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:comment>Include the js code for the tree view and related plugin</xar:comment>
+<xar:template type="module" module="dynamicdata" file="jq-manageproplist" />
+
+<xar:set name="info"><xar:mlstring>Property Information</xar:mlstring></xar:set>
+<xar:comment>This is a generic display template for any DD object. You can use a specific template for one particular object in this directory as showdisplay-[objectname].xd, and/or use templates in your own [module]/xartemplates/objects directory by specifying the tplmodule="..." argument in the xar:data-display BL tag or showDisplay() method call.</xar:comment>
+<xar:if condition="!empty($isprimary) and xarModIsHooked('categories',$modname,$itemtype)">
+    <xar:template file="catnavigation" />
+</xar:if>
+<xar:comment>The layout could be set directly or through inheritance (for example in the modify prop screen)</xar:comment>
+<xar:if condition="empty($layout) or $layout eq 'default' or $layout eq 'list' or $layout eq 'dynamic'">
+    <xar:foreach in="$properties" key="$name" value="$property">
+        <div class="xar-form-input-wrapper">
+            <xar:if condition="$name eq 'type' and !empty($property-&gt;value)">
+                <xar:data-label property="$properties[$name]" label="id" />
+                <a href="#xarModURL('dynamicdata','admin','propinfo',array('propid'=>$property-&gt;value))#" class="sprite xs-info xar-info" title="#$info#"><span>#$info#</span></a><xar:data-output property="$properties[$name]" />
+            <xar:else />
+                <xar:data-label property="$properties[$name]" label="id" />
+                <xar:data-output property="$properties[$name]" />
+            </xar:if>
+        </div>
+    </xar:foreach>
+<xar:elseif condition="$layout eq 'vertical_table'" />
+
+    <xar:if condition="!empty($properties)">
+        <table class="xar-items">
+            <xar:foreach in="$properties" key="$name" value="$property">
+                <tr>
+                    <th scope="row"><xar:data-label property="$properties[$name]" label="id" /></th>
+                    <xar:if condition="!empty($properties[$name]-&gt;datatype)">
+                        <td class="xar-form-datatype-#$properties[$name]-&gt;datatype#"><xar:data-output property="$properties[$name]" /></td>
+                    <xar:else />
+                        <td><xar:data-output property="$properties[$name]" /></td>
+                    </xar:if>
+                </tr>
+            </xar:foreach>
+        </table>
+    </xar:if>
+<xar:else />
+    <p>
+        <xar:mlstring>Specify your own layout here...</xar:mlstring>
+    </p>
+    <p>
+        <xar:mlstring>You can also specify a separate template, e.g. if you want to handle individual fields differently for a particular module / itemtype</xar:mlstring>
+    </p>
+</xar:if>
+

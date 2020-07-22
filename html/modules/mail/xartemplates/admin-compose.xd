@@ -1,0 +1,214 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min.js" plugin="validate" pluginfile="jquery.validate.min" position="body"/>
+<xar:set name="mailcode">"
+jQuery().ready(function() {
+    jQuery('#"."composeform').validate({
+        rules: {
+            email: {
+                 required: '#"."name:filled',
+                email: true
+            },
+            subject: {
+                required: true
+            },
+            message: {
+                required: true
+            },
+            emailcc: {
+                required: '#"."namecc:filled',
+                email: true
+            },
+            emailbcc: {
+                required: '#"."namebcc:filled',
+                email: true
+            }
+        },
+        messages: {
+            email: {
+                required: '" . xarML(' * Required if recipient name filled in') . "',
+                email: '" . xarML(' * Valid email required if recipient list not provided') . "'
+            },
+            subject: {
+                required: '" . xarML(' * Required') . "'
+            },
+            message: {
+                required: '" . xarML(' * Required') . "'
+            },
+            emailcc: {
+                required: '" . xarML(' * Required with CC Name') . "',
+                email: '" . xarML(' * Valid email required') . "'
+            },
+            emailbcc: {
+                required: '" . xarML(' * Required with BCC Name') . "',
+                email: '" . xarML(' * Valid email required') . "'
+            }
+        },
+        errorClass: 'xar-error',
+        errorElement: 'span'
+    });
+    jQuery('#"."scan').click(function() {
+        jQuery('#"."blockname').rules('remove', 'required');
+    });
+});
+"</xar:set>
+<xar:base-include-javascript code="$mailcode" type="code" position="body" />
+<xar:set name="tabindex">1</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Test configuration</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <p> <xar:mlstring>
+                The following form allows you to test your mail module configuration settings. Please note that either the mail recipient OR recipient list is used not both.
+                Similarly for the CC recipient/CC recipient list, and BC recipient/BC recipient list.
+                </xar:mlstring>
+            </p>
+            <p> <xar:mlstring>
+                When entering data into any of the List fields, email addresses should be separated by semicolons (;).
+                You can also enter the name of the recipient and separate it from the email address by a comma(,). The following are all valid list entries:
+                </xar:mlstring>
+            </p>
+            <ul>
+                <li>emailaddress1;emailaddress2;emailaddress3</li>
+                <li>emailaddress1,name1;emailaddress2,name2;emailaddress3,name3</li>
+                <li>emailaddress1;emailaddress2,name2;emailaddress3</li>
+            </ul>
+            <form id="composeform" action="#xarModURL('mail','admin','sendtest')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Test Configuration
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="name" title="#xarML('Recipient Name.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Recipient Name:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="name" name="name" value="$name" maxlength="100" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="email" title="#xarML('Recipient Email Address.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Recipient Email:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="email" name="email" value="$email" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                        <xar:if condition="!empty($invalid['email'])">
+                            <span class="xar-error">* #$invalid['email']#</span>
+                        </xar:if>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="recipients" title="#xarML('List of recipients.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                OR Recipient List:
+                            </xar:mlstring>
+                        </label>
+                        <input type="text" id="recipients" name="recipients" value="" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                        <xar:if condition="!empty($invalid['recipients'])">
+                            <span class="xar-error">* #$invalid['recipients']#</span>
+                        </xar:if>
+                    </div>
+                    <br class="xar-paddingthick" />
+                    <div class="xar-form-input-wrapper">
+                        <label for="emailcc" title="#xarML('Recipient CC.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                CC Email:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="emailcc" name="emailcc" value="$emailcc" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="namecc" title="#xarML('CC Name.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                CC Name:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="namecc" name="namecc" value="$namecc" maxlength="100" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="ccrecipients" title="#xarML('List of CC recipients.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                OR CC Recipient List:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="ccrecipients" name="ccrecipients" value="$ccrecipients" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+                                <br class="xar-paddingthick" />
+                    <div class="xar-form-input-wrapper">
+                        <label for="emailbcc" title="#xarML('Recipient BCC.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                BCC Email:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="emailbcc" name="emailbcc" value="$emailbcc" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="namebcc" title="#xarML('BCC Name.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                BCC Name:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="namebcc" name="namebcc" value="$namebcc" maxlength="100" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+                      <div class="xar-form-input-wrapper">
+                        <label for="bccrecipients" title="#xarML('List of BCC recipients.')#" class="xar-form-label" >
+                            <xar:mlstring>
+                                OR BCC Recipient List:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="bccrecipients" name="bccrecipients" value="$bccrecipients" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+                                <br class="xar-paddingthick" />
+                    <div class="xar-form-input-wrapper">
+                        <label for="subject" title="#xarML('Message Subject.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Subject:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" id="subject" name="subject" value="$subject" maxlength="100" class="xar-form-textlong" tabindex="$tabindex++" />
+                        <xar:if condition="!empty($invalid['subject'])">
+                            <span class="xar-error">* #$invalid['subject']#</span>
+                        </xar:if>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="message" title="#xarML('Message Subject.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Message:
+                            </xar:mlstring>
+                        </label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="textarea_medium" name="message" value="$message" id="message" class="xar-form-textarealarge" tabindex="$tabindex++" />
+                        </div>
+                        <br />
+                        <xar:if condition="!empty($invalid['message'])">
+                            <span class="xar-error">* #$invalid['message']#</span>
+                        </xar:if>
+                   </div>
+                    <xar:if condition="xarModIsAvailable('scheduler')">
+                        <div class="xar-form-input-wrapper">
+                            <label for="when_input" title="#xarML('Test scheduled mails.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    No Earlier Than:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input name="when" type="calendar" value="" tabindex="$tabindex++" />
+                        </div>
+                    </xar:if>
+                </fieldset>
+                <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="submit" value="#xarML('Send Test Message')#" class="xar-margin-thickright" tabindex="#$tabindex++#" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

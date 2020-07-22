@@ -1,0 +1,128 @@
+<?php
+/*
+Minimal configuration for this file is to tell Xarigami where the required
+files are located relative to the root directory, always assumed to be one directory up from the webDir.
+If you have trouble during install, remove these variables and let Xarigami try and guess them
+*/
+//for layout with all relevant directories under <html> directory
+$systemConfiguration['webDir']   =  'html/'; // where your domain name is pointed to and theme and script dirs are
+$systemConfiguration['libDir']   =  'html/'; // (root) where lib directory is located for xarigami and 3rd party lib code
+$systemConfiguration['codeDir']  =  'html/'; // where modules and themes directories are  located
+$systemConfiguration['siteDir']  =  'sites/'; // where your site variable data is located, preferably out of web root
+
+//for layout with core and library code outside of webroot
+//$systemConfiguration['webDir']   =  'html/'; // where your domain name is pointed to and theme and script dirs are
+//$systemConfiguration['libDir']   =  ''; // (root) where lib directory is located for xarigami and 3rd party lib code
+//$systemConfiguration['codeDir']  =  'html/'; // where modules and themes directories are  located
+//$systemConfiguration['siteDir']  =  'sites/'; //where your site variable data is located, preferably out of web root
+
+/* Specific site information in the config.system.php file which maybe in any of the following (in order):
+    - $webDir/var/config.system.php
+    - $protectedvardir/config.system.php (if using .key.php)
+    - $siteDir/thissite.com/var/config.system.php
+*/
+// Database Configuration
+// Database Username: the username that will be used to connect to the database.
+$systemConfiguration['DB.UserName'] = '';
+// Database Password: the password that will be used to connect to the database.
+$systemConfiguration['DB.Password'] = '';
+// Database Host or IP: where the database server is located.
+// Use IP for php 5.3 and over where 127.0.0.1 is reserved for localhost.
+// A different port can also be specified, e.g. 'localhost:12345'
+$systemConfiguration['DB.Host'] = '';
+// Database Name: the name of the database to connect to.
+$systemConfiguration['DB.Name'] = 'Xarigami';
+// Database Type: the type of the database server.
+$systemConfiguration['DB.Type'] = 'mysql';
+// Database TablePrefix: a string that will be prefixed to every database tables that are part of the core.
+//                       Those tables are shared across multi-sites.
+$systemConfiguration['DB.TablePrefix'] = 'xar';
+// Database Charset: the charset of the database.
+$systemConfiguration['DB.Charset'] = 'utf8';
+
+// Database username and password encoding
+// 0 = not encoded
+// 1 = encoded
+// TODO: check if this works, havent heard from anyone using it.
+$systemConfiguration['DB.Encoded'] = '0';
+// Persistent database connections - do NOT use this on shared servers, and
+// do NOT use it on your own servers unless your sysadmin + dba teams agree !
+$systemConfiguration['DB.Persistent'] = false;
+
+/* For default Logging:
+ * Logging will be done automatically if you create a webserver writable
+ * file at var/logs/log.txt and it will log at XARLOG_LEVEL_ALL
+ *
+ * Logger Options
+ * You can change the settings for your default logging eg
+ * $systemConfiguration['Log.LogLevel'] = XARLOG_LEVEL_INFO | XARLOG_LEVEL_AUDIT;
+ * $systemConfiguration['Log.LogFile'] = 'var/mylog.txt';
+ * For complex logging and multiple loggers use the Log Config module.
+ */
+/*
+ * if you set this to true the core will be able to
+ * trap every message that comes from PHP and if
+ * possible to show a gracefully error page.
+ * This is an advanced option, leave it to false if unsure.
+ */
+$systemConfiguration['Exception.EnablePHPErrorHandler'] = true;
+ /*
+  * Useful when debugging to show errors in-situ.
+  * Don't underestimate the power of seeing the errors when all you otherwise
+  * get is a white screen.
+  * Some hosts will have this on by default anyway, so you may want to ensure
+  * it is turned off here for production.
+  * When showing errors, turn the error level up to E_ERROR so the application
+  * does not halt on every little warning. Logging by the error handler will
+  * not be affected by this setting.
+  */
+ // ini_set('display_errors', 'On');
+
+/*
+ * Global error level, optional
+ *
+ * If set it is passed directly into the error_reporting() function of PHP
+ * Normally you want this to be set to E_ALL during development and something a bit lower
+ * for a production system.
+ */
+ $systemConfiguration['Exception.ErrorLevel'] = E_ALL;
+/* This value determines if the reported error is logged. 28672 is for the constants
+ * E_RECOVERABLE_ERROR, E_DEPRECATED and E_USER_DEPRECATED in PHP since 5.2
+ */
+
+ $systemConfiguration['Exception.ErrorLogLevel'] = E_ALL + 28672;
+/* relative path to 503 error message page - default is shown below */
+ $systemConfiguration['Exception.503'] = 'var/messaging/errors/503.html';
+
+/*
+ * Modes affect access to exception data on db connections, access to sys info, and other sensitive areas
+ * Note: using developer mode may display sensitive security related information in error reporting.
+ * Default: production
+ * Available modes: developer, production, demo
+ */
+$systemConfiguration['Operation.Mode'] =  'production';
+
+/*
+ * System Default Timezone
+ * Default: On first install, the value in your php.ini file (date.timezone) is used if it exists otherwise
+ *          the script does a best guess and updates this value for you.
+ *          You can override this value later if required in your Base Modifyconfig page (Other tab).
+ */
+$systemConfiguration['SystemTimeZone'] = 'UTC';
+
+/*
+ * This value is used to change the default behavior of the
+ * xarServerGetBaseURL() and xarModURL() functions to allow you
+ * to use things like Apache's mod_rewrite to shorten your
+ * URLs even further then Short URL's allows, for example
+ * completely removing the "index.php" from your site's URLs
+ * Comment them out to use Xarigami's built-in/auto values
+ */
+// 1. When you want to use some alternate URI path to your site
+//$systemConfiguration['BaseURI'] = '/test';
+// 2. When you want to use some alternate script file for your site
+//$systemConfiguration['BaseModURL'] = 'index2.php';
+// 3. When you want to remove index.php from URLS, like this http://mysite.com/news/123
+//$systemConfiguration['BaseURI'] = '';
+//$systemConfiguration['BaseModURL'] = '';
+?>

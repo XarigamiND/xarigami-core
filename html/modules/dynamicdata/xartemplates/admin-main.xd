@@ -1,0 +1,225 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Overview</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <img src="#xarTplGetImage('admin.png', 'dynamicdata')#" alt="official icon" width="96" height="96" class="xar-module-icon" />
+
+                <p><xar:mlstring>Many modules deal with the equivalent of real-life objects, like news
+                   articles, projects, surveys, or courses. Those "objects" each have a number of "properties",
+                   like a title, an author, a deadline or a number of VIP places, and their data is generally
+                   stored in some dedicated module table.
+                </xar:mlstring></p>
+                <p>
+                    <xar:mlstring>The Dynamic Data module allows you to add additional properties (also knows as fields)
+                    to virtually any module 'object' without much effort - regardless of whether you're
+                    the module developer, a third-party solution designer or the website admin.</xar:mlstring>
+                </p>
+                <p>
+                    <xar:mlstring>In addition to extending existing modules with new properties, you can
+                    just as easily create separate, stand-alone objects by defining their properties and
+                    telling the Dynamic Data module where their data should be coming from:
+                    dedicated module tables, dynamic data fields (auto-generated),
+                    some utility module from Xarigami or a user function you'll specify.</xar:mlstring>
+                </p>
+
+            <h3><xar:mlstring>Admin Interface</xar:mlstring></h3>
+            <ul>
+                <li><xar:mlstring>Manage Data Objects - Create, edit, delete existing objects and their
+                    properties</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Property Types - a list of all the different property types installed
+                    on your site. Sometimes this needs flushing</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Utilities - Various GUI tools to work with new or existing DD objects
+                    </xar:mlstring>
+                </li>
+                <li><xar:mlstring>Table operations- Various GUI operations allowing you to manage your static tables and automagically turn them into objects.
+                    </xar:mlstring>
+                </li>
+            </ul>
+
+            <p><strong><xar:mlstring>Useful Utilities</xar:mlstring>:</strong></p>
+            <ul>
+                <li><xar:mlstring>Query: Build your own queries with this interface and DD will generate
+                    example code, ready for use</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Import/Export: Useful for moving object definitions and/or object data
+                    between sites</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Relationships: Setup relationships between tables/objects
+                    </xar:mlstring>
+                </li>
+                <li><xar:mlstring>Migrate items: migrate data from tables to objets and vice versa
+                    </xar:mlstring>
+                </li>
+
+            </ul>
+
+
+            <h3><xar:mlstring>Objects</xar:mlstring></h3>
+            <p><xar:mlstring>Types of Objects:</xar:mlstring></p>
+            <ul>
+                <li><xar:mlstring>Hooked - These objects extend another module and are tied to the module's
+                    ID and itemtype. There is no "Item ID" property as the Unique ID is provided by the
+                    module the object is hooked to.</xar:mlstring>
+                </li>
+                <li><xar:mlstring>Stand-Alone - These objects are native to DD and require one Item ID
+                    property</xar:mlstring>
+                </li>
+            </ul>
+            <h3><xar:mlstring>Object configuration</xar:mlstring></h3>
+             <p><xar:mlstring>Each object can be configured for specific behaviour. You can add a configuration option by
+             accessing the object edit page (Administration -&gt; Manage Dynamic Objects and clicking on Edit for a specific object). Once there you can add an option and corresponding value in the Config field.
+             There are a number of defined configuration options that are reserved and are listed below.</xar:mlstring></p>
+            <ul>
+                <li><strong>namedattributes:</strong>
+                        <xar:mlstring>If given a value of 1, the actual property name (eg 'location') will be used for the name and id,
+                        and label 'for' for properties in forms instead of  the dynamic data internal name (eg dd_32). The internal name is used by default
+                        to ensure there are unique dynamic data property names and IDs on any given page.
+                        Please check your pages are using unique names in forms if you use this option.
+                        </xar:mlstring>
+                </li>
+                <li><strong>fieldforshorturl:</strong> <xar:mlstring>Used for dynamic data friendly and SEO URLS (see below)</xar:mlstring>
+                </li>
+                <li><strong>shorturlfield:</strong> <xar:mlstring>Used for dynamic data friendly and SEO URLS (see below)</xar:mlstring>
+                </li>
+                <li><strong>shorturlduplicates:</strong> <xar:mlstring>Used for dynamic data friendly and SEO URLS (see below)</xar:mlstring>
+                </li>
+
+            </ul>
+               <p><xar:mlstring>If you are a developer,  you can add your own configuration options and values as you need, as long as they are not any of the reserved.</xar:mlstring></p>
+
+            <h3><xar:mlstring>Property types</xar:mlstring></h3>
+            <p><xar:mlstring>Properties describe an object and are often referred to as attributes, or
+                fields. Dynamic Data property types are used to store property data and come in many different
+                types that can be used to hold the many different types of object attributes.
+                Some common examples of Dynamic Data property types include:</xar:mlstring>
+            </p>
+            <ul>
+                <li><xar:mlstring>Item ID - stand-alone objects must have an Item ID property,
+                    which is the unique id of each individual object item</xar:mlstring></li>
+                <li><xar:mlstring>Textbox - used for short strings</xar:mlstring></li>
+                <li><xar:mlstring>Large, Medium Textareas - used for summary or body type fields</xar:mlstring></li>
+                <li><xar:mlstring>Dropdown List - creates a select list</xar:mlstring></li>
+            </ul>
+            <p>
+                <xar:set name="manageproplink">'<a href="'.xarModURL('dynamicdata','admin','manageproplist').'">'.xarML('Manage Data Properties page').'</a>'</xar:set>
+                <xar:ml>
+                    <xar:mlstring>You can find a full list of installed Dynamic Data Properties at #(1). If you install additional modules you may find additional properties installed there for those modules.</xar:mlstring>
+                    <xar:mlvar>#$manageproplink#</xar:mlvar>
+                </xar:ml>
+            </p>
+            <p><strong><xar:mlstring>Configuring Properties</xar:mlstring>:</strong></p>
+            <p><xar:mlstring>Each property of an object is defined by:</xar:mlstring></p>
+            <ul>
+                <li><xar:mlstring>Label - create a user-friendly label to be displayed</xar:mlstring></li>
+                <li><xar:mlstring>Name - a unique non-changeable name for the property</xar:mlstring></li>
+                <li><xar:mlstring>Type - type of property such as textbox, number box, image etc</xar:mlstring></li>
+                <li><xar:mlstring>Status - control the property's display behaviour</xar:mlstring></li>
+                <li><xar:mlstring>Default - set a default value</xar:mlstring></li>
+                <li><xar:mlstring>Configuration - each property has its own validation</xar:mlstring></li>
+                <li><xar:mlstring>Order - control the order in which the properties are displayed</xar:mlstring></li>
+            </ul>
+
+            <h3><xar:mlstring>Dynamic dataTemplate Tags</xar:mlstring></h3>
+            <p><xar:mlstring>What they are. How to manipulate, override.</xar:mlstring></p>
+            <p><xar:mlstring>The Dynamic Data module provides a number of custom block layout tags
+                that you can use in your templates to view, display, output or allow input of property data.
+                </xar:mlstring>
+            </p>
+            <ul>
+                <li><xar:mlstring>Input - for individual properties in forms</xar:mlstring></li>
+                <li><xar:mlstring>Output - for individual properties in display</xar:mlstring></li>
+                <li><xar:mlstring>View - list of items</xar:mlstring></li>
+                <li><xar:mlstring>Display - a single item</xar:mlstring></li>
+            </ul>
+
+            <p><strong><xar:mlstring>Example Tag Usage</xar:mlstring>:</strong></p>
+            <p><xar:mlstring>Getting objects and items</xar:mlstring></p>
+            <pre>
+                &lt;!-- <xar:mlstring>retrieves the dynamic properties defined for the 'users' module, and
+                                       their value for all items listed in $uidlist.</xar:mlstring> --&gt;
+                &lt;xar:data-getitems name="$properties" value="$values" module="users" itemids="$uidlist" /&gt;
+
+                &lt;!-- <xar:mlstring>retrieve dynamic properties for a single item of an object</xar:mlstring> --&gt;
+                &lt;xar:data-getitem name="$properties" module="users" itemid="$uid" /&gt;
+
+            </pre>
+            <p><xar:mlstring>Displaying objects and items</xar:mlstring></p>
+
+            <pre>
+                &lt;!-- <xar:mlstring>this will use the default layout of user-objectdisplay.xd</xar:mlstring> --&gt;
+                &lt;xar:data-display module="example" itemid="&#36;exid" /&gt;
+
+                &lt;!-- <xar:mlstring>this will use layout 'mylayout' of user-objectdisplay.xd</xar:mlstring> --&gt;
+                &lt;xar:data-display module="users" itemid="&#36;uid" layout="mylayout" /&gt;
+
+                &lt;!-- <xar:mlstring>this will use the template user-objectdisplay-myusers.xd</xar:mlstring> --&gt;
+                &lt;xar:data-display module="users" itemid="&#36;uid" template="myusers" /&gt;
+
+                &lt;xar:data-display object="&#36;object" /&gt;
+
+            </pre>
+            <h3>
+                <xar:mlstring>Short URLS and Friendly URLS</xar:mlstring>
+            </h3>
+            <p>
+                <xar:mlstring>Short URLS are available in Dynamic Data display urls for users. You do not need any mod rewriting for short urls unless you wish to remove the index.php from the url.
+                You can turn on Short URLS in the Site Base module and produce short in three different forms (use the normal mod rewrite and edit config.system.php to remove index.php):
+                </xar:mlstring>
+                <ol>
+                     <li><xar:mlstring>Short URLS turned on in Site Base module alone:</xar:mlstring> <code>http://yoursite.com/index.php/dynamicdata/myobject/6 </code><xar:mlstring>Where 'myobject' is the name of your object, and the item id appended at the end.</xar:mlstring></li>
+                     <li><xar:mlstring>Additionally Edit your object and check <strong>'Alias in short URLs'</strong> in the <strong>'Modify Definition'</strong> page for your object:</xar:mlstring> <code>http://yoursite.com/index.php/myobject/6 </code> <xar:mlstring>Where 'myobject' is the name of your object, and the ItemID appended at the end.</xar:mlstring></li>
+                     <li><xar:mlstring>Additionally Edit your object and set <strong>'Config'</strong> in the <strong>'Modify Definition'</strong> page for your specific object:</xar:mlstring> <code>http://yoursite.com/index.php/myobject/fieldname</code> <xar:mlstring>Where 'myobject' is the name of your object, and 'fieldname'
+                     is the value of your nominated field for short urls. You can also choose to append the ItemId for duplicates.</xar:mlstring><br />
+                     <xar:mlstring>Depending on how many items in your object, you may experience some performance drop. This is currently <strong>EXPERIMENTAL</strong> and you must set the following configurations manually in the  Modify Definition for your object:</xar:mlstring>
+                        <ul>
+                            <li><strong>fieldforshorturl</strong>: <xar:mlstring>value 0 (off) or 1 (on). Turns on short URLs using a nominated property (field) name in the URL.</xar:mlstring></li>
+                            <li><strong>shorturlfield</strong>: <xar:mlstring> the Name of the property to use in the short URLS eg 'itemtitle' </xar:mlstring></li>
+                            <li><strong>shorturlduplicates</strong>: <xar:mlstring>value 1 (Append ItemID only for duplicates - slowest) or 2 (Use ItemID always with field - fastest) or 3 (Ignore duplicates). Specifies how to treat duplicates if there are any </xar:mlstring></li>
+                        </ul>
+                        <p><xar:mlstring>Note that the required Item ID field for the object must be called 'id' or 'itemid'.</xar:mlstring></p>
+                     </li>
+
+
+                </ol>
+            </p>
+
+            <h3>
+                <xar:mlstring>Included hooks</xar:mlstring>
+            </h3>
+
+            <ul>
+                <li>
+                    <xar:mlstring><strong>Admin Hook</strong> : new/create/modify/update/delete plus
+                    modifyconf/updateconfig.</xar:mlstring><br />
+                    <xar:mlstring>You can hook Dynamic Data to other modules by going to Modules -> Configure Hooks
+                    and clicking on Dynamic Data. Activate the hook by checking the checkbox next to the module where
+                    you would like to use Dynamic Data.</xar:mlstring>
+                </li>
+            </ul>
+
+            <h3>
+                <xar:mlstring>Further Information</xar:mlstring>
+            </h3>
+            <p>
+               <xar:mlstring>Further information on the DynamicData module:</xar:mlstring>
+            </p>
+            <ul>
+                 <li><xar:mlstring>Related tutorials and documentation on DynamicData module at</xar:mlstring> <a href="http://xarigami.com/resources/" title="#xarML('Related documentation on DynamicData')#"><xar:mlstring>Xarigami Documentation.</xar:mlstring></a>
+               </li>
+           </ul>
+           <p class="xar-sub">
+             <strong>&#160;<xar:mlstring>DynamicData Module - Overview</xar:mlstring></strong><br />&#160;<xar:mlstring>Revision</xar:mlstring> 2.0.3&#160; 2011-03-17
+           </p>
+        </div>
+    </div>
+</div>

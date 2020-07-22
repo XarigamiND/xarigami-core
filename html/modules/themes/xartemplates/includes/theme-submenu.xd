@@ -1,0 +1,33 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="themeid">xarRequestGetVar('themeid') </xar:set>
+<xar:set name="themename">xarRequestGetVar('themename')</xar:set>
+<xar:if condition="!isset($themeid)">
+    <xar:set name="themename">xarTplGetThemeName()</xar:set>
+    <xar:set name="themeid">xarThemeGetIdFromName($themename)</xar:set>
+</xar:if>
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="varname">xarRequestGetVar('varname')?xarRequestGetVar('varname'):''</xar:set>
+<xar:set name="configvars">xarML('Configure theme variables')</xar:set>
+<xar:set name="configtheme">xarML('Customize theme')</xar:set>
+<xar:sec mask="EditTheme" catch="false" component="All" instance="$themename::$themeid">
+<xar:set name="classwidth">in_array($activetab,array('config','themewizard'))?'xar-threequarterswidth xar-floatleft':'xar-full-width'</xar:set>
+
+<ul class="xar-tabs xar-clearleft">
+    <xar:set name="tabclass">$activetab == 'themewizard'?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+        <a title="#$configtheme#" href="#xarModURL('themes','admin','themewizard',array('themeid'=>$themeid))#">
+            #$configtheme#
+        </a>
+    </li>
+   <xar:sec mask="AdminTheme" catch="false" component="All" instance="$themename::$themeid">
+    <xar:set name="tabclass">in_array($activetab,array('config','configaction'))?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+        <a title="#$configvars#" href="#xarModURL('themes','admin','config',array('themeid'=>$themeid))#">
+            #$configvars#
+        </a>
+    </li>
+    </xar:sec>
+</ul>
+</xar:sec>

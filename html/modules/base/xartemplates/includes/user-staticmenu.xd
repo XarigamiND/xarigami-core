@@ -1,0 +1,36 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Common Administration menu</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="displayname">xarModGetDisplayableName()</xar:set>
+<xar:set name="page">xarRequestGetVar('page')</xar:set>
+<xar:set name="page">is_bool($page)? 'main' : $page</xar:set>
+<xar:if condition="xarModGetVar('themes','showusermodheader')">
+<div class="xar-mod-title">
+    <xar:if condition="!isset($pagetitle)">
+       #$displayname#
+    <xar:else />
+        #$pagetitle#
+    </xar:if>
+</div>
+</xar:if>
+<xar:set name="tab">xarRequestGetVar('tab')</xar:set>
+<xar:template type="module" module="base" file="user-basebreadcrumb" />
+#xarTplGetMessage()#
+<xar:if condition="!empty($menulinks) and is_array($menulinks)">
+<ul class="xar-tabs">
+    <xar:foreach in="$menulinks" key="$name" value="$title">
+        <xar:if condition="!empty($tab) and $tab eq $name">
+            <xar:set name="tabclass">'xar-tab-active'</xar:set>
+        <xar:else />
+            <xar:set name="tabclass">'xar-tab'</xar:set>
+        </xar:if>
+        <xar:set name="pageurl">xarModURL('base','user','main',array('page'=>$page,'tab'=>$name))</xar:set>
+        <li class="#$tabclass#">
+             <a href="#$pageurl#" title="#$title#">
+                #$title#
+            </a>
+        </li>
+    </xar:foreach>
+</ul>
+</xar:if>

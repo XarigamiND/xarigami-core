@@ -1,0 +1,38 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Only set default class if class is empty - so passing a space will remove anything. Backward compatibility change</xar:comment>
+<xar:if condition="!isset($class) or empty($class)">
+    <xar:set name="class">'xar-form-label xar-help'</xar:set>
+</xar:if>
+<xar:if condition="!isset($style)">
+    <xar:set name="style">''</xar:set>
+</xar:if>
+<xar:if condition="!isset($title) or empty($title)">
+    <xar:set name="title">#$label#</xar:set>
+</xar:if>
+<xar:if condition="!isset($required)">
+    <xar:set name="required">''</xar:set>
+</xar:if>
+<xar:comment>pass space in class and override default</xar:comment>
+<xar:set name="class">trim($class)</xar:set>
+<xar:if condition="empty($for)">
+    <xar:if condition="empty($class) and empty($style)">
+        <label title="#$title#">#$label#</label>
+    <xar:elseif condition="empty($style) and !empty($class)" />
+        <label class="#$class#" title="#$title#">#$label#</label>
+    <xar:elseif condition="!empty($style) and empty($class)" />
+       <label title="#$title#" style="#$style#">#$label#</label>
+    <xar:else />
+        <label title="#$title#" class="$class" style="#$style#">#$label#</label>
+    </xar:if>
+<xar:else />
+    <xar:if condition="empty($class) and !empty($required)">
+        <xar:set name="class">$required</xar:set>
+    <xar:else />
+        <xar:set name="class">trim($class .' '.$required)</xar:set>
+    </xar:if>
+    <xar:if condition="!empty($for)">
+        <label for="#$for#" id="#$for#_label" class="#$class#" title="#$title#">#$label#</label>
+    <xar:else />
+      <label class="#$class#" title="#$title#">#$label#</label>
+    </xar:if>
+</xar:if>

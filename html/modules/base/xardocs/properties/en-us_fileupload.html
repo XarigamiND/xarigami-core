@@ -1,0 +1,107 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The 'fileupload' property (format 9) provides an input field where a user can  click and browse their local
+        computer for a file of a specified type, and upload it to a defined directory location.
+    </p>
+    <p>
+        On display, the output is a link to the uploaded file that can be clicked on to initiate download.
+        If 'Display' is checked in configuration or passed in the input tag and the file has a valid image URL,
+        that image will be displayed on input and output.
+    </p>
+    <p>Only the base filename of the file is saved in the database. The base directory is saved as part of the property's configuration.
+    </p>
+    <p>NOTE: you can hook the uploads module to any itemtype with this dataproperty, and it will inherit
+    features of the Uploads module 'upload' dd property (including ability to obfuscate files and so on).
+    If you really need this functionality please consider using the Uploads module itself and it's Upload data property (which should never be hooked).
+    </p>
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>basedir</strong>: [default='var/uploads']
+                <br />The Base directory is the path to where you wish the file to be uploaded.
+                You can use the following variables including curly braces, in the path and they will be replaced as noted:
+            <ol>
+                <li>{var} : will be replaced by your system var path (or that defined in your .key.php file if it exists) </li>
+                <li>{theme} : will be replaced by your current theme path</li>
+                <li>{user} : will be replaced by the current username and id separated by an underscore eg username_id</li>
+            </ol>
+        </li>
+        <li>
+            <strong>scale</strong>: [default=NULL]
+            <br />The file, if an image, will be scaled by this percent on upload, and saved at this scaled size with a file name that reflect it. Scale will take precedence and be applied over any width or height attribute.</li>
+        <li>
+        <li>
+            <strong>resize_width</strong>: [default=NULL]
+            <br />The file, if an image, will be resized to this width and saved withi a file name to reflect that new width. Width will be applied and take precedence over any height attribute.</li>
+        <li>
+        <li>
+            <strong>resize_height</strong>: [default=NULL]
+            <br />The file, if an image, will be resized to this height and saved withi a file name to reflect that new height. Height will be applied only if width or scale is not specified.</li>
+        <li>
+        </li>
+            <strong>display</strong>: [default=0]
+            <br />This is the Image on input control. If set to true or checked, an image will be displayed on input (and output) if a valid image URL is available.
+        </li>
+         <li>
+            <strong>extensions</strong>: [default='gif,jpg,jpeg,png,bmp,pdf,doc,txt']
+            <br />Allowed file extensions for the file upload, separated by commas.
+        </li>
+        <li>
+            <strong>maxsize</strong>: [default='1000000']
+            <br />Maximum allowed file size in bytes. If you set a size greater than the server allows, you will be warned on input (if you are admin) and the
+            maximum file size will be adjusted automatically for display to the user.
+        </li>
+        <li>
+            <strong>allow_duplicates</strong>: [default=2]
+            <br />Specifies whether duplicate uploads are not allowed (0), allowed with new version name auto created (1) or allowed with
+            overwrtting of the existing file (2).
+        </li>
+        <li>
+            <strong>output_width | output_height</strong>: [default='']
+            <br />The file, if an image, will be displayed on output with the specified width or height.
+            If width is specified, height will be ignored.
+        <li>
+    </ul>
+
+    <p>
+        Other attributes are available when you hook Uploads module to any module or itemtype that uses this File uploads property. There are also other general attribtues inherited from the master parent dynamic data property.
+    </p>
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <ul>
+        <li>
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property and add valid attributes for the File upload property to that tag.
+        </li>
+    </ul>
+
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="fileupload" name="myfield" maxsize="100000000" extensions="png,gif" basedir="var/uploads"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+     <h4>In the Dynamic Data Configuration:</h4>
+    <ul>
+        <li>
+            Makes sure the Base Directory entered is writeable by your server.
+        </li>
+        <li>
+
+        </li>
+            If you install Uploads module and hook Uploads to the module/itemtype that contains this file upload property, the File upload property configuration screen
+            will contain extra configuration options similar to the Upload dd property. These will allow you to check one or more of four different sources for your upload.
+            These include an upload to the given base directory, and external url, selection from a defined trusted directory (as defined in Uploads module),  or an existing stored file.
+        </ul>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['fileupload']"
+             <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="[propertyname]" id="myfileupload"
+            name="myfileupload" basedir="var/uploads" /&gt;
+    </pre>
+</div>

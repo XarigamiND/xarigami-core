@@ -1,0 +1,46 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Reset your password</xar:mlstring></h1>
+       <div class="xar-mod-content">
+                <form action="&xar-modurl-roles-user-resetpassword;" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <p class="xar-form-input-wrapper">
+                       <xar:mlstring>You have requested to change your password. </xar:mlstring>
+                    </p>
+                    <xar:if condition="$reqname eq 1">
+                        <div class="xar-form-input-wrapper">
+                          <label class="xar-form-label" for="uname"><xar:mlstring>Username</xar:mlstring>:</label>
+                          <input type="text" name="uname" id="uname" size="30" maxlength="255" tabindex="1" autocomplete="off"/>
+                        </div>
+                    </xar:if>
+                    <xar:if condition="$reqemail eq 1">
+                        <div class="xar-form-input-wrapper">
+                          <label class="xar-form-label" for="email"><xar:mlstring>E-mail address</xar:mlstring>:</label>
+                          <input type="text" name="email" id="email" size="30" maxlength="255" tabindex="2" autocomplete="off"/>
+                        </div>
+                    </xar:if>
+                    <div class="xar-form-input-wrapper">
+                        <label for="resetcode" class="xar-form-label"><xar:mlstring>Reset code</xar:mlstring>:</label>
+                        <input type="password" name="resetcode" id="resetcode" maxlength="64" size="30" tabindex="3" autocomplete="off"/>
+                    </div>
+                      <xar:if condition="!empty($invalid['resetpass'])">
+                          <p class="xar-form-input-wrapper-after">
+                              <span class="xar-error">#$invalid['resetpass']#</span>
+                          </p>
+                      </xar:if>
+                </fieldset>
+                <div class="xar-form-footer">
+                  <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                  <input type="hidden" name="phase" id="phase" value="resetpw" />
+                  <input type="submit" value="#xarML('Continue')#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

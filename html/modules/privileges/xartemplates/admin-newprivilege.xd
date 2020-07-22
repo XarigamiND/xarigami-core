@@ -1,0 +1,151 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" />
+<xar:set name="privscode">"
+jQuery(document).ready(function(){
+    var reloadform = function() {
+        this.form.action='" . xarModURL('privileges','admin','newprivilege', array(), false) . "';
+        ;this.form.submit();
+    }
+    jQuery('input[type=radio][id^=ptype]').click(reloadform);
+    jQuery('#"."pmodule').add('#"."pcomponent').change(reloadform);
+});"
+</xar:set>
+<xar:base-include-javascript position="body" type="code" code="$privscode" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Add Privilege</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form id="privilegeform" action="&xar-modurl-privileges-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Add Privilege
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="pname" title="#xarML('Name of the privilege')#" class="xar-form-label">
+                            <xar:mlstring>Name:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="pname" id="pname" value="$pname" maxlength="40" class="xar-form-textlong" tabindex="$tabindex++" />
+                    </div>
+                    <xar:set name="actionurl">#xarModURL('privileges','admin','newprivilege')#</xar:set>
+
+                    <xar:if condition="$ptype eq 'empty'">
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="radio" name="ptype" id="ptype" value="$ptype" options="$ptypeoptions" tabindex="$tabindex++" />
+                        </div>
+                    <xar:else />
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="radio" name="ptype" id="ptypeb" value="$ptype" options="$ptypeoptions" tabindex="$tabindex++" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="pparentid" title="#xarML('Parent privilege of this')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Member Of:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="dropdown" name="pparentid" id="pparentid" value="$pparentid" validation="$privlist" tabindex="$tabindex++" />
+                        </div>
+                        <xar:if condition="$showrealms">
+                            <div class="xar-form-input-wrapper">
+                                <label for="prealm" title="#xarML('Realm in which this privilege applies')#" class="xar-form-label">
+                                    <xar:mlstring>
+                                        Realm:
+                                    </xar:mlstring>
+                                </label>
+                                <xar:data-input type="dropdown" name="prealm" id="prealm" value="$prealm" validation="$realmslist" tabindex="$tabindex++" />
+                            </div>
+                        </xar:if>
+
+                        <div class="xar-form-input-wrapper">
+                            <label for="pmodule" title="#xarML('Module to which this privilege will apply')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Module:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="dropdown" name="pmodule" id="pmodule" value="$pmodule" validation="$modlist" tabindex="$tabindex++" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="pcomponent" title="#xarML('Component to which this privilege applies')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Component:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="dropdown" name="pcomponent" id="pcomponent" value="$pcomponent" validation="$complist" tabindex="$tabindex++" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="plevel" title="#xarML('Security level required by this privilege')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Level:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="dropdown" name="plevel" id="plevel" value="$plevel" validation="$levels" tabindex="$tabindex++" />
+                        </div>
+                    </xar:if>
+                    <div class="xar-form-input-wrapper">
+                      <label for="pdescription" title="#xarML('A description of this privilege')#" class="xar-form-label">
+                        <xar:mlstring>Description:</xar:mlstring>
+                      </label>
+                      <input type="text" name="pdescription" id="pdescription" value="#$pdescription#" maxlength="255" class="xar-form-textxlong" />
+                    </div>
+                    <xar:if condition="$ptype ne 'empty'">
+                        <xar:if condition="($pcomponent ne 'All') and empty($target)">
+                            <p>
+                                <xar:ml>
+                                    <xar:mlstring>
+                                        Apply to instances of component #(1) that have:
+                                    </xar:mlstring>
+                                    <xar:mlvar>
+                                        #$pcomponent#
+                                    </xar:mlvar>
+                                </xar:ml>
+                            </p>
+                            <xar:loop name="$instances">
+                                <div class="xar-form-input-wrapper">
+                                    <label for="pinstance#$loop:index#" class="xar-form-label">
+                                        #$loop:item['header']#
+                                    </label>
+                                    <xar:if condition="$loop:item['type'] eq 'manual'">
+                                        <input type="text" name="pinstance[]" id="pinstance#$loop:index#" value="All" class="xar-form-textmedium" tabindex="$tabindex++" />
+                                        &nbsp;
+                                        <xar:mlstring>
+                                            This field must contain a value
+                                        </xar:mlstring>
+                                        <xar:else />
+                                        <select name="pinstance[]" tabindex="$tabindex++" >
+                                            <xar:loop name="$loop:item['dropdown']">
+                                                <option value="#$loop:item['name']#">
+                                                    #$loop:item['title']#
+                                                </option>
+                                            </xar:loop>
+                                        </select>
+                                    </xar:if>
+                                </div>
+                            </xar:loop>
+                            <xar:elseif condition="!empty($target)" />
+                            <p>
+                                <a href="#$target#" title="#xarML('Use Wizard')#">
+                                    <xar:mlstring>
+                                        Specify the instances that apply for this privilege
+                                    </xar:mlstring>
+                                </a>
+                            </p>
+                        </xar:if>
+                    </xar:if>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="pid" id="pid" value="#$pid#" />
+                    <xar:set name="tmpaddvalue"><xar:mlstring>Add</xar:mlstring></xar:set>
+                    <input type="submit" value="#$tmpaddvalue#" tabindex="#$tabindex++#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

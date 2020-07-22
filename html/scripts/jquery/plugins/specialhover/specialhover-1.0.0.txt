@@ -1,0 +1,2 @@
+$.event.special.hover v1.0
+http://blog.threedubmedia.com/2008/08/eventspecialhover.html

@@ -1,0 +1,16 @@
+<xar:if id="title_condition" condition="!empty($title)">
+<div class="xar-block-head-right">
+    <div class="xar-block-title-right">
+        <xar:var name="title" prep="false"/>
+        <xar:template type="module" module="blocks" file="block-control" />
+    </div>
+</div>
+<xar:else />
+<xar:template type="module" module="blocks" file="block-control" />
+</xar:if>
+<div class="xar-block-body-right">
+<xar:var name="content" prep="false"/>
+</div>
+<div class="xar-block-foot-right"></div>
+
+

@@ -1,0 +1,34 @@
+<xar:if condition="!empty($value)">
+<div class="xar-form-container-after">
+<xar:if condition="is_array($value)">
+<xar:if condition = "$associative_array eq 1">
+    <xar:foreach in="$value" key="$key" value="$val">
+    #$key# :
+    <xar:if condition="$columns gt 1 and is_array($val)">
+        <xar:foreach in="$val" key="$col" value="$colval">
+                    <xar:var name="$colval"/>
+                    <xar:if condition="$col lt $columns-1">,
+                    </xar:if>
+         </xar:foreach>
+    <xar:else />
+            <xar:var name="val"/>
+    </xar:if>
+    <br/>
+    </xar:foreach>
+<xar:else/>
+    <xar:foreach in="$value" key="$row" value="$val">
+        <xar:if condition="$columns gt 1 and is_array($val)">
+            <xar:foreach in="$val" key="$col" value="$colval">
+                        <xar:var name="$colval"/>
+                        <xar:if condition="$col lt $columns-1">,
+                        </xar:if>
+             </xar:foreach>
+        <xar:else />
+                <xar:var name="val"/>
+        </xar:if>
+    <br/>
+    </xar:foreach>
+</xar:if>
+</xar:if>
+</div>
+</xar:if>

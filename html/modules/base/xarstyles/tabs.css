@@ -1,0 +1,130 @@
+/* Round pure-css skewed tabs v0.3 */
+/* Author Xarigami Team - Copyright 2011 2skies.com */
+
+/* Note: the commented parts were compatibility float rules for IE6 - not by default anymore */
+ul.xar-tabs {
+    padding: 0px 15px 0px 15px;
+    margin:.5em 0 .75em 0;
+    list-style:none;
+    border-style: none;
+    background-color: transparent;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    z-index: 0;
+    /*height: 22px;*/
+    /* width: 100%; This is causing some issues  */
+    line-height: 21px;
+    text-align: left;
+}
+ul.xar-tabs li.xar-tabs-label {
+    list-style: none !important;
+    /* float: left; */
+    white-space: nowrap;
+    border: 0;
+    line-height: 20px;
+    margin: 0 0 0 -10px;
+    height: 21px;
+    padding: 1px 10px 0px 0px !important;
+    background-image:none;
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+}
+ul.xar-tabs li.xar-tab a                                        { opacity: .8; }
+ul.xar-tabs li.xar-tab:hover a, ul.xar-tabs li.xar-tab-active a { opacity: 1.0; }
+ul.xar-tabs li.xar-tab, ul.xar-tabs li.xar-tab-active {
+    border: solid 1px #ccc;
+    border-right: none;
+    border-bottom: none;
+    background-color: #eee;
+    -webkit-transform: skewX(-20deg);
+    -moz-transform: skewX(-20deg);
+    -o-transform: skewX(-20deg);
+    -ms-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    -webkit-border-top-right-radius:8px;
+    -webkit-border-top-left-radius:8px;
+    -moz-border-radius-topright:8px;
+    -moz-border-radius-topleft:8px;
+    -khtml-border-radius-topright:8px;
+    -khtml-border-radius-topleft:8px;
+    border-top-right-radius:8px;
+    border-top-left-radius:8px;
+    font-weight: bold;
+    /* float: left; */
+    display: inline-block;
+    margin-top: 2px;
+    /*margin-right: -1px;*/
+    margin-right: -5px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+    cursor: pointer;
+    height: 21px;
+    z-index: 0;
+    position: relative;
+}
+ul.xar-tabs li.xar-tab:hover, ul.xar-tabs li.xar-tab-active {
+    background-color: #FFF;
+    border-color: #ccc;
+    z-index: 1;
+    -webkit-border-top-right-radius:18px;
+    -webkit-border-top-left-radius:8px;
+    -moz-border-radius-topright:18px;
+    -moz-border-radius-topleft:8px;
+    -khtml-border-radius-topright:18px;
+    -khtml-border-radius-topleft:8px;
+    border-top-right-radius:18px;
+    border-top-left-radius:8px;
+}
+ul.xar-tabs li.xar-tab:hover {
+    background-color: #F8F8F8;
+}
+ul.xar-tabs li.xar-tab:hover a, ul.xar-tabs li.xar-tab:hover a {
+    border-color: #ccc;
+    background-color: #F8F8F8;
+}
+ul.xar-tabs li.xar-tab a, ul.xar-tabs li.xar-tab-active a {
+    position: relative;
+    border-right: solid 1px #ccc;
+    border-top: solid 1px #ccc;
+    border-bottom: none;
+    border-left: none;
+    background-color: #eee;
+    -webkit-transform: skewx(20deg);
+    -moz-transform: skewX(20deg);
+    -o-transform: skewx(20deg);
+    -ms-transform: skewx(20deg);
+    transform: skewx(20deg);
+    -webkit-border-top-right-radius:8px;
+    -webkit-border-top-left-radius:0px;
+    -moz-border-radius-topright:8px;
+    -moz-border-radius-topleft:0px;
+    -khtml-border-radius-topright:8px;
+    -khtml-border-radius-topleft:0px;
+    border-top-right-radius:8px;
+    border-top-left-radius:0px;
+    margin: -1px -5px -1px 10px;
+    padding-right: 11px;
+    line-height: 20px;
+    height: 21px;
+    display: block;
+    /* float: left; */
+    text-decoration: none;
+}
+ul.xar-tabs li.xar-tab:hover a:hover, ul.xar-tabs li.xar-tab-active:hover a:hover {
+    text-decoration: none;
+}
+ul.xar-tabs li.xar-tab-active  {
+    border-bottom: none;
+    height: 23px;
+    margin-bottom: -2px;
+    /* Safari 5 has an aliasing syndrom if two borders have different colors */
+    z-index: 3;
+    background-color: #FFF;
+}
+ul.xar-tabs li.xar-tab-active a {
+    border-color: #ccc;
+    background-color: #FFF;
+    height: 22px;
+    margin-bottom: -1px;
+}

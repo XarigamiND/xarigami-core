@@ -1,0 +1,56 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">!isset($tabindex)?1:$tabindex</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <div class="xar-mod-content">
+            <xar:if condition="xarModGetVar('roles','advpasswordreset')">
+                <p><xar:mlstring>Type your username or email in the form below and we'll send you instructions on how to reset a new password!</xar:mlstring></p>
+            <xar:else />
+                <p><xar:mlstring>Type your username or email in the form below and we'll send you a new password.</xar:mlstring></p>
+            </xar:if>
+
+            <form action="&xar-modurl-roles-user-lostpassword;" method="post" id="lostpassword" enctype="application/x-www-form-urlencoded">
+              <fieldset>
+                <legend><xar:mlstring>Enter your username or your e-mail address.</xar:mlstring></legend>
+
+                <div class="xar-form-input-wrapper">
+                  <label class="xar-form-label" for="uname"><xar:mlstring>Username</xar:mlstring>:</label>
+                  <xar:data-input type="textbox" name="uname" id="uname" size="25" maxlength="255" tabindex="$tabindex++" autocomplete="off" />
+                  <xar:if condition="!empty($invalid['uname'])">
+                      <p class="xar-form-input-wrapper-after">
+                          <span class="xar-error">#$invalid['uname']#</span>
+                      </p>
+                  </xar:if>
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                  <label class="xar-form-label" for="email"><xar:mlstring>E-mail address</xar:mlstring>:</label>
+                  <xar:data-input type="email" name="email" id="email" size="25" maxlength="255" tabindex="$tabindex++" autocomplete="off" />
+                  <xar:if condition="!empty($invalid['email'])">
+                      <p class="xar-form-input-wrapper-after">
+                          <span class="xar-error">#$invalid['email']#</span>
+                      </p>
+                  </xar:if>
+                </div>
+                  <xar:if condition="!empty($invalid['getpassword'])">
+                      <p class="xar-form-input-wrapper-after">
+                          <span class="xar-error">#$invalid['getpassword']#</span>
+                      </p>
+                  </xar:if>
+              </fieldset>
+              <fieldset>
+                <div class="xar-align-center">
+                  <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                  <input type="hidden" name="phase" id="phase" value="send" />
+                  <input type="submit" value="#$emaillabel#"  tabindex="#$tabindex++#"/>
+                </div>
+              </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

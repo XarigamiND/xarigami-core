@@ -1,0 +1,3 @@
+Version: 1.3pre, Last updated: 8/26/2010
+http://benalman.com/projects/jquery-bbq-plugin/
+https://github.com/cowboy/jquery-bbq

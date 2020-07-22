@@ -1,0 +1,198 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Include the template that holds the jquery javascript and tags to load</xar:comment>
+<xar:set name="itemtext"><xar:mlstring>ID:</xar:mlstring></xar:set>
+<xar:template module="mail" file="jq-viewq" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Mail Queue</xar:mlstring></h1>
+        <xar:template type="module" file="admin-queue" />
+        <xar:comment>
+           We want to show this option so people know it is available.
+           We only show this if we can use it eg scheduler is installed and hooked to mail
+        </xar:comment>
+        <div class="xar-mod-content">
+            <xar:if condition="$scheduleravailable and xarModIsHooked('mail','scheduler')">
+                <xar:if condition="!empty($log)">
+                    <pre>#$log#</pre>
+                <xar:elseif condition="!empty($mail)"/>
+                    <xar:if condition="!empty($queuenote)">
+                        <p class="xar-error">#$queuenote#</p>
+                    </xar:if>
+                    <div id="messagepreview">
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                <xar:mlstring>Mail ID:</xar:mlstring>
+                            </label>
+
+                                #xarVarPrepForDisplay($mail['mid'])#
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                <xar:mlstring>From:</xar:mlstring>
+                            </label>
+
+                                #xarVarPrepForDisplay($mail['fromname'])# &lt;#xarVarPrepForDisplay($mail['from'])#&gt;
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                <xar:mlstring>To:</xar:mlstring>
+                            </label>
+                            <div class="xar-form-container-after">
+                                <xar:if condition="!empty($mail['recipients'])">
+                                    <xar:foreach in="$mail['recipients']" key="$k" value="$v">
+                                        <xar:if condition="!is_numeric($k)">
+                                            #xarVarPrepForDisplay($k)#
+                                        </xar:if>
+                                        <xar:if condition="!is_numeric($v)">
+                                            #xarVarPrepForDisplay($v)#
+                                        </xar:if>
+                                        <br/>
+                                    </xar:foreach>
+                                <xar:elseif condition="!empty($mail['info'])"/>
+                                    <xar:if condition="!empty($mail['name'])">
+                                        #xarVarPrepForDisplay($mail['name'])#
+                                    </xar:if>
+                                    &lt;#xarVarPrepForDisplay($mail['info'])#&gt;
+                                </xar:if>
+                            </div>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                <xar:mlstring>Subject:</xar:mlstring>
+                            </label>
+                                #xarVarPrepForDisplay($mail['subject'])#
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                             <label class="xar-form-label">
+                                <xar:mlstring>Queued:</xar:mlstring>
+                            </label>
+                                #xarLocaleGetFormattedDate('medium',$mail['queued'])# #xarLocaleGetFormattedTime('medium',$mail['queued'])#
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                             <label class="xar-form-label">
+                                <xar:mlstring>Send After:</xar:mlstring>
+                            </label>
+                                #xarLocaleGetFormattedDate('medium',$mail['when'])# #xarLocaleGetFormattedTime('medium',$mail['when'])#
+                        </div>
+                    </div>
+                    <br />
+                </xar:if>
+
+                <form method="post" action="&xar-modurl-mail-admin-viewq;">
+                    <div class="xar-form-footer">
+                    <input type="hidden" name="authid" value="#$authid#" />
+                    <input type="hidden" name="action" value="process" />
+                    <input type="submit" value="#xarML('Process Queue')#" />
+                    </div>
+                </form>
+                <form id="mail-review" action="#xarModURL('mail','admin','viewq')#" method="post">
+                    <table class="xar-items">
+                        <tr>
+                            <th width="80">
+                                <xar:mlstring>Mail ID</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Subject</xar:mlstring>
+                            </th>
+                            <th width="120">
+                                <xar:if condition="$sentstatus eq 2">
+                                    <xar:mlstring>Scheduled</xar:mlstring>
+                                <xar:elseif condition="$sentstatus eq 1" />
+                                    <xar:mlstring>Time Sent</xar:mlstring>
+                                <xar:else />
+                                    <xar:mlstring>Send Time</xar:mlstring>
+                                </xar:if>
+                            </th>
+                            <th width="120" align="center">
+                                 <xar:mlstring>Action</xar:mlstring>
+                            </th>
+                        </tr>
+                        <xar:if condition="count($items) gt 0">
+                            <xar:set name="rowclass">'xar-norm'</xar:set>
+                            <xar:foreach in="$items" key="$id" value="$item">
+
+                                 <tr class="#$rowclass#">
+                                    <td>
+                                        <xar:if condition="$item['sent'] eq 0">
+                                            <span class="esprite xs-pending" title="#$item['status']#"><span>#$item['status']#</span></span>
+                                        <xar:elseif condition="$item['sent'] eq '-1'" />
+                                            <span class="sprite xs-dialog-warning" title="#$item['status']#"><span>#$item['status']#</span></span>
+                                        <xar:else />
+                                            <span class="esprite xs-approved" title="#$item['status']#"><span>#$item['status']#</span></span>
+                                        </xar:if>
+                                        &#160;#$itemtext# #$id#
+                                    </td>
+                                    <td>
+                                        #$item.subject#
+                                    </td>
+                                    <td>
+                                        <xar:if condition="$item['sent'] gt 0">
+                                            #xarLocaleGetFormattedDate('medium',$item.sent)# #xarLocaleGetFormattedTime('short',$item.sent)#
+                                        <xar:else />
+                                            #xarLocaleGetFormattedDate('medium',$item.when)# #xarLocaleGetFormattedTime('short',$item.when)#
+                                        </xar:if>
+                                    </td>
+                                    <td align="center">
+
+                                        <a href="#$item.viewurl#" id="viewmail_#$item['mid']#"><xar:mlstring>View</xar:mlstring></a>
+                                        |
+                                        <a href="#$item.deleteurl#" id="deletemail_#$item['mid']#"><xar:mlstring>Delete</xar:mlstring></a>
+                                        <xar:data-input type="checkbox" name="checklist['.$item['mid'].']" id="checklist['.$item['mid'].']" checked="" />
+                                    </td>
+                                </tr>
+                                <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                             </xar:foreach>
+                             <tr >
+                              <td colspan="2" style="height:40px;border-right:none;">
+                                    <xar:data-input type="dropdown" validation="$bulk" name="bulk" id="bulk" firstline="Choose action" />
+                                    <input type="submit" value="#xarML('Confirm Action')#" />
+                                </td>
+                                <td colspan="2" style="border-left:none;">
+                                    <p class="checkcontrols xar-align-right xar-sub">
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="xar-align-center">#$pager#</div>
+                                </td>
+                            </tr>
+                        <xar:else />
+                            <tr>
+                              <td colspan="4" class="xar-align-left">
+                              <br />
+                              <xar:if condition="$sentstatus eq 2">
+                                  <strong><xar:mlstring>No mails scheduled to be sent later</xar:mlstring></strong>
+                              <xar:else />
+                                    <strong><xar:mlstring>No mails in the queue</xar:mlstring></strong>
+                              </xar:if>
+                              </td>
+                            </tr>
+                        </xar:if>
+                    </table>
+
+                </form>
+            <xar:else />
+                <p> <xar:set name="hookmailurl">xarModURL('modules','admin','hooks', array('hook' => 'mail'))</xar:set>
+                    <xar:set name="hookmailtitle"><xar:mlstring>Hook mail to scheduler to activate queue processing</xar:mlstring></xar:set>
+                    <xar:set name="hookmaillinktext"><xar:mlstring>hook mail to scheduler</xar:mlstring></xar:set>
+                    <xar:ml>
+                        <xar:mlstring>
+                        You can schedule mail for sending later by installing and using the Scheduler module.
+                        Install Scheduler first. Mail supplies the hooks so you must also
+                        <a href="#(1)" title="#(2)">#(3)</a> to use this option.
+                        </xar:mlstring>
+                        <xar:mlvar>#$hookmailurl#</xar:mlvar>
+                        <xar:mlvar>#$hookmailtitle#</xar:mlvar>
+                        <xar:mlvar>#$hookmaillinktext#</xar:mlvar>
+                    </xar:ml>
+                </p>
+            </xar:if>
+        </div>
+    </div>
+</div>

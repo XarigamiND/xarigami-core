@@ -1,0 +1,3 @@
+jQuery bgiframe Plugin 2.1.2 by Brandon Aaron
+http://brandonaaron.net/code/bgiframe/docs
+The bgiframe plugin is chainable and applies the iframe hack to get around zIndex issues in IE6. It will only apply itself in IE6 and adds a class to the iframe called 'bgiframe'. The iframe is appended as the first child of the matched element(s) with a tabIndex and zIndex of -1.

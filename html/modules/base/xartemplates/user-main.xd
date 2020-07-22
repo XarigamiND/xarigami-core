@@ -1,0 +1,45 @@
+<xar:comment>This is a comment that cannot be viewed in the page source.</xar:comment>
+<xar:comment>We are going to check to see if a variable called 'tab' is passed to this template.</xar:comment>
+<xar:set name="tab">xarRequestGetVar('tab');</xar:set>
+<xar:set name="tab">isset($tab)?$tab: 'welcome'</xar:set>
+<xar:comment>Set the tab links for this page. We must use the variable 'menulinks' in this case, to hold the tab definitions.</xar:comment>
+<xar:set name="menulinks">
+    array('welcome'  => xarML("Welcome"),
+);
+</xar:set>
+<xar:set name="versionnum">xarConfigGetVar('System.Core.VersionNum')</xar:set>
+<xar:set name="mtrev">xarConfigGetVar('System.Core.VersionRev')</xar:set>
+<xar:set name="versionsub">xarConfigGetVar('System.Core.VersionSub')</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:template type="module" module="base" file="user-staticmenu" subdata="array('menulinks'=&gt;$menulinks,'page'=&gt;'main')" />
+    </div>
+     <xar:comment>A 'xar-mod-body' div holds the content for display on this module page including a h1 header.</xar:comment>
+    <div class="xar-mod-body">
+        <div class="xar-mod-content">
+        <xar:if condition="empty($tab) or $tab eq 'welcome'">
+            <h1>
+            <xar:ml>
+                <xar:mlstring>Welcome to Xarigami #(1) #(2)</xar:mlstring>
+                <xar:mlvar>#$versionnum#</xar:mlvar>
+                <xar:mlvar>#$versionsub#</xar:mlvar>
+            </xar:ml>
+            </h1>
+
+            <p>
+                <xar:mlstring>Xarigami is at Production Stable.  If you notice any unexpected functionality,
+                please use our issue tracker at <a href="http://bugs.xarigami.com">http://bugs.xarigami.com</a>.
+                Thank you for your support, and feel free to join our development or user discussions to become involved in our community.</xar:mlstring>
+            </p>
+            <p>
+                <xar:mlstring>For more information on Xarigami, please visit <a href="http://xarigami.com">xarigami.com</a>.</xar:mlstring>
+            </p>
+
+            <p>
+                <xar:mlstring>This message can be edited by creating an 'override' template and editing that. To do this copy this system template file (modules/base/xartemplates/user-main.xd)
+                and copy it to your theme directory in the equivalent module directory (themes/themename/modules/base/user-main.xt). Note the .xt extension in the override template.</xar:mlstring>
+            </p>
+        </xar:if>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+
+    </div>
+    <div class="xar-mod-body">
+        <img src="#xarTplGetImage('user-error.png', 'base')#" alt="#xarML('Icon')#" class="xar-module-icon"/>
+        <h1>
+            <xar:mlstring>404 Page Not Found</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <xar:set name="homepage">xarServerGetBaseURL();</xar:set>
+            <xar:set name="currenturl">xarServerGetCurrentURL();</xar:set>
+             <xar:set name="homeurl">'<a href="'.$homepage.'">'.xarML('homepage').'</a>'</xar:set>
+
+            <h3>
+                <xar:mlstring>We're sorry! The page you were looking for could not be found! </xar:mlstring>
+            </h3>
+            <xar:if condition="!empty($msg)">
+                <p><strong><xar:var name="msg"/></strong></p>
+            </xar:if>
+            <p class="xar-padding-thicktop">
+                <xar:ml>
+                    <xar:mlstring>You might like to visit our #(1) or</xar:mlstring>
+                    <xar:mlvar>#$homeurl#</xar:mlvar>
+                </xar:ml>
+
+                <xar:if condition="xarModIsAvailable('search')">
+                    <xar:mlstring>use the search box below to try and find the page you were looking for.</xar:mlstring>
+                     <br /><xar:block module="search" type="search" />
+                <xar:else />
+                 <xar:mlstring>use your browser back button to return to your previous page.</xar:mlstring>
+
+                </xar:if>
+            </p>
+
+            <xar:set name="adminemail">xarModGetVar('mail','adminmail')</xar:set>
+            <xar:set name="obfuemail">xarModAPIFunc('mail','user','obfuemail',array('email'=>$adminemail,'text'=>xarML('contact the Site Administrator')))</xar:set>
+
+            <p class="xar-padding-thicktop">
+                <xar:ml>
+                    <xar:mlstring>If you want you can #(1) with the missing page URL. For reference the URL is:</xar:mlstring>
+                    <xar:mlvar>#$obfuemail.link#</xar:mlvar>
+                </xar:ml>
+            </p>
+            <p>#$currenturl#</p>
+            <!-- Insert sitemap here -->
+        </div>
+    </div>
+</div>
+

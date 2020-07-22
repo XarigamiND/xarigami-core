@@ -1,0 +1,87 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Textarea_small property provides a textarea input box for text entry.
+        The textarea input box (small) is 2 (two) rows in height by default.
+    </p>
+    <p>
+        The Textarea_display output function displays the content of the textarea prepped for HTML output.
+    </p>    
+    <p>
+        The actual value of the text is stored in the database.
+    </p>  
+    
+    <h2>Attributes</h2>
+
+    <ul>
+        <li>
+            <strong>default</strong>: [default = '']
+            <br />This is the default text displayed in the textarea on input.
+
+        </li>
+        <li>
+            <strong>rows</strong>: [default = '2']
+            <br />This is the number of rows in height of the textarea.
+        </li>
+        <li>
+            <strong>cols</strong>: [default = '35']
+            <br />This is the number of columns in the text area. It is equated to a style in the textarea
+            property template for better compliance with xhtml standards.
+        </li>
+        <li>
+            <strong>class</strong>: [default = 'xar-form-text*']
+            <br />If defined, the class will be added to the text input tag and applied otherwise a default class is used
+            determined by the number of rows in the text box. The fallback default can be overridden
+             by adding an empty space character to the class input box.
+        </li>
+        <li>
+            <strong>max_length</strong>: [default = '']
+            <br />If defined, this will restrict input to a maximum number of characters specified by  maxlength, and
+            display a <strong>'count down' character counter</strong> in the input template.
+        </li>
+        <li>
+            <strong>min_length</strong>: [default = '']
+            <br />If defined, this will require input of a minimum number of characters specified by  minlength.
+        </li>
+
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>textbox</em> type in forms without the need to define a property
+        to capture data. As well as the attributes available in GUI configurations above, standalone properties also accept
+        valid HTML5 and ARIA WAI attributes passed in the tag.
+    <p>
+    <p>Note 'max_length" passed in with a value will show a count down character counter.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="textarea_small" default="$defaulttext" name="myfield" max_length="150"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <p>
+        When you define this property you can add a default text value in the 'Default' input box.
+        You can also edit the Configuration and enter the <em>rows</em>, <em>cols</em>, and <em>class</em> in the
+        relevant input boxes. The <em>maxlength</em> is entered in the 'Other' input box as <em>maxlength=X</em>.
+
+    </p>
+    <p>
+         In your template forms you can use the data-input tag to capture data for this property.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['textareasmall']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="textarea_small" rows="4" id="myfield"
+            name="myfield" default="Any text" /&gt;
+    </pre>
+</div>

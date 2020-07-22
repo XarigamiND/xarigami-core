@@ -1,0 +1,39 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify Configuration</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" action="&xar-modurl-modules-admin-updateconfig;">
+                <fieldset>
+                    <legend><xar:mlstring>Configuration settings</xar:mlstring></legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="itemsperpage" class="xar-form-label">
+                            <xar:mlstring>Module items per page</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="itemsperpage" id="itemsperpage" value="$itemsperpage" max="3" />
+
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:data-input type="checkbox" name="auto3ptupgrade" id="auto3ptupgrade" value="$auto3ptupgrade" checked="$auto3ptupgrade" />
+                        <label for="auto3ptupgrade">
+                            <xar:mlstring>Auto-upgrade modules with 3rd point version updates?</xar:mlstring>
+                        </label>
+                        <p><xar:mlstring>Checking ON allows automatic upgrade of non-core modules to active state if their 3rd point version has changed.
+                        Standard module coding states that no database changes are involved with 3rd point version upgrades. However, 3rd party modules are under individual developer control.
+                        Recommendation is to ensure you backup your database before any module updates.</xar:mlstring></p>
+                        <p><xar:mlstring>[Note: all core modules are automatically updated and activated].</xar:mlstring></p>
+                    </div>
+                </fieldset>
+                <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

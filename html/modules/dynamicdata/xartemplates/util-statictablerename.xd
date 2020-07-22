@@ -1,0 +1,47 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Table operations</xar:mlstring></h1>
+        <xar:template type="module" file="tableops-menu" />
+        <div class="xar-mod-content">
+            <h2>
+                <xar:ml>
+                    <xar:mlstring>Rename '#(1)' table: #(2)</xar:mlstring>
+                    <xar:mlvar>#$db#</xar:mlvar>
+                    <xar:mlvar>#$table#</xar:mlvar>
+                </xar:ml>
+            </h2>
+             <form method="post" action="#xarServerGetCurrentURL()#">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Rename this table?</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="newtable" class="xar-form-label">
+                            <xar:ml>
+                                <xar:mlstring>Rename #(1) to</xar:mlstring>
+                                <xar:mlvar>#$shorttable#</xar:mlvar>
+                            </xar:ml>
+                        </label>
+                        <xar:data-input type="textbox" name="newtable" id="newtable" value="$newtable" />
+                    </div>
+                </fieldset>
+
+                <div class="xar-form-footer">
+                    <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                    <input type="hidden" name="db" id="db" value="#$db#" />
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="table" id="table" value="#$table#" />
+                    <input type="hidden" name="confirm" id="confirm" value="true" />
+                    <input type="submit" value="#xarML('Rename table')#" class="xar-margin-thickleft" />
+                    <a href="#$cancelurl#"><xar:mlstring>Cancel</xar:mlstring></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

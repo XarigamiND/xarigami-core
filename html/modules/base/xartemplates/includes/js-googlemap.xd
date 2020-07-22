@@ -1,0 +1,59 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript type="src" filename="http://maps.googleapis.com/maps/api/js?sensor=false" position="head" />
+<xar:set name="mtype">strtoupper($maptype)</xar:set>
+<xar:set name="ll">$latitude.','.$longitude</xar:set>
+
+<xar:set name="gmapcode">"
+var geocoder$codeindex;
+var map$codeindex;
+var img = \"$iconurl\";
+
+function initialize$codeindex() {
+  var mapLoc$codeindex;
+  geocoder$codeindex = new google.maps.Geocoder();
+  // we need to have lat and log set otherwise we have a prob
+  var myOptions$codeindex = {
+        zoom: $zoom,
+        center: mapLoc$codeindex,
+        mapTypeControl: true,
+        scaleControl: true,
+        zoomControl: true,
+        streetViewControl: true,
+        mapTypeId: google.maps.MapTypeId.$mtype
+  };
+  if ($latitude != 0  && $longitude != 0) {
+        //take lat and long over center string
+         myOptions$codeindex.center = new google.maps.LatLng($ll);
+        var map$codeindex = new google.maps.Map(document.getElementById('map_canvas$codeindex'),myOptions$codeindex);
+        var marker$codeindex = new google.maps.Marker({
+            position:  myOptions$codeindex.center,
+            map: map$codeindex,
+            title: \"$title\"
+        });
+
+   } else if (\"$center\" !=='')  {
+      geocoder$codeindex.geocode( { 'address': \"$center\"}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK)  {
+       myOptions$codeindex.center= results[0].geometry.location;
+        var map$codeindex = new google.maps.Map(document.getElementById('map_canvas$codeindex'),myOptions$codeindex);
+        var marker$codeindex = new google.maps.Marker({
+            position:  myOptions$codeindex.center,
+            map: map$codeindex,
+            title: \"$title\"
+        });
+        } else {
+            alert('Google map geolocation error - check center address value.');
+        }
+      });
+   } else {
+     mapLoc$codeindex = '';
+   }
+   if( img )
+   {
+       marker$codeindex.setIcon(img);
+    }
+marker$codeindex.setMap(map$codeindex);
+}
+"</xar:set>
+<xar:set name="jsindex">'mmapindex_'.$codeindex</xar:set>
+<xar:base-include-javascript code="$gmapcode" index="$jsindex" position="body" />

@@ -1,0 +1,6 @@
+<h3><xar:var name="title"/></h3>
+<img src="#$body#" border="0" alt="#$title#" />
+<br />
+<span class="xar-quote">
+    <xar:var name="notes"/>
+</span>

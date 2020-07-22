@@ -1,0 +1,105 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="modify"><xar:mlstring>Modify</xar:mlstring></xar:set>
+<xar:set name="delete"><xar:mlstring>Delete</xar:mlstring></xar:set>
+<xar:set name="notavailable"><xar:mlstring>Not available</xar:mlstring></xar:set>
+<table class="xar-items">
+    <thead>
+    <tr>
+        <th>
+            <xar:mlstring>Name</xar:mlstring>
+        </th>
+        <th>
+            <xar:mlstring>Groups</xar:mlstring>
+        </th>
+        <th>
+            <xar:mlstring>Module</xar:mlstring>
+        </th>
+        <th>
+            <xar:mlstring>Type</xar:mlstring>
+        </th>
+        <th>
+            <xar:mlstring>Template</xar:mlstring>
+        </th>
+        <th>
+            <xar:mlstring>Status</xar:mlstring>
+        </th>
+        <th>
+            <xar:mlstring>Actions</xar:mlstring>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <xar:set name="rowclass">'xar-norm'</xar:set>
+    <xar:foreach in="$blockinstances" key="$blockid" value="$blockinfo">
+        <tr class="#$rowclass#">
+            <td>
+                <xar:if condition="empty($blockinfo['title'])">
+                    #$blockinfo['name']#
+                <xar:else />
+                    <span title="#xarVarPrepForDisplay($blockinfo['title'])#">
+                        #$blockinfo['name']#
+                    </span>
+                </xar:if>
+            </td>
+            <td>
+                <xar:if condition="!empty($blockinfo['groups'])">
+                    <xar:foreach in="$blockinfo['groups']" key="$k" value="$v">
+                         <xar:if condition="xarSecurityCheck('EditBlockGroup', 0, 'Blockgroup','All:'.$v['gid'].'')">
+                            <a href="#xarModURL('blocks','admin','modify_group',array('gid'=>$v['gid']))#">
+                                #$v.name#
+                            </a>
+                        <xar:else />
+                            #$v.name#
+                        </xar:if>
+                    </xar:foreach>
+                <xar:else />
+                    [ <xar:mlstring>none</xar:mlstring> ]
+                </xar:if>
+            </td>
+            <td>
+                #$blockinfo['module']#
+            </td>
+            <td>
+                <xar:if condition="$blockinfo['typeurl'] ne ''">
+                    <a href="#$blockinfo['typeurl']#" title="#xarML('View block type details')#">
+                        #$blockinfo['type']#
+                    </a>
+                <xar:else />
+                    #$blockinfo['type']#
+                </xar:if>
+            </td>
+            <td>
+                <xar:if condition="$blockinfo['template'] ne NULL">
+                    #$blockinfo['template']# &nbsp;
+                    <xar:else />
+                    <xar:if condition="empty($blockinfo['group_template'])">
+                        [ 
+                        <xar:mlstring>
+                            default 
+                        </xar:mlstring>
+                        ] 
+                    <xar:else />
+                        #$blockinfo['group_template']# &nbsp;
+                    </xar:if>
+                </xar:if>
+            </td>
+            <td class="xar-align-center">
+                #$state_desc[$blockinfo['state']]#
+            </td>
+            <td class="xar-align-center">
+                <xar:if condition="$blockinfo['editurl'] ne ''">
+                    <a href="#$blockinfo['editurl']#" class="esprite xs-modify" title="#$modify#"><span>#$modify#</span></a>
+                <xar:else />
+                    &#160;<p class="esprite xs-modify icon-disabled xar-displayinline" title="#$notavailable#"><span>#$modify#</span></p>
+                </xar:if>
+                <xar:if condition="$blockinfo['deleteurl'] ne ''">
+                    &#160;<a href="#$blockinfo['deleteurl']#" class="esprite xs-delete" title="#$delete#" id="delete_#$blockinfo.bid#"><span>#$delete#</span></a>
+                <xar:else />
+                    &#160;<p class="esprite xs-delete xar-icon-disabled xar-displayinline" title="#$notavailable#"><span>#$delete#</span></p>
+                </xar:if>
+            </td>
+            <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+        </tr>
+    </xar:foreach>
+    </tbody>
+</table>

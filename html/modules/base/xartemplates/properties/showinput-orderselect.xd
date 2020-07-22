@@ -1,0 +1,56 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="up_arrow_src">xarTplGetImage('icons/go-up.png', 'base')</xar:set>
+<xar:set name="down_arrow_src">xarTplGetImage('icons/go-down.png', 'base')</xar:set>
+<xar:base-include-javascript  module="base" filename="orderitem.js" position="head"/>
+
+<script type="text/javascript">
+    xar_base_reorder_warn = '#xarML('You must select an option to move.')#';
+</script>
+
+<xar:if condition="count($options) gt 10">
+    <xar:set name="size">10</xar:set>
+<xar:else />
+    <xar:set name="size">count($options)</xar:set>
+</xar:if>
+
+<xar:if condition="count($options) gt 10">
+    <xar:set name="size">10</xar:set>
+<xar:else />
+    <xar:set name="size">count($options)</xar:set>
+</xar:if>
+
+<xar:if condition="count($options) gt 0">
+    <div class="xar-floatleft">
+        <div class="xar-floatleft">
+            <xar:set name="label"><xar:mlstring>Move up</xar:mlstring></xar:set>
+            <button id="#$id#_up" onclick="return xar_base_reorder('#$id#_list', true, '#$id#_hidden');" title="#$label#" class="xar-displayblock xar-margin-thickbottom">
+                <xar:set name="label"><xar:mlstring>Up arrow</xar:mlstring></xar:set>
+                <img src="#$up_arrow_src#" alt="#$label#"/>
+            </button>
+            <xar:set name="label"><xar:mlstring>Move down</xar:mlstring></xar:set>
+            <button id="#$id#_down" onclick="return xar_base_reorder('#$id#_list', false, '#$id#_hidden');" title="#$label#" class="xar-displayblock xar-margin-thicktop">
+                <xar:set name="label"><xar:mlstring>Down arrow</xar:mlstring></xar:set>
+                <img src="#$down_arrow_src#" alt="#$label#"/>
+            </button>
+        </div>
+
+        <select name="#$id#_list" id="#$id#_list" size="#$size#" tabindex="#$tabindex#" class="xar-margin-thickleft">
+            <xar:foreach in="$options" value="$option" >
+                <option value="#$option.id#">#$option.name#</option>
+            </xar:foreach>
+        </select>
+        <input type="hidden" name="#$name#" id="#$id#_hidden" value="#$value#" />
+    </div>
+<xar:else />
+    <input type="hidden" name="#$name#" id="#$id#_hidden" value="#$value#" />
+    <xar:mlstring>No options specified in validation field.</xar:mlstring>
+</xar:if>
+<noscript>
+    <input type="text" name="#$name#" id="#$id#" value="#$value#" class="xar-form-textlong" />
+    <span><xar:mlstring>Arrange the individual values, separating them with ';'.</xar:mlstring></span>
+</noscript>
+    <div style="clear: both"></div>
+
+    <xar:if condition="!empty($invalid)">
+        <span class="xar-error">#$invalid#</span>
+    </xar:if>

@@ -1,0 +1,52 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1> <xar:ml>
+                <xar:mlstring>Manage #(1)</xar:mlstring>
+                <xar:mlvar>#$label#</xar:mlvar>
+            </xar:ml>
+        </h1>
+        <xar:if condition="isset($table) and !empty($table) and xarSecurityCheck('AdminDynamicData',0)">
+            <p class="xar-align-right">
+                <xar:mlstring>Return to: </xar:mlstring><a href="#xarModURL('dynamicdata','util','meta',array('table'=>$table))#"><xar:mlstring>Table Operations - Column List View</xar:mlstring></a>
+            </p>
+        </xar:if>
+       <div class="xar-mod-content">
+            <xar:comment> this does all the hard work</xar:comment>
+            <xar:data-list layout="$layout" module="$moduleid" itemtype="$itemtype" join="$join" table="$table" urlparam="$urlparam" count="$count" numitems="$numitems" startnum="$startnum" catid="$catid" sort="$sort" sortorder="$sortorder"/>
+        <!--
+            <xar:if condition="isset($object)">
+                <xar:data-view layout="$layout" object="$object" join="$join" table="$table" param="$param" numitems="$numitems" startnum="$startnum" catid="$catid" sort="$sort" />
+            <xar:else />
+                 <xar:data-view layout="$layout" module="$modid" itemtype="$itemtype" join="$join" table="$table" param="$param" numitems="$numitems" startnum="$startnum" catid="$catid" sort="$sort" />
+           </xar:if>
+         -->
+            <xar:if condition="!empty($querylink)">
+                 <p>
+                    <a href="#$querylink#">
+                        <xar:ml>
+                            <xar:mlstring>Query #(1)</xar:mlstring>
+                            <xar:mlvar>#$label#</xar:mlvar>
+                        </xar:ml>
+                    </a>
+                </p>
+            </xar:if>
+            <xar:sec mask="AdminDynamicData" catch="false" >
+            <xar:if condition="!empty($objectid) and $objectid eq 1 ">
+                <p>
+                    <xar:mlstring>NOTE: There are some restrictions on item view and delete in Data Objects.</xar:mlstring>
+                    <ul>
+                        <li><xar:mlstring>You cannot Delete System Data Objects from this page, and they should not be edited under normal circumstances.</xar:mlstring></li>
+                        <li><xar:mlstring>Hooked Data Object Items cannot be viewed from this Dynamic Data module. The owner module is responsible for Item views.</xar:mlstring></li>
+                    </ul>
+                </p>
+            </xar:if>
+            </xar:sec>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Retain the existing setup with value for backward compat - check on $srcpath for new display ability</xar:comment>
+<xar:set name="imagealt"><xar:mlstring>Image</xar:mlstring></xar:set>
+<xar:if condition="!empty($value)">
+    <xar:set name="value">xarVarPrepForDisplay($value)</xar:set>
+    <xar:if condition="$image_source eq 'url'">
+        <xar:if condition="!empty($title)">
+            <img src="#$value#" alt="#$imagealt#" title="#$title#" style="#$outputsize#"/>
+        <xar:else />
+            <img src="#$value#" alt="#$imagealt#" style="#$outputsize#"/>
+        </xar:if>
+    <xar:else />
+         <xar:set name="srcpath">xarVarPrepForDisplay($srcpath)</xar:set>
+
+        <xar:if condition="!empty($title) and !empty($srcpath)">
+            <img src="#$srcpath#" alt="#$imagealt#" title="#$title#" style="#$outputsize#"/>
+        <xar:elseif condition="!empty($srcpath)" />
+            <img src="#$srcpath#" alt="#$imagealt#" style="#$outputsize#" />
+        <xar:else />
+            #$value#
+        </xar:if>
+    </xar:if>
+</xar:if>

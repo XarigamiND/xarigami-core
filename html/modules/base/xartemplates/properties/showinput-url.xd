@@ -1,0 +1,11 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="class">!empty($class)? "$class" :'xar-form-textlong'</xar:set>
+<xar:set name="check"><xar:mlstring>check</xar:mlstring></xar:set>
+<xar:set name="preview"><xar:mlstring>preview</xar:mlstring></xar:set>
+    <input class="#$class#" type="text" name="#$name#" value="#$value#" size="#$size#" maxlength="#$maxlength#" id="#$id#" tabindex="#$tabindex#"#$html5##$evts#/>
+<xar:if condition="!empty($value) and ($value ne 'http://')">
+    [ <a href="#$checkvalue#" target="#$preview#">#$check#</a> ]
+</xar:if>
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

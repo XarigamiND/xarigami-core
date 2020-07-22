@@ -1,0 +1,23 @@
+<xar:set name="managepropcode">"
+jQuery(document).ready(function() {
+    var dialog_width = Math.floor(jQuery(window).width() * .65);
+    var dialog_height = 'auto';
+
+    jQuery('a.xar-info').click(function() {
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none; text-align:left;\'></div>');
+        jQuery('#" . "xardialogtarget').load(this.getAttribute('href').replace('&theme=print', '&pageName=module') + ' .xar-mod-body > *').dialog({
+        title: jQuery(this).attr('title'),
+        width: dialog_width,
+        height: dialog_height,
+        modal: true,
+        draggable: true,
+        resizable: true,
+        position: 'top',
+        buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
+        });
+        return false;
+    });
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$managepropcode" position="body"/>

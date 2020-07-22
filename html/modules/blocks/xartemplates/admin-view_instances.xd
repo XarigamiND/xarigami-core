@@ -1,0 +1,42 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" />
+<xar:comment>Include jquery code for delete confirm and the definition for deletemessage</xar:comment>
+<xar:set name="deletemessage"><xar:mlstring>Delete this block?</xar:mlstring></xar:set>
+<xar:template file="jq-deleteinstance" module="blocks" />
+<xar:set name="addblock"><xar:mlstring>Add New Block</xar:mlstring></xar:set>
+
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>List Blocks</xar:mlstring></h1>
+        <div class="xar-mod-content">
+        <xar:if condition="$viewablerows gt 0">
+            <form method="post" action="#xarModUrl('blocks', 'admin', 'settings')#">
+                <div class="xar-form-input-wrapper">
+                    <label for="filter" title="#xarML('Filter the instances to be shown.')#" class="xar-form-label">
+                        <xar:mlstring>Filter on block name:</xar:mlstring>
+                    </label>
+                    <input type="text" id="filter" name="filter" value="#$filter#" class="xar-form-textmedium" />
+                    <input type="submit" value="#xarML('Refresh')#" />
+                    <xar:sec mask="AddBlock" catch="false">
+                        <div class="xar-align-right">
+                            <a href="#xarModURL('blocks','admin','new_instance')#" class="esprite xs-add" title="#$addblock#">&#160;#$addblock#</a>
+                        </div>
+                    </xar:sec>
+                </div>
+            <xar:template file="plain" type="module" />
+            <div class="xar-align-center xar-padding-thick">
+                  <!-- add the pager here -->
+                  #$pager#
+            </div>
+            </form>
+        <xar:else />
+        <p><xar:mlstring>There are no blocks available for your viewing.</xar:mlstring></p>
+        </xar:if>
+        </div>
+    </div>
+</div>

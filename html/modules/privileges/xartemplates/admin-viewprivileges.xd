@@ -1,0 +1,37 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+<xar:set name="delete"><xar:mlstring>Delete privilege</xar:mlstring></xar:set>
+<xar:set name="remove"><xar:mlstring>Remove privilege from this parent</xar:mlstring></xar:set>
+<xar:set name="usergroups"><xar:mlstring>Show groups/users this privilege is assigned to</xar:mlstring></xar:set>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:comment>Include the js code for the tree view and related plugin</xar:comment>
+<xar:template type="module" module="privileges" file="jq-viewprivileges" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View Privileges</xar:mlstring></h1>
+        <div class="xar-mod-content">
+             <form id="privilegeform" action="&xar-modurl-privileges-admin-viewprivileges;" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <p class="xar-form-input-wrapper"><xar:mlstring>Show Privileges that are:</xar:mlstring></p>
+                    <xar:data-input type="radio" name="show" id="show" class="privtype" checked="$show" value="$show" validation="$radiooptions" />
+                    <noscript><input type="submit" value="#xarML('Refresh')#" class="xar-margin-thick-left" /></noscript>
+                </fieldset>
+            </form>
+             <div id="treewrapper">
+                <xar:loop name="$trees">
+                    #$loop:item['tree']#
+                </xar:loop>
+            </div>
+            <div class="xar-form-footer">
+                <p class="esprite xs-delete xar-displayinline" title="#$delete#">&#160;#$delete# </p>&#160;
+                <p class="sprite xs-system-user-groups xar-displayinline" title="#$usergroups#">&#160;#$usergroups# </p>&#160;
+                <p class="esprite xs-remove xar-displayinline" title="#$remove#">&#160;#$remove# </p>&#160;
+            </div>
+        </div>
+    </div>
+</div>

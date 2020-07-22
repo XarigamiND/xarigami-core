@@ -1,0 +1,119 @@
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>User error</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <fieldset>
+                <legend><xar:mlstring>Error information</xar:mlstring></legend>
+                <img src="#xarTplGetImage('user-error.png','base')#" alt="#xarML('System Message')#" width="96" height="96" class="xar-module-icon"/>
+                <xar:if condition="!isset($errortype)">
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>No error message is available.</xar:mlstring>
+                        <br />
+                        <xar:mlstring>Please contact the system administrator.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'remove_sole_parent'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>The user has one parent group, removal is not allowed.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'remove_defaultusergroup'"/>
+                    <div class="xar-padding-thick">
+                        <xar:ml>
+                            <xar:mlstring>You are trying to change or remove the default group for new users (#(1)). To do so first change the appropriate configuration setting and make another group the default user group.</xar:mlstring>
+                            <xar:mlvar>#$var1#</xar:mlvar>
+                        </xar:ml>
+                    </div>
+                <xar:elseif condition="$errortype eq 'remove_siteadmin'"/>
+                    <div class="xar-padding-thick">
+                        <xar:ml>
+                            <xar:mlstring>The user #(1) is the designated site administrator. If you want to remove this user change the site admin in the roles configuration setting first.</xar:mlstring>
+                             <xar:mlvar>#$var1#</xar:mlvar>
+                        </xar:ml>
+                    </div>
+                <xar:elseif condition="$errortype eq 'remove_nonempty_group'"/>
+                    <div class="xar-padding-thick">
+                        <xar:ml>
+                            <xar:mlstring>The group #(1) has children. If you want to remove this group you have to delete the children first.</xar:mlstring>
+                            <xar:mlvar>#$var1#</xar:mlvar>
+                        </xar:ml>
+                    </div>
+                <xar:elseif condition="$errortype eq 'role_required'"/>
+                    <div class="xar-padding-thick">
+                        <xar:ml>
+                            <xar:mlstring>This role (#(1)) is a required system role and the  action you are trying to perform is not allowed.</xar:mlstring>
+                            <xar:mlvar>#$var1#</xar:mlvar>
+                        </xar:ml>
+                    </div>
+                <xar:elseif condition="$errortype eq 'self_assignment'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>This assignment is not possible.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'duplicate_assignment'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>This assignment already exists.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'circular_assignment'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>The parent is already a descendant of the specified child. The assignment is not permitted.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'remove_active_session'"/>
+                    <div class="xar-padding-thick">
+                        <xar:ml>
+                            <xar:mlstring>The user "#(1)" has an active session and can not be removed at this time.</xar:mlstring>
+                            <xar:mlvar>#$var1#</xar:mlvar>
+                        </xar:ml>
+                    </div>
+                <xar:elseif condition="$errortype eq 'purge_active_user'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>Purging active users is not allowed.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'remove_privilege'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>Removing this privilege from this user or group is not allowed.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'loginas_fail'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>Your password was incorrect, login will not proceed.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'loginas_notavailable'"/>
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>The user you chose is excluded from proxy login.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'baddata'"/>
+                    <div class="xar-padding-thick">
+                        #$var1#
+                    </div>
+                <xar:elseif condition="$errortype eq 'mail_failed'"/>
+                    <div class="xar-padding-thick">
+                        <xar:if condition="!empty($var1)">
+                            <xar:ml>
+                                <xar:mlstring>Could not send #(1) emails.</xar:mlstring>
+                                <xar:mlvar>#$var1#</xar:mlvar>
+                            </xar:ml>
+                        <xar:else />
+                            <xar:mlstring>One or more emails could not be sent.</xar:mlstring>
+                        </xar:if>
+                    </div>
+                <xar:else />
+                    <div style="margin-top: 20px; margin-left: 20px">
+                        <xar:mlstring>No error message is available.</xar:mlstring>
+                        <br />
+                        <xar:mlstring>Please contact the system administrator.</xar:mlstring>
+                    </div>
+                </xar:if>
+            </fieldset>
+            <xar:set name="label">xarML('Go back')</xar:set>
+            <xar:set name="referer">xarServerGetVar('HTTP_REFERER')?xarServerGetVar('HTTP_REFERER'):'';</xar:set>
+            <xar:if condition="!empty($referer)">
+                <fieldset>
+                    <div class="xar-form-input-wrapper-after">
+                            <a href="#$referer#">#$label#</a>
+                    </div>
+                </fieldset>
+            </xar:if>
+        </div>
+    </div>
+</div>

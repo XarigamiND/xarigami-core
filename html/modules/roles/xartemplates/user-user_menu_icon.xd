@@ -1,0 +1,8 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="compare">xarServerGetCurrentURL()</xar:set>
+<xar:set name="tabclass">$compare == $current?'xar-tab-active':'xar-tab'</xar:set>
+<li class="#$tabclass#">
+    <a href="#$current#">
+        <xar:mlstring>Edit Profile</xar:mlstring>
+    </a>
+</li>

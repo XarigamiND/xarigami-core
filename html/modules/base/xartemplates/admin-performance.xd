@@ -1,0 +1,185 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Performance</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form action="#xarModURL('base','admin','updateperformance')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Site performance options
+                        </xar:mlstring>
+                    </legend>
+                    <p class="xar-form-input-wrapper-after">
+                        <xar:mlstring>
+                            Xarigami uses compiled templates. These can be cached and reused without compiling again and reduce page load times.
+                            Always run your live sites with template caching turned on.
+                        </xar:mlstring>
+                    </p>
+                    <div class="xar-form-input-wrapper">
+                        <label class="xar-form-label" for="cachetemplates">
+                            <xar:mlstring>Cache templates</xar:mlstring>
+                        </label>
+                       <xar:data-input type="checkbox" name="cachetemplates" id="cachetemplates" checked="$cachetemplates" tabindex="$tabindex++" />
+                        <xar:mlstring>[Default: Always on]</xar:mlstring>
+                    </div>
+                    <p class="xar-form-input-wrapper-after">
+                        <xar:mlstring>
+                            Remember to FLUSH your template cache when you upgrade, or make changes to your templates. This will cause the cache files to be automatically regenerated.
+                        </xar:mlstring>
+                    </p>
+
+                     <div class="xar-form-input-wrapper">
+                        <label for="flushcache" class="xar-form-label help" title="#xarML('Style cache files are always flushed each time you flush the cache.')#">
+                            <xar:mlstring>
+                                Cache files
+                            </xar:mlstring>
+                        </label>
+                        <div class="xar-form-input-container-after">
+                            <xar:data-input type="dropdown" validation="$cachedirs" id="flushcache" name="flushcache" value="$flushcachevalue" />
+                            <input type="submit" value="#$flushcachelabel#" name="confirmdel" id="confirmdel" />
+                        </div>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="cachefilenumber" class="xar-form-label help" title="#xarML('The maximum number of CSS cached style files at any one time.')#"><xar:mlstring>Maximum CSS cache files</xar:mlstring></label>
+                        <xar:data-input type="integerbox" name="cachefilenumber" id="cachefilenumber" value="$cachefilenumber" tabindex="$tabindex++" />
+                     </div>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                           Javascript and CSS options
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                         <label for="cachetemplates" class="xar-form-label">
+                            <xar:mlstring>CSS options</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="cssdynamic" id="cssdynamic" checked="$cssdynamic" tabindex="$tabindex++" />
+                        <label for="cssdynamic">
+                            <xar:mlstring>
+                                Activate dynamic CSS processing
+                            </xar:mlstring>
+                        </label>
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:data-input type="checkbox" name="cssaggregate" id="cssaggregate" checked="$cssaggregate" tabindex="$tabindex++" />
+                        <label for="cssaggregate">
+                            <xar:mlstring>
+                                Aggregate CSS files
+                            </xar:mlstring>
+                        </label>
+
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:data-input type="checkbox" name="cssoptimize" id="cssoptimize" checked="$cssoptimize" tabindex="$tabindex++" />
+                        <label for="cssoptimize">
+                            <xar:mlstring>
+                                Optimize CSS files
+                            </xar:mlstring>
+                        </label>
+                    </div>
+
+
+                    <div class="xar-form-input-wrapper">
+                         <label for="cachetemplates" class="xar-form-label">
+                            <xar:mlstring>Javascript options</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="jsaggregate" id="jsaggregate" checked="$jsaggregate" tabindex="$tabindex++" />
+                        <label for="jsaggregate">
+                            <xar:mlstring>
+                                Aggregate Javascript files
+                            </xar:mlstring>
+                        </label>
+                        &#160;<span class="xar-sub"><xar:mlstring>[May break javascript where modules handle this themselves]</xar:mlstring></span>
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="csscachedir" class="xar-form-label" >
+                            <xar:mlstring>CSS/JS Cache directory</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="csscachedir" id="csscachedir" class="xar-text-long" value="$csscachedir" />
+                        <p class="xar-form-input-wrapper-after">
+                            <span class="xar-sub"><xar:mlstring>[must be under the web root]</xar:mlstring></span>
+                        </p>
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:data-input type="checkbox" name="compress" id="compress" checked="$compress" tabindex="$tabindex++" />
+                        <xar:mlstring>GZip compress aggregated files</xar:mlstring>
+                         <p >
+                            <span class="xar-sub"><xar:mlstring>[Not required if server is configured to handle compression]</xar:mlstring></span>
+                        </p>
+                    </div>
+
+              </fieldset>
+            <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Debugging options
+                        </xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label class="xar-form-label xar-help">
+                             <xar:mlstring>Debug group</xar:mlstring>
+                        </label>
+                        <xar:data-input type="grouplist" name="debuggroup" id="debuggroup" value="$debuggroup" tabinex="$tabindex++" />
+                        <label for="var_dump">
+                            <xar:mlstring>
+                                Can view PHP Errors and Exceptions in Production mode
+                            </xar:mlstring>
+                        </label>
+                    </div>
+                     <div class="xar-form-input-wrapper">
+                        <label class="xar-form-label"><xar:mlstring>In Cached templates show</xar:mlstring></label>
+                            <xar:if condition="$cachetemplates">
+                                <xar:data-input type="checkbox" name="showphpcbit" id="showphpcbit" checked="$ShowPHPCommentBlockInTemplates" tabindex="$tabindex++"/>
+                            <xar:else />
+                                 <xar:data-input type="checkbox" name="showphpcbit" id="showphpcbitd" checked="$ShowPHPCommentBlockInTemplates" tabindex="$tabindex++" disabled="disabled"/>
+                            </xar:if>
+                            <label for="showphpcbit">
+                                <xar:mlstring>
+                                    php comment block header
+                                </xar:mlstring>
+
+                            </label>
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                         <xar:if condition="$cachetemplates">
+                            <xar:data-input type="checkbox" name="showtemplates" id="showtemplates" checked="$ShowTemplates" tabindex="$tabindex++"  />
+                        <xar:else />
+                             <xar:data-input type="checkbox" name="showtemplates" id="showtemplatesd" checked="$ShowTemplates" tabindex="$tabindex++" disabled="disabled" />
+                        </xar:if>
+                            <label for="showtemplates">
+                            <xar:mlstring>
+                                template filenames in HTML comments
+                            </xar:mlstring>
+                        </label>
+                    </div>
+
+
+                    <div class="xar-form-input-wrapper">
+                      <label class="xar-form-label"><xar:mlstring>Debug templates</xar:mlstring></label>
+                        <xar:data-input type="checkbox" name="var_dump" id="var_dump" checked="$var_dump" tabinex="$tabindex++" />
+                        <label for="var_dump">
+                            <xar:mlstring>
+                                by displaying variables available in the page
+                            </xar:mlstring>
+                        </label>
+                    </div>
+
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="submit" value="#$submitbutton#" tabindex="#$tabindex++#" />
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

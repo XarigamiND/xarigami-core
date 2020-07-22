@@ -1,0 +1,238 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Module Upgrade</xar:mlstring>: #$displayname#</h1>
+        <div class="xar-mod-content">
+            <xar:comment>This section deals with dependencies.</xar:comment>
+            <xar:if condition="!empty($dependencies)">
+                 <xar:set name="release_url">"http://www.xaraya.com/index.php/release/{$id}.html"</xar:set>
+                 <xar:set name="homepage">!empty($e_modId['homepage'])?$e_modId['homepage']:$release_url</xar:set>
+                <xar:set name="cur_core">xarConfigGetVar('System.Core.VersionNum')</xar:set>       <p>
+                    <xar:ml>
+                        <xar:mlstring>The module #(1) you are trying to upgrade depends on additional components. Please review the listing below:</xar:mlstring>
+                        <xar:mlvar>#$displayname#</xar:mlvar>
+                    </xar:ml>
+                </p>
+                <p>
+                    <xar:ml>
+                        <xar:mlstring><a href="#(1)">Click here to visit the #(2) module release page</a></xar:mlstring>
+                        <xar:mlvar>#$homepage#</xar:mlvar>
+                        <xar:mlvar>#$displayname#</xar:mlvar>
+                    </xar:ml>
+                </p>
+                <form action="#xarModURL('modules','admin','upgrade')#" method="post" enctype="application/x-www-form-urlencoded">
+
+                    <xar:if condition="count($dependencies['satisfied']) ne 0">
+                        <h3>
+                            <xar:mlstring>Dependencies already satisfied:</xar:mlstring>
+                        </h3>
+
+                        <ul>
+                            <li>
+                                <xar:mlstring>Met core version requirements</xar:mlstring>
+                            </li>
+                            <xar:foreach in="$dependencies['satisfied']" value="$modInfo">
+                                <xar:if condition="!isset($dependencies['version'][$modInfo['regid']])">
+                                <li>#xarML($modInfo['displayname'])#</li>
+                                </xar:if>
+                            </xar:foreach>
+                        </ul>
+                    </xar:if>
+
+                    <xar:if condition="count($dependencies['satisfiable']) ne 0">
+                        <h3>
+                            <xar:mlstring>Dependencies which can be satisfied:</xar:mlstring>
+                        </h3>
+
+                        <ul>
+                            <xar:foreach in="$dependencies['satisfiable']" value="$modInfo">
+                                <xar:if condition="!isset($dependencies['version'][$modInfo['regid']])">
+                                <li>
+                                    <xar:if condition="$modInfo['regid'] ne $id">
+                                        #$modInfo['displayname']#
+                                    <xar:else />
+                                        <xar:ml>
+                                            <xar:mlstring>#(1) (id #(2)), the module you are trying to install</xar:mlstring>
+                                            <xar:mlvar>#$modInfo['displayname']#</xar:mlvar>
+                                            <xar:mlvar>#$id#</xar:mlvar>
+                                        </xar:ml>
+                                    </xar:if>
+                                </li>
+                                </xar:if>
+                            </xar:foreach>
+                        </ul>
+                    </xar:if>
+
+                    <xar:if condition="count($dependencies['unsatisfiable']) ne 0">
+                        <xar:if condition="count($dependencies['error']) gt 0">
+                            <h3>
+                                <xar:mlstring>Dependencies in invalid state</xar:mlstring>
+                            </h3>
+                            <ul>
+                            <xar:foreach in="$dependencies['error']" value="$e_modId">
+                                <xar:set name="e_release_url">"http://www.xaraya.com/index.php/release/{$e_modId}.html"</xar:set>
+                                 <xar:set name="homepage">!empty($e_modId['homepage'])?$e_modId['homepage']:$release_url</xar:set>
+                                <li>
+                                    <xar:if condition="isset($dependencies['unsatisfiable'][$e_modId]['displayname'])">
+                                        <xar:set name="$e_modname">#$dependencies['unsatisfiable'][$e_modId]['displayname']#</xar:set>
+                                    <xar:elseif condition="isset($dependencyinfo[$e_modId]['name'])" />
+                                        <xar:set name="$e_modname">#$dependencyinfo[$e_modId]['name']#</xar:set>
+                                    <xar:else />
+                                        <xar:set name="$e_modname">xarML('Unknown')</xar:set>
+                                    </xar:if>
+                                    <xar:ml>
+                                        <xar:mlstring><a href="#(1)">#(2) (id #(3))</a></xar:mlstring>
+                                        <xar:mlvar>#$homepage#</xar:mlvar>
+                                        <xar:mlvar>#$e_modname#</xar:mlvar>
+                                        <xar:mlvar>#$e_modId#</xar:mlvar>
+                                    </xar:ml>
+                                </li>
+                            </xar:foreach>
+                            </ul>
+                        </xar:if>
+                        <xar:if condition="count($dependencies['missing']) gt 0">
+                            <h3>
+                                <xar:mlstring>Missing dependencies</xar:mlstring>
+                            </h3>
+                            <p>
+                                <xar:mlstring>The following modules were not found in the filesystem. You will need to download, unpack and copy the missing modules to your filesystem, then try this installation again.</xar:mlstring>
+                            </p>
+                            <ul>
+                            <xar:foreach in="$dependencies['missing']" value="$e_modId">
+                                <xar:set name="e_release_url">"http://www.xaraya.com/index.php/release/{$e_modId}.html"</xar:set>
+                                <xar:set name="homepage">!empty($e_modId['homepage'])?$e_modId['homepage']:$release_url</xar:set>
+                                <li>
+                                    <xar:if condition="isset($dependencyinfo[$e_modId]['name'])">
+                                        <xar:set name="$e_modname">#$dependencyinfo[$e_modId]['name']#</xar:set>
+                                    <xar:else />
+                                        <xar:set name="$e_modname">xarML('Unknown')</xar:set>
+                                    </xar:if>
+                                    <xar:ml>
+                                        <xar:mlstring><a href="#(1)">#(2) (id #(3))</a></xar:mlstring>
+                                        <xar:mlvar>#$homepage#</xar:mlvar>
+                                        <xar:mlvar>#$e_modname#</xar:mlvar>
+                                        <xar:mlvar>#$e_modId#</xar:mlvar>
+                                    </xar:ml>
+                                </li>
+                            </xar:foreach>
+                            </ul>
+                        </xar:if>
+                        <xar:if condition="count($dependencies['version']) gt 0">
+                            <h3>
+                                <xar:mlstring>Incompatible dependency versions</xar:mlstring>
+                            </h3>
+                            <ul>
+                            <xar:foreach in="$dependencies['version']" key="$e_modId" value="$req">
+                                <xar:if condition="!empty($e_modId) and isset($dependencies['unsatisfiable'][$e_modId])">
+                                <xar:set name="e_release_url">"http://www.xaraya.com/index.php/release/{$e_modId}.html"</xar:set>
+                                <xar:set name="homepage">!empty($e_modId['homepage'])?$e_modId['homepage']:$e_release_url</xar:set>
+                                <li>
+                                    <xar:set name="e_modname">#$dependencies['unsatisfiable'][$e_modId]['displayname']#</xar:set>
+                                    <xar:ml>
+                                        <xar:mlstring><a href="#(1)">#(2) (id #(3))</a> (Current Version: #(4))</xar:mlstring>
+                                        <xar:mlvar>#$homepage#</xar:mlvar>
+                                        <xar:mlvar>#$e_modname#</xar:mlvar>
+                                        <xar:mlvar>#$e_modId#</xar:mlvar>
+                                        <xar:mlvar>#$dependencies['unsatisfiable'][$e_modId]['version']#</xar:mlvar>
+                                    </xar:ml>
+                                    <ul>
+                                    <xar:foreach in="$req" key="$reqId" value="$conditions">
+                                        <li>
+                                        <xar:set name="r_modname">#$dependencies['unsatisfiable'][$reqId]['displayname']#</xar:set>
+                                        <xar:if condition="isset($conditions['version_eq'])">
+                                            <xar:ml>
+                                                <xar:mlstring>#(1) only works with version #(2) of this module.</xar:mlstring>
+                                                <xar:mlvar>#$r_modname#</xar:mlvar>
+                                                <xar:mlvar>#$conditions['version_eq']#</xar:mlvar>
+                                            </xar:ml>
+                                        <xar:elseif condition="isset($conditions['version_ge']) and isset($conditions['version_le'])" />
+                                            <xar:ml>
+                                                <xar:mlstring>#(1) only works with versions #(2) to #(3) of this module.</xar:mlstring>
+                                                <xar:mlvar>#$r_modname#</xar:mlvar>
+                                                <xar:mlvar>#$conditions['version_ge']#</xar:mlvar>
+                                                <xar:mlvar>#$conditions['version_le']#</xar:mlvar>
+                                            </xar:ml>
+                                        <xar:elseif condition="isset($conditions['version_ge'])" />
+                                            <xar:ml>
+                                                <xar:mlstring>#(1) requires at least version #(2) of this module.</xar:mlstring>
+                                                <xar:mlvar>#$r_modname#</xar:mlvar>
+                                                <xar:mlvar>#$conditions['version_ge']#</xar:mlvar>
+                                            </xar:ml>
+                                        <xar:elseif condition="isset($conditions['version_le'])" />
+                                            <xar:ml>
+                                                <xar:mlstring>#(1) only works with versions of this module up to #(2).</xar:mlstring>
+                                                <xar:mlvar>#$r_modname#</xar:mlvar>
+                                                <xar:mlvar>#$conditions['version_le']#</xar:mlvar>
+                                            </xar:ml>
+                                        </xar:if>
+                                        </li>
+                                    </xar:foreach>
+                                    </ul>
+                                </li>
+                                </xar:if>
+                            </xar:foreach>
+                            </ul>
+                        </xar:if>
+                         <xar:if condition="count($dependencies['php_ext']) gt 0">
+                            <h3>
+                                <xar:mlstring>Missing PHP Extensions</xar:mlstring>
+                            </h3>
+                            <p>
+                                <xar:mlstring>The following PHP extensions are required by the module you are trying to install, or one of it's dependencies.</xar:mlstring>
+                            </p>
+                            <ul>
+                            <xar:foreach in="$dependencies['php_ext']" value="$extension">
+                                <xar:set name="php_ext_url">"http://www.php.net/manual-lookup.php?pattern={$extension}"</xar:set>
+                                <li>
+                                    <xar:ml>
+                                        <xar:mlstring><strong>#(2)</strong> - <a href="#(1)">Get Information for the missing extension #(2)</a></xar:mlstring>
+                                        <xar:mlvar>#$php_ext_url#</xar:mlvar>
+                                        <xar:mlvar>#$extension#</xar:mlvar>
+                                    </xar:ml>
+                                </li>
+                            </xar:foreach>
+                            </ul>
+                            <p>
+                                <xar:set name="pecl_url">"http://pecl.php.net/"</xar:set>
+                                <xar:ml>
+                                <xar:mlstring>See <a href="#(1)">#(1)</a> for more on PHP extensions.</xar:mlstring>
+                                <xar:mlvar>#$pecl_url#</xar:mlvar>
+                                </xar:ml>
+                            </p>
+                        </xar:if>
+                    </xar:if>
+                    <div class="xar-form-footer">
+                        <input type="hidden" name="id" id="id" value="#$id#" />
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <xar:comment>
+                        <xar:if condition="count($dependencies['unsatisfiable']) eq 0">
+                            <input type="submit" name="command" id="command" value="#xarML('Install All')#" tabindex="9" />
+                        </xar:if>
+                        </xar:comment>
+                   </div>
+                </form>
+
+            </xar:if>
+
+
+            <xar:comment>This section deals with upgrade errors.</xar:comment>
+            <xar:if condition="!empty($errorstack)">
+                <h3><xar:mlstring>Module Upgrade Failed</xar:mlstring></h3>
+                <p>
+                    <xar:mlstring>The module you are trying to upgrade, or one of it's dependencies failed to upgrade.  Please review the error below:</xar:mlstring>
+                </p>
+            </xar:if>
+            <xar:template file="install-errors" type="module" />
+
+            <p>
+                <a href="#xarModURL('modules','admin','list')#"><xar:mlstring>Go back to the modules list.</xar:mlstring></a>
+
+            </p>
+        </div>
+    </div>
+</div>

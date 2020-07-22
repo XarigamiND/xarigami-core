@@ -1,0 +1,154 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-include-javascript libname="jquery" position="body" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:comment>Include the js code for the tree view and related plugin</xar:comment>
+<xar:template type="module" module="dynamicdata" file="jq-manageproplist" />
+<xar:set name="info"><xar:mlstring>Property Information</xar:mlstring></xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+        <xar:if condition="!empty($invalid) AND is_array($invalid)">
+            <div class="xar-accent-outline xar-padding-thick xar-accent">
+                <p class="xar-error">There were errors detected when flushing the property cache. Please correct the errors which may prevent some module properties loading:</p>
+                <ul>
+                    <xar:foreach in="$invalid" key="$key" value="$value">
+                        <li>#$value#</li>
+                    </xar:foreach>
+                </ul>
+            </div>
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Configure Property Types</xar:mlstring></h1>
+        <div class="xar-mod-content">
+             <p>
+                <xar:mlstring>Click Flush Property Cache to clear the DynamicData Property Definitions cache and to reload the properties definitions from the file system.</xar:mlstring>
+            </p>
+
+            <form method="post" action="&xar-modurl-dynamicdata-admin-updateproplist;">
+                <div class="xar-align-center">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="flushPropertyCache" value="true" />
+                    <input type="submit" value="#xarML('Flush Property Cache')#" />
+                </div>
+            </form>
+           <p>
+                <xar:mlstring>The following property types are predefined in Xarigami and may be used in your own dynamic properties.</xar:mlstring>
+            </p>
+
+            <table class="xar-items">
+                <tr>
+                    <th>
+                        #$labels['id']#
+                    </th>
+                    <th>
+                        #$labels['name']#
+                    </th>
+                    <th>
+                        #$labels['label']#
+                    </th>
+                    <th>
+                        #$labels['informat']#
+                    </th>
+                    <th>
+                        #$labels['validation']#
+                    </th>
+                </tr>
+                <xar:set name="lastmod">''</xar:set>
+                <xar:set name="rowclass">'xar-norm'</xar:set>
+                <xar:foreach in="$fields" value="$field">
+                    <xar:if condition="$field['requiresmodule'] ne $lastmod">
+                     <xar:set name="requiredmodule">strtoupper($field['requiresmodule'])</xar:set>
+                    <tr class="xar-title xar-accent">
+                        <td  colspan="5">
+                            #$requiredmodule#
+                            <xar:set name="lastmod">$field['requiresmodule']</xar:set>
+                        </td>
+                    </tr>
+                    </xar:if>
+                    <tr class="#$rowclass#">
+                        <td class="xar-align-right">
+                            #$field['id']#
+                        </td>
+                        <td>
+                            <a href="#xarModURL('dynamicdata','admin','propinfo',array('propid'=>$field['id']))#" class="sprite xs-info xar-info" title="#$info#"><span>#$info#</span></a>
+                            #$field['name']#
+                        </td>
+                        <td>
+                            #$field['label']#
+                            <xar:comment>Do we want/need this?
+                                <input type="text" name="label[#$field['id']#]" id="label_#$field['id']#" value="#$field['label']#" class="xar-form-textmedium" />
+                            </xar:comment>
+                        </td>
+                        <td>
+
+                            <xar:data-output property="$fieldtypeprop" value="$field['format']" />
+                        </td>
+                        <td class="xar-align-center">
+                            <xar:comment> TODO - link to property configuration
+                            <input type="text" name="validation[#$field['id']#]" id="validation_#$field['id']#" value="#$field['validation']#" class="xar-form-textmedium" />
+                            </xar:comment>
+                            <!-- jojo TODO <a href="#xarModURL('dynamicdata','admin','showpropval',array('itemid'=>$field['id']))#" class="esprite xs-modify-config" title="#xarML('Show test configuration for  this property')#"><span><xar:mlstring>Test configuration</xar:mlstring></span><a/>-->
+                            <span class="xar-icon-disabled esprite xs-modify-config" title="#xarML('Show test configuration for  this property')#"><span><xar:mlstring>Test configuration</xar:mlstring></span></span>
+                        </td>
+                    </tr>
+                     <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                </xar:foreach>
+            </table>
+
+            <xar:comment>jojo - this is not used and hasn't been every. Comment it out until we find some user for it.
+            <form method="post" action="&xar-modurl-dynamicdata-admin-updateproplist;">
+                <p>
+                    <xar:mlstring>Add a new Property Type using the fields below.</xar:mlstring> (TODO)
+                </p>
+
+                <table class="xar-items">
+                    <tr>
+                        <th>
+                            #$labels['id']#
+                        </th>
+                        <th>
+                            #$labels['name']#
+                        </th>
+                        <th>
+                            #$labels['label']#
+                        </th>
+                        <th>
+                            #$labels['informat']#
+                        </th>
+                        <th>
+                            #$labels['validation']#
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            #$labels['new']#
+                        </td>
+                        <td>
+                            <input type="text" name="name[0]" id="name_0" class="xar-form-textmedium" />
+                        </td>
+                        <td>
+                            <input type="text" name="label[0]" id="label_0" class="xar-form-textmedium" />
+                        </td>
+                        <td>
+                            <xar:data-input property="$fieldtypeprop" name="format[0]" id="format_0" value="" />
+                        </td>
+                        <td>
+                            <input type="text" name="validation[0]" id="validation_0" value="" class="xar-form-textmedium" />
+                        </td>
+                    </tr>
+                </table>
+
+                 <div class="xar-form-footer">
+                    <p>
+                        <xar:mlstring>Note: any changes you make here will be lost whenever the property cache gets flushed.</xar:mlstring>
+                    </p>
+
+                    <input type="submit" value="#xarML('Update Property Types')#" />
+                </div>
+            </form>
+            </xar:comment>
+        </div>
+    </div>
+</div>

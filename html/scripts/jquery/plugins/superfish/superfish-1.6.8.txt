@@ -1,0 +1,2 @@
+Superfish v1.6.8 jQuery menu plugin by Joel Birch 28 MAR 2013
+http://users.tpg.com.au/j_birch/plugins/superfish/

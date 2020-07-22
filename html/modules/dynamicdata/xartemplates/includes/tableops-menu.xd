@@ -1,0 +1,73 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Common Administration menu</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="activetype">#$request.1#</xar:set>
+<xar:set name="table">isset($table)?$table:''</xar:set>
+<xar:set name="field">isset($field)?$field:''</xar:set>
+<xar:set name="db">isset($db)?$db:''</xar:set>
+<xar:set name="infolinks">array
+(
+
+'meta'    => array('url'=> xarModURL('dynamicdata','util','meta',array('table'=>$table)),
+                            'label'=>xarML('Column List')),
+'statictablenew'    => array('url'=> xarModURL('dynamicdata','util','statictablenew',array('db'=>$db)),
+                            'label'=>xarML('New table')),
+'statictablerename' => array('url'=>xarModURL('dynamicdata','util','statictablerename',array('db'=>$db,'table'=>$table)),
+                             'label'=>xarML('Rename table')),
+'statictabledelete' => array('url'=>xarModURL('dynamicdata','util','statictabledelete',array('db'=>$db,'table'=>$table)),
+                             'label'=>xarML('Delete table')),
+'staticfieldnew'    => array('url'=>xarModURL('dynamicdata','util','staticfieldnew',array('db'=>$db,'table'=>$table)),
+                            'label'=>xarML('New column')),
+                            /*
+'staticfieldedit'   => array('url'=>xarModURL('dynamicdata','util','staticfieldedit',array('db'=>$db,'table'=>$table,'field'=>$field)),
+                            'label'=>xarML('Edit column')),
+'staticfielddelete' => array('url'=>xarModURL('dynamicdata','util','staticfielddelete',array('db'=>$db,'table'=>$table,'field'=>$field)),
+                            'label'=>xarML('Delete column')),
+*/
+)
+</xar:set>
+<xar:set name="infolinks1">array
+(
+'meta'    => array('url'=> xarModURL('dynamicdata','util','meta'),
+                            'label'=>xarML('Table List View')),
+'statictablenew'    => array('url'=> xarModURL('dynamicdata','util','statictablenew',array('db'=>$db)),
+                            'label'=>xarML('New table')),
+)
+</xar:set>
+
+<xar:sec mask="AdminDynamicData" catch="false">
+    <ul class="xar-tabs">
+        <xar:if condition="$table ne ''">
+            <xar:foreach in="$infolinks" key="$whatid" value="$value">
+                <xar:set name="tabclass">($activetab == $whatid)?'active':''</xar:set>
+                <xar:if condition="$tabclass eq 'active'">
+                    <xar:set name="tabclass">'xar-tab-active'</xar:set>
+                <xar:else />
+                    <xar:set name="tabclass">'xar-tab'</xar:set>
+                </xar:if>
+                <li class="#$tabclass#">
+                    <a title="#$value['label']#" href="#$value['url']#">
+                        #$value['label']#
+                    </a>
+                </li>
+            </xar:foreach>
+        <xar:elseif condition="$table eq ''" />
+            <xar:foreach in="$infolinks1" key="$whatid" value="$value">
+                <xar:set name="tabclass">($activetab == $whatid)?'active':''</xar:set>
+                <xar:if condition="$tabclass eq 'active'">
+                    <xar:set name="tabclass">'xar-tab-active'</xar:set>
+                <xar:else />
+                    <xar:set name="tabclass">'xar-tab'</xar:set>
+                </xar:if>
+                <li class="#$tabclass#">
+                    <a title="#$value['label']#" href="#$value['url']#">
+                        #$value['label']#
+                    </a>
+                </li>
+            </xar:foreach>
+        </xar:if>
+    </ul>
+</xar:sec>
+

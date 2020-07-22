@@ -1,0 +1,44 @@
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="specialhover" pluginfile="jquery.event.hover" position="body"/>
+<xar:if condition="$menutype eq 1">
+    <xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="superfish" pluginfile="js/superfish" style="css/superfish-menu.css" module="base" position="body"/>
+<xar:elseif condition="$menutype eq 2"/>
+    <xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="superfish" pluginfile="js/superfish" module="base"  style="css/superfish-menu.css,css/superfish-menu-vertical.css" position="body"/>
+<xar:comment>
+<xar:elseif condition="$menutype eq 3"/>
+    <xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="superfish" pluginfile="js/superfish" module="base"  style="css/superfish-menu.css,css/superfish-menu-navbar.css" position="body"/>
+</xar:comment>
+</xar:if>
+<xar:set name="index">'js_superfish' . $blockid</xar:set>
+
+<xar:comment>For some reasons supersubs is not supporting the navbar mode.</xar:comment>
+<xar:if condition="$menutype eq 2">
+    <xar:set name="js_supersubs">''</xar:set>
+<xar:else/>
+    <xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="superfish" pluginfile="js/supersubs" position="body"/>
+    <xar:set name="js_supersubs">'.supersubs({
+         minWidth:    6,   // minimum width of sub-menus in em units
+         maxWidth:    12,   // maximum width of sub-menus in em units
+         extraWidth:  1
+    })'</xar:set>
+</xar:if>
+
+<xar:comment>Pass the currentpathclass parameter for navbar</xar:comment>
+<xar:if condition="!empty($currentpathclass)">
+    <xar:set name="js_currentpathclass">'
+        pathClass: "' . $currentpathclass . '",'</xar:set>
+<xar:else/>
+    <xar:set name="js_currentpathclass">''</xar:set>
+</xar:if>
+
+<xar:set name="js_superfish">'
+$(document).ready(function(){
+    $("ul#' . $blockidprefix . $blockid . '.sf-menu")' . $js_supersubs .
+    '.superfish({' . $js_currentpathclass . '
+        delay:       1000,                            // one second delay on mouseout
+        animation:   {opacity:"show",height:"show"},  // fade-in and slide-down animation
+        speed:       "fast",                          // faster animation speed
+        autoArrows: true                             // disable generation of arrow mark-up
+    });
+});'
+</xar:set>
+<xar:base-include-javascript type="code" code="$js_superfish" position="body" index="$index"/>

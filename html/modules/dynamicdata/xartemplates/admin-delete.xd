@@ -1,0 +1,69 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="referertype">isset($referertype) ? $referertype : 'user'</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <p class="xar-floatright">
+            <xar:if condition="$referertype eq 'admin' and xarSecurityCheck('AdminDynamicData',0)">
+               <xar:if condition="isset($table) and !empty($table)">
+                    <xar:mlstring>Return to: </xar:mlstring><a href="&xar-modurl-dynamicdata-admin-view;&amp;itemid=#$object:objectid#&amp;table=#$table#&amp;template=#$template#s"><xar:mlstring>Table Operations - Item List View</xar:mlstring></a>
+                <xar:else />
+                    <a href="&xar-modurl-dynamicdata-admin-view;&amp;itemid=#$object:objectid#&amp;template=#$template#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                </xar:if>
+            <xar:else />
+                <a href="#xarModURL('dynamicdata','user','view',array('itemtype'=>$object:itemtype,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+            </xar:if>
+        </p>
+        <h1>
+            <xar:ml>
+                <xar:mlstring>Delete Item #(1) in #(2)</xar:mlstring>
+                <xar:mlvar>#$object:itemid#</xar:mlvar>
+                <xar:mlvar>#$object:label#</xar:mlvar>
+            </xar:ml>
+        </h1>
+         <xar:template type="module" file="manage-menu" />
+        <div class="xar-mod-content">
+             <xar:if condition="!empty($object:objectid) and $object:objectid eq 1 and $object:itemid lt 3">
+                    <h3 class="xar-align-center">
+                        <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module.</xar:mlstring>
+                    </h3>
+
+                    <p class="xar-align-center">
+                        <xar:mlstring>Deleting this object may break the Dynamic Data module. </xar:mlstring>
+                    </p>
+                </xar:if>
+            <h3 class="xar-align-center">
+                <xar:mlstring>Confirm Deleting This Item?</xar:mlstring>
+            </h3>
+
+            <xar:data-display object="$object" />
+
+            <xar:if condition="!empty($related)">
+                <p>
+                    #$related#
+                </p>
+            </xar:if>
+
+            <form method="post" action="&xar-modurl-dynamicdata-admin-delete;">
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="objectid" id="objectid" value="#$object:objectid#" />
+                    <input type="hidden" name="modid" id="modid" value="#$object:moduleid#" />
+                    <input type="hidden" name="itemtype" id="itemtype" value="#$object:itemtype#" />
+                    <input type="hidden" name="join" id="join" value="#$object:join#" />
+                    <input type="hidden" name="table" id="table" value="#$object:table#" />
+                    <input type="hidden" name="itemid" id="itemid" value="#$object:itemid#" />
+                    <xar:if condition="!empty($return_url)">
+                      <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+                    </xar:if>
+                    <input type="submit" name="confirm" id="confirm" value="#xarML('Delete')#" class="xar-margin-thickright" />
+                    <input type="submit" name="noconfirm" id="noconfirm" value="#xarML('Cancel')#" class="xar-margin-thickleft" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

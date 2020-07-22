@@ -1,0 +1,85 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="active_step">6</xar:set>
+<div id="install">
+    <xar:template file="status" />
+    <div id="step">
+        <h1>
+            <xar:mlstring>Administrator Account Creation</xar:mlstring>
+        </h1>
+        <form action="&xar-modurl-installer-admin-create_administrator;" method="post">
+            <div>
+                <input type="hidden" name="install_language" id="install_language" value="#$language#" />
+                <p class="xar-norm">
+                    <xar:mlstring>Please enter the settings for your Administrator account. This information is necessary in order to properly secure your Xarigami installation. These settings can be changed at any point in the future by visiting the Roles module.</xar:mlstring>
+                </p>
+                <xar:if condition="!empty($msg)">
+                    <p class="xar-error"><strong>#$msg#</strong></p>
+                </xar:if>
+                <h3>
+                    <xar:mlstring>Administrator Information</xar:mlstring>
+                </h3>
+                <div class="simpleform">
+                    <p>
+                        <label for="install_admin_name">
+                            <xar:mlstring>Display Name</xar:mlstring>
+                        </label>
+                        <input type="text" name="install_admin_name" id="install_admin_name" maxlength="80" value="#xarML('Administrator')#" />
+                        <br class="clear" />
+                    </p>
+                    <p>
+                        <label for="install_admin_username">
+                            <xar:mlstring>Username</xar:mlstring>
+                        </label>
+                        <input type="text" name="install_admin_username" id="install_admin_username" maxlength="80" value="#xarML('Admin')#" />
+                        <span class="xar-sub">
+                            <xar:mlstring>(Used for logon)</xar:mlstring>
+                        </span>
+                    </p>
+                        <xar:if condition="!empty($invalid['username'])">
+                            <xar:foreach in="$invalid['username']" key="$k" value="$v">
+                                    <span style="color: red; font-size:small;">#$v# </span>
+                            </xar:foreach>
+                        </xar:if>
+                    <p>
+                        <label for="install_admin_password">
+                            <xar:mlstring>Password</xar:mlstring>
+                        </label>
+                        <input type="password" name="install_admin_password" id="install_admin_password" maxlength="80" value="" autocomplete="off"/>
+                        <br class="clear" />
+                    </p>
+                        <xar:if condition="!empty($invalid['password'])">
+                            <xar:foreach in="$invalid['password']" key="$k" value="$v">
+                                    <span style="color: red; font-size:small;">#$v# </span>
+                            </xar:foreach>
+                        </xar:if>
+                    <p class="xar-sub" style="width:90%;">#xarML('Please use a password with a minimum of five (5) alpha-numeric characters, including at least one (1) number. This can be changed once you log into your site.')#</p>
+    
+                    <p>
+                        <label for="install_admin_password1">
+                            <xar:mlstring>Password Again</xar:mlstring>
+                        </label>
+                        <input type="password" name="install_admin_password1" id="install_admin_password1" maxlength="80" value="" autocomplete="off"/>
+                        <br class="clear" />
+                    </p>
+                    <p>
+                        <label for="install_admin_email">
+                            <xar:mlstring>Email</xar:mlstring>
+                        </label>
+                        <input type="text" name="install_admin_email" id="install_admin_email" maxlength="80" value="#xarML('none@invalid.tld')#" />
+                        <br class="clear" />
+                    </p>
+    
+                </div>
+                <br class="clear" />
+                <p>
+                    <xar:mlstring>Your Administrator password is the key to your Xarigami installation. Choose something that you will remember and do not share it or write it down. As a rule of thumb, it should not contain any words, and should contain a mix of upper and lower case letters, numbers and punctuation.</xar:mlstring>
+                </p>
+          <xar:set name="buttonnext">
+                    <xar:mlstring>Continue</xar:mlstring>
+                </xar:set>
+                <p class="center"><input type="submit" name="create" id="create" value="#$buttonnext#" /></p>
+    
+            </div>
+        </form>
+    </div>
+</div>

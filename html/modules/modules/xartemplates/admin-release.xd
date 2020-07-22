@@ -1,0 +1,31 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Recent extension releases</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:if condition="empty($warning)">
+                <xar:if condition="!empty($feedcontent)">
+                    <xar:foreach in="$feedcontent" value="$release">
+                        <xar:if condition="!empty($release['link'])">
+                            <h3><a href="#$release['link']#">#$release['title']#</a></h3>
+                        <xar:else />
+                            <h3>#$release['title']#</h3>
+                        </xar:if>
+                        <xar:if condition="!empty($release['description'])">
+                            <p>
+                                #$release['description']#
+                            </p>
+                        </xar:if>
+                    </xar:foreach>
+                </xar:if>
+            <xar:else />
+                #$warning#
+            </xar:if>
+        </div>
+    </div>
+</div>

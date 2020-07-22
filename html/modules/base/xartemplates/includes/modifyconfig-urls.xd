@@ -1,0 +1,198 @@
+<fieldset>
+    <legend>
+        <xar:mlstring>Using Xarigami short and friendly URLs</xar:mlstring>
+    </legend>
+    <p>
+    <xar:mlstring>Xarigami has several solutions to improve URLs. Instead of a URL such as</xar:mlstring>
+    &#32;
+    <em>http://domain.com/index.php?module=articles&#38;type=user&#38;func=view&#38;aid=12</em> <xar:mlstring>you can use </xar:mlstring>
+    </p>
+    <ul>
+        <li class="xar-padding-thick">
+            <strong><xar:mlstring>Xarigami Short URLs</xar:mlstring></strong>: <xar:mlstring>You can control them from</xar:mlstring>
+            &#32;
+            <a href="&xar-modurl-base-admin-modifyconfig;">
+                <xar:mlstring>Display &amp; URL options</xar:mlstring>
+            </a>
+            &#32;
+            <xar:mlstring>by setting the Master short URL switch on, and then activate them for each module that supports them.</xar:mlstring>
+            <br />
+            <xar:mlstring>For instance:</xar:mlstring>
+             &#32;
+            <em>http://domain.com/index.php/news/The_President_arrived</em>
+            <br />
+            <xar:mlstring>URL Rewriting is NOT required for these short urls. You can activate them in your site at any time.</xar:mlstring>
+        </li>
+         <li class="xar-padding-thick">
+          <strong><xar:mlstring>Xarigami Friendly URLS</xar:mlstring></strong>: <xar:mlstring>You can remove 'index.php' from diting  your config.system.php and using URL rewriting.</xar:mlstring>
+            <br />
+            <xar:mlstring>In config.system.php, uncomment and set </xar:mlstring> <strong>&#32;$systemConfiguration['BaseURI'] = ''</strong>
+            &#32;<xar:mlstring>and</xar:mlstring><strong>&#32;
+            $systemConfiguration['BaseModURL'] = ''</strong>
+            <p>
+            <xar:mlstring>URLs will look like: </xar:mlstring> <em>http://domain.com/news/The_President_arrived</em>
+             &#32;
+             (<xar:mlstring>with short URLs activated as well</xar:mlstring>)
+             <br />
+             <xar:mlstring>You will need URL Rewriting to make this work.</xar:mlstring>
+             </p>
+        </li>
+    </ul>
+</fieldset>
+
+<fieldset>
+    <legend>
+        <xar:mlstring>Introduction - URL Rewriting</xar:mlstring>
+    </legend>
+    <p>
+        <xar:mlstring>You an use Xarigami 'Short' URLs and 'Friendly' URLs with Xarigami to get URLS such as  </xar:mlstring>
+        http://mydomain.com/news/USA-new-president.
+        <br />
+        <xar:mlstring>Thse can be useful for search engine optimization (SEO) purposes.</xar:mlstring>
+    </p>
+    <p>
+        <strong><xar:mlstring>NOTE: URL Rewriting capability must be installed and active on the web server you are using to setup 'Friendly' URLs.</xar:mlstring></strong>
+    <p>
+        <xar:mlstring>If you are using an Apache server, you can simply look for Mod_Rewrite module in the Apache section of the</xar:mlstring>
+        &#160; <a href="#xarModURL('base','admin','sysinfo',array('what'=>8))#"><xar:mlstring>System Information</xar:mlstring></a>.
+        <br />
+        <xar:mlstring>For IIS, you can also use ISAPI Rewrite, and even better, the version 3 (or further) which offers .htaccess Apache compability.</xar:mlstring>
+    </p>
+        <xar:comment>Eventually detect URL rewriting capability</xar:comment>
+        <xar:set name="ISAPI_Rewrite_Enabled">xarServerGetVar('HTTP_X_REWRITE_URL')</xar:set>
+        <xar:if condition="!empty($ISAPI_Rewrite_Enabled)">
+            <p>
+                <strong><xar:mlstring>ISAPI Rewrite has been detected!</xar:mlstring></strong>
+            </p>
+        <xar:comment>Offering a test to detect Mod_Rewrite would be cool. But it seems the best way is to set a test .htaccess and to test URL rewriting.</xar:comment>
+        <xar:else/>
+            <p>
+                Please use the System Information link provided to determine whether you have Mod_Rewrite installed and active, or consult your web hosting provider.
+            </p>
+        </xar:if>
+    </p>
+
+</fieldset>
+
+
+
+
+<fieldset>
+    <legend>
+        <xar:mlstring>Localization Virtual Paths (experimental!)</xar:mlstring>
+    </legend>
+
+    <p class="xar-padding-thick">
+        <xar:mlstring>Virtual paths setup can be combined with URL Rewriting (Mod_Rewrite or ISAPI Rewrite) to map virtual folders to locale names.
+        For instance you can use /us for en_US.utf-8 and /fr for fr_FR.utf-8.</xar:mlstring>
+    </p>
+    <ul>
+        <li>
+            <xar:mlstring>You must ensure the paths are all unique otherwise leave the following blank:</xar:mlstring>
+            <p class="xar-form-input-wrapper-after">
+                <xar:data-input type="checkbox" id="VPEnabled" name="VPEnabled" checked="$VPEnabled" tabindex="$tabindex++" />
+                <strong>
+                    <label for="VPEnabled">
+                        <xar:mlstring>Activate Virtual Paths support?</xar:mlstring>
+                    </label>
+                </strong>
+            </p>
+        </li>
+    <br />
+    <li>
+            <xar:mlstring>The following locales are available on this site (set in the Language and Places tab). Please complete the path field for each locale listed:</xar:mlstring>
+        <xar:loop name="$virtualpaths">
+            <p class="xar-form-input-wrapper">
+                <label for="path_#$loop:index#" class="xar-form-label">
+                    <xar:mlstring>Path for </xar:mlstring>
+                    #$loop:item['locale']#
+                </label>
+                <xar:set name="path_value">$loop->item['path']</xar:set>
+                <xar:set name="locale_value">$loop->item['locale']</xar:set>
+                <xar:set name="path_id">'path_' . $loop->index</xar:set>
+                <xar:set name="locale_id">'locale_' . $loop->index</xar:set>
+                <xar:data-input type="textbox" id="$path_id" name="paths[]" value="$path_value" class="xar-form-textlong" tabindex="$tabindex++"/>
+                <xar:data-input type="hidden" id="$locale_id" name="locales[]" value="$locale_value"/>
+            </p>
+        </xar:loop>
+
+            <ul>
+                <li><xar:mlstring>An empty value cancels the mapping for the given locale.</xar:mlstring></li>
+                <li><xar:mlstring>Use a simple slash for the web root.</xar:mlstring></li>
+                <li><xar:mlstring>Note that you can use either /fr or /fr/ (with or without the ending slash). The system will try to enforce your choice by using redirection if necessary.</xar:mlstring></li>
+            </ul>
+    </li>
+    <br />
+    <li>
+            <xar:mlstring>In some case, the website root may support several locales. In order to prevent duplicate content (and URLs),
+             some redirection using the proper virtual paths might be required.  For instance: say that an anonymous user connects directly,
+             for the first time, to the root of a website. The locale auto-dectection indicates it should use fr_FR.UTF-8 locale.
+             The page is French, but it still remains located at the root instead of using a /fr virtual path.
+             In order to force the redirection to the correct virtual path, the following option must be checked.</xar:mlstring>
+       <p class="xar-form-input-wrapper-after">
+            <xar:data-input type="checkbox" id="VPEnforced" name="VPEnforced" checked="$VPEnforced" tabindex="$tabindex++" />
+            <label for="VPEnforced">
+                <strong><xar:mlstring>Enforce the URLS to fit to the navigation locale through virtual paths (automatic redirections)</xar:mlstring></strong>
+            </label>
+        </p>
+    </li>
+    </ul>
+</fieldset>
+
+<fieldset>
+    <legend>
+        <xar:mlstring>.htaccess Generation</xar:mlstring>
+    </legend>
+    <p>
+        <xar:mlstring>In order to maintain security and ensure the web server is safe, we prefer to let you edit the .htaccess by yourself.</xar:mlstring>
+    </p>
+    <p>
+        <xar:mlstring>This .htaccess file should be placed in the document root directory of your web site.</xar:mlstring>
+    </p>
+    <br />
+    <xar:mlstring>Here is a sample for Apache and ISAPI Rewrite 3:</xar:mlstring>
+    <br />
+    <textarea rows="40" cols="80">
+RewriteEngine On
+
+# To use with Apache Mod Rewrite only
+# Options +FollowSymlinks
+
+# Assume that virtual path are using only two letters like /en /fr or /en/ or /fr/
+
+# Uncomment the lines if you have other applications using URL rewriting,
+# and replace forums gallery w wiki by the corresponding virtual paths.
+
+# MLS Virtual localisation paths - Files (.jpg, .css,)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_URI} !^/(forums|gallery|w|wiki).*$
+RewriteRule ^[a-zA-Z]{2}/([a-zA-Z0-9_%/-]+\.[a-zA-Z0-9]{2,4})$ $1 [PT,L,QSA]
+
+# MLS Virtual localisation paths - Pages (no index.php, /news, /fr /en /fr/ /en/...)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^.*index\.php.*$
+# RewriteCond %{REQUEST_URI} !^/(forums|gxar|gallery|w|wiki).*$
+RewriteCond %{REQUEST_URI} !^[a-zA-Z0-9_%/-]+\.[a-zA-Z0-9]{2,4}$
+RewriteRule ^[a-zA-Z]{2}(/*)(.*)$ /index.php$1$2 [PT,L,QSA]
+
+# MLS Virtual localisation paths - Pages (index.php, index.php/news, ...)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^.*index\.php.*$
+# RewriteCond %{REQUEST_URI} !^/(forums|gallery|w|wiki).*$
+RewriteRule ^[a-zA-Z]{2}/index.php(.*)$ /index.php/$1 [PT,L,QSA]
+
+# no index.php
+# Add this to the end of your .htaccess file
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_URI} !^/(forums|gallery|w|wiki).*$
+RewriteCond %{REQUEST_URI} !^.*[a-zA-Z0-9_%/-]+\.[a-zA-Z0-9]{2,4}$
+RewriteCond %{REQUEST_URI} !^.*index\.php.*$
+RewriteRule ^(.*)$ index.php/$1 [PT,L,QSA]
+</textarea>
+
+
+</fieldset>

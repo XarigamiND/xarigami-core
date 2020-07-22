@@ -1,0 +1,658 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="active_step">3</xar:set>
+<xar:set name="successtitle">
+    <xar:mlstring>SUCCESS</xar:mlstring>
+</xar:set>
+<xar:set name="failuretitle">
+    <xar:mlstring>
+        FAILURE
+    </xar:mlstring>
+</xar:set>
+<xar:set name="warningtitle">
+    <xar:mlstring>
+        CAUTION
+    </xar:mlstring>
+</xar:set>
+<div id="install">
+    <xar:template file="status" />
+    <div id="step">
+        <h1><xar:mlstring>Capabilities Inventory</xar:mlstring></h1>
+        <p>
+            <xar:mlstring>
+                Xarigami requires a number of settings and extentions to be present and have
+                a certain value.
+                We have checked these and the results are listed below. Each check
+                is marked as either:
+            </xar:mlstring>
+            <ul>
+                <li class="failure"><em><xar:mlstring> ERROR</xar:mlstring></em><xar:mlstring> Please rectify the error to continue installation</xar:mlstring></li>
+                <li class="warning"><em><xar:mlstring> WARNING</xar:mlstring></em><xar:mlstring> Ensure you understand the warning consequences</xar:mlstring></li>
+                <li class="success"><em><xar:mlstring> SUCCESS</xar:mlstring></em></li>
+            </ul>
+        </p>
+
+        <h3><xar:mlstring>PHP Settings Check</xar:mlstring></h3>
+
+        <form action="install.php" method="post">
+            <div>
+                <input type="hidden" name="install_language" value="#$language#" />
+                <p>
+                    <xar:ml>
+                        <xar:mlstring>
+                            Xarigami has recommended settings for PHP. If your PHP settings do not meet requirements you may have difficulties in running install to completion.
+                        </xar:mlstring>
+                        <xar:mlvar>
+                            #$systemConfigFile#
+                        </xar:mlvar>
+                    </xar:ml>
+                </p>
+
+                <ul>
+                    <xar:if condition="$metRequiredPHPVersion">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                SUCCESS: PHP Version is greater than or equal to 5.3.0. Your PHP Version is #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$phpVersion#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="failure">
+                            <xar:ml>
+                                <xar:mlstring>
+                                ERROR: PHP Version is less than 5.3.0. Your PHP Version is #(1) please upgrade PHP.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$phpVersion#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    </xar:if>
+
+                    <xar:if condition="$metMinMemRequirement and !$memory_warning">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: Xarigami needs a MINIMUM of 8 Megabyte of PHP memory (16M or higher STRONGLY recommended).
+                                    The current memory limit is #(1).
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$memory_limit#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:mlstring>
+                                If you are planning to install modules during the install phase, a lot of memory is
+                                required. If in doubt, <strong>do a core only install</strong> and install modules manually later.
+                            </xar:mlstring>
+                        </li>
+                    <xar:elseif condition="$memory_warning" />
+                        <li class="warning">
+                           <xar:ml>
+                               <xar:mlstring>
+                                    WARNING: Xarigami needs a MINIMUM of 8 Megabyte of PHP memory (16M or higher STRONGLY recommended).
+                                    The current memory limit is <strong>#(1)</strong>.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$memory_limit#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:mlstring>
+                                Please check your PHP memory limit. Installation requires a lot of memory especially if you are planning to install modules during this phase.
+                                If in doubt about your PHP memory limit, <strong>do a core only install</strong> and install modules manually later.
+                            </xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="failure">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    ERROR: Xarigami needs a MINIMUM of 8 Megabyte of PHP memory (16M or higher STRONGLY recommended).
+                                    The current memory limit is #(1).
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$memory_limit#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:mlstring>
+                                If you are planning to install modules during the install phase, a lot of memory is
+                                required. If in doubt, do a core only install and install modules manually later.
+                            </xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$maxexectimepass">
+                        <li class="warning">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    WARNING: Your max_execution_time for a php script is set to #(1) seconds. 30 seconds is
+                                    usually sufficient but you may want to increase it for a full distribution install. How much time
+                                    you need will depend on your system and number of modules you choose during this installation.
+                                    If in doubt about your maximum (script) execution time, <strong>do a core only install</strong>
+                                    and install modules manually later.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$maxexectime#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                       <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: Your max_execution_time for a php script is set to #(1) seconds. 30 seconds is
+                                    usually sufficient but you may want to increase it for a full distribution install. How much time
+                                    you need will depend on your system and number of modules you choose during this installation.
+                                    If in doubt about your maximum (script) execution time, <strong>do a core only install</strong>
+                                    and install modules manually later.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$maxexectime#
+                                </xar:mlvar>
+                            </xar:ml>
+                       </li>
+                    </xar:if>
+                    <!-- Maybe too dangerous to recommend this at this stage.
+                    <xar:if condition="!$metRealpathCacheRequirement">
+                        <li class="warning">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    WARNING: Your realpath_cache_size is set to #(1) bytes and might be insufficient.
+                                    Xarigami may use hundreds of files. You may want to increase it for better performances to at least 800k.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$memRealpathCache#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                       <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: Your realpath_cache_size is set to #(1) bytes. It has reasonable size which should be normally not degrading file access performance.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$memRealpathCache#
+                                </xar:mlvar>
+                            </xar:ml>
+                       </li>
+                    </xar:if>
+                    -->
+                </ul>
+           <h3><xar:mlstring> File Settings Check</xar:mlstring></h3>
+                <p>
+                    <xar:ml>
+                        <xar:mlstring>
+                            For Xarigami to function properly, the installer must write your database information to the configuration file #(1).
+                            If your settings are not correct, this script will not be able to do so.
+                        </xar:mlstring>
+                        <xar:mlvar>
+                            #$systemConfigFile#
+                        </xar:mlvar>
+                    </xar:ml>
+                </p>
+                <ul>
+                    <xar:if condition="$systemConfigIsWritable">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The installer can write to your configuration file.</xar:mlstring>
+                        </li>
+                     <xar:else />
+                        <li class="failure">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    ERROR: The installer cannot write to the configuration file.
+                                    Please verify that your webserver has write access to the file #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$systemConfigFile#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    </xar:if>
+
+                    <xar:if condition="$cacheIsWritable">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: The installer can write to the directory #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$cacheDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="failure">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    ERROR: The installer cannot write to the directory #(1).
+                                    Please verify that your webserver has write access to the directory #(2)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$cacheDir#
+                                </xar:mlvar>
+                                <xar:mlvar>
+                                    #$cacheDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    </xar:if>
+
+                    <xar:if condition="$cacheTemplatesIsWritable">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: The installer can write to the directory #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$cacheTemplatesDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="failure">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    ERROR: The installer cannot write to the directory #(1).
+                                    Please verify that your webserver has write access to the directory #(2)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$cacheTemplatesDir#
+                                </xar:mlvar>
+                                <xar:mlvar>
+                                    #$cacheTemplatesDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    </xar:if>
+
+                    <xar:if condition="$rssTemplatesIsWritable">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: The installer can write to the directory #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$rssTemplatesDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="failure">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    ERROR: The installer cannot write to the #(1).
+                                    Please verify that your webserver has write access to the directory #(2)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$rssTemplatesDir#
+                                </xar:mlvar>
+                                <xar:mlvar>
+                                    #$rssTemplatesDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    </xar:if>
+
+
+                <!--
+                <xar:if condition="$adodbTemplatesIsWritable">
+                    <li class="success">
+                         <xar:ml>
+                            <xar:mlstring>
+                                SUCCESS: The installer can write to the directory #(1)
+                            </xar:mlstring>
+                            <xar:mlvar>
+                                #$adodbTemplatesDir#
+                            </xar:mlvar>
+                        </xar:ml>
+                    </li>
+                <xar:else />
+                       <li class="failure">
+                            <xar:ml>
+                            <xar:mlstring>
+                                ERROR: The installer cannot write to the directory #(1).
+                                Please verify that your webserver has write access to the directory #(2)
+                            </xar:mlstring>
+                            <xar:mlvar>
+                                #$adodbTemplatesDir#
+                            </xar:mlvar>
+                            <xar:mlvar>
+                                #$adodbTemplatesDir#
+                            </xar:mlvar>
+                        </xar:ml>
+                        </li>
+                </xar:if>
+                -->
+                <xar:if condition="$stylesTemplatesIsWritable">
+                    <li class="success">
+                         <xar:ml>
+                            <xar:mlstring>
+                                SUCCESS: The installer can write to the directory #(1)
+                            </xar:mlstring>
+                            <xar:mlvar>
+                                #$stylesTemplatesDir#
+                            </xar:mlvar>
+                        </xar:ml>
+                    </li>
+                <xar:else />
+                       <li class="failure">
+                            <xar:ml>
+                            <xar:mlstring>
+                                ERROR: The installer cannot write to the directory #(1).
+                                Please verify that your webserver has write access to the directory #(2)
+                            </xar:mlstring>
+                            <xar:mlvar>
+                                #$stylesTemplatesDir#
+                            </xar:mlvar>
+                            <xar:mlvar>
+                                #$stylesTemplatesDir#
+                            </xar:mlvar>
+                        </xar:ml>
+                        </li>
+                </xar:if>
+                </ul>
+                <h3><xar:mlstring>Locales Settings Check</xar:mlstring></h3>
+                <p>
+                    <xar:mlstring>
+                         For translation to function properly, Xarigami must have write access to files in the locales directory
+                    </xar:mlstring>
+                </p>
+                <ul>
+                    <xar:if condition="$phpLanguageFilesIsWritable">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: Xarigami can write to the directory #(1) and all its files and subdirectories.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$phpLanguageDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    WARNING: Xarigami cannot write to the directory #(1) and all its files and subdirectories.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$phpLanguageDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:ml>
+                                <xar:mlstring>
+                                    Please verify that your webserver has write access to the files under the directory: #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$phpLanguageDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:mlstring>
+                                Write access is required to cache language text for locales other than en.
+                                If you're not sure, ignore this warning.
+                            </xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$xmlLanguageFilesIsWritable">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: Xarigami can write to the directory #(1) and all its files and subdirectories.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$xmlLanguageDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    WARNING: Xarigami cannot write to the directory #(1) and all its files and subdirectories.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$xmlLanguageDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:ml>
+                                <xar:mlstring>
+                                    Please verify that your webserver has write access to the files under the directory: #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$xmlLanguageDir#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:mlstring>
+                                This write access is only needed if you intend on using translations module at your site actively.
+                            </xar:mlstring>
+                        </li>
+                    </xar:if>
+                </ul>
+           <h3><xar:mlstring>Log File Settings Check</xar:mlstring></h3>
+                <p>
+                    <xar:mlstring>
+                         If you wish to use the Xarigami Error Log, Xarigami must have write access to a file called log.txt in the Xarigami logs directory
+                    </xar:mlstring>
+                </p>
+                <ul>
+                    <xar:if condition="$logIsWritable">
+                        <li class="success">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    SUCCESS: Xarigami has found a log file at #(1) and can write to the log file.
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$logFile#
+                                </xar:mlvar>
+                            </xar:ml>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    WARNING: Xarigami cannot write to a log file at #(1) .
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #$logFile#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <xar:ml>
+                                <xar:mlstring>
+                                    Please verify that the log file exists and your webserver has write access to the log file: #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                   #$logFile#
+                                </xar:mlvar>
+                            </xar:ml>
+                            <br />
+                            <xar:mlstring>
+                                A file called log.txt is required with write access to use the Xarigami error log text.
+                                If you do not want to use the error log or you're not sure, you can ignore this warning.
+                            </xar:mlstring>
+                        </li>
+                    </xar:if>
+                </ul>
+
+
+                <h3><xar:mlstring>Information on Loaded PHP Extensions</xar:mlstring></h3>
+                <p>
+                    <xar:set name="phpneturl">'http://www.php.net'</xar:set>
+                    <xar:set name="phpnetdestination">'<a href="'.$phpneturl.'">PHP.net</a>'</xar:set>
+                    <xar:ml>
+                        <xar:mlstring>
+                            These extensions may be required for some modules to work, however Xarigami
+                            is not dependant on these extensions for installation.
+                            Refer to #(1) for further information on these extensions.
+                        </xar:mlstring>
+                        <xar:mlvar>
+                            #$phpnetdestination#
+                        </xar:mlvar>
+                    </xar:ml>
+
+                </p>
+                <ul>
+                    <xar:if condition="$xmlextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The XML Extension is loaded. Used for Translations and other non-core features.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: The XML Extension is not loaded. You will require this extension
+                            if you plan to use the Xarigami Translations module.</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$mbstringextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The MBString Extension is loaded. Used for enhanced features for some non western languages (eg Chinese, Korean).</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: The MBString Extension is not loaded. You may require this extension
+                            if you plan to use enhanced features for some non western languages (eg Chinese, Korean)</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$curlextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The Curl Extension is loaded. Used for some functionality where communication with other servers is necessary.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: The Curl Extension is not loaded. You may require this extension
+                            if you plan to use functionality requiring communication between servers.</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$xmlrpcextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The XMLRPC Extension is loaded. Used by some modules that use XML and HTTP to communicate information (eg blogging apis) </xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: The XMLRPC Extension is not loaded. Used by some modules that use XML and HTTP to communicate information (eg blogging apis).</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="($php5version eq 0) and $xsltextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The XSLT Extension is loaded.</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="($php5version eq 1) and $xslextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The XSL Extension is loaded.</xar:mlstring>
+                        </li>
+                    </xar:if>
+                   <xar:if condition="$gdextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The GD Extension is loaded. Used by some modules for image output.</xar:mlstring>
+                        </li>
+                    </xar:if>
+                </ul>
+
+                <h3>
+                    <xar:mlstring>You will need at least one available database type</xar:mlstring>
+                </h3>
+                <ul>
+                    <xar:if condition="$mysqlextension OR $pgsqlextension OR $sqliteextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: You have at least one database type available.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: You do not have a supported database type available.</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$mysqlextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The MySQL (mysql) Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: MySQL as database will not be available</xar:mlstring>
+                        </li>
+                    </xar:if>
+                     <xar:if condition="$mysqliextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The Improved MySQL (mysqli) Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>WARNING: MySQL Improved database access will not be available</xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$pgsqlextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The PGSQL (postgres) Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                       <li class="warning">
+                           <xar:mlstring>WARNING: PostgreSQL as database will not be available</xar:mlstring>
+                       </li>
+                    </xar:if>
+                    <xar:if condition="$sqliteextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The SQLite (sqlite) Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                       <li class="warning">
+                           <xar:mlstring>WARNING: SQLITE as database will not be available</xar:mlstring>
+                       </li>
+                    </xar:if>
+                    <xar:comment>
+                    <xar:if condition="$xsltextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The PHP4 XSLT Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                        <xar:mlstring>
+                            WARNING: The PHP4 XSLT Extension is not loaded.
+                            This PHP4 extension is only needed for the PHP4 XSLT transform module at this time.
+                        </xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$ldapextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The LDAP Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>
+                                WARNING: The LDAP Extension is not loaded.
+                                This extension is only needed if you intend on using LDAP authentication with the Xarigami LDAP Modules.
+                            </xar:mlstring>
+                        </li>
+                    </xar:if>
+                    <xar:if condition="$gdextension">
+                        <li class="success">
+                            <xar:mlstring>SUCCESS: The GD Extension is loaded.</xar:mlstring>
+                        </li>
+                    <xar:else />
+                        <li class="warning">
+                            <xar:mlstring>
+                                WARNING: The GD Extension is not loaded.
+                                This extension is only needed for the images module at this time for resizing of thumbnails.
+                            </xar:mlstring>
+                        </li>
+                    </xar:if>
+                    </xar:comment>
+                </ul>
+                <p class="center">
+                <xar:if condition="$systemConfigIsWritable AND $cacheTemplatesIsWritable AND $cacheIsWritable AND $rssTemplatesIsWritable AND $stylesTemplatesIsWritable AND $metMinMemRequirement">
+                    <input type="hidden" name="install_phase" id="install_phase" value="4" />
+                    <xar:set name="buttonnext">
+                        <xar:mlstring>Continue</xar:mlstring>
+                    </xar:set>
+                    <input type="submit" value="#$buttonnext#"  class="center" />
+                <xar:else />
+                    <input type="hidden" name="install_phase" id="install_phase" value="3" />
+                    <input type="hidden" name="agree" id="agree" value="agree" />
+                    <xar:set name="buttonagain">
+                        <xar:mlstring>Check Again</xar:mlstring>
+                    </xar:set>
+                    <input type="submit" value="#$buttonagain#" class="center" />
+                </xar:if>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

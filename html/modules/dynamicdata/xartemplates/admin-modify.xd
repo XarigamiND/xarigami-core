@@ -1,0 +1,123 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="referertype">isset($referertype) ? $referertype : 'user'</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:comment>We have to manually include headers here</xar:comment>
+         <xar:if condition="xarModGetVar('themes','showmodheader')">
+             <xar:if condition="xarSecurityCheck('AdminDynamicData',0)">
+                <div class="xar-mod-title"><xar:mlstring>Dynamic Data Administration</xar:mlstring></div>
+            <xar:else />
+                <div class="xar-mod-title">
+                <xar:ml>
+                    <xar:mlstring>#(1) Administration</xar:mlstring>
+                     <xar:mlvar>#$object:label#</xar:mlvar>
+                </xar:ml>
+                </div>
+            </xar:if>
+        </xar:if>
+        <xar:if condition="xarSecurityCheck('ModerateDynamicData',0)">
+            <xar:template type="module" module="dynamicdata" file="admin-menu" />
+        <xar:else />
+            <xar:template type="module" module="dynamicdata" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:if condition="!empty($objectid) and $objectid eq 1">
+                <xar:template type="module" file="object-menu" />
+            </xar:if>
+        </xar:if>
+         <xar:if condition="!xarRequestIsAJAX()">
+            <p class="xar-floatright">
+                <xar:if condition="$referertype eq 'admin' and xarSecurityCheck('ModerateDynamicData',0)">
+                    <xar:if condition="isset($table) and !empty($table) ">
+                        <xar:mlstring>Return to: </xar:mlstring><a href="#xarModURL('dynamicdata','user','view',array('itemid'=>$object:objectid,'table'=>$table,'template'=>$template))#"><xar:mlstring>Table Operations - Item List View</xar:mlstring></a>
+                    <xar:else />
+                        <a href="#xarModURL('dynamicdata','admin','view',array('itemid'=>$object:objectid,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                    </xar:if>
+                <xar:else />
+                    <a href="#xarModURL('dynamicdata','user','view',array('itemtype'=>$object:itemtype,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                </xar:if>
+            </p>
+        </xar:if>
+        <h1>
+            <xar:ml>
+                <xar:mlstring>Editing item #(1) in #(2)</xar:mlstring>
+                <xar:mlvar>#$object:itemid#</xar:mlvar>
+                <xar:mlvar>#$object:label#</xar:mlvar>
+            </xar:ml>
+        </h1>
+         <xar:template type="module" file="manage-menu" />
+       <div class="xar-mod-content">
+          <xar:if condition="$objectid ne 1 and isset($preview)">
+                <fieldset>
+                  <legend><xar:mlstring>Preview</xar:mlstring></legend>
+                  <xar:data-display object="$object" />
+                  <xar:if condition="!empty($displayhooks)">
+                  <xar:foreach in="$displayhooks" key="$module" value="$output">
+                      <xar:if condition="$module ne 'dynamicdata'">
+                          #$output#
+                      </xar:if>
+                  </xar:foreach>
+             </xar:if>
+                </fieldset>
+            </xar:if>
+
+            <xar:set name="isupload">#$object:upload#</xar:set>
+            <xar:if condition="!empty($isupload)">
+                <xar:set name="enc_type">'multipart/form-data'</xar:set>
+            <xar:else/>
+                <xar:set name="enc_type">'application/x-www-form-urlencoded'</xar:set>
+            </xar:if>
+
+            <form method="post" id="ddmodifyform" action="&xar-modurl-dynamicdata-admin-update;" enctype="#$enc_type#">
+                <fieldset>
+                    <xar:if condition="$object:objectid eq 1 and $object:moduleid eq 182">
+                        <xar:set name="legendtitle"><xar:mlstring>Modify Object Definition</xar:mlstring></xar:set>
+                    <xar:else />
+                        <xar:set name="legendtitle"><xar:mlstring>Modify Item</xar:mlstring></xar:set>
+                    </xar:if>
+                    <legend>#$legendtitle#</legend>
+                    <xar:if condition="!empty($objectid) and $objectid eq 1 and $itemid lt 3">
+                        <h3 class="xar-align-center">
+                            <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module.</xar:mlstring>
+                        </h3>
+
+                        <p>
+                            <xar:mlstring>Trying to modify this object may break the Dynamic Data module. Proceed with caution.</xar:mlstring>
+                        </p>
+                    </xar:if>
+
+                    <!-- this does most of the hard work :) -->
+                    <xar:data-form object="$object" />
+
+                    <xar:if condition="!empty($hooks)">
+                        <xar:foreach in="$hooks" key="$module" value="$output">
+                            <xar:if condition="$module ne 'dynamicdata'">
+                            #$output#
+                            </xar:if>
+                        </xar:foreach>
+                    </xar:if>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="modid" id="modid" value="#$object:moduleid#" />
+                    <input type="hidden" name="itemtype" id="itemtype" value="#$object:itemtype#" />
+                    <input type="hidden" name="join" id="join" value="#$object:join#" />
+                    <input type="hidden" name="table" id="table" value="#$object:table#" />
+                    <input type="hidden" name="itemid" id="itemid" value="#$object:itemid#" />
+                    <xar:if condition="!empty($return_url)">
+                      <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+                    </xar:if>
+                    <xar:if condition="xarRequestIsAJAX()">
+                         <input type="hidden" name="pageName" id="pageName" value="module" />
+                    </xar:if>
+                    <xar:if condition="!xarRequestIsAJAX()">
+                        <input type="submit" name="preview" value="#xarML('Preview')#" class="xar-margin-thickright" />
+                    </xar:if>
+                    <input type="submit" value="#xarML('Update')#" class="xar-margin-thickleft" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

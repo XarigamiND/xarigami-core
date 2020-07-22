@@ -1,0 +1,44 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Remove privilege</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" action="&xar-modurl-privileges-admin-removerole;" enctype="application/x-www-form-urlencoded" >
+                <xar:if condition="$ptype eq 1">
+                    <h3 class="xar-align-center">
+                        <xar:ml>
+                            <xar:mlstring>Confirm the removal of Privilege '#(1)' from Group '#(2)'</xar:mlstring>
+                            <xar:mlvar>#$privname#</xar:mlvar>
+                            <xar:mlvar>#$rolename#</xar:mlvar>
+                        </xar:ml>
+                    </h3>
+                <xar:else />
+                    <h3 class="xar-align-center">
+                        <xar:ml>
+                            <xar:mlstring>Confirm the removal of Privilege '#(1)' from User '#(2)'</xar:mlstring>
+                            <xar:mlvar>#$privname#</xar:mlvar>
+                            <xar:mlvar>#$rolename#</xar:mlvar>
+                        </xar:ml>
+                    </h3>
+                </xar:if>
+
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="roleid" id="roleid" value="#$roleid#" />
+                    <input type="hidden" name="pid" id="pid" value="#$pid#" />
+                    <input type="hidden" name="confirmation" id="confirmation" value="1" />
+                    <input type="submit" value="#xarML('Remove Privilege')#" class="xar-margin-thickright" />
+                    <p>
+                        <a href="#xarModURL('privileges', 'admin', 'viewroles')#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

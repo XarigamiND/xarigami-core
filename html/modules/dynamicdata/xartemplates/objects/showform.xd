@@ -1,0 +1,65 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:comment>This is a generic form template for any DD object. You can use a specific template for one particular object in this directory as showform-[objectname].xd, and/or use templates in your own [module]/xartemplates/objects directory by specifying the tplmodule="..." argument in the xar:data-form BL tag or showForm() method call.</xar:comment>
+<xar:set name="countrequired">0</xar:set>
+<xar:if condition="empty($layout) or $layout eq 'default'">
+<xar:foreach in="$properties" key="$name" value="$property">
+<xar:set name="invalid">$property->invalid</xar:set>
+<xar:if condition="$invalid ne ''">
+    <xar:set name="invalid_class">'xar-form-input-wrapper-invalid'</xar:set>
+<xar:else />
+    <xar:set name="invalid_class">''</xar:set>
+</xar:if>
+<xar:set name="required">$property->xv_required?$property->xv_required:0</xar:set>
+<xar:set name="countrequired">!empty($required)? ++$countrequired:$countrequired</xar:set>
+
+<div class="xar-form-input-wrapper #$invalid_class#">
+<xar:if condition="isset($required) and !empty($required)">
+   <xar:data-label property="$properties[$name]" label="id" required="$required"/>
+<xar:else />
+    <xar:data-label property="$properties[$name]" label="id"/>
+</xar:if>
+   <xar:data-input property="$properties[$name]" />
+</div>
+</xar:foreach>
+<xar:if condition="isset($objecterror) and !empty($objecterror)">
+
+<div class="xar-form-input-wrapper-after xar-error">
+    #$objecterror#
+</div>
+</xar:if>
+<xar:elseif condition="$layout eq 'prefix'" />
+<xar:comment>
+    This layout uses a field prefix for all input fields of the object, so that
+    you can have several identical objects in the same input form (cfr. subforms)
+</xar:comment>
+<xar:foreach in="$properties" key="$name" value="$property">
+<xar:set name="fieldname">$fieldprefix . '_dd_' . $property->id</xar:set>
+
+<div class="xar-form-input-wrapper">
+    <xar:data-label property="$properties[$name]" label="$fieldname" />
+    <xar:data-input property="$properties[$name]" name="$fieldname" />
+</div>
+</xar:foreach>
+<xar:if condition="isset($objecterror) and !empty($objecterror)">
+
+<div class="xar-form-input-wrapper xar-padding-thick">
+    #$objecterror#
+</div>
+</xar:if>
+<xar:else />
+
+<p>
+    <xar:mlstring>Specify your own layout here...</xar:mlstring>
+</p>
+<xar:template module="$tplmodule" file="form-$layout" />
+<p>
+    <xar:mlstring>You can also specify a separate template, e.g. if you want to handle individual fields differently for a particular module / itemtype</xar:mlstring>
+</p>
+</xar:if>
+<xar:if condition="$countrequired gt 0 ">
+
+<div class="xar-align-left xar-error">
+    <span style="vertical-align: super">*</span>&#160;<xar:mlstring>Required field</xar:mlstring>
+</div>
+
+</xar:if>

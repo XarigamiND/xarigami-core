@@ -1,0 +1,42 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>View Extended Modules</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <xar:if condition="!empty($modlist) and count($modlist) gt 0">
+            <xar:comment>when we're viewing the Dynamic Objects themselves, show other modules</xar:comment>
+            <fieldset>
+                <legend>
+                    <xar:mlstring>Other Modules</xar:mlstring>
+                </legend>
+                <xar:foreach in="$modlist" value="$module">
+                    <xar:if condition="!empty($module['header'])">
+                    <h3>
+                        #$module['header']#
+                    </h3>
+                    </xar:if>
+
+                    <div class="xar-form-input-wrapper">
+                        <span class="xar-form-label">
+                            #$module['name']#
+                        </span>
+                        <xar:if condition="empty($module['link'])">
+                            <xar:mlstring>Not Applicable</xar:mlstring>
+                        <xar:else />
+                            <a href="#$module['link']#">
+                              <xar:mlstring>View Properties</xar:mlstring>
+                            </a>
+                        </xar:if>
+                    </div>
+                </xar:foreach>
+            </fieldset>
+            </xar:if>
+        </div>
+    </div>
+</div>

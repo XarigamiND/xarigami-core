@@ -1,0 +1,9 @@
+<xar:set name="itemname">xarCore::getCached('XML','itemname')</xar:set>
+<xar:foreach in="$items" key="$itemid" value="$fields">
+    &lt;#$itemname#&gt;
+    <xar:foreach in="$fields" key="$name" value="$value">
+        &lt;#$properties.$name:name#&gt;#xarVarPrepForDisplay($value)#&lt;/#$properties.$name:name#&gt;
+    </xar:foreach>
+    &lt;/#$itemname#&gt;
+</xar:foreach>
+

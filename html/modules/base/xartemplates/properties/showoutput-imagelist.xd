@@ -1,0 +1,13 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:if condition="$srcpath ne ''" >
+    <xar:comment>Backward compatible</xar:comment>
+    <xar:if condition="isset($size[0]) and isset($size[1])">
+        <img src="#$srcpath#" width="#$size[0]#" height="#$size[1]#" alt="#$value#" />
+    <xar:elseif condition="!empty($title) and !empty($srcpath)" />
+        <img src="#$srcpath#" alt="#$imagealt#" title="#$title#" style="#$outputsize#"/>
+    <xar:else />
+         <img src="#$srcpath#" alt="#$imagealt#" style="#$outputsize#" />
+    </xar:if>
+<xar:else />
+#$value#
+</xar:if>

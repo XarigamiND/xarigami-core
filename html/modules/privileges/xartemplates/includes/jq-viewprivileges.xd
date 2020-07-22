@@ -1,0 +1,53 @@
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="treeview" pluginfile="jquery.treeview.min" style="jquery.treeview.css"/>
+<xar:set name="checkall"><xar:mlstring>Check all</xar:mlstring></xar:set> 
+<xar:set name="checknone"><xar:mlstring>Uncheck all</xar:mlstring></xar:set> 
+<xar:set name="toggleall"><xar:mlstring>Toggle</xar:mlstring></xar:set> 
+<xar:set name="privscode">"
+jQuery(document).ready(function() {
+    var dialog_width = 300;
+    var dialog_height = 180;
+    var checkall = \"$checkall\";
+    var checknone = \"$checknone\";
+    var toggleall = \"$toggleall\";    
+    jQuery(\"#privilegeform input[type='radio']\").click(function() {this.form.submit(); });
+
+    jQuery('div#"."treewrapper > ul').treeview();
+    jQuery('div#"."treewrapper span.xar-roletree-icons').css({'float': 'left', 'margin': '0 .5em'});
+    jQuery('#"."treewrapper a').click(function(event) {
+        event.stopPropagation();
+    });
+    jQuery('form table.xar-item-controls select').change(function() { this.form.submit(); })
+    jQuery('.checkcontrols').append('<a href=\"#\" id=\"items_checkall\">'+checkall+'</a> | <a href=\"#\" id=\"items_checknone\">'+checknone+'</a> | <a href=\"#\" id=\"items_checktoggle\">'+toggleall+'</a>');
+    jQuery('a#" . "items_checkall').click(function() { 
+        jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; 
+    });
+    jQuery('a#" . "items_checknone').click(function() { 
+        jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; 
+    });
+    jQuery('a#" . "items_checktoggle').click(function() { 
+        jQuery('form#" . "state_form table.xar-items input[type=checkbox]').each(function() { 
+            jQuery(this).attr('checked', !jQuery(this).attr('checked')); 
+        });return false; 
+            
+     });
+   
+    jQuery('div#"."treewrapper a[id^=deletetree]').click(function() {
+        var a = this;
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+        jQuery('#" . "xardialogtarget').html('<h4>" . xarML('Delete this privilege?') . "</h4><p style=\'text-align: center;\'>' + jQuery.trim(jQuery(this).parent().next().children(':first').text()) + '</p>');
+        jQuery('#" . "xardialogtarget').dialog({
+            title: '" . xarML('Confirm privilege deletion') . "',
+            width: dialog_width,
+            height: dialog_height,
+            buttons: {
+                '". xarML('Cancel') . "': function() { jQuery(this).dialog('close'); },
+                '". xarML('Delete') . "': function() { a.setAttribute('href', a.getAttribute('href') + '&confirmation=1');jQuery(this).dialog('close');window.location = a.getAttribute('href'); }
+            },
+            modal: true,
+        });
+        return false;
+});     
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$privscode" position="body"/>

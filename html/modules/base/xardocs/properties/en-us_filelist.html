@@ -1,0 +1,64 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+       The Filelist property provides a drop down selection  input display of a list of files from a given base directory.
+       The file types can be specified and whether or not to display the file extensions in the drop down selection box.
+    </p>
+    <p>
+       The value of the Filelist property is the file name which is also output on display.
+    </p>
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>basedir</strong>: [default='var']
+                <br />The directory where the files to be displayed in the drop down selector are located.
+        </li>
+        <li>
+            <strong>extensions</strong>: [default='']
+            <br />Allowed file extension types of files for display in the drop down. Separated by commas.
+        </li>
+        <li>
+            <strong>longname</strong>: </strong>[default='false']
+            <br />Show the file extension of files in the drop down selector.
+        </li>
+    </ul>
+
+    <p>
+        Other attributes may be inherited from the Dynamic_Select_Property (dropdown) parent property.
+    </p>
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <ul>
+        <li>
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property without the need to define the property first elsewhere.
+        </li>
+    </ul>
+
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="filelist" file_ext="pdf,txt" basedir="var/uploads" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+     <ol>
+        <li>
+            Defining your data property: you can define the options for File extensions, Base directory and Display of file extension,
+             in the Configuration screen for this property.
+        </li>
+        <li>
+            Using the data-input tag: you can use the data-input tag to capture data for this property
+            and pass in attributes for the data property that will override those defined in the Configuration.
+        </li>
+    </ol>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['filelist']"
+            basedir="var/uploads" <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="filelist" id="yourfile"
+            name="yourfile" basedir="var/uploads"  file_ext="pdf,txt,doc" longname="true" /&gt;
+    </pre>
+</div>

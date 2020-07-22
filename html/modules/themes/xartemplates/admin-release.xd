@@ -1,0 +1,35 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Recent Theme Extensions</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <xar:if condition="empty($warning)">
+                <xar:if condition="!empty($feedcontent)">
+                    <ul>
+                        <xar:loop name="$feedcontent">
+                            <li>
+                                <xar:if condition="!empty($loop:item['link'])">
+                                    <a href = "#$loop:item['link']#" target = "_BLANK"> #$loop:item['title']# </a>:
+                                <xar:else />
+                                    #$loop:item['title']#:
+                                </xar:if>
+                                <xar:if condition="!empty($loop:item['description'])">
+                                    #$loop:item['description']#
+                                </xar:if>
+                            </li>
+                        </xar:loop>
+                       </ul>
+                </xar:if>
+            <xar:else />
+                #$warning#
+            </xar:if>
+        </div>
+    </div>
+</div>

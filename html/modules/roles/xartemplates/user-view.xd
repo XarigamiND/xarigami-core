@@ -1,0 +1,241 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="currenturl">xarServerGetCurrentURL(array(),false)</xar:set>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Member List</xar:mlstring></h1>
+         <ul class="xar-tabs xar-alt xar-norm-outline">
+                    <xar:if condition="$letter eq ''">
+                        <li class="xar-tab-active">
+                            <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'order'=>$order))#"  title="#xarML('All members')#">
+                                <xar:mlstring>All</xar:mlstring>
+                            </a>
+                        </li>
+                    <xar:else />
+                        <li class="xar-tab">
+                            <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'order'=>$order))#" title="#xarML('All members')#">
+                                <xar:mlstring>All</xar:mlstring>
+                            </a>
+                        </li>
+                    </xar:if>
+                <xar:foreach in="$alphabet" value="$ltr">
+                    <xar:set name="tabtip">xarML('#(1) starts with letter #(2)',$orderlabel,$ltr)</xar:set>
+                    <xar:if condition="$letter eq $ltr">
+                        <li class="xar-tab-active">
+                            <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'letter'=>$ltr,'order'=>$order))#"  title="#$tabtip#">
+                                #$ltr#
+                            </a>
+                        </li>
+                    <xar:else />
+                        <li class="xar-tab">
+                            <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'letter'=>$ltr,'order'=>$order))#"  title="#$tabtip#">
+                                #$ltr#
+                            </a>
+                        </li>
+                    </xar:if>
+                </xar:foreach>
+                <xar:set name="tabtip">xarML('#(1) starts with non-alpha character',$orderlabel)</xar:set>
+                <xar:if condition="$letter eq 'Other'">
+                    <li class="xar-tab-active">
+                        <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'letter'=>'Other','order'=>$order))#" title="#$tabtip#">
+                            <xar:mlstring>Other</xar:mlstring>
+                        </a>
+                    </li>
+                <xar:else />
+                    <li class="xar-tab">
+                        <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'letter'=>'Other','order'=>$order))#" title="#$tabtip#">
+                            <xar:mlstring>Other</xar:mlstring>
+                        </a>
+                    </li>
+                </xar:if>
+            </ul>
+            <div class="xar-mod-content">
+                <div>
+                    <ul class="xar-tabs xar-alt xar-norm-outline">
+                        <li class="xar-tabs-label">
+                            <xar:mlstring>
+                                Show
+                            </xar:mlstring>
+                            :
+                        </li>
+                        <xar:if condition="$phase ne 'active'">
+                            <li class="xar-tab-active">
+                                <a href="#xarModURL('roles','user','view',array('phase'=>'viewall','letter'=>$letter,'search'=>$search,'order'=>$order))#"  >
+                                <xar:mlstring>All</xar:mlstring>
+                                </a>
+
+                            </li>
+                        <xar:else />
+                            <li class="xar-tab">
+                                <a href="#xarModURL('roles','user','view',array('phase'=>'viewall','letter'=>$letter,'search'=>$search,'order'=>$order))#"  >
+                                <xar:mlstring>All</xar:mlstring>
+                                </a>
+                            </li>
+                        </xar:if>
+                        <xar:if condition="$phase eq 'active'">
+                            <li class="xar-tab-active">
+                                <a href="#xarModURL('roles','user','view',array('phase'=>'active','letter'=>$letter,'search'=>$search,'order'=>$order))#" >
+                                <xar:mlstring>Online</xar:mlstring>
+                                </a>
+                            </li>
+                        <xar:else />
+                            <li class="xar-tab">
+                                <a href="#xarModURL('roles','user','view',array('phase'=>'active','letter'=>$letter,'search'=>$search,'order'=>$order))#"  >
+                                <xar:mlstring>Online</xar:mlstring>
+                                </a>
+                            </li>
+                        </xar:if>
+                    </ul>
+                </div>
+
+                <div class="xar-clearboth">&#160;</div>
+                <form method="post" action="&xar-modurl-roles-user-view;">
+                    <xar:set name="searchkey">isset($order)?($order=='name'? xarML('Display name'):ucfirst($order)) : xarML('Display name')</xar:set>
+                    <label for="search"><xar:mlstring>Search </xar:mlstring>#$searchkey#:</label>
+                    <input type="hidden" name="phase" id="phase" value="#xarVarPrepForDisplay($phase)#" />
+                    <input type="hidden" name="order" id="order" value="#xarVarPrepForDisplay($order)#" />
+                    <input type="hidden" name="letter" id="letter" value="" />
+                    <input type="text" name="search" id="search" value="" size="30" maxlength="255" tabindex="1" />
+                    <input type="submit" value="#xarVarPrepForDisplay($searchlabel)#" />
+                    <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'search'=>'','letter'=>'','sort'=>''))#"><xar:mlstring>Reset all</xar:mlstring></a>
+                </form>
+                <p style="padding-bottom:10px;">
+                    <xar:mlstring>Search condition</xar:mlstring>: <strong>#xarVarPrepForDisplay($msg)#</strong>
+                </p>
+            <xar:if condition="!empty($message)">
+                <p>#xarVarPrepForDisplay($message)#</p>
+            <xar:else />
+
+                <table class="xar-items" border="0" cellspacing="0" cellpadding="2">
+                    <tr>
+                    <xar:if condition="$phase eq 'active'">
+                        <th colspan="2">
+                            <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'search'=>$search,'sort'=>$dsort, 'order'=>'name'))#" title="#xarML('Search and sort by Display Name')#" >
+                                <xar:mlstring>Display Name</xar:mlstring>
+                            </a>
+                            <xar:if condition="$sortimage['name']">
+                                &#160;<p class="#$sortimgclass# xar-displayinline" title="#$sortimglabel#" ><span>#$sortimglabel#</span></p>
+                            </xar:if>
+                        </th>
+                        <xar:if condition="xarSecurityCheck('AdminRole',0)">
+                            <th class="xar-thirdwidth">
+                                <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'search'=>$search,'sort'=>$dsort, 'order'=>'name'))#" title="#xarML('Search and sort by Display Name')#" >
+                                    <xar:mlstring>IP Address</xar:mlstring>
+                                </a>
+                            </th>
+                        </xar:if>
+                    <xar:else />
+                        <th colspan="2">
+                            <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'search'=>$search,'sort'=>$dsort, 'order'=>'name'))#" title="#xarML('Search and sort by Display Name')#" >
+                                <xar:mlstring>Display Name</xar:mlstring>
+                            </a>
+                            <xar:if condition="$sortimage['name']">
+                                 &#160;<p class="#$sortimgclass# xar-displayinline" title="#$sortimglabel#" ><span>#$sortimglabel#</span></p>
+                            </xar:if>
+                        </th>
+                    </xar:if>
+                    <xar:if condition="xarModGetVar('roles', 'usersendemails')">
+                        <th>
+                            <xar:mlstring>Email</xar:mlstring>
+                        </th>
+                    </xar:if>
+
+                    <xar:if condition="isset($properties) and count($properties) gt 0">
+                        <xar:foreach in="$properties" key="$key" value="$value">
+                            <th>
+                                <xar:if condition="$phase eq 'viewall'">
+                                    <xar:set name="sorttip">xarML('Search and sort by #(1)',$key)</xar:set>
+                                    <a href="#xarModURL('roles','user','view',array('phase'=>$phase,'search'=>$search,'sort'=>$dsort, 'order'=>$key))#" title="#$sorttip#" >
+                                        <xar:data-label property="$properties[$key]" />
+                                    </a>
+                                    <xar:if condition="isset($sortimage[$key])">
+                                         &#160;<p class="#$sortimgclass# xar-displayinline" title="#$sortimglabel#" ><span>#$sortimglabel#</span></p>
+                                    </xar:if>
+                                <xar:else />
+                                    <xar:data-label property="$properties[$key]" />
+                                </xar:if>
+                            </th>
+                        </xar:foreach>
+                    </xar:if>
+                    </tr>
+                    <xar:loop name="$items">
+                        <xar:if condition="(($loop:index + 1) % 2)">
+                            <xar:set name="item_class">'xar-norm'</xar:set>
+                        <xar:else/>
+                            <xar:set name="item_class">'xar-accent'</xar:set>
+                        </xar:if>
+
+                        <tr class="#$item_class#">
+                        <xar:set name="userid">#$loop:item['uid']#</xar:set>
+
+                        <xar:if condition="xarSecurityCheck('ModerateRole',0,'Roles',$userid)">
+                             <td style="width:60px;border-right:none;">
+                                <xar:roles-avatar uid="$userid" size="50" />
+                            </td>
+                            <td style="border-left:none;">
+                            <a href="#xarModURL('roles','admin','modifyrole',array('uid'=>$userid, 'returnurl'=>$currenturl))#"  class="esprite xs-modify xar-valign-middle"><span>Modify</span></a>
+                                <a href="#xarModURL('roles','user','displayrole',array('uid'=>$loop:item.uid))#">#xarVarPrepForDisplay($loop:item['name'])#</a>
+                            </td>
+                            <xar:if condition="$phase eq 'active'">
+                            <td class="xar-align-center">
+                                <xar:if condition="!empty($loop:item['ipaddr'])">
+                                    #xarVarPrepForDisplay($loop:item['ipaddr'])#
+                                <xar:else />
+                                    --
+                                </xar:if>
+                            </td>
+                            </xar:if>
+                        <xar:else />
+                            <td style="width:60px;border-right:none;">
+                                    <xar:set name="userid">#$loop:item['uid']#</xar:set>
+                                    <xar:roles-avatar uid="$userid" size="50" />
+                            </td>
+                           <td style="border-left:none;">
+                                <xar:if condition="xarSecurityCheck('ReadRole','0','Roles',$loop:item['uid'])">
+                                    <xar:set name="userid">#$loop:item['uid']#</xar:set>
+
+                                    <a href="#xarModURL('roles','user','displayrole',array('uid'=>$loop:item.uid))#">#xarVarPrepForDisplay($loop:item['name'])#</a>
+                                <xar:else />
+                                    #xarVarPrepForDisplay($loop:item['name'])#
+                                </xar:if>
+                            </td>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles', 'usersendemails')">
+                            <td class="xar-align-center">
+                                <xar:set name="emaillink"><xar:mlstring>Email</xar:mlstring></xar:set>
+                                <xar:if condition="empty($loop:item['emailurl']) || !xarUserIsLoggedIn()">
+                                    <p class="xar-displayinlinei xar-icon-disabled #$loop:item['emailicon']#" title="#$emaillink#"><span>#$emaillink#</span></p>
+
+                                <xar:elseif condition="xarModGetUserVar('roles','allowemail',$loop:item['uid'])" />
+                                    <a href="#$loop:item['emailurl']#" class="dsprite xs-mail" title="#$emaillink#"><span>#$emaillink#</span></a>
+                                <xar:else />
+                                    --
+                                </xar:if>
+                            </td>
+                        </xar:if>
+                        <xar:if condition="isset($properties) and count($properties) gt 0">
+                            <xar:set name="uid">#$loop:item['uid']#</xar:set>
+                            <xar:foreach in="$properties" key="$key">
+                                     <td>
+                                        <xar:if condition="isset($values[$uid][$key])">
+                                            <xar:data-output property="$properties[$key]" value="$values[$uid][$key]" />
+                                        <xar:else />
+                                            &#160;&#160;
+                                        </xar:if>
+                                    </td>
+                            </xar:foreach>
+                        </xar:if>
+                        </tr>
+                    </xar:loop>
+                </table>
+               <!-- add the pager here -->
+                <div class="xar-align-center">#$pager#</div>
+             </xar:if>
+        </div>
+    </div>
+</div>

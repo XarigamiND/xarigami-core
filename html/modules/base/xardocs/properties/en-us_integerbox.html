@@ -1,0 +1,71 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The <em>integerbox</em> (Number Box)  property provides an input box for entry
+        of whole (integer) numbers.
+    </p>
+    <p>
+        The output display for <em>integerbox</em> displays the input value
+    </p>
+    <p>
+        The value as input is saved in the database.
+    </p>
+    <h2>Attributes</h2>
+
+    <ul>
+        <li>
+            <strong>min</strong>: [default = '']
+            <br />This is the minimum value of the number required for input.
+        </li>
+        <li>
+            <strong>max</strong>: [default = '']
+            <br />This is the maximum value of the number required for input.
+        </li>
+        <li>
+            <strong>default</strong>: [default = '']
+            <br />This is default number at item creation.
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent Textbox property as well as common attributes such as
+        class, placeholder and so on.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>integerbox</em> type in forms without the need to define a property
+        to capture data.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="integerbox" default="$defaultnumber" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <h4>In the Dynamic Data Configuration:</h4>
+    <ul>
+        <li>
+            you can add a default value in the 'Default' input box.
+        Click on the Validation entry to add a minimum (min) or maximum (max) value for this property.
+        </li>
+        <li>
+            if you check the 'Allow empty' checkbox, this will permit users to skip entry of data in this input box.
+            If the 'Allow empty' checkbox is unchecked, users will have to enter a value. Zero (0) is considered a valid integer and not empty.
+        
+        </li>
+        </ul>
+        <p></p>
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property.
+        </p>     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['integerbox']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="integerbox" id="myfield" name="myfield"
+        min="12" max="99" default="18" /&gt;
+    </pre>
+</div>

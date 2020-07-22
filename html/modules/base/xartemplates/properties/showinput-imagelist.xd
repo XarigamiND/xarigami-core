@@ -1,0 +1,51 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="layout">isset($layout)?$layout:'';</xar:set>
+
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" position="head"/>
+<xar:set name="imageselect">"
+jQuery(document).ready(function() {
+    jQuery('#local_$id').change(function() {
+         var isrc = $(this).val();
+        $('#"."imagepreview_$id').html(isrc ?'".chr(60)."img alt=\"$value\"  style=\"width:{$width}px\" src=\"$basedir' + isrc  + '\"/".chr(62)."':'');
+
+    });
+});
+"</xar:set>
+<xar:set name="codeindex">'index_'.$id</xar:set>
+<xar:base-include-javascript code="$imageselect" index="$codeindex" position="body"  />
+<xar:set name="class">!empty($class)? "$class" :'xar-form-textlong'</xar:set>
+<xar:if condition="empty($layout) or $layout eq 'default'">
+  <xar:if condition="count($options) gt 0">
+    <select name="#$name#" id="local_#$id#" tabindex="#$tabindex#" class="#$class#"#$html5##$evts#>
+        <xar:foreach in="$options" value="$option" >
+            <xar:if condition="empty($option['id']) or $option['id'] ne $option['name']">
+                <xar:if condition="$option['id'] eq $value" >
+                    <option value="#$option['id']#" selected="selected">#$option['name']#</option>
+                <xar:else />
+                    <option value="#$option['id']#">#$option['name']#</option>
+                </xar:if>
+            <xar:elseif condition="$option['id'] eq $value" />
+                <option selected="selected">#$option['name']#</option>
+            <xar:else />
+                <option>#$option['name']#</option>
+            </xar:if>
+        </xar:foreach>
+    </select>
+    <xar:if condition="$display eq TRUE">
+        <div class="xar-form-input-wrapper-after" id="imagepreview_#$id#">
+             <xar:if condition="!empty($srcpath) and !empty($value)">
+              <img src="#$srcpath#" title="#$value#" alt="#$value#" style="width:#$width#px" />
+            </xar:if>
+        </div>
+    </xar:if>
+
+  <xar:else />
+    <span id="#$id#"><xar:mlstring>Options not specified in validation field.</xar:mlstring></span>
+  </xar:if>
+<xar:elseif condition="$layout eq 'yourlayout'" />
+
+</xar:if>
+
+<xar:if condition="!empty($invalid)">
+        <span class="xar-error">#$invalid#</span>
+</xar:if>

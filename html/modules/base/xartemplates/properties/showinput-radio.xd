@@ -1,0 +1,48 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="class">!empty($class)? "$class" :''</xar:set>
+<xar:if condition="!isset($layout) or empty($layout) or $layout eq 'horizontal' or $layout eq 'default'">
+
+    <xar:foreach in="$options" value="$option" key="$key">
+        <xar:if condition="$key == 0">
+            <xar:set name="theID">$id</xar:set>
+        <xar:else />
+            <xar:set name="theID">$id.'_'.$key</xar:set>
+        </xar:if>
+
+        <xar:if condition="$option.id eq $value" >
+            <input type="radio" name="#$name#" id="#$theID#" class="#$class#" value="#$option.id#" checked="checked" tabindex="#$tabindex#"#$html5##$evts#/>
+        <xar:else />
+            <input type="radio" name="#$name#" id="#$theID#"  class="#$class#" value="#$option.id#" tabindex="#$tabindex#"#$html5##$evts# />
+        </xar:if>
+
+        <label for="#$theID#">#$option.name# </label>
+    </xar:foreach>
+<xar:elseif condition="$layout eq 'vertical'" />
+    <xar:foreach in="$options" value="$option" key="$key">
+        <xar:if condition="$key == 0">
+            <xar:set name="theID">$id</xar:set>
+        <xar:else />
+            <xar:set name="theID">$id.'_'.$key</xar:set>
+        </xar:if>
+
+        <xar:if condition="$option.id eq $value" >
+            <input type="radio" name="#$name#" id="#$theID#"  class="#$class#" value="#$option.id#" checked="checked" tabindex="#$tabindex#"#$html5##$evts# />
+        <xar:else />
+            <input type="radio" name="#$name#" id="#$theID#"  class="#$class#" value="#$option.id#" tabindex="#$tabindex#"#$html5##$evts# />
+        </xar:if>
+
+        <label for="#$theID#">#$option['name']# </label>
+        <br />
+    </xar:foreach>
+<xar:else />
+<p>
+  <xar:mlstring>Specify your own layout here...</xar:mlstring>
+</p>
+<p>
+  <xar:mlstring>You can also specify a separate template, e.g. if you want to handle individual fields differently for a particular module / itemtype</xar:mlstring>
+</p>
+</xar:if>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

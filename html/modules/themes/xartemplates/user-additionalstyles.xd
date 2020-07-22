@@ -1,0 +1,44 @@
+<xar:comment>This template was formatted without indentation on purpose - to keep the output as compact as possible for better readability in source</xar:comment>
+<xar:if condition="isset($styles) and is_array($styles)">
+<xar:foreach in="$styles" key="$scope" value="$style">
+<xar:if condition="$comments">
+#$opencomment# <xar:mlstring>the following styles were supplied from component</xar:mlstring> #$scope# #$closecomment#
+</xar:if>
+<xar:foreach in="$style" key="$method" value="$lurls">
+<xar:foreach in="$lurls" key="$lurl" value="$attributes">
+<xar:if condition="$comments">
+#$opencomment# #$method# <xar:mlstring>style </xar:mlstring>
+#$closecomment#
+</xar:if>
+<xar:loop name="$attributes">
+<xar:if condition="$comments and !empty($loop:item['comment'])">
+#$opencomment# #$loop:item['comment']# #$closecomment#
+</xar:if>
+<xar:if condition="$method eq 'link'">
+<xar:if condition="$loop:item['title'] ne ''">
+<link rel="#$loop:item['rel']#" type="#$loop:item['type']#" href="#$loop:item['url']##$loop:item['version']#" media="#$loop:item['media']#" title="#$loop:item['title']#" />
+<xar:else />
+<xar:if condition="$loop:item['condition'] ne ''">
+#$openconditionalcomment##$loop:item['condition']##$closeconditionalbracket#<link rel="#$loop:item['rel']#" type="#$loop:item['type']#" href="#$loop:item['url']##$loop:item['version']#" media="#$loop:item['media']#" />#$closeconditionalcomment#
+<xar:else />
+<link rel="#$loop:item['rel']#" type="#$loop:item['type']#" href="#$loop:item['url']##$loop:item['version']#" media="#$loop:item['media']#" />
+</xar:if>
+</xar:if>
+<xar:elseif condition="$method eq 'import'" />
+<xar:if condition="$loop:item['condition'] ne ''">
+#$openconditionalcomment##$loop:item['condition']##$closeconditionalbracket#<style type="#$loop:item['type']#" media="#$loop:item['media']#">@import url(#$loop:item['url']##$loop:item['version']#);</style>#$closeconditionalcomment#
+<xar:else />
+<style type="#$loop:item['type']#" media="#$loop:item['media']#">@import url(#$loop:item['url']##$loop:item['version']#);</style>
+</xar:if>
+<xar:elseif condition="$method eq 'embed'" />
+<xar:if condition="$loop:item['condition'] ne ''">
+#$openconditionalcomment##$loop:item['condition']##$closeconditionalbracket#<style type="#$loop:item['type']#" media="#$loop:item['media']#">#$loop:item['source']#</style>#$closeconditionalcomment#
+<xar:else />
+<style type="#$loop:item['type']#" media="#$loop:item['media']#">#$loop:item['source']#</style>
+</xar:if>
+</xar:if>
+</xar:loop>
+</xar:foreach>
+</xar:foreach>
+</xar:foreach>
+</xar:if>

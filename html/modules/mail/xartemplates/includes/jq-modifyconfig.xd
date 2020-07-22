@@ -1,0 +1,89 @@
+<xar:set name="mailcode">"
+jQuery(document).ready(function() {
+
+    if (!jQuery('#"."htmluseheadfoot').is(':checked')) {
+        jQuery('#"."mailmodifyconfigform textarea[id^=html]').parent().parent().hide();
+    }
+    if (!jQuery('#"."textuseheadfoot').is(':checked')) {
+        jQuery('#"."mailmodifyconfigform textarea[id^=text]').parent().parent().hide();
+    }
+    jQuery('#"."htmluseheadfoot').click(function() {
+        jQuery('#"."mailmodifyconfigform textarea[id^=html]').parent().parent().toggle();
+    });
+    jQuery('#"."textuseheadfoot').click(function() {
+        jQuery('#mailmodifyconfigform textarea[id^=text]').parent().parent().toggle();
+    });
+    if (!jQuery('#"."smtpAuth').is(':checked')) {
+        jQuery('#"."smtp_auth').hide();
+    }
+    jQuery('#"."smtpAuth').click(function() {
+        jQuery('#"."smtp_auth').toggle();
+    });
+    var changeServer = function() {
+        var l = document.getElementById('server');
+        for (var i = 0; i " . chr(60) . " l.length; i++) {
+            if(l.value == l.options[i].value) {
+                jQuery('#"."server_' + l.options[i].value).show();
+            } else {
+                jQuery('#"."server_' + l.options[i].value).hide();
+            }
+        }    
+    }
+    changeServer(document.getElementById('server'));
+    jQuery('#"."server').change(changeServer);
+    jQuery('#"."mailmodifyconfigform').validate({
+        rules: {
+            adminname: {
+                required: true
+            },
+            adminmail: {
+                required: true,
+                email: true
+            },
+            htmlheader: {
+                required: '#"."htmluseheadfoot:checked'
+            },
+            htmlfooter: {
+                required: '#"."htmluseheadfoot:checked'
+            },
+            textheader: {
+                required: '#"."textuseheadfoot:checked'
+            },
+            textfooter: {
+                required: '#"."textuseheadfoot:checked'
+            },
+            redirectaddress: {
+                required: '#"."redirectsending:checked'
+            }
+        },
+        messages: {
+            adminname: {
+                required: '" . xarML('* Required') . "'
+            },
+            adminmail: {
+                required: '" . xarML(' * Required') . "',
+                email: '" . xarML(' * Valid email required') . "'
+            },
+            htmlheader: {
+                required: '" . xarML(' * Required if the above box is checked') . "'
+            },
+            htmlfooter: {
+                required: '" . xarML(' * Required if the above box is checked') . "'
+            },
+            textheader: {
+                required: '" . xarML(' * Required if the above box is checked') . "'
+            },
+            textfooter: {
+                required: '" . xarML(' * Required if the above box is checked') . "'
+            },
+            redirectaddress: {
+                required: '" . xarML(' * Required if the above box is checked') . "'
+            }
+        },
+        errorClass: 'xar-error',
+        errorElement: 'div'
+    
+    });  
+});
+"</xar:set>
+<xar:base-include-javascript type="code" module="mail" code="$mailcode" position="body" />

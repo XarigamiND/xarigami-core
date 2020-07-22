@@ -1,0 +1,33 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-clearleft xar-padding-thickends">
+    <xar:foreach in="$configtypes" key="$configtype" value="$valprops">
+        <xar:set name="clabel">ucfirst($configtype)</xar:set>
+        <fieldset>
+        <legend>#$clabel# <xar:mlstring>options</xar:mlstring></legend>
+        <xar:foreach in="$valprops" key="$key" value="$info">
+            <xar:set name="fieldname">$name . '[' . $key . ']'</xar:set>
+            <xar:set name="fieldid">$id . '_' . $key</xar:set>
+            <xar:set name="fieldvalue">isset($info['value'])?$info['value']:''</xar:set>
+            <xar:set name="invalidname">$key.'_invalid'</xar:set>
+             <xar:set name="invalid">isset($validation[$invalidname])?$validation[$invalidname]:''</xar:set>
+            <xar:set name="inputtag">xarModAPIFunc('dynamicdata','admin','showinput',$info['propargs']   )
+            </xar:set>
+            <div class="xar-form-input-wrapper">
+                <label for="#$fieldid#" title="#$info['description']#" class="xar-form-label help">
+                    #$info['label']#
+                </label>
+                #$inputtag# &#160; <span class="xar-sub">#$info['configinfo']#</span>
+                <xar:if condition="!empty($invalid)">
+                &#160;<span class="xar-error">#$invalid#</span>
+                </xar:if>
+            </div>
+
+        </xar:foreach>
+        </fieldset>
+    </xar:foreach>
+
+<xar:if condition="!empty($required)">
+        &#160;<span class="xar-error">Required</span>
+ </xar:if>
+
+</div>

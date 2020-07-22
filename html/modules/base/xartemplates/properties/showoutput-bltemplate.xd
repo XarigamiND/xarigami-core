@@ -1,0 +1,25 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment> note: xar:template does not allow passing type from a variable </xar:comment>
+<xar:comment> also note: included template does not inherit variables from calling template like when xar:template is used directly </xar:comment>
+<xar:if condition="$bltfile ne 'FILE-NOT-EXISTS' and !empty($bltfile) ">
+    <xar:if condition="$blttype eq 'module'">
+        <xar:if condition="empty($bltsubdata)">
+            <xar:template file="#$bltfile#" type="module" module="$bltmodule" />
+        <xar:else />
+            <xar:template file="#$bltfile#" type="module" module="$bltmodule" subdata="$bltsubdata" />
+        </xar:if>
+    <xar:elseif condition="$blttype eq 'theme'" />
+        <xar:if condition="empty($bltsubdata)">
+          <xar:template file="#$bltfile#" type="theme" />
+        <xar:else />
+            <xar:template file="#$bltfile#" type="theme" subdata="$bltsubdata" />
+        </xar:if>
+    <xar:elseif condition="$blttype eq 'system'" />
+        <xar:if condition="empty($bltsubdata)">
+            <xar:template file="#$bltfile#" type="system" />
+        <xar:else />
+            <xar:template file="#$bltfile#" type="system" subdata="$bltsubdata" />
+        </xar:if>
+    </xar:if>
+
+</xar:if>

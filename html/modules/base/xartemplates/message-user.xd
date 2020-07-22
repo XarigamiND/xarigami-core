@@ -1,0 +1,13 @@
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<xar:comment>This is the standard template used for all admin and user 'status bar' feedback messages </xar:comment>
+<xar:if condition="!empty($usermessages)">
+<xar:foreach in="$usermessages" key="$messagetype" value="$messages">
+<div class="xar-statusbar xar-message-#$messagetype#">
+    <ul>
+        <xar:foreach in="$messages" key="$k" value="$message">
+        <li>#$message#</li>
+        </xar:foreach>
+    </ul>
+</div>
+</xar:foreach>
+</xar:if>

@@ -1,0 +1,44 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Email messaging</xar:mlstring></h1>
+        <xar:template type="module" file="mailtabs" />
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Configure email format</xar:mlstring>
+            </h2>
+            <form method="post" action="&xar-modurl-roles-admin-modifyemailformat;" enctype="application/x-www-form-urlencoded" >
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>HTML Mail Format in templates:</xar:mlstring>
+                    </legend>
+                    <p class="xar-form-input-wrapper-before xar-padding-thick">
+                        <xar:mlstring>If your mail templates are ready to use HTML, you can activate this option. Otherwise, user email notifications will use plain text format, and will be included as such even if your Mail module configuration uses HTML.</xar:mlstring>
+                    </p>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:if condition="$usehtmlmail">
+                            <input type="checkbox" name="usehtmlmail" id="usehtmlmail" value="1" checked="checked" />
+                        <xar:else />
+                            <input type="checkbox" name="usehtmlmail" id="usehtmlmail" value="1" />
+                        </xar:if>
+                        <label for="usehtmlmail" title="#xarML('Templates will be seen as using HTML and will be treated as HTML by the messaging system.')#">
+                            <xar:mlstring>Mail templates are not considered as plain text but as real HTML?</xar:mlstring>
+                        </label>
+                    </div>
+
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="submit" value="#xarML('Update Mail Configuration')#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<object name="importsample">
+  <objectid>9</objectid>
+  <label>Imported Sample</label>
+  <moduleid>182</moduleid>
+  <itemtype>4</itemtype>
+  <urlparam>itemid</urlparam>
+  <maxid>6</maxid>
+  <config>nothing much...</config>
+  <isalias>1</isalias>
+  <properties>
+    <property name="id">
+      <id>62</id>
+      <label>Id</label>
+      <type>itemid</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>1</order>
+      <validation></validation>
+    </property>
+    <property name="name">
+      <id>63</id>
+      <label>Name</label>
+      <type>textbox</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>1</status>
+      <order>2</order>
+      <validation>a:5:{s:13:&quot;xv_allowempty&quot;;s:1:&quot;1&quot;;s:10:&quot;xv_tooltip&quot;;s:27:&quot;Please enter your full name&quot;;s:17:&quot;xv_display_layout&quot;;s:7:&quot;default&quot;;s:7:&quot;xv_size&quot;;s:2:&quot;50&quot;;s:14:&quot;xv_placeholder&quot;;s:20:&quot;Enter your full name&quot;;}</validation>
+    </property>
+    <property name="age">
+      <id>64</id>
+      <label>Age</label>
+      <type>integerbox</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>1</status>
+      <order>3</order>
+      <validation>a:5:{s:13:&quot;xv_allowempty&quot;;s:1:&quot;1&quot;;s:10:&quot;xv_tooltip&quot;;s:23:&quot;Enter your age in years&quot;;s:17:&quot;xv_display_layout&quot;;s:7:&quot;default&quot;;s:7:&quot;xv_size&quot;;s:2:&quot;10&quot;;s:14:&quot;xv_placeholder&quot;;s:17:&quot;Your age in years&quot;;}</validation>
+    </property>
+    <property name="location">
+      <id>65</id>
+      <label>Location</label>
+      <type>image</type>
+      <default></default>
+      <source>dynamic_data</source>
+      <status>2</status>
+      <order>4</order>
+      <validation>a:7:{s:13:&quot;xv_allowempty&quot;;s:1:&quot;1&quot;;s:17:&quot;xv_display_layout&quot;;s:7:&quot;default&quot;;s:7:&quot;xv_size&quot;;s:2:&quot;50&quot;;s:14:&quot;xv_placeholder&quot;;s:32:&quot;Enter URL to your location image&quot;;s:15:&quot;xv_image_source&quot;;s:3:&quot;url&quot;;s:11:&quot;xv_file_ext&quot;;s:20:&quot;gif,jpg,jpeg,png,bmp&quot;;s:10:&quot;xv_basedir&quot;;s:11:&quot;var/uploads&quot;;}</validation>
+    </property>
+  </properties>
+  <items>
+    <importsample itemid="1">
+      <id>1</id>
+      <name>Johnny</name>
+      <age>32</age>
+      <location>http://mikespub.net/xaraya/images/cuernos1.jpg</location>
+    </importsample>
+    <importsample itemid="2">
+      <id>2</id>
+      <name>Nancy</name>
+      <age>29</age>
+      <location>http://mikespub.net/xaraya/images/agra1.jpg</location>
+    </importsample>
+    <importsample itemid="3">
+      <id>3</id>
+      <name>Baby</name>
+      <age>1</age>
+      <location>http://mikespub.net/xaraya/images/sydney1.jpg</location>
+    </importsample>
+  </items>
+</object>

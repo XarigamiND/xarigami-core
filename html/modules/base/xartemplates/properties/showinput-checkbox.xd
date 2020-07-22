@@ -1,0 +1,16 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="class">trim($class);</xar:set>
+<xar:if condition="isset($class) and !empty($class)">
+    <xar:set name="class">" class=\"$class\""</xar:set>
+<xar:else />
+    <xar:set name="class">''</xar:set>
+</xar:if>
+<xar:if condition="$checked">
+    <input type="checkbox" name="#$name#" value="1" id="#$id#"#$class# tabindex="#$tabindex++#" checked="checked"#$html5##$evts# />
+<xar:else/>
+    <input type="checkbox" name="#$name#" value="1" id="#$id#"#$class# tabindex="#$tabindex++#"#$html5##$evts# />
+</xar:if>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

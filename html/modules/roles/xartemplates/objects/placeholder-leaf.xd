@@ -1,0 +1,7 @@
+<span>
+    <strong>#$leafitemtext#</strong> <span class="xar-sub">[<xar:mlstring>See the entry above</xar:mlstring>]</span>
+  <!-- Uncomment for more detail in this branch
+    <a href="#$leafitemurl#" title="#$leafitemtitle#">#$leafitemtext#</a> |
+    <a href="#roleleaf#$uid#" onclick="document.location.hash='roleleaf#$uid#';return false;"><xar:mlstring>children shown above</xar:mlstring></a>
+  -->
+</span>

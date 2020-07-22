@@ -1,0 +1,49 @@
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="opcode"> xarSystemVars::get(sys::CONFIG, 'Operation.Mode',true)?xarSystemVars::get(sys::CONFIG, 'Operation.Mode',true):'developer';</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+
+<ul class="xar-tabs">
+    <li class="xar-tabs-label" title="#xarML('Choose the configuration option set')#">
+      <xar:mlstring>Options:</xar:mlstring>
+    </li>
+
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'general')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=general">
+        <xar:mlstring>General</xar:mlstring>
+      </a>
+    </li>
+
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'realms')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=realms">
+        <xar:mlstring>Realms</xar:mlstring>
+      </a>
+    </li>
+
+  <xar:if condition="xarModGetVar('privileges','lastresort') and (empty($opcode) or ($opcode eq 'developer'))">
+
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'lastresort')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=lastresort">
+        <xar:mlstring>Last Resort</xar:mlstring>
+      </a>
+    </li>
+  </xar:if>
+
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'masks')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=masks">
+        <xar:mlstring>Masks</xar:mlstring>
+      </a>
+    </li>
+
+    <xar:set name="tabclass">($activetab == 'modifyconfig' and $tab == 'testing')?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=testing">
+        <xar:mlstring>Testing</xar:mlstring>
+      </a>
+    </li>
+</ul>
+

@@ -1,0 +1,17 @@
+Version 1.10.2
+
+See: http://jqueryui.com/demos/ for demos and documentation
+
+This distribution of the UI plugin has individual components minified so you can pick and choose
+ which to load instead of loading the whole UI core plus other add on javascripts.
+
+ ui.css the common css for all UI javascript - smoothness theme
+
+ ui.all.min.js      : contains core and all other UI javascripts in one file.
+                     Use this if you want all functionality in the UI plugin or are not sure.
+
+ ui.core.min.js     : contains only the core js for the UI Plugin including widget, mouse and position plugin bases.
+                     Provides this core UI functionality only.
+                     You can use this along with other UI files, if you are clear on what functionality you require
+                     Eg load ui.core.min as well as ui.dialog.min for dialogs.
+

@@ -1,0 +1,26 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="modid">xarModGetIDFromName('DynamicData')</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="dynamicdata" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View Dynamic Data Objects</xar:mlstring></h1>
+       <div class="xar-mod-content">
+            <xar:if condition="$count gt 0">
+            <ul>
+            <xar:foreach in="$items" value="$item">
+            <xar:comment>ViewDynamicDataItems level required to view list of objects here</xar:comment>
+            <xar:if condition="!empty($item['label'])">
+                <li><a href="#$item['link']#">#$item['label']#</a></li>
+            </xar:if>
+            </xar:foreach>
+            </ul>
+            <xar:else />
+                <p><xar:mlstring>No items available for viewing</xar:mlstring></p>
+            </xar:if>
+        </div>
+    </div>
+</div>

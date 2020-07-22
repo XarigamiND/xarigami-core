@@ -1,0 +1,72 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style scope="module" file="privtree" />
+<xar:style scope="module" module="base" file="tabs" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu"/>
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View Privileges</xar:mlstring></h1>
+        <div>
+            <ul class="xar-tabs">
+              <li class="xar-tabs-label" title="#xarML('Choose an action to perform on this privilege')#">
+                <xar:mlstring>Manage privilege</xar:mlstring> :
+              </li>
+              <li class="xar-tab">
+                <a href="&xar-modurl-privileges-admin-displayprivilege;&amp;pid=#$pid#" ><xar:mlstring>Display</xar:mlstring></a>
+              </li>
+              <li class="xar-tab">
+                <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$pid#"><xar:mlstring>Modify</xar:mlstring></a>
+              </li>
+              <li class="xar-tab-active">
+                <a href="&xar-modurl-privileges-admin-deleteprivilege;&amp;pid=#$pid#"><xar:mlstring>Delete</xar:mlstring></a>
+              </li>
+              <li class="xar-tab">
+                <a href="&xar-modurl-privileges-admin-viewroles;&amp;pid=#$pid#"><xar:mlstring>Groups/Users</xar:mlstring></a>
+              </li>
+            </ul>
+        </div>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Confirm deletion of all instances of Privilege</xar:mlstring>
+                '#$pname#'
+            </h2>
+
+            <xar:if condition="count($parents) ne 0">
+                <div>
+                    <ul class="xar-tabs xar-alt xar-norm-outline">
+                        <li class="xar-tabs-label" title="These are the privileges that contain #$pname# as a component">
+                            <xar:mlstring>Used in</xar:mlstring> :
+                        </li>
+                        <xar:set name="prevgroup">""</xar:set>
+                        <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
+                            <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
+                                <li class="xar-tab">
+                                    <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$parents[$i]['parentid']#" title="#xarML('Show this privilege')#">#$parents[$i]['parentname']#</a>
+                                </li>
+                            </xar:if>
+                            <xar:set name="prevgroup">#$parents[$i]['parentname']#</xar:set>
+                        </xar:for>
+                    </ul>
+                </div>
+            </xar:if>
+            <form method="post" action="&xar-modurl-privileges-admin-deleteprivilege;" enctype="application/x-www-form-urlencoded" >
+
+
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="pid" id="pid" value="#$pid#" />
+                    <input type="hidden" name="confirm" id="confirm" value="1" />
+                    <input type="hidden" name="confirmation" id="confirmation" value="1" />
+                    <input type="submit" value="#xarML('Delete Privilege')#" class="xar-margin-thickright" />
+                    <p>
+                        <a href="#xarModURL('privileges', 'admin', 'viewprivileges')#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Admin Breadcrumbs</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="mainname">ucfirst($request[0])</xar:set>
+
+<xar:set name="showdashboard">xarModGetVar('base','showdashboard')</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="action">isset($action)?$action:''</xar:set>
+<xar:if condition="!isset($menumod) or empty($menumod)">
+    <xar:set name="menumod">$request[0]</xar:set>
+</xar:if>
+<xar:set name="menulinks">xarModAPIFunc($menumod, 'admin', 'getmenulinks')</xar:set>
+<xar:set name="modinfo">xarModGetInfo(xarModGetIDFromName($menumod))</xar:set>
+<xar:if condition="xarModGetvar('themes','showbreadcrumbs')">
+<p class="xar-breadcrumbs">
+    <a href="#xarServerGetBaseURL()#" title="#xarML('Home')#"><xar:mlstring>Home</xar:mlstring></a>&#160;&#187;
+    <xar:if condition="$showdashboard">
+        <a href="#xarModURL('base','admin','controlpanel')#"><xar:mlstring>Administration</xar:mlstring></a>
+    <xar:else />
+        <xar:mlstring>Administration</xar:mlstring>
+    </xar:if>
+    <xar:if condition="$request.2 ne 'controlpanel'">
+    <xar:set name="overview">xarML('#(1) Overview',$modinfo['displayname'])</xar:set>
+    &#187;&#160;<a href="#xarModURL($menumod,'admin','overview')#" title="#xarML('Overview')#">#$overview#</a>
+    <xar:if condition="!empty($menulinks)">
+    <xar:foreach in="$menulinks" key="$menukey" value="$menulink">
+    <xar:if condition="isset($menulink['active']) and in_array($activetab, $menulink['active'])">
+        &#187;&#160;<a title="#$menulink.title#" href="#$menulink.url#" >#$menulink.label#</a>
+    </xar:if>
+    <xar:if condition="isset($menulink['activelabels']) or !empty($action)">
+    <xar:foreach in="$menulink['active']" key="$key" value="$activelink">
+    <xar:set name="linkname">isset($menulink['activelabels'][$key])?$menulink['activelabels'][$key]:(isset($menulink['label'])? $menulink['label']:'')</xar:set>
+    <xar:if condition="!empty($action) and ($action eq $menulink['active'][$key]) and !empty($linkname)">
+        &#187;&#160;#$linkname#
+    <xar:elseif condition="($activetab eq $activelink) and isset($menulink['activelabels'][$key]) and !empty($menulink['activelabels'][$key])"/>
+        <xar:set name="linkname">$menulink['activelabels'][$key]?$menulink['activelabels'][$key]:$menulink['label']</xar:set>
+        &#187;&#160;#$linkname#
+    </xar:if>
+    </xar:foreach>
+    </xar:if>
+    </xar:foreach>
+    </xar:if>
+    </xar:if>
+</p>
+</xar:if>

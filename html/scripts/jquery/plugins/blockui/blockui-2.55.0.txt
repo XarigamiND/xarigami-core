@@ -1,0 +1,2 @@
+Version 2.55.0
+http://github.com/malsup/blockui/

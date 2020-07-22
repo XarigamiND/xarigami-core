@@ -1,0 +1,98 @@
+<xar:comment>This is a comment that cannot be viewed in the page source.</xar:comment>
+<xar:comment>We are going to check to see if a variable called 'tab' is passed to this template.</xar:comment>
+<xar:set name="tab">xarRequestGetVar('tab');</xar:set>
+<xar:set name="tab">isset($tab) ? $tab : 'welcome'</xar:set>
+<xar:comment>Set the tab links for this page. We must use the variable 'menulinks' in this case, to hold the tab definitions.</xar:comment>
+<xar:set name="menulinks">
+    array('welcome'  => xarML('Welcome'),
+          'default'  => xarML('About this theme'),
+          'start'    => xarML('Create a new theme'),
+          'test'     => xarML('View and test styles')
+);
+</xar:set>
+<xar:set name="versionnum">xarConfigGetVar('System.Core.VersionNum')</xar:set>
+<xar:set name="mtrev">xarConfigGetVar('System.Core.VersionRev')</xar:set>
+<xar:set name="versionsub">xarConfigGetVar('System.Core.VersionSub')</xar:set>
+<xar:set name="info">xarThemeGetInfo(xarThemeGetIDFromName('default'))</xar:set>
+<xar:if condition="isset($info['version'])">
+    <xar:set name="version">$info['version']</xar:set>
+<xar:else />
+    <xar:set name="version">xarML('Unknown')</xar:set>
+</xar:if>
+
+<xar:comment>The standard xarigami 'module space' structure is made up of an enclosing 'xar-mod-page' class div.</xar:comment>
+<div class="xar-mod-page">
+    <xar:comment>A 'xar-mod-head' div holds the information that is common across the whole module, in this case the Base module. Usually it is a common module menu.</xar:comment>
+    <div class="xar-mod-head">
+        <xar:template type="module" module="base" file="user-staticmenu" subdata="array('menulinks'=&gt;$menulinks,'page'=&gt;'main')" />
+    </div>
+    <xar:comment>A 'xar-mod-body' div holds the content for display on this module page including a h1 header.</xar:comment>
+    <div class="xar-mod-body">
+        <h1>#$menulinks[$tab]#</h1>
+        <xar:comment>A 'xar-mod-content' div holds the actual content for display on this module page..</xar:comment>
+        <div class="xar-mod-content">
+            <xar:if condition="empty($tab) or $tab eq 'welcome'">
+                <h2>
+                <xar:ml>
+                    <xar:mlstring>Xarigami #(1) #(2)</xar:mlstring>
+                    <xar:mlvar>#$versionnum#</xar:mlvar>
+                    <xar:mlvar>#$versionsub#</xar:mlvar>
+                </xar:ml>
+                </h2>
+                <p>
+                    <xar:mlstring>This theme requires a minimum of Xarigami Cumulus 1.4.0.</xar:mlstring>
+                </p>
+                <p>
+                    <xar:mlstring>Xarigami 1.4.0 brings significant enhancements over prior versions including but not limited to:</xar:mlstring>
+                </p>
+                <ul>
+                    <li><xar:mlstring>Review and rework of all core and key module templates and functions with a focus on improved performance and stability. Xarigami 1.4.0 is fast and reliable.</xar:mlstring></li>
+                    <li><xar:mlstring>Reworked security for all core entry points,  and features allowing easy integration of Xarigami security checks into 3rd party addons and applications.</xar:mlstring></li>
+                    <li><xar:mlstring>Total revamp of the Dynamic Data module and properties to provide easy creation of objects, expanded property types, and new functionality.</xar:mlstring></li>
+                    <li><xar:mlstring>A focused approach to providing one of the best theme system around with Block Layout, rewritten CSS and Javascript handling, compression and optimisation, and full support for XHTML1 Strict and HTML5.</xar:mlstring></li>
+                     <li><xar:mlstring>Improved portability for themes, features to reduce theme development time and unparalleled flexibility with the availability of static theme variables, dynamic CSS, skin variables and theme feature generators!  </xar:mlstring></li>
+                     <li><xar:mlstring>Rewritten installer, and improved upgrade with 'file and database health checks', used to upgrade Xarigami as well as Xaraya versions to the latest xarigami 1.4.0.</xar:mlstring></li>
+                </ul>
+                <p>
+                    <xar:mlstring>Thank you for your support. Feel free to join our development or user discussions to become involved in our community. For more information on Xarigami,
+                    please visit <a href="http://xarigami.com">xarigami.com</a>, or come and join us in Xarigami IRC in the <em>##xarigami</em> room at <strong>irc://talk.xarigami.com</strong> (server: talk.xarigami.com port: 6667).</xar:mlstring>
+                </p>
+                <p>
+                <xar:mlstring>If you notice any unexpected functionality,
+                    please use our issue tracker at <a href="http://bugs.xarigami.com">http://bugs.xarigami.com</a>.
+                    </xar:mlstring>
+                </p>
+            <xar:elseif condition="$tab eq 'default'"/>
+
+                <p>"Default" theme version installed: #$version#</p>
+                 <p>
+                    <xar:mlstring>"Default" theme is based on the SkyLine theme and provides documentation to get you started on customising or building your own theme.</xar:mlstring>
+                </p>
+
+                 <p>
+                    <xar:mlstring>You can modify this theme or, better, copy it and use it as a base to create your own theme!</xar:mlstring>
+                </p>
+                 <p>
+                    <xar:set name="configtheme">'<a href="'.xarModURL('themes','admin','themewizard',array('themeid'=>xarThemeGetIDFromName('default'))).'">'.xarML('Configure Themes').'</a>'</xar:set>
+                    <xar:ml>
+                        <xar:mlstring>Log in and go to the #(1) page to customise theme variables in the User Interface.</xar:mlstring>
+                        <xar:mlvar>#$configtheme#</xar:mlvar>
+                    </xar:ml>
+                </p>
+          
+            <xar:elseif condition="$tab eq 'start'"/>
+                 <p>
+                    <xar:mlstring>To setup the basics of your new website you can modify this theme or use it to create a new one.</xar:mlstring>
+                </p>
+                <ul>
+                    <li><xar:mlstring>Copy the whole 'default' directory and subdirectories and rename the 'default' directory to a name of your liking - the name of your new theme.</xar:mlstring></li>
+                    <li><xar:mlstring>Open up the <strong>xartheme.php</strong> file with a text editor. Ensure you provide a unique theme Id, and fill in the directory name correctly. The rest of the information should be filled in and is fairly self explanatory.</xar:mlstring></li>
+                    <li><xar:mlstring>Rename the main <strong>default.css</strong> file in the 'style' directory to match your theme name.</xar:mlstring></li>
+                    <li><xar:mlstring>Edit the <strong>default.xt</strong> page template in the 'pages' directory in your text editor, and change the name of the linked stylesheet from 'default' to your own theme named style sheet.</xar:mlstring></li>
+                </ul>
+            <xar:elseif condition="$tab eq 'test'"/>
+                <xar:template file="themestyles" />
+            </xar:if>
+        </div>
+    </div>
+</div>

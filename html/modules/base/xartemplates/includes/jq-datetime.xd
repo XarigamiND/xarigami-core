@@ -1,0 +1,44 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="alttext"><xar:mlstring>Click to select the date</xar:mlstring></xar:set>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min" position="body" style="ui.css" />
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="timepicker" pluginfile="ui.timepicker-addon" style="ui.timepicker-addon.css" position="body" />
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="timepicker" pluginfile="ui.sliderAccess" position="body" />
+<xar:set name="calcode">"
+jQuery(document).ready(function(){
+    var warn = \"$alttext\";
+    jQuery('span[class=js_disabled]').hide();
+    jQuery('#" . $id . "').datetimepicker({
+        dateFormat: 'yy-mm-dd', // TODO: convert date format stings, finish locale integration
+        timeFormat: 'hh:mm:ss',// TODO: convert time format stings, finish locale integration
+        dayNames: dayNames,
+        dayNamesShort: dayNamesShort,
+        dayNamesMin: dayNamesMin,
+        monthNames: monthNames,
+        closeText: closeText,
+        currentText: currentText,
+        nextText: nextText,
+        prevText: prevText,
+        //showButtonPanel: true,
+        // timepicker additions
+        timeOnlyTitle: timeOnlyTitle,
+        showTime: true,
+        firstDay: firstDay,
+        duration: '',
+        time24h: true,
+        showSecond: true,
+        timeText: timeText,
+        hourText: hourText,
+        minuteText: minuteText,
+        secondText: secondText,
+        amText: amText,
+        pmText: pmText,
+        ampm: false
+    });
+    jQuery('#" . $id . "').after(' ".chr(60)."a class=\"xar-icon\" id=\"" . $id . "_calendaricon\" class=\"xar-icon\" title=\"" . $alttext . "\" style=\"cursor: pointer;\"".chr(62).chr(60)."img src=\"" . xarTplGetImage('icons/office-calendar.png','base') . "\" alt=\"" . $alttext . "\" /".chr(62).chr(60)."/a".chr(62)."');
+    jQuery('#" . $id . "_calendaricon').click(function() { jQuery('#" . $id . "').datepicker('show'); return false; });
+
+});"
+</xar:set>
+<xar:comment>We want the code to load once for each instance on the page so give each a unique index to load</xar:comment>
+<xar:set name="codeindex">'index_'.$id</xar:set>
+<xar:base-include-javascript code="$calcode" index="$codeindex" position="body" options="$options" />

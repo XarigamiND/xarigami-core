@@ -1,0 +1,36 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="newclass">''</xar:set>
+<xar:if condition="!empty($class)">
+<xar:elseif condition="empty($size)"/>
+    <xar:set name="newclass">'xar-form-textlong'</xar:set>
+<xar:elseif condition="$size gt 50"/>
+    <xar:set name="newclass">'xar-form-textxlong'</xar:set>
+<xar:elseif condition="$size lt 12"/>
+    <xar:set name="newclass">'xar-form-textshort'</xar:set>
+<xar:elseif condition="$size lt 30"/>
+    <xar:set name="newclass">'xar-form-textmedium'</xar:set>
+<xar:else/>
+    <xar:set name="newclass">'xar-form-textlong'</xar:set>
+</xar:if>
+<xar:if condition="!empty($class) and !empty($newclass)">
+      <xar:set name="class">"$class $newclass"</xar:set>
+<xar:elseif condition="empty($newclass) and !empty($class)"/>
+    <xar:set name="class">"$class"</xar:set>
+<xar:elseif condition="!empty($newclass)" />
+    <xar:set name="class">$newclass</xar:set>
+</xar:if>
+<xar:comment>Trim now - allows a class with space in GUI or elsewhere to render as no class</xar:comment>
+<xar:set name="class">trim($class)</xar:set>
+<xar:if condition="!isset($style)">
+    <xar:set name="styletag">''</xar:set>
+<xar:else />
+    <xar:set name="styletag">" style=\"$style\""</xar:set>
+</xar:if>
+<xar:comment>Autocomplete true means turn off autocomplete</xar:comment>
+    <input type="text" class="#$class#"#$styletag# name="#$name#" value="#$value#" size="#$size#" maxlength="#$maxlength#" id="#$id#" tabindex="#$tabindex#" #$html5##$evts# />
+<xar:if condition="!empty($help)">
+    <span class="xar-sub">#$help#</span>
+</xar:if>
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

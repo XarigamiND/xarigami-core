@@ -1,0 +1,24 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:comment> Common module header info </xar:comment>
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Main page function</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>sub heading</xar:mlstring>
+            </h2>
+
+            <p><xar:mlstring>Maintext</xar:mlstring></p>
+        </div>
+    </div>
+    <div class="xar-mod-foot">
+        <p>
+            <xar:mlstring>Common module footer</xar:mlstring>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+Release notes for Xarigami Core 1.5.5
+
+Release 1.5.5
+-------------
+Xarigami 1.5.5 is a bug fix point release and requires a minimum of php 5.3.0
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+Key bug fixes:
+    xgami-001072 Bug Fix xarObject::getClass()
+    xgami-001074 Bug Modify DD collapse/expand js broken - bug that appeared after jquery 1.9 update in 1.5.4 core.
+    xgami-001075 Bug Display hooks in DD not working
+    xgami-001076 Bug Javascript library CSS not loading unless plugin CSS
+
+Check http://bugs.xarigami.org for detailed information

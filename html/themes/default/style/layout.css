@@ -1,0 +1,194 @@
+/*
+SKYKISS page layout.  Style elements are placed in style.css
+You can change the width of columns by adjusting the rules where marked.
+Don't forget to take into consideration margins.
+-------------------------------------------------------------------------[comment] */
+html {
+    /* height: 100%; */
+}
+body {
+    margin:0;
+    padding:0;
+    border:0;
+    width: 100%;
+    height: auto;
+    min-height: 10%;
+}
+/* site wrapper
+   Sets width of whole page
+-------------------------------------------------------------------------[comment] */
+#sitewrapper {
+    width: 95%;         /* Site fixed width */
+    min-width:960px;  /* Minimum width of layout - does not work in old IE */
+    margin: 0 auto 0 auto;      /* Change here if you want the site to align to the left/right instead of being in the middle. */
+    height: auto;
+    min-height:100%;
+}
+#siteheader {
+    /*clear:both;
+    float:left;*/ /* Allow the body to get at least to the height of the siteheader plus admin top bar. */
+    width:100%;
+    height: 81px;
+}
+#content {
+    padding: 0 15px 0 15px;
+    position: relative;
+}
+.wrapper {                  /* .colmask */
+    position:relative;      /* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
+    /* clear:both;
+    float:left; */ /* We keep this out to allow the body to get the height of the content */
+    width:100%;             /* width of whole page */
+    overflow:hidden;        /* This chops off any overhanging divs */
+    height: auto;
+    min-height:10%;
+}
+/* Container settings - 3 column
+-------------------------------------------------------------------------[comment] */
+/* http://matthewjamestaylor.com/blog/ultimate-3-column-holy-grail-pixels.htm */
+.container .colwrap {       /* .colmid */
+    float:left;
+    width:200%;
+    margin-left:-190px;     /* Width of right column */
+    position:relative;
+    right:100%;
+    height: 100%;
+}
+.container .leftwrap {      /* .colleft */
+    float:left;
+    width:100%;
+    margin-left:-50%;
+    position:relative;
+    left:380px;             /* Left column width + right column width */
+    height: 100%;
+}
+.container .midwrap {       /* .col1wrap */
+    float:left;
+    width:50%;
+    position:relative;
+    right:190px;            /* Width of left column */
+    padding-bottom:0em;     /* Centre column bottom padding. Leave it out if it's zero */
+    height: 100%;
+}
+.container .midcol {        /* .col1 */
+    margin:0 190px 0 190px;         /* Centre column side padding:
+                            Left padding =left column width + centre column left padding width
+                            Right padding = right column width + centre column right padding width */
+    position:relative;
+    left:200%;
+    overflow:hidden;
+    height: 100%;
+}
+.container .leftcol {       /* .col2 */
+    float:left;
+    float:right;            /* This overrides the float:left above */
+    width:190px;            /* Width of left column content (left column width minus left and right padding) */
+    position:relative;
+    right:0px;             /* Width of the left-hand side padding on the left column */
+    margin: 0;
+    height: 100%;
+}
+.container .rightcol {      /* .col3 */
+    float:left;
+    float:right;            /* This overrides the float:left above */
+    width:190px;            /* Width of right column content (right column width minus left and right padding) */
+    margin-right:0px;      /* Width of right column right-hand padding + left column left and right padding */
+    position:relative;
+    left:50%;
+    margin: 0;
+    height: 100%;
+}
+.column-padding {
+    padding:  0 15px 0 15px;
+    display: block;
+    position: relative;
+    clear:both;
+    height: 100%
+}
+.leftcol .column-padding {
+    width: 160px;
+}
+.rightcol .column-padding {
+    width: 160px;
+}
+/* Left column plus centre column
+-------------------------------------------------------------------------[comment] */
+.leftonly .leftwrap {
+    float:left;
+    width:200%;
+    position:relative;
+    left:190px;
+    height: 100%;
+}
+.leftonly .midwrap {
+    float:right;
+    width:50%;
+    position:relative;
+    right:190px;
+    padding-bottom:1em;
+    height: 100%;
+}
+.leftonly .midcol {
+    margin:0 0px 0 190px;
+    position:relative;
+    right:100%;
+    overflow:hidden;
+    height: 100%;
+}
+.leftonly  .leftcol {
+    float:left;
+    width:190px;
+    position:relative;
+    right:190px;
+    height: 100%;
+}
+
+/* Right column plus centre column
+-------------------------------------------------------------------------[comment] */
+.rightonly {
+    background-color: #FFF;
+    height: 100%;
+}
+.rightonly .leftwrap {
+    float:left;
+    width:200%;
+    margin-left:-190px;
+    position:relative;
+    right:100%;
+    height: 100%;
+}
+.rightonly .midwrap {
+    float:left;
+    width:50%;
+    position:relative;
+    left:50%;
+    padding-bottom:1em;
+    height: 100%;
+}
+.rightonly .midcol {
+    margin:0 0px 0 190px;
+    overflow:hidden;
+    height: 100%;
+}
+.rightonly .rightcol {
+    float:right;
+    width:190px;
+    position:relative;
+    left:190px;
+    height: 100%;
+}
+/* Full width single centre column
+-------------------------------------------------------------------------[comment] */
+.nocolumns .midcol {
+    margin:0 0px;
+}
+
+/* Footer
+-------------------------------------------------------------------------[comment] */
+#footer {
+    /* clear:both;
+    float:left; */ /* We keep this out to allow the body to take the real height */
+    width:100%;
+    position: relative;
+    height: 100%;
+}

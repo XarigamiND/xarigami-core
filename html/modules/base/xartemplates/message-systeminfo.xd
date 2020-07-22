@@ -1,0 +1,44 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>
+DEPRECATED xarigami version 1.2.0
+***********
+* WARNING
+* Modify this template at your own risk.
+* If the template contains errors, the exception system will not be able to process
+* it correctly, leading to unexpected results
+***********
+</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+
+    </div>
+    <div class="xar-mod-body">
+        <img src="#xarTplGetImage('info.png', 'base')#" alt="#xarML('Message Icon')#" class="xar-module-icon" />
+        <h1>
+            <xar:mlstring>System Message</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <h2>
+                 #$title#
+           </h2>
+
+            <p>#$short#</p>
+
+            <xar:if condition = "$long ne ''">
+                <h3>
+                    <xar:mlstring>Explanation:</xar:mlstring>
+                </h3>
+
+                <p>#$long#</p>
+            </xar:if>
+
+            <xar:if condition = "$hint ne ''">
+                <h3>
+                    <xar:mlstring>Further Information:</xar:mlstring>
+                </h3>
+
+                <p>#$hint#</p>
+            </xar:if>
+        </div>
+    </div>
+</div>

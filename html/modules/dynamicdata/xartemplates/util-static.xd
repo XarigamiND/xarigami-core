@@ -1,0 +1,137 @@
+<xar:comment>
+    License: GPL http://www.gnu.org/copyleft/gpl.html
+</xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <xar:template type="module" file="utility-menu" />
+        <div class="xar-mod-content">
+            <h2><xar:mlstring>Static Table Operations </xar:mlstring></h2>
+                <form action="#xarServerGetCurrentURL()#" method="post">
+                <xar:set name="firstline"><xar:mlstring>Please select a table</xar:mlstring></xar:set>
+                    <div class="xar-floatleft;">
+                        <h4><xar:mlstring>Current table: </xar:mlstring>
+                        <xar:data-input type="dropdown" name="table" validation="$tablelist" value="$table" firstline="$firstline" onchange="submit()"/>
+                        </h4>
+                    </div>
+                </form>
+            <xar:if condition="empty($export)">
+                <xar:foreach in="$tables" key="$table" value="$fields">
+                    <p>
+                        <a href="&xar-modurl-dynamicdata-util-relations;&amp;modid=#$modid#">
+                            <xar:mlstring>
+                                Add Relation
+                            </xar:mlstring>
+                        </a>
+                    </p>
+                    <table class="xar-items">
+                        <tr>
+                            <th>
+                                <xar:mlstring>Name</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Label</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Type</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Default</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Source</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Validation</xar:mlstring>
+                            </th>
+                        </tr>
+                        <xar:foreach in="$fields" value="$field">
+                            <tr>
+                                <td>
+                                    #$field['name']#
+                                </td>
+                                <td>
+                                    #$field['label']#
+                                </td>
+                                <td>
+                                    <xar:data-output type="fieldtype" name="dummy" value="$field['type']" />
+                                </td>
+                                <td>
+                                    #$field['default']#
+                                </td>
+                                <td>
+                                    #$field['source']#
+                                </td>
+                                <td>
+                                    #$field['validation']#
+                                </td>
+                            </tr>
+                        </xar:foreach>
+                    </table>
+                    <form method="post" action="&xar-modurl-dynamicdata-util-importprops;">
+                        <div class="xar-form-footer">
+                                <input type="hidden" name="authid" value="#$authid#" />
+                                <input type="hidden" name="modid" value="#$modid#" />
+                                <input type="hidden" name="itemtype" value="#$itemtype#" />
+                                <input type="hidden" name="table" value="#$table#" />
+                                <input type="submit" value=" #xarML('Import Table')# #$table# " />
+                        </div>
+                    </form>
+                </xar:foreach>
+                <div class="xar-align-center">
+                    <a href="&xar-modurl-dynamicdata-util-static;&amp;export=1&amp;modid=#$modid#">
+                        <xar:mlstring>
+                            Export to XML
+                        </xar:mlstring>
+                    </a>
+                </div>
+                <xar:else />
+                <form>
+                    <fieldset>
+                        <legend>
+                            <xar:ml>
+                                <xar:mlstring>Static table definitions for module #(1)</xar:mlstring>
+                                <xar:mlvar>#$module#</xar:mlvar>
+                            </xar:ml>
+                        </legend>
+                        <div class="xar-form-input-wrapper">
+                            <label class="xar-form-label">
+                                <xar:mlstring>Definition</xar:mlstring>
+                            </label>
+                            <div class="xar-form-container-after">
+                                <textarea name="xml" class="xar-form-textarealarge">
+        &lt;objects&gt;
+        <xar:foreach in="$tables" key="$table" value="$fields">
+            &lt;object name="#$table#"&gt; &lt;label&gt;#$table#&lt;/label&gt; &lt;moduleid&gt;182&lt;/moduleid&gt; &lt;itemtype&gt;-1&lt;/itemtype&gt; &lt;urlparam&gt;itemid&lt;/urlparam&gt; &lt;maxid&gt;0&lt;/maxid&gt; &lt;config&gt;&lt;/config&gt; &lt;isalias&gt;0&lt;/isalias&gt; &lt;properties&gt;
+            <xar:foreach in="$fields" key="$name" value="$field">
+                &lt;property name="#$name#"&gt;
+                <xar:foreach in="$field" key="$key" value="$value">
+                    <xar:if condition="$key ne 'name'">
+                        &lt;#$key#&gt;#$value#&lt;/#$key#&gt;
+                    </xar:if>
+                </xar:foreach>
+                &lt;/property&gt;
+            </xar:foreach>
+            &lt;/properties&gt; &lt;/object&gt;
+        </xar:foreach>
+        &lt;/objects&gt;
+                                </textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="xar-align-center">
+                    <a href="&xar-modurl-dynamicdata-util-static;&amp;modid=#$modid#">
+                        <xar:mlstring>
+                            Show Table Definitions
+                        </xar:mlstring>
+                    </a>
+                </div>
+            </xar:if>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<xar:base-include-javascript libname="jquery" libfile="jquery.min"/>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="specialhover" pluginfile="jquery.event.hover" position="body" module="base"/>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="superfish" pluginfile="js/superfish" style="css/superfish.css" module="base" position="body"/>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="superfish" pluginfile="js/supersubs" position="body" module="base"/>
+<xar:set name="js_supersubs">'.supersubs({
+     minWidth:    10,   // minimum width of sub-menus in em units
+     maxWidth:    16,   // maximum width of sub-menus in em units
+     extraWidth:  1
+})'</xar:set>
+<xar:set name="js_superfish">'
+$(document).ready(function(){
+    $(".sf-menu-admin")' . $js_supersubs .
+    '.superfish({
+        delay:       1000,                            // one second delay on mouseout
+        animation:   {opacity:"show",height:"show"},  // fade-in and slide-down animation
+        speed:       "fast",                          // faster animation speed
+        autoArrows:  true                             // disable generation of arrow mark-up
+    });
+});'
+</xar:set>
+<xar:base-include-javascript type="code" code="$js_superfish" position="body"/>

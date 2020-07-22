@@ -1,0 +1,9 @@
+#$recipientname#,
+
+Your account was deactivated by the administrator.
+If you want to know the reason, contact #$adminmail#
+You will receive an email as soon as your account is activated again.
+If you do not receive the email, please check for it in your spam
+(junk mail) folder.
+
+#$siteadmin#

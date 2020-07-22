@@ -1,0 +1,14 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="alttext">
+    <xar:mlstring>Click to select a colour</xar:mlstring>
+</xar:set>
+<xar:set name="dummyimage">xarTplGetImage('blank.gif', 'base')</xar:set>
+
+<input type="text" class="#$class#" name="#$name#" id="#$id#" value="#$value#" size="#$size#" maxlength="#$maxlength#" />
+
+<a href="javascript:TCP.popup(document.getElementById('#$id#'), 1)">
+<img class="xar-noborder" src="#xarTplGetImage('icons/color-picker.png','base')#"  alt="#$alttext#" title="#$alttext#"/></a>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

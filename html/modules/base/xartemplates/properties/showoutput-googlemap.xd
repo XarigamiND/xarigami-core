@@ -1,0 +1,16 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="title">isset($title)?$title:xarML('Google map')</xar:set>
+<xar:set name="class">isset($class)?$class:''</xar:set>
+<xar:if condition="($staticmap eq '1') and !empty($urlparams)">
+    <img src="http://maps.google.com/maps/api/staticmap?#$urlparams#" title="#$title#" alt="#$title#" class="#$class#"/>
+<xar:else />
+    <xar:set name="codeindex">(isset($_itemid) AND !empty($_itemid))? $_itemid:'';</xar:set>
+    <style type="text/css">
+          img {max-width: none; }
+          #map_canvas#$codeindex# { height: 100% }
+    </style>
+    <xar:template type="module" module="base" file="js-googlemap" />
+    <xar:set name="codename">'initialize'.$codeindex.'();'</xar:set>
+    <xar:base-include-javascript position="body" type="onload" code="$codename" />
+    <div id="map_canvas#$codeindex#" style="width:#$mapwidth#px; height:#$mapheight#px;"></div>
+</xar:if>

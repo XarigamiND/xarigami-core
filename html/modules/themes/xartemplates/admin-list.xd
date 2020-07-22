@@ -1,0 +1,385 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" position="body" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:comment>Include the js code for the tree view and related plugin</xar:comment>
+<xar:template type="module" module="modules" file="jq-list" />
+
+<xar:set name="tabindex">1</xar:set>
+<xar:set name="modstatus">
+    xarSession::getVar('statusmsg')
+</xar:set>
+<xar:set name="imgactivate"><xar:mlstring>Activate</xar:mlstring></xar:set>
+<xar:set name="imgdeactivate"><xar:mlstring>Deactivate</xar:mlstring></xar:set>
+<xar:set name="imgsetdefault"><xar:mlstring>Set As Default</xar:mlstring></xar:set>
+<xar:set name="imgupgrade"><xar:mlstring>Upgrade</xar:mlstring></xar:set>
+<xar:set name="imginstall"><xar:mlstring>Install</xar:mlstring></xar:set>
+<xar:set name="imgremove"><xar:mlstring>Remove</xar:mlstring></xar:set>
+<xar:set name="imginfo"><xar:mlstring>Theme Information</xar:mlstring></xar:set>
+<xar:set name="imgdisabled"><xar:mlstring>Disabled</xar:mlstring></xar:set>
+<xar:set name="imgerror"><xar:mlstring>Error</xar:mlstring></xar:set>
+<xar:set name="imgconfig"><xar:mlstring>Configure</xar:mlstring></xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+        <xar:comment>
+        <xar:if condition="!empty($varchanges)">
+            <div class="xar-alt-outline xar-statusbar xar-message-error">
+            <p>
+                <xar:mlstring>Your database system theme variables are different to defaults. Please check theme configuration and custom templates.</xar:mlstring>
+            </p>
+                <ul>
+                    <xar:foreach in="$varchanges" key="$themen" value="$varinfo" >
+                        <li>#$themen#:
+                        <xar:foreach in="$varinfo" key="$varname" value="$varstate" >
+                            <li>#$varname# - #$varstate#</li>
+                        </xar:foreach>
+                        </li>
+                    </xar:foreach>
+                </ul>
+            </div>
+        </xar:if>
+        </xar:comment>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Manage themes</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:comment>
+            <xar:if condition="isset($thememessage) and !empty($thememessage)">
+                <div class="xar-accent-outline xar-padding-thick xar-accent">
+                    <h4>
+                        <xar:mlstring>Theme change notification</xar:mlstring>
+                    </h4>
+                    <p> #$thememessage#</p>
+                </div>
+            </xar:if>
+            </xar:comment>
+            <p>
+                <xar:mlstring>Total listed:</xar:mlstring>
+                <xar:set name="modscount">count($listrowsitems)</xar:set>
+                #$modscount#
+            </p>
+            <form method="post" action="#xarModURL('themes','admin','settings')#">
+                <xar:comment>Theme List Filter Controls table</xar:comment>
+                <table class="xar-item-controls">
+                    <thead>
+                    <tr>
+                        <th>
+                            <label><xar:mlstring>Style</xar:mlstring></label>
+                        </th>
+                        <th>
+                            <label for="selfilter"><xar:mlstring>View</xar:mlstring></label>
+                        </th>
+                        <th>
+                            <label for="selclass"><xar:mlstring>Class</xar:mlstring></label>
+                        </th>
+                        <th>
+                            <label for="selpreview"><xar:mlstring>Show</xar:mlstring></label>
+                        </th>
+                        <th>
+                            <label for="reload"><xar:mlstring>Action</xar:mlstring></label>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="xar-align-center">
+                            <xar:data-input type="checkbox" name="useicons" id="useicons" checked="$useicons" tabindex="$tabindex++" />
+                            <label for="useicons"><xar:mlstring>Use Icons</xar:mlstring></label>
+                        </td>
+
+                        <td class="xar-align-center">
+                            <xar:data-input type="dropdown" name="selfilter" id="selfilter" value="$selfilter" validation="$filter" tabindex="$tabindex++" />
+
+                        </td>
+                        <td class="xar-align-center">
+                            <xar:data-input type="dropdown" name="selclass" id="selclass" value="$selclass" validation="$class" tabindex="$tabindex++" />
+                        </td>
+                        <td class="xar-align-center">
+                            <xar:data-input type="checkbox" name="selpreview" id="selpreview" checked="$selpreview" tabindex="$tabindex++" />
+                            <label for="selpreview"><xar:mlstring>Show previews</xar:mlstring></label>
+                        </td>
+                        <td class="xar-align-center">
+                            <input type="submit" name="reload" id="reload" value="#xarML('Refresh')#" tabindex="#$tabindex++#" />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <xar:if condition="$useicons  and (($modscount gt 5) or $selpreview)">
+                    <div class="xar-form-footer">
+                        <p class="sprite xs-activate xar-displayinline" title="#$imgactivate#" >&#160;#$imgactivate#</p> &#160;&#160;
+                        <p class="sprite xs-deactivate xar-displayinline" title="#$imgdeactivate#">&#160;#$imgdeactivate#</p> &#160;&#160;
+                        <p class="sprite xs-set-default xar-displayinline" title="#$imgsetdefault#">&#160;#$imgsetdefault#</p> &#160;&#160;
+                        <p class="sprite xs-software-upgrade xar-displayinline" title="#$imgupgrade#">&#160;#$imgupgrade#</p> &#160;&#160;
+                        <p class="sprite xs-software-install xar-displayinline" title="#$imginstall#">&#160;#$imginstall# </p> &#160;&#160;
+                        <p class="esprite xs-modify-config xar-displayinline" title="#$imgconfig#">&#160;#$imgconfig# </p> &#160;&#160;
+                        <p class="esprite xs-remove xar-displayinline" title="#$imgremove#">&#160;#$imgremove#</p> &#160;&#160;
+                        <p class="sprite xs-disabled xar-displayinline" title="#$imgdisabled#">&#160;#$imgdisabled#</p> &#160;&#160;
+                        <p class="sprite xs-dialog-warning xar-displayinline" title="#$imgerror#" >&#160;#$imgerror# </p> &#160;&#160;
+                    </div>
+                </xar:if>
+                <xar:comment>
+                <xar:if condition="$modstatus">
+
+                    <p>
+                        <xar:mlstring>The following themes have been successfully upgraded:</xar:mlstring>
+                    </p>
+                    <p>
+                        #$modstatus#
+                    </p>
+                </xar:if>
+                </xar:comment>
+                <xar:comment>the module shows themes in preview mode</xar:comment>
+                <xar:if condition="$selpreview eq TRUE">
+
+                    <xar:foreach in="$listrowsitems" value="$modinfo">
+
+                        <table class="xar-items">
+                            <tr>
+                                <td align="center" valign="center" width="250">
+                                    <xar:if condition="empty($modinfo['preview'])">
+                                        <div class="xar-alt xar-alt-outline xar-sub" style="width: 250px; height: 187px;">
+                                            <div style="padding: 40px 10px 0px 10px">
+                                                <xar:ml>
+                                                    <xar:mlstring>
+                                                        Screenshot not found at
+                                                        <em>#(1)/#(2)/images/preview.jpg</em>
+                                                    </xar:mlstring>
+                                                       <xar:mlvar>#xarConfigGetVar('Site.BL.ThemesDirectory')#</xar:mlvar>
+                                                    <xar:mlvar>#$modinfo['directory']#</xar:mlvar>
+                                                </xar:ml>
+                                            </div>
+                                        </div>
+                                    <xar:else />
+                                        <a href="#$modinfo['preview']#" title="#xarML('View full-size image')#">
+                                            <xar:if condition="xarModIsAvailable('images')">
+                                                <xar:template file="showimg" subdata="array('modinfo' =&gt; $modinfo)" />
+                                            <xar:else />
+                                                <img src="#$modinfo['preview']#" width="250" class="xar-alt-outline xar-preview" alt="#xarML('Thumbnail image for this theme')#" />
+                                            </xar:if>
+                                        </a>
+                                    </xar:if>
+                                </td>
+                                <td valign="top">
+                                    <table class="xar-items">
+                                        <tr>
+                                            <td width="20%"><strong><xar:mlstring>Name:</xar:mlstring></strong></td>
+                                            <td>#$modinfo['displayname']#
+                                            <xar:if condition="$useicons">
+                                                <a href="#$modinfo['infourlnew']#" title="#$infolabel#" class="#$infoimg# xar-info"><span>#$infolabel#</span></a>
+                                            <xar:else />
+                                                <a href="#$modinfo['infourlnew']#" class="xar-info"><xar:mlstring>Info</xar:mlstring></a>
+                                            </xar:if>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <strong><xar:mlstring>Description:</xar:mlstring></strong>
+                                            </td>
+                                            <td>#$modinfo['description']#</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong><xar:mlstring>Version:</xar:mlstring></strong></td>
+                                            <td>#$modinfo['version']#</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong><xar:mlstring>Class:</xar:mlstring></strong></td>
+                                            <td>#$modinfo['classlabel']#</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong><xar:mlstring>Status:</xar:mlstring></strong></td>
+
+                                            <td>
+                                                <xar:if condition="isset($modinfo['statelabelicon']) and $useicons">
+                                                    <p class="#$modinfo['statelabelicon']# xar-displayinline" title="#$modinfo['statelabel']#"><span>#$modinfo['statelabel']#</span></p>
+                                                </xar:if>
+                                                &#160; #$modinfo['statelabel']#
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" width="20%" >
+                                                <strong><xar:mlstring>Actions:</xar:mlstring></strong>
+                                            </td>
+                                            <td>
+                                                <xar:if condition="$useicons">
+                                                    <xar:if condition="$modinfo['actionurl'] eq ''">
+                                                        <p class="#$modinfo['actionimg1']# xar-displayinline #$modinfo['statelabelclass']#" title="#$modinfo['actionlabel']#">&#160;<span>#$modinfo['actionlabel']#</span></p>
+                                                    <xar:else />
+                                                        <a href="#$modinfo['actionurl']#" class="#$modinfo['actionimg1']# #$modinfo['statelabelclass']#" title="#$modinfo['actionlabel']#">&#160;<span>#$modinfo['actionlabel']#</span></a>
+                                                    </xar:if>
+                                                    <xar:if condition="$modinfo['removeurl'] eq ''">
+                                                         <p class="#$modinfo['removeimg']# xar-displayinline" title="#$modinfo['removelabel']#" >&#160;<span>#$modinfo['removelabel']#</span></p>
+                                                    <xar:else />
+                                                        <a href="#$modinfo['removeurl']#" class="#$modinfo['removeimg']#" title="#$modinfo['removelabel']#" >&#160;<span>#$modinfo['removelabel']#</span></a>
+                                                    </xar:if>
+                                                    <xar:if condition="$modinfo['actionurl2'] eq ''">
+                                                        <p  class="#$modinfo['actionimg2']# xar-displayinline" title="#$modinfo['actionlabel2']#">&#160;<span>#$modinfo['actionlabel2']#</span></p>
+                                                    <xar:else />
+                                                        <a href="#$modinfo['actionurl2']#" class="#$modinfo['actionimg2']#" title="#$modinfo['actionlabel2']#">&#160;<span>#$modinfo['actionlabel2']#</span></a>
+                                                    </xar:if>
+                                                    <xar:if condition="$modinfo['configurl'] eq ''">
+                                                         <p  class="#$modinfo['configimg']# xar-displayinline" title="#$imgconfig#">&#160;<span>#$imgconfig#</span></p>
+                                                    <xar:else />
+                                                      <a href="#$modinfo['configurl']#" class="#$modinfo['configimg']# " title="#$imgconfig#"><span>#$imgconfig#</span></a>
+                                                    </xar:if>
+                                               <xar:else />
+                                                    <xar:if condition="$modinfo['actionurl'] eq ''">
+                                                        #$modinfo['actionlabel']#
+                                                    <xar:else />
+                                                        <a href="#$modinfo['actionurl']#" class="#$modinfo['statelabelclass']#">#$modinfo['actionlabel']#</a>
+                                                    </xar:if>
+                                                    |
+                                                    <xar:if condition="$modinfo['removeurl'] eq ''">
+                                                        #$modinfo['removelabel']#
+                                                    <xar:else />
+                                                        <a href="#$modinfo['removeurl']#" class="#$modinfo['statelabelclass']#">#$modinfo['removelabel']#</a>
+                                                    </xar:if>
+                                                    |
+                                                    <xar:if condition="$modinfo['actionurl2'] eq ''">
+                                                        #$modinfo['actionlabel2']#
+                                                    <xar:else />
+                                                        <a href="#$modinfo['actionurl2']#" class="#$modinfo['statelabelclass']#">#$modinfo['actionlabel2']#</a>
+                                                    </xar:if>
+                                                    <xar:if condition="$modinfo['configurl'] eq ''">
+                                                        #$modinfo['configurl']#
+                                                    <xar:else />
+                                                        <a href="#$modinfo['configurl']#">#$modinfo['configurl']#</a>
+                                                    </xar:if>
+                                                </xar:if>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </xar:foreach>
+                <xar:else />
+
+                    <xar:comment> the Theme Lists table-based styles</xar:comment>
+                     <table class="xar-items">
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="#$sorturl#" title="#$sortlabel#">
+                                    <xar:mlstring>Name</xar:mlstring>
+                                </a>
+                                <a href="#$sorturl#" title="#$sortlabel#" class="#$sortimage#"><span>#$sortlabel#</span></a>
+                            </th>
+                            <th>
+                                <xar:mlstring>Version</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Info</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Class</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Status</xar:mlstring>
+                            </th>
+                            <th>
+                                <xar:mlstring>Actions</xar:mlstring>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <xar:set name="rowclass">'xar-norm'</xar:set>
+                        <xar:foreach in="$listrowsitems" value="$modinfo">
+                            <xar:if condition="$modinfo['isdefault'] == '1'">
+                             <xar:set name="rowclass">'xar-accent'</xar:set>
+                            </xar:if>
+                            <tr class="#$rowclass#">
+                                <xar:set name="altmodname">!empty($modinfo['displayname'])? $modinfo['displayname']: $modinfo['name']</xar:set>
+                                <td>
+                                    #$altmodname#
+                                </td>
+                                <td class="xar-align-right">
+                                    #$modinfo['version']#
+                                </td>
+                                <td class="xar-align-center">
+                                    <xar:if condition="$useicons">
+                                        <a href="#$modinfo['infourlnew']#" title="#$infolabel#" class="#$infoimg# xar-info"><span>#$infolabel#</span></a>
+                                     <xar:else />
+                                        <a href="#$modinfo['infourlnew']#" class="xar-info"><xar:mlstring>Info</xar:mlstring></a>
+                                    </xar:if>
+                                </td>
+                                <td>
+                                     #$modinfo['classlabel']#
+                                </td>
+                                <td>
+                                    <xar:if condition="isset($modinfo['statelabelicon']) and $useicons">
+                                        <span class="#$modinfo['statelabelicon']# xar-displayinline" title="#$modinfo['statelabel']#" >&#160;</span>
+                                    </xar:if>
+                                    #$modinfo['statelabel']#
+                                </td>
+                                <td class="xar-item-actions">
+                                    <xar:if condition="$useicons">
+                                        <xar:if condition="$modinfo['actionurl'] eq ''">
+                                            <p class="#$modinfo['actionimg1']# xar-displayinline #$modinfo['statelabelclass']#" title="#$modinfo['actionlabel']#" ><span>#$modinfo['actionlabel']#</span></p>
+                                        <xar:else />
+                                            <a href="#$modinfo['actionurl']#" class="#$modinfo['actionimg1']# #$modinfo['statelabelclass']#" title="#$modinfo['actionlabel']#"><span>#$modinfo['actionlabel']#</span></a>
+                                        </xar:if>
+                                        <xar:if condition="$modinfo['removeurl'] eq ''">
+                                             &#160;<p class="#$modinfo['removeimg']# xar-displayinline" title="#$modinfo['removelabel']#" ><span>#$modinfo['actionlabel']#</span></p>
+                                        <xar:else />
+                                            &#160;<a href="#$modinfo['removeurl']#" class="#$modinfo['removeimg']#" title="#$modinfo['removelabel']#"><span>#$modinfo['removelabel']#</span></a>
+                                        </xar:if>
+                                        <xar:if condition="$modinfo['actionurl2'] eq ''">
+                                            &#160;<p class="#$modinfo['actionimg2']# xar-displayinline" title="#$modinfo['actionlabel2']#"><span>#$modinfo['actionlabel2']#</span></p>
+                                        <xar:else />
+                                            &#160;<a href="#$modinfo['actionurl2']#" class="#$modinfo['actionimg2']# " title="#$modinfo['actionlabel2']#"><span>#$modinfo['actionlabel2']#</span></a>
+                                        </xar:if>
+                                        <xar:if condition="$modinfo['configurl'] eq ''">
+                                            &#160;<p class="#$modinfo['configimg']# xar-displayinline" title="#$imgconfig#"><span>#$imgconfig#</span></p>
+                                        <xar:else />
+                                            &#160;<a href="#$modinfo['configurl']#" class="#$modinfo['configimg']# " title="#$imgconfig#"><span>#$imgconfig#</span></a>
+                                        </xar:if>
+                                    <xar:else />
+                                        <xar:if condition="$modinfo['actionurl'] eq ''">
+                                           <!-- #$modinfo['actionlabel']# -->
+                                        <xar:else />
+                                            <a href="#$modinfo['actionurl']#" class="#$modinfo['statelabelclass']#">#$modinfo['actionlabel']#</a>
+                                        </xar:if>
+
+                                        <xar:if condition="$modinfo['removeurl'] eq ''">
+                                          <!--  #$modinfo['removelabel']# -->
+                                        <xar:else />
+                                            | <a href="#$modinfo['removeurl']#">#$modinfo['removelabel']#</a>
+                                        </xar:if>
+
+                                        <xar:if condition="$modinfo['actionurl2'] eq ''">
+                                            <xar:if condition=" $modinfo['isdefault']">
+                                           #$modinfo['actionlabel2']#
+                                           </xar:if>
+                                        <xar:else />
+                                            | <a href="#$modinfo['actionurl2']#">#$modinfo['actionlabel2']#</a>
+                                        </xar:if>
+                                       | <a href="#$modinfo['configurl']#">#$imgconfig#</a>
+                                    </xar:if>
+                                </td>
+                    </tr>
+                    <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                </xar:foreach>
+                    </tbody>
+                    </table>
+                </xar:if>
+            </form>
+
+            <xar:if condition="$useicons eq true">
+                <div class="xar-form-footer">
+                    <p class="sprite xs-activate xar-displayinline" title="#$imgactivate#" >&#160;#$imgactivate#</p> &#160;&#160;
+                    <p class="sprite xs-deactivate xar-displayinline" title="#$imgdeactivate#">&#160;#$imgdeactivate#</p> &#160;&#160;
+                    <p class="sprite xs-set-default xar-displayinline" title="#$imgsetdefault#">&#160;#$imgsetdefault#</p> &#160;&#160;
+                    <p class="sprite xs-software-upgrade xar-displayinline" title="#$imgupgrade#">&#160;#$imgupgrade#</p> &#160;&#160;
+                    <p class="sprite xs-software-install xar-displayinline" title="#$imginstall#">&#160;#$imginstall# </p> &#160;&#160;
+                    <p class="esprite xs-modify-config xar-displayinline" title="#$imgconfig#">&#160;#$imgconfig# </p> &#160;&#160;
+                    <p class="esprite xs-remove xar-displayinline" title="#$imgremove#">&#160;#$imgremove#</p> &#160;&#160;
+                    <p class="sprite xs-disabled xar-displayinline" title="#$imgdisabled#">&#160;#$imgdisabled#</p> &#160;&#160;
+                    <p class="sprite xs-dialog-warning xar-displayinline" title="#$imgerror#" >&#160;#$imgerror# </p> &#160;&#160;
+             </div>
+            </xar:if>
+        </div>
+    </div>
+</div>

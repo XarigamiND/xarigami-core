@@ -1,0 +1,37 @@
+Your account has been created for #$sitename# at #$siteurl#.
+The account needs to be activated before you can login. You can either do this now, or on the first time that you log in.
+
+If you prefer to do it now, then you will need to follow this link to automatically validate your account.
+
+#$myvalidationlink#
+
+
+
+To login at #$sitename# website:
+
+User Name:  <xar:var name="myusername"/>
+
+<xar:if condition="xarModGetVar('registration', 'chooseownpassword')">
+Password: --use the password you chose at registration --
+<xar:else />
+Password:  #$mypassword#
+</xar:if>
+
+
+Validation Code:    <xar:var name="myvalcode"/>
+
+The Validation Code is only required to validation your account prior to logging in the first time.
+
+
+
+The IP Address of the person who created the account is : <xar:var name="myipaddress"/>
+
+If you did not create this account, then do nothing.  The account will be deemed inactive after a period of time and deleted from our records.
+You will receive no further emails from us.
+
+
+Thank you,
+<xar:var name="siteadmin"/>
+
+
+<xar:var name="siteurl"/>

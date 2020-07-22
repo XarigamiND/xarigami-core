@@ -1,0 +1,2 @@
+<xar:template type="module" module="blocks" file="block-control" />
+<xar:var name="content" prep="false"/>

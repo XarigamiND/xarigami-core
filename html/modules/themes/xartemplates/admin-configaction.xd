@@ -1,0 +1,81 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" />
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" position="body" pluginfile="ui.core.min,ui.dialog.min,ui.dragdropsort.min" style="ui.css" />
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="form" pluginfile="jquery.form" position="body" />
+<xar:comment> Include the javascript for specific behaviours in this template</xar:comment>
+<xar:template type="module" module="themes" file="jq-configaction" />
+<xar:set name="vardel"><xar:mlstring>Delete</xar:mlstring></xar:set>
+<xar:set name="varconfig"><xar:mlstring>Edit validation</xar:mlstring></xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Configure themes</xar:mlstring></h1>
+        <xar:template type="module" file="theme-submenu" />
+        <div class="xar-mod-content">
+            <xar:if condition="isset($action) and $action eq 'del'">
+                <h2>
+                    <xar:mlstring>Delete variable</xar:mlstring>
+                </h2>
+                <form action="#xarModURL('themes','admin','configaction')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>Confirm deletion of variable</xar:mlstring>
+                        </legend>
+                        <div class="xar-form-input-wrapper">
+                            <label for="themename" class="xar-form-label">
+                                <xar:mlstring>Theme name</xar:mlstring>
+                            </label>
+                            #$themename#
+                        </div>
+                         <div class="xar-form-input-wrapper">
+                            <label for="varname" class="xar-form-label">
+                                <xar:mlstring>Variable name</xar:mlstring>
+                            </label>
+                            #$varname#
+                        </div>
+                    </fieldset>
+                    <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="themeid" id="themeid" value="#$themeid#" />
+                        <input type="hidden" name="varid" id="varid" value="#$varid#" />
+                        <input type="hidden" name="varname" id="varname" value="#$varname#" />
+                        <input type="submit" value="#xarML('Delete variable')#" />
+                        <input type="hidden" value="confirmdel" name="action" id="action" />
+                    <a href="#xarModURL('themes','admin','config',array('themeid'=>$themeid))#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </div>
+                </form>
+            <xar:elseif condition="isset($action) and $action eq 'config'" />
+               <h2>
+                    <xar:ml>
+                        <xar:mlstring>Configuring variable "#(1)" for theme "#(2)" </xar:mlstring>
+                        <xar:mlvar>#$varname#</xar:mlvar>
+                        <xar:mlvar>#$themename#</xar:mlvar>
+                    </xar:ml>
+                </h2>
+                <form action="#xarModURL('themes','admin','update')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                    <legend>
+                        #$themename# :: #$varname#  <a href="#$propinfourl#" class="sprite xs-info xar-info" title="#xarML('Property Information')#"><span><xar:mlstring>Property Info</xar:mlstring></span></a>
+                    </legend>
+                 #$showval#
+                    <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid2" value="#$authid#" />
+                        <input type="hidden" name="themeid" id="themeid2" value="#$themeid#" />
+                        <input type="hidden" name="themename" id="themename2" value="#$themename#" />
+                         <input type="hidden" name="varid" id="varid2" value="#$varid#" />
+                        <input type="hidden" name="varname" id="varname2" value="#$varname#" />
+                        <input type="submit" name="save" value="#xarML('Update theme var')#" />
+                         <input type="submit" name="saveandreturn" value="#xarML('Update and return')#" />
+                        <input type="hidden" value="configupdate" name="action" id="action2" />
+                        <a href="#xarModURL('themes','admin','config',array('themeid'=>$themeid))#"><xar:mlstring>Cancel</xar:mlstring></a>
+                    </div>
+                    </fieldset>
+                </form>
+            </xar:if>
+        </div>
+    </div>
+</div>

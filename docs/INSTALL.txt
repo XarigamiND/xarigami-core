@@ -1,0 +1,176 @@
+PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING 'Xarigami'
+
+Alternatively you can take the chance and browse to http://yoursite.com/install.php
+once you have uploaded the files to your server and follow the prompts!
+
+Please read UPGRADE.txt if you are upgrading an EXISTING installation.
+
+Detailed installation instructions can be found online at:
+http://xarigami.com/resources/installing_xarigami
+
+Xarigami: cumulus 1.5.5
+=======================
+
+The Xarigami distributions consist of the following files and directory structure:
+
+- docs: The documentation for Xarigami and components.
+        It is not necessary to copy this directory to the webserver.
+
+- html: This directory contains the files and sub-directories that
+        are required to run Xarigami. For Xarigami to function,
+        these files and sub-directories must be copied to the web server.
+            - modules : xarigami module files and system theme tempaltes
+            - themes  : xarigami theme files and templates
+            - lib     : library of core and 3rd party code (can be relocated out of web root - optional)
+                      : adodb : adodb library files
+                      : xarigami: core files
+            - var     : xarigami configuration files, cache, locales, user data files
+            - scripts : 3rd party javascript libraries (JQuery, etc)
+
+        You can copy these files and sub-directories to either
+        the web server's <webdir> :
+            <webdir>/
+        or a subdirectory:
+            <webdir>/<subdir>
+
+        If you want users to run Xarigami by visiting "http://www.yoursite.com",
+        copy Xarigami's files & sub-directories to <webdir>.
+
+        If you install Xarigami into a subdirectory of the <webdir>, your users
+        will have to type the subdirectory name in the URL to run Xarigami. eg.
+        your users will have to visit http://www.yoursite.com/xarigami".
+
+- tools: This directory contains utility code. It is not necessary to copy this
+         directory to the web server.
+- sites: This is an empty directory on install. You can use this directory
+         or other custom named directory to place your site's var directory
+         out of the web root. This is optional.
+
+NEW INSTALLATION
+================
+Once you have Xarigami on your web server, you can use a fully graphical install process with a simple set of steps to get your site up and running in about 10 minutes.
+
+1.  Xarigami needs to be copied to your web server. Only the contents of the
+    'html' subdirectory, included in this package, need to be copied to your web
+    server to run Xarigami.
+
+2.  The contents of the 'html' directory can be copied directly to the
+    document root on your webserver, or the contents can be put in a
+    subdirectory.
+
+3.  All sub directories in the html/var/cache directory on your web server need
+    to be writable by the web server process, and executable, along with
+    the html/var/config.system.php file.
+
+4.  Run the install.php script from your browser to start the
+    installation process. The URL to run the install depends on where you
+    copied the contents of the distribution 'html' directory:
+
+    [html dir and contents in webdir]   http://www.foo.com/html/install.php
+    [only html content in webdir]       http://www.foo.com/install.php
+    [everything in 'bar' subdir]        http://www.foo.com/bar/html/install.php
+    [only html content in 'bar' subdir] http://www.foo.com/bar/install.php
+
+5.  Carefully follow the instructions during the install processess
+
+6.  The installer will create the required database tables and set up an account
+    for the person who will act as the administrator of the site.  Once complete
+    you should be able to start using your Xaraya site immediately.
+
+7.  After install or upgrade has completed, remove upgrade.php and install.php
+    from your web directory to secure your installation.
+
+8.  For security, ensure that <xarroot>/var/config.system.php has
+    appropriate permissions set so that is is read only by your web server.
+
+*  Note - you do not have to install all modules at installation time.
+   Trying to installing many 3rd party modules during installation
+   may lead to memory problems duing the install phase.
+   Apart from the core modules, you can install additional modules easily
+   at any time after installation.
+
+*  After the upgrade has completed, remove upgrade.php and install.php
+   from your web directory
+
+*  Ensure that <xarroot>/var/config.system.php has appropriate permissions set
+   for security, and is read only
+
+Adding a language (locale):
+---------------------------------------
+Xarigami does not currently have any additional language translations or  encodings. If you wish to add an additional locale for Xarigami you can download   your preferred locale from http://www.xaraya.com/downloads/languages. For example for Spanish you need es_ES.utf8 locale
+
+These locales may be incomplete in areas where Xarigami and Xaraya differ. Untranslated strings can be translated yourself using the Translations module.
+
+* Unpack the new locale to the Xarigami directory at var/locales
+
+  NOTE: If you have var/locales/es_ES.utf8 directory
+        already present after installation, delete it!
+        It only contains installer translations.
+
+* Create the directory var/locales/es_ES.utf8/php
+
+* Make this directory writeable for the web server process
+
+* Set the site encoding to es_ES.utf8 in the
+  Base - Modify Config - Languages and Locales - Default Locale setting.
+
+* If you need an additional locale with an encoding different
+  from UTF-8 please read this document
+  http://www.xaraya.com/index.php/documentation/539
+
+
+CAUTION
+=======
+Note that Xarigami does not support any modification of the core tables (those that come with this Xarigami distribution) or direct access to the core database tables.  APIs are provided for developers to use for these purposes, so that future planned changes will have a minimal impact on third-party added functionality, and these APIs should be used at all times.
+
+Common Installation Errors
+==========================
+
+- Ensure you have permission to create a database for xarigami. If you do not have permission
+  to create a database, please use the database that your web hosting has provided, or ask them
+  to create a database for you. Check you are using the correct user name and password for the
+  database.
+
+- If you are having difficulties getting past the boot phase with specific
+  errors about not being able to open the CACHEKEYS file for writing,
+  try deleting the file:
+
+    html/var/templates/CACHEKEYS
+
+- Memory warnings or errors or 'blank' pages.
+
+  Make sure that there are no changes to the key entry point files in the webroot
+  namely index.php, install.php, upgrade.php, fail.php, ws.php. Any changes
+  in these files, will result in blank or 503 errors depending on your server setup.
+
+  Blank pages can occur if you have inadequate memory allocated to your php for
+  running scripts. It is often seen especially if you are trying to install
+  too many 3rd party modules during the installation phase.
+
+  Try installing with only the core or core plus base package modules. You can
+  install additional modules at any time once installation has completed.
+
+  You may get blank pages if there is an error in code and you have configured
+  your PHP with display_errors Off and or low error reporting. Check these
+  in your php.ini file.
+
+- The html/var/cache/rss and html/var/cache/templates need to be writable
+  by the web server process, and executable, along with the config.system.php file.
+
+- Installer stops during boot phase.
+  This could be a multitude of problems depending on your server configuration.
+  Try removing any cache files in your Xarigami var/cache/templates directory,
+  and create a file called log.txt and place it in var/logs directory.
+  Run install again and if you have problems check the log.txt file for clues.
+  If you still have problems contact support.
+
+- If you have a problem with install of your databases, and you receive a
+  message:
+
+  ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX i_base_xar_uid ON
+  xar_session_info (xar_uid)'; error description is: 'index command denied to user:
+  'debeemster@localhost' for table 'xar_session_info''.
+
+   This is an indication that you or your host does not allow the permission in
+   the database to create indexes.  The system will suffer from slow performance
+   without the DB index, and it is in your host's best interest to allow them.

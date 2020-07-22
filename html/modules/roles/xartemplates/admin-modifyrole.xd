@@ -1,0 +1,348 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" version="1.0"/>
+<xar:set name="actionurl">#xarModURL('roles','admin','modifyrole')#</xar:set>
+<xar:set name="usertype">ROLES_USERTYPE</xar:set>
+<xar:set name="grouptype">ROLES_GROUPTYPE</xar:set>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" />
+<xar:set name="rolescode">"
+$(document).ready(function(){
+    jQuery('select#"."ptype').change(function() {
+        this.form.action = '". xarModURL('roles','admin','modifyrole', array(), false) . "';
+        this.form.submit();
+    });
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$rolescode" position="body" />
+<xar:set name="tabindex">1</xar:set>
+<xar:set name="cannotremove"><xar:mlstring>Cannot Remove</xar:mlstring></xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Manage groups and users</xar:mlstring></h1>
+        <xar:template file="tablist" />
+        <div class="xar-mod-content">
+            <h2>
+                <xar:if condition="$ptype eq $usertype">
+                    <xar:mlstring>Manage User:</xar:mlstring>
+                <xar:else/>
+                    <xar:mlstring>Manage Group:</xar:mlstring>
+                </xar:if>
+                '#xarVarPrepForDisplay($pname)#'
+            </h2>
+
+            <xar:if condition="count($parents) ne 0">
+                <div>
+                    <ul class="xar-tabs xar-alt xar-norm-outline">
+                        <li class="xar-tabs-label" title="These are the groups that #$pname# is a member of">
+                            <xar:mlstring>Parent Groups:</xar:mlstring>
+                        </li>
+                        <xar:set name="prevgroup">""</xar:set>
+                        <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
+                            <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
+                                <li class="xar-tab">
+                                    <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$parents.$i.parentid#" title="#xarML('Show this group')#">
+                                        #xarVarPrepForDisplay($parents[$i]['parentname'])#
+                                    </a>
+                                </li>
+                            </xar:if>
+                            <xar:set name="prevgroup">#xarVarPrepForDisplay($parents[$i]['parentname'])#</xar:set>
+                        </xar:for>
+                    </ul>
+                </div>
+            </xar:if>
+
+
+            <fieldset>
+                <legend>
+                    <xar:if condition="$ptype eq $usertype">
+                        <xar:mlstring>User Properties</xar:mlstring>
+                    <xar:else/>
+                        <xar:mlstring>Group Properties</xar:mlstring>
+                    </xar:if>
+                </legend>
+
+                <form action="&xar-modurl-roles-admin-updaterole;" method="post" enctype="multipart/form-data">
+                    <xar:if condition="$frozen">
+                        <div class="xar-form-input-wrapper">
+                            <label for="pname" title="#xarML('Display name')#" class="xar-form-label">
+                                <xar:mlstring>Display Name:</xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" name="pname" id="pname1" value="$pname" maxlength="255" disabled="disabled" class="xar-form-textlong" tabindex="$tabindex++" autocomplete="off"/>
+                            <xar:if condition="!empty($invalid['pname'])">
+                                <span class="xar-error">#$invalid['pname']#</span>
+                            </xar:if>
+                        </div>
+
+                        <p>
+                            <xar:if condition="$roletype eq $usertype">
+                                <xar:mlstring>This User cannot be edited or deleted.</xar:mlstring>
+                            <xar:else />
+                                <xar:mlstring>This Group cannot be edited or deleted.</xar:mlstring>
+                            </xar:if>
+                        </p>
+                    <xar:else />
+                        <div class="xar-form-input-wrapper">
+                            <label for="pname" title="#xarML('Display name')#" class="xar-form-label">
+                                <xar:mlstring>Display Name:</xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" name="pname" id="pname" value="$pname" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" autocomplete="off"/>
+                            <xar:if condition="!empty($invalid['pname'])">
+                                <span class="xar-error">#$invalid['pname']#</span>
+                            </xar:if>
+                        </div>
+
+                        <xar:if condition="$ptype eq 1 and $haschildren">
+                            <div class="xar-form-input-wrapper">
+                                <label title="#xarML('Type of Role')#" class="xar-form-label">
+                                    <xar:mlstring>Type:</xar:mlstring>
+                                </label>
+                                <xar:comment>
+                                    value should still be there in the form, otherwise validation will fail,
+                                    do it with a hidden input now, but this should really be done with readonly attribute
+                                </xar:comment>
+                                <xar:if condition="$ptype eq $grouptype">
+                                    <input type="text" name="ptypedisplay" value="#xarML('Group')#" disabled="disabled" tabindex="#$tabindex++#"/>
+                                <xar:else />
+                                    <input type="text" name="ptypedisplay" value="#xarML('User')#" disabled="disabled" tabindex="#$tabindex++#"/>
+                                </xar:if>
+                                <input type="hidden" name="ptype" value="#$ptype#" />
+                            </div>
+                        <xar:else />
+                            <div class="xar-form-input-wrapper">
+                                <label for="ptype" title="#xarML('Type of Role')#" class="xar-form-label">
+                                    <xar:mlstring>Type:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="dropdown" name="ptype" id="ptype" value="$ptype" validation="$ptypeoptions" tabindex="$tabindex++" />
+                            </div>
+                        </xar:if>
+
+                        <xar:if condition="xarModGetVar('roles','setuserhome')">
+                            <div class="xar-form-input-wrapper">
+                                <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
+                                    <xar:mlstring>Home URL:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="textbox" name="phome" id="phome" value="$phome" size="40" maxlength="100" tabindex="$tabindex++" autocomplete="off"/>
+                                <p class="xar-form-input-wrapper-after">
+                                     <xar:mlstring>You can also use </xar:mlstring><a href="http://xaraya.com/index.php/documentation/522"><xar:mlstring>Xarigami shortcut URL syntax</xar:mlstring></a>
+                                     <xar:mlstring>to specify Home URLs</xar:mlstring>.
+                                </p>
+                            </div>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles','setprimaryparent')">
+                            <div class="xar-form-input-wrapper">
+                                <label for="pprimaryparent" title="#xarML('Primary parent group')#" class="xar-form-label">
+                                    <xar:mlstring>Primary Parent Group:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="grouplist" name="pprimaryparent" id="pprimaryparent" value="$pprimaryparent" tabindex="$tabindex++"/>
+                            </div>
+                        </xar:if>
+
+                        <xar:if condition="$ptype eq $usertype">
+                            <p class="xar-clearboth">
+                                <xar:mlstring>The fields below only apply for Users.</xar:mlstring>
+                            </p>
+
+                            <div class="xar-form-input-wrapper">
+                                <label for="puname" title="#xarML('Name used for user log on')#" class="xar-form-label">
+                                    <xar:mlstring>User Name:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="textbox" name="puname" id="puname" value="$puname" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" autocomplete="off"/>
+                              <xar:if condition="!empty($invalid['puname'])">
+                                <span class="xar-error">#$invalid['puname']#</span>
+                            </xar:if>
+                            </div>
+
+                            <div class="xar-form-input-wrapper">
+                                <label for="pemail" title="#xarML('Email address for this user')#" class="xar-form-label">
+                                    <xar:mlstring>New Email Address:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="email" name="pemail" id="pemail" value="$pemail" maxlength="255" class="xar-form-textxlong" tabindex="$tabindex++" autocomplete="off"/>
+                                 <xar:if condition="!empty($invalid['pemail'])">
+                                    <span class="xar-error">#$invalid['pemail']#</span>
+                                </xar:if>
+                                <p class="xar-form-input-wrapper-after">
+                                    <xar:mlstring>Enter an email address only if you want to change the existing one.</xar:mlstring>
+                                </p>
+                            </div>
+
+                            <div class="xar-form-input-wrapper">
+                                <label for="pstate" title="#xarML('Status of this user')#" class="xar-form-label">
+                                    <xar:mlstring>Status:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="dropdown" name="pstate" id="pstate" value="$pstate" validation="$stateoptions" size="1" tabindex="$tabindex++" />
+
+                            </div>
+
+                            <div class="xar-form-input-wrapper">
+                                <p class="xar-form-input-wrapper-after">
+                                    <xar:mlstring>Enter a password only if you wish to change an existing one.</xar:mlstring>
+                                </p>
+
+                                <label for="ppass1" title="#xarML('Password for this user')#" class="xar-form-label">
+                                    <xar:mlstring>New Password:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="password" name="ppass1" id="ppass1" value="" maxlength="40" class="xar-form-textmedium" tabindex="$tabindex++" autocomplete="off"/>
+                            <xar:if condition="!empty($invalid['ppass1'])">
+                                <span class="xar-error">#$invalid['ppass1']#</span>
+                            </xar:if>
+                            </div>
+
+                            <div class="xar-form-input-wrapper">
+                                <label for="ppass2" title="#xarML('Confirm password for this user')#" class="xar-form-label">
+                                    <xar:mlstring>Confirm New Password:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="password" name="ppass2" id="ppass2" value="" maxlength="40" class="xar-form-textmedium" tabindex="$tabindex++" autocomplete="off"/>
+                            <xar:if condition="!empty($invalid['ppass2'])">
+                                <span class="xar-error">#$invalid['ppass2']#</span>
+                            </xar:if>
+                            </div>
+
+                            <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
+                            <div class="xar-form-input-wrapper">
+                                <label for="upasswordupdate" class="xar-form-label">
+                                    <xar:mlstring>Password last updated:</xar:mlstring>
+                                </label>
+                                 <xar:if condition="!empty($upasswordupdate)">
+                                    #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
+                                 <xar:else />
+                                     <xar:mlstring>No update recorded</xar:mlstring>
+                                 </xar:if>
+                            </div>
+                            </xar:if>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles','setuserlastlogin')">
+                            <xar:if condition="!empty($userlastlogin)">
+                            <div class="xar-form-input-wrapper">
+                                <label for="lastlogin" class="xar-form-label">
+                                    <xar:mlstring>Last login time:</xar:mlstring>
+                                </label>
+                                    #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#
+                            </div>
+                            </xar:if>
+                        </xar:if>
+
+                        <xar:if condition="xarModGetVar('roles','setusertimezone')">
+                            <xar:if condition="!empty($utimezone)">
+                            <div class="xar-form-input-wrapper">
+                                <label for="utimezone" class="xar-form-label">
+                                    <xar:mlstring>User Timezone:</xar:mlstring>
+                                </label>
+                                <xar:data-input type="timezone" name="utimezone" id="utimezone" value="$utimezone" tabindex="$tabindex++"/>
+                            </div>
+                            </xar:if>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles','usersendemails')">
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="allowemail" id="allowemail" checked="$allowemail" tabindex="$tabindex++" />
+                            <label for="allowemail" title="#xarML('Allow users to send emails?')#">
+                               <xar:mlstring>User has allowed other users to send them an email?</xar:mlstring>
+                            </label>
+                        </div>
+                        </xar:if>
+                        <p class="xar-clear"></p>
+                        <!-- if we want to handle our DD ourselves -->
+                        <xar:data-getitem name="$properties" module="roles" itemid="$uid" />
+                        <xar:if condition="isset($properties) and count($properties) gt 0 and $ptype eq 0">
+                            <xar:foreach in="$properties" key="$name">
+                                <div class="xar-form-input-wrapper">
+                                    <xar:data-label property="$properties[$name]" label="id" />
+                                    <xar:data-input property="$properties[$name]" value="$propertyvalues[$name]" tabindex="$tabindex++"/>
+                                    <xar:if condition="!empty($invalid[$name])">
+                                        <span class="xar-error">#$invalid[$name]#</span>
+                                    </xar:if>
+                                </div>
+                            </xar:foreach>
+                        </xar:if>
+
+                        <xar:if condition="!empty($hooks) and count($hooks) gt 0">
+                            <xar:foreach in="$hooks" key="$hookmodule">
+                                <xar:if condition="$hookmodule ne 'dynamicdata'">
+                                    #$hooks[$hookmodule]#
+                                </xar:if>
+                            </xar:foreach>
+                        </xar:if>
+
+                        <div class="xar-align-center xar-clearboth">
+                            <input type="hidden" name="uid" id="uid" value="#$uid#" />
+                            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="submit" value="#xarML('Update')#" tabindex="#$tabindex++#"/>
+                           <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                        </div>
+                    </xar:if>
+                </form>
+            </fieldset>
+
+            <fieldset>
+                <legend><xar:mlstring>Group Memberships</xar:mlstring></legend>
+                <table class="xar-items">
+                    <tr>
+                        <th><xar:mlstring>Group</xar:mlstring></th>
+                        <th><xar:mlstring>Remove</xar:mlstring></th>
+                    </tr>
+                    <xar:foreach in="$parents" value="$parent">
+                        <tr>
+                            <td>
+                                <xar:if condition="!in_array($parent['parentid'],$noedit) ">
+                                    <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$parent['parentid']#">
+                                        <xar:var name="$parent['parentname']" prep="true"/>
+                                    </a>
+                                <xar:else />
+                                    <xar:var name="$parent['parentname']" prep="true"/>
+                                </xar:if>
+                            </td>
+                            <td class="xar-align-center">
+                                <xar:if condition="count($parents) ne 1">
+                                    <xar:set name="tmptitle">
+                                        <xar:ml>
+                                            <xar:mlstring>Remove #(1) from #(2)</xar:mlstring>
+                                            <xar:mlvar>#$pname#</xar:mlvar>
+                                            <xar:mlvar>#$parent['parentname']#</xar:mlvar>
+                                        </xar:ml>
+                                    </xar:set>
+                                    <a href="&xar-modurl-roles-admin-removemember;&amp;childid=#$uid#&amp;parentid=#$parent['parentid']#&amp;authid=#$authid#" class="esprite xs-remove" title="#$tmptitle#"><span>#$tmptitle#</span></a>
+                                <xar:else />
+                                    <p class="esprite xs-remove xar-icon-disabled xar-displayinline" title="#$cannotremove#"><span>#$cannotremove#</span></p>
+                                </xar:if>
+                            </td>
+                        </tr>
+                    </xar:foreach>
+                </table>
+                <xar:if condition="count($groups) gt 0">
+                <!-- Only show if there are groups to add to -->
+                    <xar:if condition="$frozen">
+                        <p>
+                            <xar:if condition="$ptype eq $usertype">
+                                <xar:mlstring>This User cannot be edited or deleted.</xar:mlstring>
+                            <xar:else />
+                                <xar:mlstring>This Group cannot be edited or deleted.</xar:mlstring>
+                            </xar:if>
+                        </p>
+                    <xar:else />
+                        <form action="&xar-modurl-roles-admin-addmember;" method="post" enctype="multipart/form-data">
+                            <div class="xar-form-input-wrapper">
+                                <label for="roleid" title="#xarML('Choose group to assign membership')#" class="xar-form-label">
+                                    <xar:mlstring>Add to Group:</xar:mlstring>
+                                </label>
+                                <select name="roleid" id="roleid">
+                                    <xar:loop name="$groups">
+                                        <option value="#$loop:item['duid']#">
+                                            <xar:var name="loop:item.dname" prep="true"/>
+                                        </option>
+                                    </xar:loop>
+                                </select>
+                                <input type="hidden" name="uid" id="adduid" value="#$uid#" />
+                                <input type="hidden" name="authid" id="addauthid" value="#$authid#" />
+                                   <input type="hidden" name="returnurl" id="return_url" value="#$returnurl#" />
+                                <input type="submit" value="#xarML('Add')#" />
+                            </div>
+                        </form>
+                    </xar:if>
+                </xar:if>
+            </fieldset>
+        </div>
+    </div>
+</div>

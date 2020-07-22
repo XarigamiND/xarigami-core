@@ -1,0 +1,29 @@
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" plugin="ui" pluginfile="ui.core.min,ui.dialog.min" style="ui.css" position="body" />
+
+<xar:set name="blockscode">"
+jQuery(document).ready(function() {
+    var dialog_width = 300;
+    var dialog_height = 180;
+    var delmessage = (typeof(\"$deletemessage\") != 'undefined' ) ? \"$deletemessage\" : \"'.xarML('Delete this instance?').'\";
+    jQuery('table.xar-items a[id^=delete]').click(function() {
+        var a = this;
+        jQuery('#"."xardialogtarget').remove();
+        jQuery('body').append('" . chr(60) . "div id=\'xardialogtarget\' style=\'display: none;\'" . chr(62) . "" . chr(60) . "/div" . chr(62) . "');
+        jQuery('#" . "xardialogtarget').html('" . chr(60) . "h3" . chr(62) . "' + delmessage+ '" . chr(60) . "/h3" . chr(62) . "" . chr(60) . "p style=\'text-align: center;\'" . chr(60) . "' + jQuery.trim(jQuery(this).parent().parent().children(':first').text()) + '" . chr(60) . "/p" . chr(62) . "');
+        jQuery('#" . "xardialogtarget').dialog({
+            title: '" . xarML('Delete block instance') . "',
+            width: dialog_width,
+            height: dialog_height,
+            buttons: {
+                '". xarML('Cancel') . "': function() { jQuery(this).dialog('close'); },
+                '". xarML('Delete') . "': function() { a.setAttribute('href', a.getAttribute('href') + '&confirm=1');jQuery(this).dialog('close');window.location = a.getAttribute('href'); }
+            },
+            modal: true,
+            draggable: false,
+            resizable: false
+        });
+        return false;
+    });
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$blockscode" position="body"/>

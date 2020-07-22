@@ -1,0 +1,40 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="layout">isset($layout)?$layout:'default'</xar:set>
+<xar:if condition="!empty($fileName)">
+    <xar:if condition="!empty($basedir)">
+        <xar:comment>File is available under the web root</xar:comment>
+        <xar:if condition="$layout eq 'name'" >
+             #xarVarPrepForDisplay($fileName)#
+        <xar:elseif condition="$layout eq 'horizontal_right'" />
+            <a style="text-decoration:none;" href="#xarVarPrepForDisplay($fileuri)#" title="#xarML('Download')#">
+             #xarVarPrepForDisplay($fileName)#
+              <xar:if condition="isset($isimage) AND $isimage eq TRUE AND !empty($outputsize)">&#160;<img class="xar-valign-bottom" src="#$fileuri#" alt="#$fileName#" style="#$outputsize#" />
+             <xar:elseif condition="isset($mimeimage) and !empty($mimeimage)"/>&#160;<img class="xar-valign-bottom" src="#$mimeimage#" alt="#$fileName#" />
+             </xar:if>
+            </a>
+        <xar:elseif condition="$layout eq 'vertical'" />
+            <div class="xar-clearleft xar-form-input-wrapper xar-align-center">
+             <a  style="text-decoration:none;" href="#xarVarPrepForDisplay($fileuri)#" title="#xarML('Download')#">
+             <xar:if condition="isset($isimage) AND $isimage eq TRUE AND !empty($outputsize)"><img src="#$fileuri#" alt="#$fileName#" style="#$outputsize#" /><br />
+             <xar:elseif condition="isset($mimeimage) and !empty($mimeimage)"/><img src="#$mimeimage#" alt="#$fileName#" /><br />
+             </xar:if>
+             #xarVarPrepForDisplay($fileName)#
+            </a>
+            </div>
+        <xar:else />
+            <xar:comment>default or horizontal layout</xar:comment>
+            <a  style="text-decoration:none;" class="xar-valign-bottom" href="#xarVarPrepForDisplay($fileuri)#" title="#xarML('Download')#">
+             <xar:if condition="isset($isimage) AND $isimage eq TRUE AND !empty($outputsize)"><img class="xar-valign-bottom" src="#$fileuri#" alt="#$fileName#" style="#$outputsize#" />
+             <xar:elseif condition="isset($mimeimage) and !empty($mimeimage)"/><img class="xar-valign-bottom" src="#$mimeimage#" alt="#$fileName#" />
+             </xar:if>
+            #xarVarPrepForDisplay($fileName)#
+            </a>
+        </xar:if>
+    <xar:else />
+        <xar:comment>File is NOT available under the web root</xar:comment>
+        #xarVarPrepForDisplay($fileName)#
+    </xar:if>
+<xar:else/>
+    <xar:comment>The file doesn't exist</xar:comment>
+    <xar:mlstring>File is missing</xar:mlstring>
+</xar:if>

@@ -1,0 +1,44 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<xar:style scope="module" module="base" file="tabs" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify Block Configuration</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:comment>
+                ------------------- Begin General Options ---------------------
+            </xar:comment>
+            <xar:if condition="$tab eq 'general'">
+                <form action="#xarModUrl('blocks', 'admin', 'modifyconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                Page Layout
+                            </xar:mlstring>
+                        </legend>
+                        <div class="xar-form-input-wrapper">
+                            <label for="itemsperpage" title="#xarML('The number of items to display on a page.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Items Listed per Page View:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="itemsperpage" name="itemsperpage" value="$itemsperpage" class="xar-form-textshort" tabindex="$tabindex++" />
+                        </div>
+                    </fieldset>
+                    <div class="xar-form-footer">
+                            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="hidden" name="update" id="update" value="update" />
+                            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                            <input type="submit" value="#xarML('Update Blocks Configuration')#" class="xar-margin-thickright" tabindex="#$tabindex++#" />
+                            <!--<input type="reset" value="#xarML('Reset Form')#" class="xar-margin-thickleft" />-->
+                    </div>
+                </form>
+            </xar:if>
+        </div>
+    </div>
+</div>

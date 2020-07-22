@@ -1,0 +1,543 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min.js" plugin="validate" pluginfile="jquery.validate.min"  position="body"/>
+<xar:comment>Include the js code for the reorder</xar:comment>
+<xar:template type="module" module="base" file="jq-reorder" />
+<xar:set name="basecode">"
+jQuery().ready(function() {
+    jQuery('#"."displayform').validate({
+        rules: {
+            defaultfunction: {
+                required: true
+            },
+            alternatepagetemplatename: {
+                required: '#"."alternatepagetemplate:checked'
+            },
+            themedir: {
+                required: true
+            }
+        },
+        messages: {
+            defaultfunction: {
+                required: '" . xarML('* Required') . "'
+            },
+            alternatepagetemplatename: {
+                required: '" . xarML('* Required if the above box is checked') . "'
+            },
+            themedir: {
+                required: '" . xarML('* Required') . "'
+            }
+        },
+        errorClass: 'xar-error',
+        errorElement: 'div'
+    });
+});
+"</xar:set>
+<xar:base-include-javascript code="$basecode" type="code" position="body" />
+<xar:set name="tabindex">1</xar:set>
+<xar:set name="tab">isset($tab)?$tab:''</xar:set>
+<xar:set name="infolinks">array
+('display'=>xarML('Display &amp; URL options'),
+ 'security'=>xarML('Server &amp; Sessions'),
+ 'urls'=>xarML('URL Rewriting'),
+ 'other'=>xarML('Other')
+)
+</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Site Configuration</xar:mlstring></h1>
+        <ul class="xar-tabs">
+            <li class="xar-tabs-label"  title="#xarML('Choose a set of configuration options to modify')#">
+                <xar:mlstring> Modify:</xar:mlstring>
+            </li>
+            <xar:foreach in="$infolinks" key="$whatid" value="$name">
+                <xar:set name="tabclass">$tab == $whatid?'active':''</xar:set>
+                <xar:if condition="$tabclass eq 'active'">
+                    <xar:set name="tabclass">'xar-tab-active'</xar:set>
+                <xar:else />
+                    <xar:set name="tabclass">'xar-tab'</xar:set>
+                </xar:if>
+                <li class="#$tabclass#">
+                    <a title="#$name#" href="#xarModURL('base','admin','modifyconfig',array('tab'=>$whatid))#">
+                        #$name#
+                    </a>
+                </li>
+            </xar:foreach>
+        </ul>
+        <div class="xar-mod-content">
+            <xar:comment>
+                ------------------- Begin Site Display Options ---------------------
+            </xar:comment>
+            <xar:if condition="$tab eq 'display'">
+                <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" id="displayform" enctype="application/x-www-form-urlencoded">
+                    <xar:comment> Moved to System Information
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                Core Version and Database Information
+                            </xar:mlstring>
+                        </legend>
+                        <div class="xar-form-input-wrapper">
+                            <label title="#xarML('Current Version.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Xarigami Core:
+                                </xar:mlstring>
+                            </label>
+
+                            <xar:ml>
+                                <xar:mlstring>#(1) version #(2) (#(3))</xar:mlstring>
+                                <xar:mlvar>#$XARCORE_VERSION_ID#</xar:mlvar>
+                                <xar:mlvar>#$XARCORE_VERSION_NUM#</xar:mlvar>
+                                <xar:mlvar>#$XARCORE_VERSION_SUB#</xar:mlvar>
+                             </xar:ml>
+
+                             <xar:if condition="!empty($XARCORE_VERSION_REV)">
+                                MTN #$XARCORE_VERSION_REV#
+                             </xar:if>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label title="#xarML('Current Version.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Database (Prefix):
+                                </xar:mlstring>
+                            </label>
+                            <xar:ml>
+                                <xar:mlstring>#(1) (#(2))</xar:mlstring>
+                                <xar:mlvar>#xarDBGetName()#</xar:mlvar>
+                                <xar:mlvar>#xarDB::getSiteTablePrefix()#</xar:mlvar>
+                             </xar:ml>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label title="#xarML('Current Version.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Database Type (Host):
+                                </xar:mlstring>
+                            </label>
+                            <xar:ml>
+                                <xar:mlstring>#(1) (#(2))</xar:mlstring>
+                                <xar:mlvar>#xarDB::getType()#</xar:mlvar>
+                                <xar:mlvar>#xarDBGetHost()#</xar:mlvar>
+
+                             </xar:ml>
+                        </div>
+                    </fieldset>
+                    </xar:comment>
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                Site Default Front Page Settings
+                            </xar:mlstring>
+                        </legend>
+                        <p class="xar-form-input-wrapper-after">
+                            <xar:mlstring>The Default Module supplies the main entry (front) page to your site. The
+                                Default Module Function below provides the template for this frontpage. You can customize and
+                                override this template in your theme.
+                            </xar:mlstring>
+                        </p>
+                        <div class="xar-form-input-wrapper">
+                            <label for="defaultmodule" title="#xarML('The default module to be loaded on your base url.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Default Module:
+                                </xar:mlstring>
+                            </label>
+                             <xar:data-input type="dropdown" id="defaultmodule" name="defaultmodule" value="$defaultModuleName" validation="$modlist" tabindex="$tabindex++" />
+                        </div>
+
+                        <xar:if condition="xarConfigGetVar('Site.Core.DefaultModuleName') eq 'base'">
+                            <div class="xar-form-input-wrapper-after">
+                                <xar:data-input type="checkbox" name="alternatepagetemplate" id="alternatepagetemplate" checked="$UseAlternatePageTemplate" tabindex="$tabindex++"/>
+                                <label for="alternatepagetemplate" title="#xarML('Use an alternate default page template.')#">
+                                    <xar:mlstring>
+                                        Use Alternate Page Template
+                                    </xar:mlstring>
+                                </label>
+                            </div>
+                            <div class="xar-form-input-wrapper">
+                                <label for="alternatepagetemplatename" title="#xarML('The name of the alternate page template to use.')#" class="xar-form-label">
+                                    <xar:mlstring>
+                                        Alternate Page Template Name:
+                                    </xar:mlstring>
+                                </label>
+                                <xar:data-input type="textbox" id="alternatepagetemplatename" name="alternatepagetemplatename" value="$AlternatePageTemplateName" class="xar-form-textlong" tabindex="$tabindex++"/>
+                                <xar:if condition="!empty($invalid['alternatepagetemplatename'])">
+                                    <span class="xar-error">#$invalid['alternatepagetemplatename']#</span>
+                                </xar:if>
+                            </div>
+                        </xar:if>
+                        <div class="xar-form-input-wrapper">
+                            <label for="defaulttype" title="#xarML('The default type of module to be loaded.')#" class="xar-form-label">
+                                <xar:mlstring>Default Module Type: </xar:mlstring>
+                            </label>
+                            <xar:data-input type="dropdown" name="defaulttype" id="defaulttype" validation="$defaulttype" value="$DefaultModuleType" tabindex="$tabindex++" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="defaultfunction" title="#xarML('Required field. The default function of module to be loaded.')#" class="xar-form-label xar-required">
+                                <xar:mlstring>
+                                    Default Module Function:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="defaultfunction" name="defaultfunction" value="$DefaultModuleFunction" maxlength="100" class="xar-form-textlong" tabindex="$tabindex++"/>
+                            <xar:if condition="!empty($invalid['defaultfunction'])">
+                                <span class="xar-error">#$invalid['defaultfunction']#</span>
+                            </xar:if>
+                        </div>
+                   </fieldset>
+                   <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                General Display Options
+                            </xar:mlstring>
+                        </legend>
+                        <div class="xar-form-input-wrapper">
+                            <label for="themedir" title="#xarML('Required field. The default directory for site themes - no trailing slash.')#" class="xar-form-label xar-required">
+                                <xar:mlstring>
+                                    Default Theme Directory:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="themedir" name="themedir" value="$ThemesDirectory" maxlength="100" class="xar-form-textlong" tabindex="$tabindex++"/>
+                            <xar:if condition="!empty($invalid['themedir'])">
+                                <span class="xar-error">#$invalid['themdir']#</span>
+                            </xar:if>
+                        </div>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="shorturl" id="shorturl" checked="$EnableShortURLsSupport" tabindex="$tabindex++" />
+                            <label for="shorturl" title="#xarML('Enable short url support throughout Xarigami.')#">
+                                <xar:mlstring>
+                                   Enable Short URL Support in this Site - Master Switch
+                                </xar:mlstring>
+                            </label>
+                        </div>
+                         <div class="xar-form-input-wrapper">
+                            <label for="urlspaces" class="xar-form-label" title="#xarML('Replacement of short url spaces with underscore, dash or plus')#">
+                                <xar:mlstring>
+                                    URL Space Replacement:
+                                </xar:mlstring>
+                            </label>
+                             <xar:data-input type="dropdown" id="urlspaces" name="urlspaces" value="$urlspaces" options="$urlspaceoptions" tabindex="$tabindex++" />
+                             <span class="xar-sub"><xar:mlstring>[default _] </xar:mlstring></span>
+                             <p class = "xar-form-container-after">
+                             <xar:mlstring>Change with care. Your site may have existing links that will be broken or lost if you change this.</xar:mlstring>
+                             </p>
+                        </div>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="baseshorturl" id="baseshorturl" value="$SupportShortURLs" checked="$SupportShortURLs" tabindex="$tabindex++" />
+                            <label for="baseshorturl" title="#xarML('Enable short URL support in the base module.')#">
+                                <xar:mlstring>
+                                    Enable short URLS for Base Module
+                                </xar:mlstring>
+                            </label>
+                        </div>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="showcontrolpanel" id="showcontrolpanel" checked="$showcontrolpanel"  tabindex="$tabindex++" />
+                            <label for="showcontrolpanel" title="#xarML('Show link to administration control panel page in breadcrumb links?')#">
+                                <xar:mlstring>
+                                    Show Control Panel link in breadcrumbs?
+                                </xar:mlstring>
+                            </label>
+                        </div>
+
+                    </fieldset>
+
+                    <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                        <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" tabindex="#$tabindex++#" />
+                    </div>
+                </form>
+                <xar:comment>
+                    ----------------- Begin Security Options -------------------
+                </xar:comment>
+                <xar:elseif condition="$tab eq 'security'" />
+                <xar:if condition="!empty($authmodules) and count($authmodules) gt 1">
+                    <xar:style file="xgamisprites" module="base" scope="module" />
+                    <script type="text/javascript">
+                        xar_base_reorder_warn = '#xarML('You must select the authentication module you want to move.')#';
+                    </script>
+                </xar:if>
+                <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                Sessions and Security
+                            </xar:mlstring>
+                        </legend>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="secureserver" id="secureserver" checked="$EnableSecureServer" tabindex="$tabindex++"/>
+                            <label for="secureserver" title="#xarML('Configure to run on a secure server.')#">
+                                <xar:mlstring>
+                                    Configure to run on Secure Server (using SSL)
+                                </xar:mlstring>
+                            </label>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="secureserverport" title="#xarML('Configure the port to be used on a secure server.')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Port to use for SSL:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="integerbox" id="secureserverport" name="secureserverport" value="$SecureServerPort" maxlength="3" class="xar-form-textshort" tabindex="$tabindex++" />
+
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="securitylevel" title="#xarML('Security options for sessions')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Security Level:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="dropdown" name="securitylevel" id="securitylevel" value="$SecurityLevel" validation="$securityvalues" tabindex="$tabindex++" />
+                        </div>
+                        <xar:if condition="xarConfigGetVar('Site.Session.SecurityLevel') eq 'Medium'">
+                            <div class="xar-form-input-wrapper">
+                                <label for="sessionduration" title="#xarML('How long to allow the session to last in days')#" class="xar-form-label">
+                                    <xar:mlstring>
+                                        Session Duration (In Days):
+                                    </xar:mlstring>
+                                </label>
+                                <xar:data-input type="textbox" id="sessionduration" name="sessionduration" value="$SessionDuration" maxlength="3" class="xar-form-textshort" tabindex="$tabindex++" />
+                            </div>
+                        </xar:if>
+                        <div class="xar-form-input-wrapper">
+                            <label for="sessiontimeout" title="#xarML('Session times out in minutes')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Session Inactivity Time Out (Minutes):
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="sessiontimeout" name="sessiontimeout" value="$InactivityTimeout" maxlength="3" class="xar-form-textshort" tabindex="$tabindex++" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="authmodules" title="#xarML('Change the order of authentication')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Authentication Modules:
+                                </xar:mlstring>
+                            </label>
+                            <xar:if condition="!empty($authmodules) and $size gt 1">
+                                 <div id="js_usescript" class="xar-floatleft xar-displaynone">
+                                    <div class="xar-floatleft">
+                                        <button id="goup" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
+                                            <p class="sprite xs-go-up" title="#xarML('Move up')#"><span>#xarML('Move up')#</span></p>
+                                        </button>
+                                        <button id="godown" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
+                                            <p class="sprite xs-go-down" title="#xarML('Move down')#"><span>#xarML('Move down')#</span></p>
+                                        </button>
+                                    </div>
+                                    <div class="xar-floatleft xar-margin-thickleft">
+                                        <xar:data-input type="dropdown" name="authmodules" id="authmodules" size="$size" tabindex="$tabindex++" value="" validation="$authlist"/>
+                                        <input type="hidden" name="authmodule_order" id="authmodule_order" value="" />
+                                    </div>
+                                </div>
+                                <div id="js_noscript">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"><xar:mlstring>Authentication Module</xar:mlstring></th>
+                                                <th scope="col" class="xar-align-right"><xar:mlstring>Actions</xar:mlstring></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <xar:set name="rowclass">'xar-norm'</xar:set>
+                                            <xar:set name="iter">1</xar:set>
+                                            <xar:set name="uptitle">xarML('Move instance up')</xar:set>
+                                            <xar:set name="downtitle">xarML('Move instance down')</xar:set>
+
+                                            <xar:foreach in="$authlist" k="$k" value="$inst">
+                                                <tr class="#$rowclass#">
+                                                    <td>
+                                                        #$inst#
+                                                    </td>
+                                                    <td class="xar-align-right">
+                                                        <xar:if condition="$iter gt 1">
+                                                            <a class="sprite xs-go-up" title="#$uptitle#" href="#xarModURL('base', 'admin', 'updateconfig', array('tab'=>'security','moveinst' => $inst, 'authid' => $authid, 'direction' => 'up'))#">
+                                                            <span>#$uptitle#</span>
+                                                            </a>
+                                                        <xar:else />
+                                                        <p class="sprite xs-blank xar-displayinline"><span>#$downtitle#</span></p>
+                                                        </xar:if>
+
+                                                        <xar:if condition="$iter lt $size">
+                                                            <a class="sprite xs-go-down" title="#$downtitle#" href="#xarModURL('base', 'admin', 'updateconfig', array('tab'=>'security','moveinst' => $inst, 'authid' => $authid, 'direction' => 'down'))#">
+                                                             <span>#$downtitle#</span>
+                                                            </a>
+                                                        <xar:else />
+                                                             <p class="sprite xs-blank xar-displayinline"><span>#$downtitle#</span></p>
+                                                        </xar:if>
+                                                    </td>
+                                                </tr>
+                                                <xar:set name="rowclass">$rowclass=='xar-norm'?'xar-alt':'xar-norm'</xar:set>
+                                                <xar:set name="iter">$iter+1</xar:set>
+                                            </xar:foreach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <xar:else />
+                                    <xar:set name="authmod">current($authmodules)</xar:set>
+                                #$authmod#
+                            </xar:if>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="cookiename" title="#xarML('Override the default cookie name')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Cookie Name:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="cookiename" name="cookiename" value="$CookieName" maxlength="128" class="xar-form-textmedium" tabindex="$tabindex++" />
+                            <xar:mlstring>Default: XARIGAMISID</xar:mlstring>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="cookiepath" title="#xarML('Override the default cookie path')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Cookie Path:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="cookiepath" name="cookiepath" value="$CookiePath" maxlength="128" class="xar-form-textmedium" tabindex="$tabindex++" />
+                            <xar:ml><xar:mlstring>Default: #(1) (limited to the Xarigami directory)</xar:mlstring><xar:mlvar>#xarServerGetBaseURI()#</xar:mlvar></xar:ml>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="cookiedomain" title="#xarML('Override the default cookie domain')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Cookie Domain:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="cookiedomain" name="cookiedomain" value="$CookieDomain" maxlength="128" class="xar-form-textmedium" tabindex="$tabindex++" />
+                            <xar:mlstring>Default: none (not shared across hosts)</xar:mlstring>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="referercheck" title="#xarML('Override the default referer check')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Referer Check:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="referercheck" name="referercheck" value="$RefererCheck" maxlength="40" class="xar-form-textmedium" tabindex="$tabindex++" />
+                            <xar:ml><xar:mlstring>Default: #(1) for security level 'High'</xar:mlstring><xar:mlvar>#xarServerGetVar('HTTP_HOST')#</xar:mlvar></xar:ml>
+                        </div>
+                    </fieldset>
+                   <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                Proxy Configuration
+                            </xar:mlstring>
+                        </legend>
+                        <p>
+                            <xar:mlstring>
+                                If your webserver only allows outgoing network connections (for retrieving headlines, checking links etc.) via a proxy server, specify its hostname and port number here.
+                            </xar:mlstring>
+                        </p>
+                        <div class="xar-form-input-wrapper">
+                            <label for="proxyhost" title="#xarML('Proxy server hostname to use')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Proxy Server:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="proxyhost" name="proxyhost" value="$proxyhost" maxlength="100" class="xar-form-inputlong" tabindex="$tabindex++" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="proxyport" title="#xarML('Proxy server port to use')#" class="xar-form-label">
+                                <xar:mlstring>
+                                    Proxy Port:
+                                </xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="proxyport" name="proxyport" value="$proxyport" maxlength="10" class="xar-form-textshort" tabindex="$tabindex++" />
+                        </div>
+                    </fieldset>
+
+                    <div class="xar-form-footer">
+                            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                            <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" tabindex="$tabindex++" />
+                    </div>
+                </form>
+
+                <xar:comment>
+                    ----------------- Begin URL Rewriting Options -------------------
+                </xar:comment>
+                <xar:elseif condition="$tab eq 'urls'" />
+                <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <xar:template file="modifyconfig-urls" module="base" type="module" />
+                    <div class="xar-form-footer">
+                            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                            <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" tabindex="$tabindex++" />
+                    </div>
+                </form>
+                <xar:comment>
+                    ----------------- Begin Other Options -------------------
+                </xar:comment>
+                <xar:elseif condition="$tab eq 'other'" />
+                <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>
+                                General Options
+                            </xar:mlstring>
+                        </legend>
+
+                        <div class="xar-form-input-wrapper-after xar-padding-topthick">
+                            <xar:data-input type="checkbox" name="loadlegacy" id="loadlegacy" checked="$LoadLegacy" tabindex="$tabindex++" />
+                            <label for="loadlegacy" title="#xarML('Load Legacy Support for older versions (1.x.x)')#">
+                                <xar:mlstring>
+                                    Load Legacy Support for older versions
+                                </xar:mlstring>
+                            </label>
+                        </div>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="htmlenitites" id="htmlenitites" checked="$FixHTMLEntities"  tabindex="$tabindex++" />
+                            <label for="htmlenitites" title="#xarML('Change HTML Entities to readible entities.')#">
+                                <xar:mlstring>
+                                    Fix HTML Entities
+                                </xar:mlstring>
+                            </label>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>Xarigami Resource Feeds</xar:mlstring>
+                        </legend>
+
+                        <p class="xar-form-input-wrapper">
+                            <xar:mlstring>The latest Xarigami feeds include security updates, module and theme releases, references and how tos.</xar:mlstring>
+                         </p>
+
+                        <div class="xar-form-input-wrapper">
+                            <label for="releasenumber" title="#xarML('Number of feeds for Xarigami Resources.')#" class="xar-form-label">
+                                <xar:mlstring>Feed item number to display</xar:mlstring>
+                            </label>
+                            <xar:data-input type="textbox" id="releasenumber" name="releasenumber" value="$releasenumber" maxlength="4" class="xar-form-textshort" tabindex="$tabindex++" />
+                         </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="showresources" class="xar-form-label">
+                                <xar:mlstring>Show the latest Xarigami </xar:mlstring>
+                            </label>
+                            <xar:data-input id="showresources" name="showresources" type="checkbox" checked="$showresources" tabindex="$tabindex++" />
+                            <label for="showresources">
+                                <xar:mlstring>resource articles?</xar:mlstring>
+                            </label>
+                         </div>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input id="showdevnews" name="showdevnews" type="checkbox" checked="$showdevnews" tabindex="$tabindex++" />
+                             <label for="showdevnews">
+                                <xar:mlstring>security and development news?</xar:mlstring>
+                            </label>
+                         </div>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input id="showdevnotes" name="showdevnotes" type="checkbox" checked="$showdevnotes" tabindex="$tabindex++" />
+                            <label for="showdevnotes">
+                                <xar:mlstring>development notes?</xar:mlstring>
+                            </label>
+                         </div>
+                    </fieldset>
+                    <div class="xar-form-footer">
+                            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                            <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                            <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" tabindex="$tabindex++" />
+                    </div>
+                </form>
+            </xar:if>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-include-javascript module="base" filename="formcheck.js" />
+<xar:set name="tabindex">1</xar:set>
+<script type="text/javascript">
+<!--
+    // Enter name of mandatory fields
+    var blocks_fieldRequired = Array("block_name");
+    // Enter field description to appear in the dialog box
+    var blocks_fieldDescription = Array("Name");
+//-->
+</script>
+<xar:style scope="common" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Add Block</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form action="#xarModURL('blocks', 'admin', 'create_instance')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Block Instance Options</xar:mlstring>
+                    </legend>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="block_type" title="#xarML('The type of block that you wish to add.')#" class="xar-form-label">
+                            <xar:mlstring>Parent Module / Type:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="dropdown" name="block_type" id="block_type" value="" validation="$blocktypeoptions" tabindex="$tabindex++" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="block_name" title="#xarML('Block name is required. Every block instance requires a unique name')#" class="xar-form-label xar-required">
+                            <xar:mlstring>Name:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="block_name" id="block_name" value="" maxlength="100" class="xar-form-textmedium" tabindex="$tabindex++" />
+                        <xar:if condition="!empty($invalid['block_name'])">
+                            <span class="xar-error">#$invalid['block_name']#</span>
+                        </xar:if>
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="block_title" title="#xarML('The title of the block as you want it to appear on your website')#" class="xar-form-label">
+                            <xar:mlstring>Title:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="block_title" id="block_title" value="" maxlength="255" class="xar-form-textmedium" tabindex="$tabindex++" />
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="block_template" title="#xarML('Instance templates that you want to use for this block instance.')#" class="xar-form-label">
+                            <xar:mlstring>Instance Template (optional):</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="block_template" id="block_template" value="" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                        (Specified as <code>outer<strong>;</strong>inner</code>)
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="block_groups" title="#xarML('Initial block group to place this block into (optional)')#" class="xar-form-label">
+                            <xar:mlstring>Block Group (optional):</xar:mlstring>
+                        </label>
+                        <xar:data-input type="dropdown" name="block_groups[][gid]" id="block_groups" firstline="--no group--" value="" validation="$groupoptions" tabindex="$tabindex++" />
+
+                    </div>
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="block_state" title="#xarML('This field is used to determine whether the block is shown (maximized) or hidden.')#" class="xar-form-label">
+                            <xar:mlstring>Default State:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="dropdown" name="block_state" id="block_state" value="" validation="$blockstateoptions" tabindex="$tabindex++" />
+                    </div>
+
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#" />
+                    <input type="submit" value="#xarML('Create Instance')#" class="xar-margin-thickright" tabindex="#$tabindex++#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

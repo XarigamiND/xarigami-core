@@ -1,0 +1,7 @@
+/* additions for better sprite alignement */
+/*p > span.esprite { line-height: 140%; }
+legend > span.esprite { line-height: 18px; }*/
+
+a.sprite, a.esprite, a.csprite, a.dsprite {
+   padding-top:2px;
+}

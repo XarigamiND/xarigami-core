@@ -1,0 +1,237 @@
+/* SKYKISS MENU */
+/*  XARIGAMI default block menu styles
+    ul.xar-menu-section
+      li.xar-menu-section
+        h4
+        ul.xar-menu-item
+          li.xar-menu-section
+          li.xar-menu-item
+          li.xar-menu-item-current
+            ul.xar-menu-subitem
+              li.xar-menu-subitem
+              li.xar-menu-subitem-current
+-------------------------------------------------------------------------[comment] */
+#sitetopnav ul.xar-menu-section, #sitetopnav ul.xar-menu-section ul {
+    clear:left;
+    float:left;
+    width:100%;
+    list-style:none;
+    margin:10px 0 0 0;
+    padding:0;
+}
+/* site header menu styles */
+#sitetopnav  ul.xar-menu-section li {
+    display:inline;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+#sitetopnav ul.xar-menu-section ul li a {
+    display:block;
+    float:left;
+    margin:0 0 0 1px;
+    padding:3px 10px;
+    text-align:center;
+    background:#eee;
+    color:#000;
+    text-decoration:none;
+    border-bottom: none;
+    position:relative;
+    left:15px;
+    line-height:1.3em;
+}
+#sitetopnav ul.xar-menu-section li a:hover {
+    background: #4ea9d4;
+    color:#fff;
+}
+#sitetopnav .xar-menu-section ul li a.active,
+#sitetopnav .xar-menu-section ul li a.active:hover {
+    color:#fff;
+    background:#000;
+    font-weight:bold;
+    border-bottom: none;
+}
+ul.xar-menu-section, ul.xar-menu-item, ul.xar-menu-subitem {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ul.xar-menu-section li {
+}
+ul.xar-menu-section a {
+    display: block;
+    list-style: none;
+    border-bottom: none;
+}
+li.xar-menu-section h4 {
+    text-align: right;
+    margin: 0;
+    padding: 3px 0px 2px 0px;
+    text-transform: uppercase;
+    background-color: #eee;
+    font-size: 0.84em;
+    line-height: 1.0;
+    font-weight: bold;
+    font-family: arial, helvetica, sans-serif;
+}
+li.xar-menu-section, li.xar-menu-item, li.xar-menu-item-current {
+ }
+li.xar-menu-item-current, li.xar-menu-item, li.xar-menu-subitem, li.xar-menu-subitem-current {
+    border: none;
+}
+ li.xar-menu-item-current a {
+    background-color: #16497C;
+    color: #fff;
+}
+li.xar-menu-item-current a:hover {
+    text-decoration: none;
+    border-bottom: none;
+    background-color: #5588BC;
+    color: #fff;
+
+}
+li.xar-menu-item a, li.xar-menu-item-current a {
+    padding-left: 5px;
+}
+li.xar-menu-item a:hover {
+    text-decoration: none;
+    border-bottom: none;
+    color:#fff;
+    background-color: #5588BC;
+}
+/* menu subitems */
+ul.xar-menu-subitem {
+    /*border: 5px solid #5588BC;*/
+    padding: 3px;
+    background-color: #16497C;
+}
+ul.xar-menu-subitem li {
+    font-size:  92%;
+}
+li.xar-menu-subitem a {
+    font-size:  92%;
+    background-color: #F3F7FB;
+    color: #16497C;
+}
+li.xar-menu-subitem a:hover {
+    text-decoration: none;
+    border-bottom: none;
+    background-color: #06396C;
+    color:  #FFF;
+    padding-bottom: 0px;
+}
+li.xar-menu-subitem-current a {
+    padding-right: 5px;
+    font-size:  92%;
+}
+li.xar-menu-subitem-current a:hover {
+    color: #06396C;
+    background-color: #F3F7FB;
+}
+/* additions for Superfish menu */
+.sf-menu a {
+    border-left:    1px solid #F4F4FF;
+    border-top:     1px solid #F4F4FF;
+}
+#adminmenu {
+    background: transparent;
+    position: relative;
+    z-index: 1000;
+    height: 0;
+}
+#adminmenu div.xar-block-body-topnav, #sitetopnav div.xar-block-body-topnav {
+    position: relative;
+    padding: 0 15px 0 15px;
+    margin: 0;
+}
+div.xar-admin-navbar {
+    margin: 1px 0px 0px 0px;
+    padding: 0px 10px 0px 10px;
+    float: left;
+    border: solid 2px #5588BC;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 15px;
+    background: #FFFFFF;
+    top: 0px;
+    position: fixed;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+    display: block;
+    box-shadow: rgba(0,0,0,0.4) 0px 5px 5px;
+}
+.sf-menu a, .sf-menu-admin a { border-bottom: none; border-top: none; border-left: none; }
+.sf-menu li, .sf-menu-admin li { background: #FFF; }
+.sf-menu li { font-weight: bold; }
+.sf-menu-admin li { text-transform: uppercase; font-weight: bold; color: #FFF; font-size: 0.8em; line-height: 1.2em;}
+
+.sf-menu-admin li:hover ul, .sf-menu-admin li.sfHover ul { margin-top: -3px; }
+.sf-menu li:hover ul, .sf-menu li.sfHover ul { margin-top: -2px; }
+.sf-menu-admin li li:hover ul, .sf-menu-admin li li.sfHover ul, .sf-menu li li:hover ul, .sf-menu li li.sfHover ul { margin-top: 0px; }
+ul.sf-menu > li a, ul.sf-menu li li a, ul.sf-menu-admin > li a, ul.sf-menu-admin li li a { color: #16497C; }
+.sf-menu-admin li li, .sf-menu-admin li li li  { text-transform: none; font-weight: bold; font-size: 1em; line-height: 1.5em; }
+.sf-menu li ul, .sf-menu-admin li ul { 
+    background: transparent; 
+    box-shadow: 0px 5px 4px 1px rgba(0,0,0,0.5);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.sf-menu li ul ul, .sf-menu-admin li ul ul {
+    border-radius: 3px;
+}
+.sf-menu li li:last-child, .sf-menu li li:last-child a:hover, .sf-menu li li:last-child li:last-child a:hover,
+.sf-menu-admin li li:last-child, .sf-menu-admin li li:last-child a:hover, .sf-menu-admin li li:last-child li:last-child a:hover {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px; 
+}
+.sf-menu li li:last-child li a:hover, .sf-menu-admin li li:last-child li a:hover
+.sf-menu-admin li li:last-child  li a:hover, .sf-menu-admin li li.sfHover > a {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.sf-menu li li li:first-child, .sf-menu li ul ul li:first-child a:hover, .sf-menu li.sfHover > a,
+.sf-menu-admin li li li:first-child, .sf-menu-admin li ul ul li:first-child a:hover, .sf-menu-admin li.sfHover > a { 
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.sf-menu li li.sfHover > a, .sf-menu-admin li li.sfHover > a {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.sf-menu li li, .sf-menu-admin li li, .sf-menu li.sfHover > a, .sf-menu-admin li.sfHover > a { background: #F3F7FB; }
+.sf-menu li li li, .sf-menu-admin li li li, .sf-menu li li.sfHover > a, .sf-menu-admin li li.sfHover > a { background: #E4EDF6;}
+.sf-menu li li li a, .sf-menu-admin li li li a { color: #16497C; }
+.sf-menu a:focus, .sf-menu-admin a:focus, .sf-menu a:hover, .sf-menu-admin a:hover, .sf-menu a:active,
+.sf-menu-admin a:active, li.sf-current a.sf-current:hover, .sf-menu li.sfHover:hover > a:hover, .sf-menu-admin li.sfHover:hover > a:hover {
+    /*border-radius: 5px;*/ 
+    background-color: #5588BC;
+    color: #FFFFFF; text-decoration: none; border-bottom: none;
+}
+li.sf-current a.sf-current { background: #5588BC; color: #FFFFFF; }
+.sf-navbar li { background-color: #F3F7FB; }
+.sf-navbar, .sf-navbar li.current, .sf-navbar li li  { background: #16497C; color: #F3F7FB; }
+.sf-navbar li:hover, .sf-navbar li.sfHover, .sf-navbar li li.current, .sf-navbar a:focus, .sf-navbar a:hover, .sf-navbar a:active {
+    background: #06396C; color: #FFFFFF;
+}
+.sf-navbar ul li:hover, .sf-navbar ul li.sfHover, ul.sf-navbar ul li:hover li, ul.sf-navbar ul li.sfHover li,
+.sf-navbar ul a:focus, .sf-navbar ul a:hover, .sf-navbar ul a:active {
+    background: #F3F7FB;
+}
+ul.sf-navbar li li li:hover, ul.sf-navbar li li li.sfHover, .sf-navbar li li.current li.current,
+.sf-navbar ul li li a:focus, .sf-navbar ul li li a:hover, .sf-navbar ul li li a:active {
+    background: #16497C;
+}
+li.cat a.navbar-home:hover, li.xar-menu-subitem-current a:hover {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+}  
+li:hover > a > .sf-sub-indicator, li.sfHover > a > .sf-sub-indicator {
+    background: url('../images/arrows-000000.png') no-repeat -10px -100px;
+}
+li:hover > a:hover > .sf-sub-indicator, li.sfHover > a:hover > .sf-sub-indicator {
+    background: url('../images/arrows-ffffff.png') no-repeat -10px -100px;
+}
+/* Fix to get right arrows on Superfish catnav */
+li li:hover > a:hover > .sf-sub-indicator,  ul.sf-menu li li.sfHover > a > .sf-sub-indicator { background-position: -10px 0; }

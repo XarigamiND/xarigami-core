@@ -1,0 +1,61 @@
+<p><xar:mlstring>The Label field:</xar:mlstring></p>
+<ul>
+    <li><xar:mlstring>is used as the 'name' when you CREATE a property (spaces will be replaced with underscores).</xar:mlstring></li>
+    <li><xar:mlstring>can be CHANGED to whatever you want, after you create the property, independenly of 'name'.</xar:mlstring></li>
+    <li> <xar:mlstring>if cleared/emptied, will DELETE this property for all items.</xar:mlstring></li>
+</ul>
+<xar:set name="reordericon">'<span class="esprite xs-move xar-displayinline"><span>'.xarML('Blue Reorder Icon').'</span></span>'</xar:set>
+<p>
+    <xar:ml>
+    <xar:mlstring>Reorder the properties by click and dragging on the reorder icons [Example: #(1)].</xar:mlstring>
+    <xar:mlvar>#$reordericon#</xar:mlvar>
+    </xar:ml>
+</p>
+
+<xar:if condition="!empty($objectid) and $objectid lt 3">
+  <h3>
+    <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module. Trying to modify the properties of this object may break the Dynamic Data module. Proceed with caution.</xar:mlstring>
+  </h3>
+</xar:if>
+
+<div id="contain">
+    <div id="propertyeditlist">
+        <xar:foreach in="$fields" value="$field">
+            <xar:comment>Include the edit-part for a property</xar:comment>
+            <xar:template file="editproperty"
+                          module="dynamicdata"
+                          subdata="array('objectid'=&gt; $objectid, 'field' =&gt; $field, 'labels' =&gt; $labels,'fieldtypeprop' =&gt; $fieldtypeprop, 'fieldstatusprop' =&gt; $fieldstatusprop)"/>
+        </xar:foreach>
+    </div>
+</div>
+<xar:comment>Include the part for creating a new property</xar:comment>
+<xar:template file="newproperty" module="dynamicdata"/>
+
+
+<xar:if condition="$modid eq 182">
+  <p>
+    <xar:mlstring>Note: for completely dynamic Objects created in Dynamic Data like this one, you need to define one property that is of type "Item ID"</xar:mlstring>
+  </p>
+</xar:if>
+
+<xar:if condition="!empty($hooks)">
+  <xar:foreach in="$hooks" key="$module" value="$output">
+    #$output#
+  </xar:foreach>
+</xar:if>
+<fieldset>
+<div class="xar-align-center">
+  <xar:comment>
+    Optional extra table for data sources - use a text box if you want to make this configurable
+    <input type="text" name="table" id="table" value="#$table#" />
+  </xar:comment>
+  <xar:if condition="!empty($table)">
+    <input type="hidden" name="table" id="table" value="#$table#" />
+  </xar:if>
+  <input type="hidden" name="authid" id="authid" value="#$authid#" />
+  <input type="hidden" name="objectid" id="objectid" value="#$objectid#" />
+  <input type="hidden" name="modid" id="modid" value="#$modid#" />
+  <input type="hidden" name="itemtype" id="itemtype" value="#$itemtype#" />
+  <input type="submit" value="#xarML('Update Properties')#" />
+</div>
+</fieldset>

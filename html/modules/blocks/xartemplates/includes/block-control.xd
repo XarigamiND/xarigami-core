@@ -1,0 +1,27 @@
+<xar:if condition="isset($group_name) and $group_name ne 'header'">
+    <xar:set name="edit"><xar:mlstring>Edit</xar:mlstring></xar:set>
+    <xar:set name="hide"><xar:mlstring>Hide</xar:mlstring></xar:set>
+    <xar:set name="move"><xar:mlstring>Move</xar:mlstring></xar:set>
+    <xar:set name="delete"><xar:mlstring>Delete</xar:mlstring></xar:set>
+    <xar:set name="blockname">isset($name)?$name:''</xar:set>
+    <xar:set name="currenturl">xarServerGetCurrentURL(array(),false)</xar:set>
+    <xar:if condition="xarSecurityCheck('EditBlock', 0, 'adminmenu', $module.':'.$type.':'.$name)">
+    <xar:style scope="module" module="blocks" file="blockcontrol" />
+    <xar:set name="editlink">xarModURL('blocks','admin','modify_instance',array('bid'=>$bid,'returnurl'=>$currenturl))</xar:set>
+    <xar:set name="hidelink">xarModURL('blocks','admin','change_instance_state',array('bid'=>$bid,'blockstate'=>1,'returnurl'=>$currenturl))</xar:set>
+    <div class="xar-block-control">
+        <ul title="#$name#">
+            <li><a class="clicker" href=""><span class="clickerhide">#$edit#</span></a>
+                <ul>
+                    <li><a href="#$editlink#" title="#$edit# - #$blockname#">#$edit#</a></li>
+                    <li><a href="#$hidelink#" title="#$hide# - #$blockname#">#$hide#</a></li>
+                    <xar:if condition="xarSecurityCheck('DeleteBlock', 0, 'adminmenu', $module.':'.$type.':'.$name)">
+                        <xar:set name="deletelink">xarModURL('blocks','admin','delete_instance',array('bid'=>$bid,'returnurl'=>$currenturl))</xar:set>
+                        <li><a href="#$deletelink#" title="#$delete# - #$blockname#">#$delete#</a></li>
+                    </xar:if>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </xar:if>
+</xar:if>

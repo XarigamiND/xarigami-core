@@ -1,0 +1,113 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="tabcounter">1</xar:set>
+<xar:set name="onchange">'javascript:this.form.submit();'</xar:set>
+<div class="xar-form-input-wrapper">
+    <label for="metadescription#$blockid#" title="#xarML('Add the meta description.')#" class="xar-form-label">
+        <xar:mlstring>
+            Meta Description:
+        </xar:mlstring>
+    </label>
+    <div class="xar-form-container-after">
+        <textarea name="metadescription" id="metadescription#$blockid#" class="xar-form-textarealarge" tabindex="#$tabcounter++#">#$metadescription#</textarea>
+    </div>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="metakeywords#$blockid#" title="#xarML('Add the meta keywords.')#" class="xar-form-label">
+        <xar:mlstring>
+            Meta Keywords:
+        </xar:mlstring>
+    </label>
+    <div class="xar-form-container-after">
+        <textarea name="metakeywords" id="metakeywords#$blockid#" class="xar-form-textarealarge" tabindex="#$tabcounter++#">#$metakeywords#</textarea>
+    </div>
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="defaultrss" id="defaultrss'.$blockid.'" value="$defaultrss"  onchange="$onchange" tabindex="$tabcounter++"/>
+    <label for="defaultrss" title="#xarML('You can specify a default RSS link otherwise automatic rss links are generated per page')#">
+        <xar:mlstring>
+           Use a default RSS link
+        </xar:mlstring>
+    </label>
+</div>
+<xar:if condition="$defaultrss eq TRUE">
+    <div class="xar-form-input-wrapper">
+        <label for="rssurl" title="#xarML('Enter your default RSS link')#" class="xar-form-label">
+            <xar:mlstring>
+                Default RSS Link:
+            </xar:mlstring>
+        </label>
+        <xar:data-input type="url" name="rssurl" id="rssurl'.$blockid.'" value="$rssurl" maxlength="100" class="xar-form-textmedium" tabindex="$tabcounter++"/>
+    </div>
+</xar:if>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="usegeo" id="usegeo'.$blockid.'" value="$usegeo" tabindex="$tabcounter++" onchange="$onchange"/>
+    <label for="usegeo" title="#xarML('GeoUrl allows you to locate websites that are geographically close to yours.')#">
+        <xar:mlstring>
+            Use GeoURL
+        </xar:mlstring>
+    </label>( <a href="http://geourl.org/" target="_BLANK">
+        <xar:mlstring>
+            About GeoURL
+        </xar:mlstring>
+    </a>)
+</div>
+<xar:if condition="$usegeo eq TRUE">
+    <div class="xar-form-input-wrapper">
+        <label for="longitude" title="#xarML('Enter your longitude.')#" class="xar-form-label">
+            <xar:mlstring>
+                Your Longitude:
+            </xar:mlstring>
+        </label>
+        <input type="text" name="longitude" id="longitude#$blockid#" value="#$longitude#" maxlength="100" class="xar-form-textmedium" tabindex="#$tabcounter++#"/>
+    </div>
+    <div class="xar-form-input-wrapper">
+        <label for="latitude" title="#xarML('Enter your latitude')#" class="xar-form-label">
+            <xar:mlstring>
+                Your Latitude:
+            </xar:mlstring>
+        </label>
+        <input type="text" name="latitude" id="latitude#$blockid#" value="#$latitude#" maxlength="100" class="xar-form-textmedium" tabindex="#$tabcounter++#"/>
+    </div>
+</xar:if>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="usesummary" id="usesummary'.$blockid.'" value="$usesummary"  tabindex="$tabcounter++"/>
+    <label for="usesummary" title="#xarML('Use article summaries for the meta description')#">
+        <xar:mlstring>
+           Use dynamic meta description from article summaries?
+        </xar:mlstring>
+    </label>
+</div>
+<div class="xar-form-input-wrapper">
+    <label title="#xarML('Xarigami can dynamically generate your meta keywords based on the words used in your Articles or in your Keywords.')#" class="xar-form-label" >
+        <xar:mlstring>
+            Use Dynamic Keywords From:
+        </xar:mlstring>
+    </label>
+    <div class="xar-form-container-after">
+        <xar:data-input type="radio" name="usedk" id="usedk'.$blockid.'_none" validation="$dkoptions" value="$usedk" layout="vertical" tabindex="$tabcounter++"/>
+    </div>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="copyrightpage#$blockid#" title="#xarML('Xarigami can generate the proper links for your copyright page as used by Mozilla and other popular browsers.')#" class="xar-form-label">
+        <xar:mlstring>
+            Copyright Page:
+        </xar:mlstring>
+    </label>
+    <input type="text" name="copyrightpage" id="copyrightpage#$blockid#" value="#$copyrightpage#" maxlength="100" class="xar-form-textlong" tabindex="#$tabcounter++#"/>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="helppage#$blockid#" title="#xarML('Xarigami can generate the proper links for your help page as used by Mozilla and other popular browsers.')#" class="xar-form-label">
+        <xar:mlstring>
+            Help Page:
+        </xar:mlstring>
+    </label>
+    <input type="text" name="helppage" id="helppage#$blockid#" value="#$helppage#" maxlength="100" class="xar-form-textlong" tabindex="#$tabcounter++#"/>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="glossary#$blockid#" title="#xarML('Xarigami can generate the proper links for your glossary page as used by Mozilla and other popular browsers.')#" class="xar-form-label">
+        <xar:mlstring>
+            Glossary:
+        </xar:mlstring>
+    </label>
+    <input type="text" name="glossary" id="glossary#$blockid#" value="#$glossary#" maxlength="100" class="xar-form-textlong" tabindex="#$tabcounter++#"/>
+</div>

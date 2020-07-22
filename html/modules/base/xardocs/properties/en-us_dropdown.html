@@ -1,0 +1,72 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Dropdown Select property provides a drop down selection
+        list with options that are user definable.
+    </p>
+    <h2>Attributes</h2>
+    <ul>
+        <li>
+            <strong>class</strong>: [default='']
+            <br />
+            The class can be specified and will be applied to the select tag that is generated
+            from the <em>dropdown</em> data property.
+        </li>
+        <li>
+            <strong>firstline</strong>: [default='']
+            <br />
+            This attribute enables you to specify a first line in the selection list displayed
+            as an instruction to the user.
+        </li>
+        <li>
+            <strong>function</strong>: [default='']
+            <br />
+            Add a xarigami function that delivers an array of values to populate the drop down
+            selectiont list eg <pre style="font-size:smaller"> <code>xarModAPIFunc('articles','user','dropdownlist',array('ptid'=>1));</code></pre>
+        </li>
+        <li>
+            <strong>options</strong>: [default=array()]
+            <br />
+            This list can be specified as a non-associative or associative array of values
+            to populate the drop down selection list. eg
+            <pre style="font-size:smaller"> <code>1,red;2,blue;3,green;4,orange</code></pre>
+            or
+            <pre style="font-size:smaller"> <code>red;blue;green;orange</code></pre>
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>dropdown</em> type to capture data in forms
+        without the need to define a property.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="dropdown" name="myfield" id="myfield" options="$myoptions"
+            firstline="Please select" <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <p> The 'options' array is in the form of a non-associative or associative array of id=>'value' options eg:
+        <p style="font-size:smaller"><code>array(1=>'red', 2=>'blue', 3=>'green')</code></p>
+    <p>
+        Note that 'validation' is an equivalent legacy attribute and still honoured at this time.
+    </p>
+    <h3>Defined Data Property</h3>
+    <p>
+        You can capture data for this bound property in your templates with the data input tag.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['dropdownselect']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="dropdown" id="myitems"
+            name="myitems" firstline="Please select item" /&gt;
+    </pre>
+</div>

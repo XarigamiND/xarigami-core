@@ -1,0 +1,37 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Send an Email to </xar:mlstring>
+                <a href="&xar-modurl-roles-user-display;&amp;uid=#$uid#">#xarVarPrepForDisplay($name)#</a>
+            </h2>
+            <form method="post" action="&xar-modurl-roles-user-email;&amp;phase=confirm#" enctype="application/x-www-form-urlencoded">
+                <div>
+                    <xar:if condition="!empty($error_message)">
+                        <div class="xar-error">#xarVarPrepForDisplay($error_message)#</div>
+                    </xar:if>
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="uid" id="uid" value="#$uid#" />
+                    <div>
+                        <div><label for="subject"><xar:mlstring>Subject:</xar:mlstring></label></div>
+                        <input type="text" name="subject" id="subject" size="40" maxlength="100" value="#xarVarPrepForDisplay($subject)#" />
+                    </div>
+                    <div>
+                        <div><label for="message"><xar:mlstring>Message:</xar:mlstring></label></div>
+                        <textarea name="message" id="message" rows="20" cols="60">#xarVarPrepForDisplay($message)#</textarea>
+                    </div>
+                    <xar:if condition="!empty($return_url)">
+                        <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+                    </xar:if>
+                    <input name="submit" type="submit" value="#xarML('Send')#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

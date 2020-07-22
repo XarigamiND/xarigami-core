@@ -1,0 +1,410 @@
+<div id="install">
+    <xar:template file="upstatus"/>
+    <div id="step">
+        <xar:if condition="$phase eq '0'">
+             <h1><xar:mlstring>Select language</xar:mlstring></h1>
+        <xar:elseif condition="$phase eq 1" />
+             <h1><xar:mlstring>Review requirements</xar:mlstring></h1>
+        <xar:elseif condition="$phase eq 2"/>
+            <h1><xar:mlstring>Upgrade status</xar:mlstring></h1>
+        <xar:elseif condition="$phase eq 3"/>
+            <h1><xar:mlstring>Database upgrade</xar:mlstring></h1>
+        <xar:elseif condition="$phase eq 4"/>
+            <h1><xar:mlstring>Database health check</xar:mlstring></h1>
+        <xar:elseif condition="$phase eq 5"/>
+            <h1><xar:mlstring>Upgrade summary</xar:mlstring></h1>
+        </xar:if>
+        <xar:if condition="$phase ne 1 and $phase ne 0">
+            <p>
+            <xar:ml>
+                <xar:mlstring>
+                    The following table
+                    summarizes the status of the files in your #(1) installation, and the current status of your database.
+                </xar:mlstring>
+                <xar:mlvar>#$dbversionid#</xar:mlvar>
+            </xar:ml>
+            </p>
+            <table>
+                <tr>
+                    <th class="xar-align-left" ></th>
+                    <th class="xar-align-center" style="width:40%;">Files</th>
+                    <th class="xar-align-center" style="width:40%;">Database</th>
+                </tr>
+                <tr>
+                    <td class="xar-align-left">
+                        <label title="#xarML('Distribution name')#" class="xar-form-label">
+                            <strong><xar:mlstring>Core Name:</xar:mlstring></strong>
+                        </label>
+                    </td>
+                    <td class="xar-align-center">
+                        #$fileversionid#
+                    </td>
+                     <td class="xar-align-center">
+                        #$dbversionid#
+                    </td>
+                </tr>
+              <tr>
+                    <td class="xar-align-left">
+                        <label title="#xarML('Release.')#" class="xar-form-label">
+                            <strong><xar:mlstring>Release:</xar:mlstring></strong>
+                        </label>
+                    </td>
+                     <td class="xar-align-center">
+                         #$fileversionsub#
+                    </td>
+                     <td class="xar-align-center">
+                            #$dbversionsub#
+                    </td>
+                </tr>
+                <tr>
+                    <td class="xar-align-left">
+                        <label title="#xarML('Current Version.')#" class="xar-form-label">
+                            <strong><xar:mlstring>Version:</xar:mlstring></strong>
+                        </label>
+                    </td>
+                     <td class="xar-align-center">
+                         #$fileversion#
+                    </td>
+                    <td class="xar-align-center">
+                            #$dbversion#
+                    </td>
+                </tr>
+            </table>
+
+        </xar:if>
+        <xar:if condition="$phase eq 0">
+
+            <p>
+                <xar:mlstring>
+                    To begin the Upgrade process, select your language from those available and click on continue.
+                </xar:mlstring>
+            </p>
+            <form action="upgrade.php" method="post">
+                <p class="left">
+                    <label for="upgrade_language">
+                        <xar:mlstring>Language:</xar:mlstring>
+                    </label>
+                    <select name="upgrade_language">
+                        <xar:foreach in="$languages" key="$key" value="$value">
+                            <xar:if condition="$upgrade_language == $key">
+                                <option value="#$key#" selected="selected">#$value# (#$key#)</option>
+                            <xar:else />
+                                <option value="#$key#">#$value# (#$key#)</option>
+                            </xar:if>
+                        </xar:foreach>
+                    </select>
+                    <input type="hidden" name="phase" id="phase" value="1"/>
+                    <xar:set name="buttonnext">
+                        <xar:mlstring>Continue</xar:mlstring>
+                    </xar:set>
+                    <input type="submit" value="#$buttonnext#" />
+                </p>
+            </form>
+        <xar:elseif condition="$phase eq 1" />
+            <p>
+                <xar:mlstring>
+                        Thank you for using Xarigami and taking the time to upgrade your site.
+                    </xar:mlstring>
+                </p>
+            <p>
+                <xar:set name="upgradedocs">'<a target="_blank" href="http://xarigami.com/resources/upgrading_to_the_latest_xarigami">'.xarML('Upgrade documentation').'</a>'</xar:set>
+                <xar:ml>
+                <xar:mlstring>
+                    Please ensure you have reviewed the #(1) before proceeding with this Upgrade.
+                    You must prepare your website theme templates and files for upgrade before you continue.
+                </xar:mlstring>
+                <xar:mlvar>
+                    #$upgradedocs#
+                </xar:mlvar>
+                </xar:ml>
+            </p>
+            <h3>Check specific notes for Version #$fileversion#:</h3>
+            <p>
+                <xar:set name="earlier">'<a target="_blank" href="http://xarigami.com/resources/upgrading_to_the_latest_xarigami#specifics">'.xarML('specific version documentation').'</a>'</xar:set>
+                <xar:ml>
+                    <xar:mlstring>Only notes for your specific file version are shown here. Please check #(1) if you are upgrading from an early version.</xar:mlstring>
+                    <xar:mlvar>#$earlier#</xar:mlvar>
+                </xar:ml>
+            </p>
+            <xar:template type="system" module="installer" file="../../$notefile" />
+            <p>
+                 <xar:mlstring>Once you have prepared for upgrade, this upgrade process should take about 5 minutes.</xar:mlstring>
+            </p>
+
+            <form action="upgrade.php" method="post">
+                <p class="left">
+
+                    <input type="hidden" name="phase" id="phase" value="2"/>
+                    <xar:set name="buttonnext">
+                        <xar:mlstring>Continue</xar:mlstring>
+                    </xar:set>
+                    <input type="submit" value="#$buttonnext#" />
+                </p>
+            </form>
+        <xar:elseif condition="$phase eq 2" />
+            <h3>
+               <xar:mlstring> Status:</xar:mlstring>
+            </h3>
+            <p>
+                <xar:if condition="($fileversionid eq 'Xarigami') and ($fileversionid eq $dbversionid)">
+                    <xar:if condition="$versioncompare eq 0">
+                        <xar:mlstring>Your database matches your current file release.</xar:mlstring>
+                        <br /><strong><xar:mlstring>There is no need for any upgrade of your database. There may be theme or other files needing changes.</xar:mlstring></strong>
+                    <xar:elseif condition="$versioncompare eq 1"/>
+                        <xar:mlstring>Your Xarigami file version is greater than your database version. </xar:mlstring>
+                        <br />
+                        <strong><xar:mlstring>You should ensure you are prepared to upgrade your database now.</xar:mlstring></strong>
+                    <xar:else/>
+                        <xar:mlstring>The database release version is higher than the file version. You need to update your files to the latest
+                        Xarigami release distribution. Please download it from </xar:mlstring><a href="http://xarigami.com">http://xarigami.com</a>.
+                    </xar:if>
+                <xar:elseif condition="$fileversionid eq 'Xaraya'" />
+                    <xar:if condition="$versioncompare eq 1">
+                        <strong><xar:mlstring>You should ensure you are prepared to upgrade your database now.</xar:mlstring></strong>
+                     <xar:else/>
+                        <xar:mlstring>The file and database versions of your installation are not compatible and cannot be upgraded.
+                    Please contact Xarigami support for help if you have difficulty fixing this situation.</xar:mlstring>.
+                    </xar:if>
+                <xar:else/>
+                    <xar:mlstring>The file and database versions of your installation are not compatible and cannot be upgraded.
+                    Please contact Xarigami support for help if you have difficulty fixing this situation.</xar:mlstring>.
+                </xar:if>
+            </p>
+
+            <xar:if condition="($fileversionid eq 'Xarigami') and ($fileversionrev ne $dbversionrev) and ($versioncompare eq 0)">
+                <h3><xar:mlstring> Note:</xar:mlstring>
+                </h3>
+                <p>
+                    <xar:mlstring>Your file revision: </xar:mlstring><strong>#$fileversionrev#</strong>
+                <br />
+                    <xar:mlstring>This database revision: </xar:mlstring><strong> #$dbversionrev#</strong>
+                </p>
+                <p>
+                    <xar:mlstring>You have upgraded your files from Monotone or a nightly file build.
+                    There maybe database changes due to these revision differences, but they are not covered by this Upgrade process.
+                    You can update the revision in your database using the link below. Please check with Xarigami support if you are unsure about continuing.
+                    </xar:mlstring>
+                </p>
+                <form action="upgrade.php" method="post">
+                    <p class="center">
+                        <input type="hidden" name="phase" id="phase" value="2"/>
+                        <input type="hidden" name="action" id="action" value="updaterev"/>
+                        <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                        <input type="submit" value="#xarML('Update Database Revision')#" />
+                    </p>
+                </form>
+            </xar:if>
+            <xar:if condition="($fileversionid eq 'Xarigami') and ($versioncompare eq 0)">
+                <h3><xar:mlstring>Finalize upgrade:</xar:mlstring></h3>
+
+                      <p></p>
+                <p style="text-align:left;">
+                 <form action="upgrade.php" method="post">
+                    <input type="hidden" name="phase" id="phase" value="4"/>
+                    <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                    <input type="submit" value="#xarML('Finalize Upgrade')#" />
+                </form>
+                </p>
+
+            <xar:elseif condition="$versioncompare eq 1"/>
+                <xar:if condition="!$upgradable">
+                    <xar:set name="upgradeversion">$dbversionid == 'Xaraya'?'Xaraya 1.1.1': 'Xarigami 1.1.6'</xar:set>
+                   <p>
+                        <xar:ml>
+                            <xar:mlstring>You must have an existing database version of at least <strong>#(1)</strong> in order to run the upgrader.</xar:mlstring>
+                            <xar:mlvar>#$upgradeversion#</xar:mlvar>
+                        </xar:ml>
+                   </p>
+                <xar:else/>
+                   <p> Now preparing to run an upgrade from<strong>
+                        #$dbversionid# #$dbversionsub# #$dbversion# </strong>
+                        to version <strong> #$fileversionid# #$fileversionsub# #$fileversion#</strong>.
+                   </p>
+                    <form action="upgrade.php" method="post">
+                        <p class="center">
+                            <input type="hidden" name="phase" id="phase" value="3"/>
+                           <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+
+                        <input type="submit" value="#xarML('Run Upgrade')#" />
+                        </p>
+                    </form>
+                </xar:if>
+            </xar:if>
+        <xar:elseif condition="$phase eq 3"/>
+            <form action="upgrade.php" method="post">
+                <table style="margin-top:10px; width:100%" class="xar-sub">
+                    <tr>
+                        <th style="border-bottom: dotted 1px; text-align: left">Task</th>
+                        <th style="border-bottom: dotted 1px; width:10%; text-align: left">Result</th>
+                        <th style="border-bottom: dotted 1px; width:10%; text-align: left">Reference</th>
+                        <th style="border-bottom: dotted 1px; width:2%; text-align: left"></th>
+                    </tr>
+                    <xar:if condition="empty($uplist)">
+                        <tr>
+                            <td colspan="4" style="text-align: center">
+                                <xar:mlstring>No tasks completed</xar:mlstring>
+                            </td>
+                        </tr>
+                    <xar:else/>
+                        <xar:foreach in="$uplist" value="$upnumber">
+                            <xar:foreach in="$upnumber" value="$upgrade">
+                                <xar:foreach in="$upgrade['tasks']" value="$task">
+                                    <tr >
+                                        <td style="text-align:left;">#$task['description']#</td>
+                                        <xar:if condition="$task['success']">
+                                            <xar:set name="reply_color">'green'</xar:set>
+                                        <xar:else/>
+                                            <xar:set name="reply_color">'red'</xar:set>
+                                        </xar:if>
+                                        <td style="color: #$reply_color#">#$task['reply']#</td>
+                                        <td>#$task['reference']#</td>
+                                         <td>
+
+                                            <xar:if condition="isset($task['success']) AND ($task['success'] eq 1) ">
+                                                &#160;
+                                            <xar:else />
+                                                <form action="upgrade.php" method="post">
+                                                    <input type="hidden" name="phase" id="phase" value="4"/>
+                                                    <input type="hidden" name="checkfix" id="checkfix" value="#$task['reference']#"/>
+                                                    <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                                                    <input type="submit" value="#xarML('Fix')#" />
+                                                </form>
+                                            </xar:if>
+
+                                        </td>
+                                    </tr>
+                                </xar:foreach>
+                            </xar:foreach>
+                        </xar:foreach>
+                    </xar:if>
+                </table>
+                <xar:if condition="!empty($upgrade['message']) AND empty($upgrade['errormessage'])">
+                    <h3 style="width:100%;">#$upgrade['message']#</h3>
+                 <xar:else />
+                     <p>#$upgrade['errormessage']#</p>
+                </xar:if>
+                <xar:if condition="$iserror ne 1">
+                <p></p>
+                <p style="text-align:left;">
+                    <input type="hidden" name="phase" id="phase" value="5"/>
+                    <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                    <input type="submit" value="#xarML('Finalize Upgrade')#" />
+                </p>
+                </xar:if>
+            </form>
+            <xar:if condition="!empty($upgrade['errormessage'])">
+                <p><xar:mlstring>You may wish to run upgrade again after checking the problems above, and prior to finalising the upgrade</xar:mlstring></p>
+                <form action="upgrade.php" method="post">
+                    <p style="text-align:left;">
+                        <input type="hidden" name="phase" id="phase" value="3"/>
+                       <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+
+                    <input type="submit" value="#xarML('Run Upgrade Again')#" />
+                    </p>
+                </form>
+            </xar:if>
+        <xar:elseif condition="$phase eq 4"/>
+            <form action="upgrade.php" method="post">
+                <table style="margin-top:10px; width:100%" class="xar-sub">
+                    <tr>
+                        <th style="border-bottom: dotted 1px; text-align: left">Task</th>
+                        <th style="border-bottom: dotted 1px; width:15%; text-align: left">Result</th>
+                        <th style="border-bottom: dotted 1px; width:15%; text-align: left">Reference</th>
+                        <th style="border-bottom: dotted 1px; width:2%; text-align: left"></th>
+                    </tr>
+                    <xar:if condition="empty($checklist)">
+                        <tr>
+                            <td colspan="4" style="text-align: center">
+                                <xar:mlstring>No checks required</xar:mlstring>
+                            </td>
+                        </tr>
+                    <xar:else/>
+                         <xar:foreach in="$checklist" value="$checknumber">
+                            <xar:foreach in="$checknumber" value="$check">
+                                <xar:if condition="isset($check['tasks']) and is_array($check['tasks'])">
+                                    <xar:foreach in="$check['tasks']" value="$task">
+                                    <tr>
+                                        <td style="text-align:left;">#$task['description']#</td>
+                                        <xar:if condition="$task['success'] eq 1 AND $task['test'] eq 1">
+                                            <xar:set name="reply_color">'green'</xar:set>
+                                        <xar:elseif condition="$task['success'] eq 0 "/>
+                                            <xar:set name="reply_color">'orange'</xar:set>
+                                        <xar:else />
+                                             <xar:set name="reply_color">'red'</xar:set>
+                                        </xar:if>
+                                        <td style="color: #$reply_color#">#$task['reply']#</td>
+
+                                        <td>#$task['reference']#</td>
+                                        <td>
+                                            <xar:if condition="$task['success'] eq 1 AND $task['test'] eq 1">
+                                                &#160;
+                                            <xar:else />
+                                                <form action="upgrade.php" method="post">
+                                                    <input type="hidden" name="phase" id="phase" value="4"/>
+                                                    <input type="hidden" name="checkfix" id="checkfix" value="#$task['reference']#"/>
+                                                    <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                                                    <input type="submit" value="#xarML('Fix')#" />
+                                                </form>
+                                            </xar:if>
+                                        </td>
+                                    </tr>
+                                    </xar:foreach>
+                                </xar:if>
+                            </xar:foreach>
+                        </xar:foreach>
+                    </xar:if>
+                </table>
+                 <xar:if condition="!empty($upgrade['message']) AND empty($upgrade['errormessage'])">
+                    <h3 style="width:100%;">#$upgrade['message']#</h3>
+                 <xar:elseif condition="!empty($check['message']) AND empty($upgrade['errormessage'])" />
+                    <h3 style="width:100%;">#$check['message']#</h3>
+                <xar:else />
+                     <p>#$upgrade['errormessage']#</p>
+                </xar:if>
+
+                <p class="center">
+                    <input type="hidden" name="phase" id="phase" value="5"/>
+                    <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                    <input type="submit" value="#xarML('Finalize Upgrade')#" />
+                </p>
+            </form>
+        <xar:elseif condition="$phase eq 5"/>
+            <h2>Your upgrade is complete</h2>
+            <h3>Review notes for Version #$fileversion#:</h3>
+            <xar:template type="system" module="installer" file="../../$notefile" />
+
+
+            <h3>Next Steps:</h3>
+            <ul>
+                <li>
+                    <form action="upgrade.php" method="post">
+                        <xar:set name="action">$phase==5?'finish':''</xar:set>
+                        <input type="hidden" name="phase" id="phase" value="4"/>
+                             <input type="hidden" name="action" id="action" value="#$action#"/>
+                        <input type="hidden" name="upgrade_language" id="upgrade_language" value="#$upgrade_language#" />
+                         <xar:mlstring>Run full Database and File Health Checks</xar:mlstring>
+                        <input type="submit" value="#xarML('Submit')#" /> <xar:mlstring>(recommended check)</xar:mlstring>
+                    </form>
+                </li>
+                <li><a href="index.php?module=modules&amp;type=admin&amp;func=list">
+                    <xar:mlstring>Visit your Module administration</xar:mlstring>
+                    </a>
+                    <xar:mlstring> and review module upgrade status. </xar:mlstring>
+                </li>
+
+            </ul>
+
+            <p>&#160;</p>
+            <h2>
+                <xar:mlstring>Thank you for using Xarigami!</xar:mlstring>
+            </h2>
+        </xar:if>
+        <!--
+        <xar:if condition="!empty($upgrade['errormessage'])">
+            <p class="warning">
+                    #$upgrade['errormessage']#
+            </p>
+        </xar:if>
+        -->
+    </div>
+</div>

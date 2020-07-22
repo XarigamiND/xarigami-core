@@ -1,0 +1,84 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style file="xgamisprites" module="base" scope="module" />
+<xar:set name="notavailable"><xar:mlstring>Not available</xar:mlstring></xar:set>
+<xar:set name="editlabel"><xar:mlstring>Edit</xar:mlstring></xar:set>
+<xar:set name="deletelabel"><xar:mlstring>Delete</xar:mlstring></xar:set>
+<xar:comment>Include jquery code for delete confirm and the definition for deletemessage</xar:comment>
+<xar:set name="deletemessage"><xar:mlstring>Delete this group?</xar:mlstring></xar:set>
+<xar:template file="jq-deleteinstance" module="blocks" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>View Block Groups</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:if condition="$viewcounter gt 0">
+            <xar:sec mask="AddBlockGroup" catch="false">
+                <div class="xar-align-right xar-padding-thick">
+                    <a href="#xarModURL('blocks','admin','new_group')#" class="esprite xs-add" title="#xarML('Add block group')#">&#160;<xar:mlstring>Add New Block Group</xar:mlstring></a>
+                </div>
+            </xar:sec>
+
+            <table class="xar-items">
+                <tr>
+                    <th title="#xarML('The group name as it is called in your theme.')#"><xar:mlstring>Group Name</xar:mlstring></th>
+                    <th title="#xarML('The individual instances which belong in this group in order as they appear.')#"><xar:mlstring>Group Members</xar:mlstring></th>
+                    <th title="#xarML('The template that is loaded for this block group.  The templates are defined in themes/themename/blocks.')#"><xar:mlstring>Template</xar:mlstring></th>
+                    <th title="#xarML('This is the specific action that you can take with the block.  Either edit or delete the block group.')#"><xar:mlstring>Operations</xar:mlstring></th>
+                </tr>
+
+
+                <xar:foreach in="$block_groups" key="$groupid" value="$groupinfo">
+                    <tr>
+                        <td>#$groupinfo['name']#</td>
+                        <td>
+                            <xar:if condition="$groupinfo['membercount'] gt 0">
+                                <xar:foreach in="$groupinfo['instances']" key="$blockinfo" value="$info">
+
+                                    <xar:if condition="$blockinfo gt 0"> | </xar:if>
+                                        <xar:if condition="xarSecurityCheck('EditBlock', 0, 'Block','All:All:'.$info['name'].'')">
+                                            <xar:if condition="!empty($info['title'])">
+                                                <a href="#xarModUrl('blocks', 'admin', 'modify_instance', array('bid' => $info['id']))#" title="#xarVarPrepForDisplay($info['title'])#">#$info['name']#</a>
+                                            <xar:else />
+                                                <a href="#xarModUrl('blocks', 'admin', 'modify_instance', array('bid' => $info['id']))#">#$info['name']#</a>
+                                            </xar:if>
+                                        <xar:else />
+                                            #$info['name']#
+                                        </xar:if>
+                                </xar:foreach>
+
+                            <xar:else />
+                                [ <xar:mlstring>none</xar:mlstring> ]
+                            </xar:if>
+                        </td>
+                        <td>
+                            <xar:if condition="empty($groupinfo['template'])">
+                                [ <xar:mlstring>default</xar:mlstring> ]
+                            <xar:else />
+                                #$groupinfo['template']#
+                            </xar:if>
+                        </td>
+                        <td class="xar-align-center">
+                            <xar:if condition="$groupinfo['editurl'] ne ''">
+                                <a href="#$groupinfo['editurl']#" class="esprite xs-modify" title="#$editlabel#"><span>#$editlabel#</span></a>
+                            <xar:else />
+                                <p class="esprite xs-modify xar-icon-disabled xar-displayinline" title="#$notavailable#"><span>#$editlabel#</span></p>
+                            </xar:if>
+                            <xar:if condition="$groupinfo['deleteurl'] ne ''">
+                                 &#160;<a href="#$groupinfo['deleteurl']#"  title="#$deletelabel#" class="esprite xs-delete" id="delete_#$groupinfo.id#"><span>#$deletelabel#</span></a>
+                            <xar:else />
+                                &#160;<p class="esprite xs-delete xar-icon-disabled xar-displayinline" title="#$notavailable#"><span>#$deletelabel#</span></p>
+                            </xar:if>
+                        </td>
+                    </tr>
+                </xar:foreach>
+            </table>
+            <xar:else />
+                      <h3>No blockgroups available for editing</h3>
+            </xar:if>
+        </div>
+    </div>
+</div>

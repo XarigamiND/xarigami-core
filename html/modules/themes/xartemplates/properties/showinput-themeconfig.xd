@@ -1,0 +1,31 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:if condition="$varcount gt 0">
+    <xar:foreach in="$varcattypes" key="$varcat" value="$valprops">
+        <xar:set name="configt">ucwords(str_replace('_',' ',$varcat))</xar:set>
+        <fieldset>
+            <legend>#$configt#</legend>
+            <xar:foreach in="$valprops" key="$key" value="$info">
+                <xar:set name="fieldvalue">isset($info['value'])?$info['value']:''</xar:set>
+                <xar:set name="fieldname">$name . '_' . $key</xar:set>
+                <xar:set name="fieldid">$id . '_' . $key</xar:set>
+                <xar:set name="invalidname">$key.'_invalid'</xar:set>
+                <xar:set name="validation">serialize($info['config']['propargs'])</xar:set>
+                <xar:set name="invalid">isset($info['config']['validation'][$invalidname])?$info['config']['validation'][$invalidname]:''</xar:set>
+                <xar:set name="systemkey">$info['prime'] == 1 ? xarML('(system theme var)'):''</xar:set>
+                <xar:set name="tooltip">$key.' '.$systemkey.': '.$info['description']</xar:set>
+                <div class="xar-form-input-wrapper">
+                    <xar:if condition="$info['status'] ne 3">
+                     <label for="#$info['varname']#" title="#$tooltip#" class="xar-form-label help">
+                        #$info['config']['label']#
+                     </label>
+                    </xar:if>
+                     <xar:data-input type="$info['proptype']" name="$fieldname" status="$info['status']" id="$fieldid" validation="$validation" value="$info['value']"/>
+                </div>
+
+            </xar:foreach>
+        </fieldset>
+    </xar:foreach>
+<xar:else />
+    <xar:mlstring>This theme does not have any variables available for configuration.</xar:mlstring>
+</xar:if>
+

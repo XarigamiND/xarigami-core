@@ -1,0 +1,705 @@
+@import url("layout.css");
+@import url("menu.css");
+
+/*
+   DEFAULT style elements.
+   When porting themes for use with Xarigami, find the related style or class below
+   and replace with the ported theme style/class.
+
+   DEFAULT specific style elements are at the end of this file.
+   You can change the colour or border lines of column backgrounds by adjusting the styles where
+   marked in the '3 column layout styles' section.
+-------------------------------------------------------------------------[comment] */
+/* XARIGAMI REQUIRED CLASSES */
+
+html {
+    background: #CCCCCC;
+}
+body {
+    font-family: "trebuchet ms", "luxi sans", verdana, helvetica, sans-serif;
+    font-size: 90%;
+    line-height: 1.48;
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 0;
+    color: #444444;
+    min-height: 600px; /* This prevents some issues with repeated background */
+    background: #CCCCCC;
+}
+a {
+    color: #16497C;
+    text-decoration: none;
+    border-bottom: 1px dotted #16497C;
+}
+a:link {}
+a:visited {}
+a:active {}
+a:hover {
+    color: #257CD2;
+    text-decoration: none;
+    border-bottom: 1px solid #257CD2;
+}
+img {
+  border: 0px;
+  margin:10px 0 5px;
+  }
+img, object {
+    max-width: 100%;
+}
+blockquote {
+     margin-left: 1em;
+}
+code {
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding:0 0 5px 0;
+}
+h1 {
+    font-size:200%;
+    /*color: #16497C;*/
+    }
+h2 { font-size:170%;}
+h3, .xar-mod-title, .xar-block-title, .xar-block-title-right { font-size: 150%;}
+h4 { font-size: 130%; }
+h5 { font-size: 120%; }
+h6 { font-size: 110%; }
+h1, h2, h3, h4, h5, h6, .xar-mod-title, .xar-block-title, .xar-block-title-right, #siteslogan, #siteheader {
+    /*font-family: palatino, georgia, times, serif;*/
+    font-family: verdana, helvetica, sans-serif;
+    font-weight: normal;
+}
+h1 strong, h2 strong, h3 strong, h4 strong { font-weight: normal; }
+td { padding: 0 5px 0 5px 0; }
+table {}
+thead, th {}
+td {}
+tbody {}
+tfoot {}
+p {
+    margin:.4em 0 .8em 0;
+    padding:0;
+}
+pre { white-space: pre-wrap; }
+input {}
+button {}
+select {}
+textarea {}
+li {}
+ul { margin: 0; }
+ol {}
+sup {}
+sub {}
+
+/*
+XARIGAMI REQUIRED INDIVIDUAL CLASSES
+-------------------------------------------------------------------------[comment] */
+
+/*
+image icon related styling
+-------------------------------------------------------------------------[comment] */
+td.xar-item-actions a, td.xar-item-actions a:hover, a.xar-icon, a.xar-icon, a.xar-icon-disabled {
+    text-decoration: none;
+    border: none;
+    vertical-align: text-top;
+}
+img.xar-icon, img.xar-icon-disabled {
+    border: none;
+    vertical-align: text-top;
+}
+img.xar-icon, img.xar-icon-disabled, a.xar-icon img, a.xar-icon-disabled img {
+    padding: 0;
+    margin: 0;
+}
+.xar-icon-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+.xar-noborder {
+    border: 0;
+}
+/*
+XARIGAMI REQUIRED ANONYMOUS CLASSES
+-------------------------------------------------------------------------[comment] */
+/*
+these defaults apply to the left and right block group
+-------------------------------------------------------------------------[comment] */
+.xar-block-head, .xar-block-head-right {
+    /*color: #16497C;*/
+}
+.xar-block-title, .xar-block-title-right {
+    /*color: #16497C;*/
+    /*font-weight: bold;*/
+    padding-bottom:1px;
+    margin:8px 0 4px 0;
+    border-bottom: 2px solid #9FBFDF;
+
+}
+.xar-block-body, .xar-block-body-right {}
+.xar-block-foot, .xar-block-foot-right { padding-bottom: 10px; }
+
+.xar-block-body-topnav + .xar-block-foot, .xar-block-body-topnav + .xar-block-foot-right {
+    padding-bottom: 0px;
+}
+.xar-block-control {
+    float: right;
+    margin-right: 5px;
+    margin-bottom: -20px;
+    font-family: arial, helvetica, sans-serif;
+}
+/*
+topnav block group classes
+-------------------------------------------------------------------------[comment] */
+.xar-block-head-topnav { }
+.xar-block-title-topnav { }
+.xar-block-body-topnav { }
+.xar-block-foot-topnav { }
+/*
+center block group classes
+-------------------------------------------------------------------------[comment] */
+.xar-block-head-center { width: 100%; }
+.xar-block-title-center {
+    font-weight: bold;
+}
+.xar-block-body-center {}
+.xar-block-foot-center {
+    width: 100%;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #16497C;
+}
+/*
+module rendering area and related rules
+-------------------------------------------------------------------------[comment] */
+.xar-mod-head {
+    min-height: 2.5em;
+}
+.xar-mod-head, .xar-mod-body, .xar-mod-foot {
+    padding: 0px 0 0px 0;
+}
+.xar-mod-title {
+    display: block;
+    min-height: 28px; /* In case there is no text to display */
+}
+.xar-mod-body {
+}
+.xar-mod-foot {
+}
+
+/*
+complementary styling - colors, backgrounds and outlines
+also used in tab menus
+-------------------------------------------------------------------------[comment] */
+.xar-alt { background-color: #F0F0F0;}
+.xar-accent { background-color: #F3F7FB; }
+.xar-norm { background-color: #FFFFFF; }
+.xar-alt-outline {
+    border-color: #16497C;
+    border-width: 1px;
+    border-style: solid;
+}
+.xar-accent-outline {
+    border-color: #16497C;
+    border-width: 1px;
+    border-style: solid;
+}
+.xar-norm-outline {
+    border: 1px solid #d5d5d5;
+}
+/*
+complementary text related styling
+-------------------------------------------------------------------------[comment] */
+.xar-sub { font-size: 85%; }
+.xar-error { color: #ff0000; }
+.xar-title { font-weight: bold; }
+
+/*
+item tables and listing controls
+-------------------------------------------------------------------------[comment] */
+table {
+
+}
+table.xar-items {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid;
+
+}
+table.xar-items th, table.xar-items td {
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+}
+.xar-item-actions {
+    text-align: center;
+    white-space: nowrap;
+}
+.xar-item-controls {
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+    width: 100%;
+
+}
+table.xar-item-controls th, table.xar-item-controls td {
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+}
+table td {
+    padding: 0 5px 0 5px;
+}
+.xar-items thead, .xar-items th, .xar-item-controls thead, .xar-item-controls th {
+    border-bottom: 1px solid;
+    letter-spacing: .1em;
+    font-size: 0.95em;
+    background: #F9F7F5;
+    line-height: 1.5em;
+}
+
+/*
+form footer (for submit buttons, etc)
+-------------------------------------------------------------------------[comment] */
+.xar-form-footer {
+    text-align: center;
+    margin: 1em 0;
+    border: 1px solid #ddd;
+    padding: 1em 0;
+}
+
+/* MISCELLANEOUS [gen_heading] */
+abbr, acronym, .help {
+    border-bottom: 1px dotted #999;
+    cursor: help;
+}
+
+/*
+  CUSTOM THEME RELATED STYLES
+-------------------------------------------------------------------------[comment] */
+
+/* Specific core or module overrides */
+
+
+/* Site Header */
+#siteheader {
+    border-top: 12px solid #FFF;
+    /*border-bottom: 12px solid #FFF;*/
+    background-color: #F7F9FC;
+    background-image: url(../images/skyline09.jpg);
+    background-position: left top;
+    background-repeat: repeat-x;
+    height: 145px;
+}
+#siteheader div {
+    width: 100%;
+    float: left;
+    height: 105px;
+}
+#siteheader p {
+    padding: 0.2em 15px 0 15px;
+    margin:0;
+    line-height: 1.0;
+}
+#sitename, p#sitename a, p#sitename a:visited, p#sitename a:hover {
+    font-size: 2.4em;
+    font-family: palatino, georgia, times, serif;
+    font-weight: normal;
+    text-decoration: none;
+    background: none;
+    color: #FFFFFF;
+    text-shadow: rgba(0,0,0,0.4) 0px 8px 8px;
+
+    text-decoration:none;
+     border: none;
+}
+p#siteslogan {
+    font-size: 1.5em;
+    padding: 0.8em 0 8px 15px;
+    color: #000;
+
+}
+/* Site top navigation bar */
+#sitetopnav {
+    position: relative;
+    z-index: 500;
+    min-height: 12px;
+}
+#sitetopnav, #sitetopnav .xar-block-body-topnav { background-color: #FFFFFF; }
+#sitetopnav .xar-block-head {display: none; }
+#sitetopnav .xar-block-control ul li a.clicker span.clickerhide { display: hide; }
+#sitetopnav .xar-block-control { margin: 6px 5px -41px 0px;}
+/* 3 Column layout styles */
+.container, .rightonly {
+    /* Right column background colour */
+     background: #E4EDF6;
+}
+.container {
+
+}
+.rightonly {
+
+}
+.leftonly { /* Left column color */
+    background: #E4EDF6;
+
+}
+.container .colwrap, .leftonly .leftwrap, .rightonly .leftwrap {
+    background:#fff;                /* Centre column background colour */
+    /* border-right: 1px solid #ccc;   /* border on right side of middle column  3cols layout*/
+    margin-bottom: -1px;
+}
+.container .colwrap, .rightonly .leftwrap {
+
+}
+.rightonly .leftwrap { }
+.leftonly .leftwrap {
+    /*border-left:1px solid #ccc;*/ /* border on left side of centre column - 2 cols left layout */
+}
+.leftonly .leftwrap {
+
+}
+.leftonly .midcol {
+}
+.leftonly .midwrap {
+}
+.container .leftwrap {
+    background: #E4EDF6;
+    /* Left column background colour */
+    /*border-right: 1px solid #ccc;*/ /* border on right side of left column 3 cols layout*/
+
+}
+
+/* Footer styles */
+#sitewrapper {
+    background-color: #FFF;
+    box-shadow: rgba(0,0,0,0.4) 0 10px 30px;
+}
+.leftcol { }
+.rightcol { }
+.xar-mod-page {
+    display: block;
+    margin-left: -100px;
+    margin-right: -100px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+.xar-mod-head {
+    display: block;
+    background-color: #F9F7F5;
+
+}
+.xar-mod-page .xar-mod-page .xar-mod-head {
+    display: none;
+}
+.xar-mod-body {
+    display: block;
+    margin-left: -100px;
+    margin-right: -100px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#content { padding-bottom:  15px; }
+#content ul.xar-tabs {
+    margin-left: -100px;
+    margin-right: -100px;
+}
+.xar-breadcrumbs {
+    position: relative;
+    padding:0;
+    height: 20px !important;
+}
+.xar-mod-head > .xar-mod-title + .xar-breadcrumbs { margin-bottom: 20px; } /* Rules for head with no container (dyndata) */
+ul.xar-tabs {
+    padding-left: 100px;
+    padding-right: 100px;
+    margin: 10px 0 10px 0;
+}
+
+/*.xar-mod-body h2, .xar-mod-body .xar-mod-title { color:#652565;}*/
+
+ul.xar-tabs li.xar-tab a { opacity: 1.0; }
+
+
+.column-margin-left-right { margin: 0 15px 0 15px; }
+/* Adjusting the block/mode title/header to overlap on the column padding */
+.column-padding .xar-block-title {
+    margin: 12px -15px 5px -15px;
+    padding: 2px 0 0 15px;
+    z-index: 20;
+    overflow: visible;
+
+}
+.column-padding .xar-block-title-right {
+    margin: 10px -15px 5px -15px;
+    padding: 2px 0 0 15px;
+    z-index: 20;
+    overflow: visible;
+
+}
+.column-padding .xar-menu-section h4 {
+    margin: 0px -15px 0px -15px;
+    padding: 0 15px 0 0;
+    background: #9FBFDF;
+    border: none;
+    color: #FFF;
+}
+.column-padding li.xar-menu-item, .column-padding li.xar-menu-item-current {
+    margin: 0px -15px 0px -15px;
+}
+li.xar-menu-item a , li.xar-menu-item-current a {
+    padding-left: 15px;
+}
+#content .xar-mod-head {
+    margin: 0px -15px 10px -15px;
+    padding: 10px 0 0 15px;
+}
+/* Footer styles */
+#footer {
+    /* border-top:1px solid #16497C; */
+    background: #5588BC;
+
+    color: #FFFFFF;
+}
+#footer ul {
+    padding:0;
+    margin:0 0em 0 1em;
+}
+#footer li {
+    display:inline;
+    line-height: 29px;
+    padding:0;
+    margin:0;
+}
+
+#footer li img {
+    vertical-align: middle;
+    margin: 2px 0;
+    float:right;
+}
+
+li#pagetimer {
+    padding: 0;
+    margin: 0;
+    margin-left: 4em;;
+    display: inline;
+}
+
+/* form styles */
+legend {
+    border: none;
+    color: #947A61;
+    /*font-style: italic;*/
+    letter-spacing: 2px;
+    margin: 0 0 0 1em;
+    padding: 0px 4px 0px 4px;
+    line-height:  100%;
+    background-color: #FFF; /* Prevent a line to show up in FF4 */
+}
+legend a img {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+fieldset {
+    margin-bottom: 1em;
+    padding: 5px 15px 5px 15px;
+
+}
+
+.xar-form-footer, fieldset {
+    /* Null gradient generator nullgradient.css */
+    background: #F9F7F5;
+    /* Round corner generator roundcorner.css */
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+
+    border: 1px solid #CFBFAF;
+}
+
+fieldset fieldset {
+    margin: .5em 0 0.5em;
+    border: none;
+    border-top: 1px solid #CFBFAF;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: #F9F7F5;
+    /* Round corner generator roundcorner.css */
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+fieldset fieldset fieldset {
+    margin: .5em 0 0.5em;
+    border: none;
+    border-top: 1px solid #F0F0F0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: #FFF;
+    /* Round corner generator roundcorner.css */
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+fieldset fieldset legend {
+    background: #FFF;
+    font-size: 90%;
+    color: #BBBBBB;
+}
+
+fieldset fieldset fieldset legend {
+    background: #FFF;
+    font-size: 80%;
+    color: #BBBBBB;
+}
+
+/* additions for better sprite alignement */
+a.sprite, a.esprite, a.csprite, a.dsprite {
+   padding-top:0px;
+   display:inline-block; /* inline shows no link under webkit with span hidden */
+   width:auto;
+   white-space:nowrap;
+   text-decoration:none;
+   margin: 0;
+   border: none;
+}
+
+
+.xar-form-label .sprite, .xar-form-label .esprite, .xar-form-label .csprite, .xar-form-label .dsprite {
+    margin-right: 5px; /* For Property Info in DDs */
+}
+td li.sprite, td p.sprite, td span.sprite, td a.sprite,
+td li.esprite, td p.esprite, td span.esprite, td a.esprite,
+td li.csprite, td p.csprite, td span.csprite, td a.csprite,
+td li.dsprite, td p.dsprite, td span.dsprite, td a.dsprite {
+    vertical-align: text-top;
+    margin-top: 0;
+    padding-bottom: 0;
+    border: none;
+    margin-right: 5px;
+}
+
+/* Dynamic logo mini-badge - it uses some 32bits (RGBA) PNG  image and text, so colors are matching */
+#footer li.xar-logo-trans {
+    /* Null gradient generator nullgradient.css */
+    background: #4A81B7;
+    font-family: palatino, georgia, times, serif;
+    font-size: 23px;
+    line-height: 29px;
+    float: right;
+}
+#footer li.xar-logo-trans a {
+    text-decoration: none;
+    color: #E5F2FF;
+    border: none;
+    background-image: url(../images/xarlogotrans.png);
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    height: 31px;
+    padding: 0 20px 0 80px;
+}
+#footer li.xar-logo-trans a:link:hover {
+    text-decoration: none;
+    color: #E5F2FF;
+}
+#footer li.xar-logo-trans a span {
+    color: #004A6F;
+}
+.xar-message-padding { position: relative; width:auto; }
+
+div.xar-statusbar {
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    margin: 0 15px 0 0;
+    border-width: 2px;
+}
+.column-padding-right { padding-right: 15px;}
+
+textarea, input[type=text], input[type=password], input.xar-form-textlong,input.xar-form-textmedium,input.xar-form-textshort,input.xar-form-textxlong,input.xar-form-textxxlong,select,input.color {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+     border: inset 1px #CFBFAF;
+}
+textarea:hover, input[type=text]:hover,  input[type=password]:hover, input.xar-form-textlong:hover, input.xar-form-textmedium:hover,input.xar-form-textshort:hover,input.xar-form-textxlong:hover,input.xar-form-textxxlong:hover,
+select:hover, input[type=text]:focus,  input[type=password]:focus, textarea:focus, input.xar-form-textlong:focus, input.xar-form-textmedium:focus,input.xar-form-textshort:focus,input.xar-form-textxlong:focus,input.xar-form-textxxlong:focus,
+select:focus { background-color: #FCFAF7; }
+input[type=submit], input[type=button],  .xar-form-footer a{
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    font-weight: bold;
+    border: outset 1px #947A61;
+    background: #F1EDE8;
+    box-shadow: inset 0px -5px 3px #CFBFAF;
+    color: #3D2D1D;
+    cursor: pointer;
+}
+
+input[type=submit]:hover, input[type=button]:hover,  .xar-form-footer a:hover {
+    border: inset 1px #947A61;
+    background: #4C3C2C;
+    box-shadow: inset 0px 5px 3px #CFBFAF;
+    color: #F9F7F5;
+}
+
+.xar-form-footer  input[type=submit], .xar-form-footer a, .xar-form-footer a:hover {
+    padding: 0.2em 1em 0.2em 1em;
+    margin: 0 0.3em 0 0.3em;
+    border-width: 2px;
+    font-size: 1.0em;
+}
+
+.xar-block-body input,.xar-block-body-right input { max-width: 100%; }
+
+label {  }
+
+abbr, acronym, .help {
+    border-bottom-color: #CFBFAF;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+}
+
+/* Fix for checkbox list in themevars */
+.xar-form-container-after ul { padding: 0; margin: 0; }
+
+li.cat a.navbar-home, li.cat.navbar-welcome span.sf-sub-indicator {
+    top: 2px;
+}
+div#cluetip { position: fixed; }
+div#cluetip div#cluetip-outer {
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    padding: 0;
+    border-color: #5588BC;
+    background-color: #E4EDF6;
+    position: fixed;
+}
+.cluetip-jtip h3#cluetip-title, .cluetip-jtip #cluetip-inner {
+    padding: 0px 10px 0px 10px;
+    margin: 0;
+    font-size: 100%;
+}
+.cluetip-jtip h3#cluetip-title {
+    font-weight: bold;
+    background: transparent;
+    color: #16497C;
+}
+.cluetip-jtip #cluetip-inner {}
+.ui-widget a { border-bottom-style: none; }
+@media screen and (min-width: 300px) and (max-width: 800px) {
+    .container .colwrap { margin-left: 0px; right: inherit; width: inherit; }
+    .container .leftwrap { left: inherit; margin-left: inherit; width: inherit; }
+    .container .midwrap { right: inherit; width: inherit; }
+    .container .midcol { left: inherit; margin-left: 0; margin-right: 0; }
+    .container .leftcol { height: 100%; left: 18%; right: inherit; width: 30%; float: left; clear: none; }
+    .container .rightcol { height:  100%; right: 10%; left: inherit; width: 30%; float: right; clear: none; }
+    #content { background: #FFFFFF; }
+    #sitewrapper { min-width: 100%; }
+    #siteheader { font-size:  60%; height: 90px; }
+    li#pagetimer { display: none; }
+}
+/* JQUERY PLUGIN OVERRIDES */
+.ui-datepicker { font-size:0.8em }

@@ -1,0 +1,27 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Roles module confirmation for existing users revalidating their email</xar:comment>
+<xar:set name="adminemail">xarModGetVar('mail','adminmail')</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Reconfirm your email</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2><xar:mlstring>Instructions Sent</xar:mlstring></h2>
+            <p>
+                <xar:mlstring>You have changed your email address and your account now requires re-validation before you can log in.
+                Information on how to re-validate your account have been sent to the email address you provided. Please take a moment
+                to read these instructions.</xar:mlstring>
+            </p>
+            <p>
+                <xar:ml>
+                    <xar:mlstring>If you have a question or didn't receive your instructions please contact the <a href="mailto:#(1)">website administrator</a>.</xar:mlstring>
+                    <xar:mlvar>#$adminemail#</xar:mlvar>
+                </xar:ml>
+            </p>
+        </div>
+    </div>
+</div>

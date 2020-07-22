@@ -1,0 +1,37 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Manage realms</xar:mlstring></h1>
+       <xar:template type="module" file="admin-realms" />
+        <div class="xar-mod-content">
+            <form id="privilegeform" action="#xarModURL('privileges','admin','modifyrealm')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                    <xar:mlstring>Modify Realm</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                    <label for="newname" title="#xarML('Name of the realm')#" class="xar-form-label">
+                        <xar:mlstring>
+                        Name:
+                        </xar:mlstring>
+                    </label>
+                        <input type="text" name="newname" id="newname" value="#$name#" size="20" maxlength="20" tabindex="1" class="xar-form-textmedium" />
+                    </div>
+                </fieldset>
+                    <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="rid" id="rid" value="#$rid#" />
+                    <input type="hidden" name="name" id="name" value="#$name#" />
+                    <input type="hidden" name="confirmed" id="confirmed" value="true" />
+                    <xar:set name="tmpchgvalue"><xar:mlstring>Save</xar:mlstring></xar:set>
+                    <input type="submit" value="#$tmpchgvalue#" tabindex="2" />
+                    </div>
+             </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<xar:style file="xgamisprites" module="base" scope="module" />
+<div class="xar-fullwidth">
+    <!-- we don't use xar:data-form or xar:data-input here, because this is typically not an input form -->
+    <!-- Show the create new link only once, if at all -->
+    <xar:if condition="!empty($newlink) OR !empty($managepropslink)">
+        <p class="xar-align-right xar-padding-thick">
+            <xar:if condition="!empty($managepropslink)">
+            <a class="sprite xs-document-properties" href="#$managepropslink#">
+                    <xar:mlstring>&#160;Configure properties</xar:mlstring>
+            </a>
+            </xar:if>
+            <xar:if condition="!empty($newlink)">
+            &#160;
+            <a class="esprite xs-add xar-displayinline" href="#$newlink#">
+                <xar:ml>
+                    <xar:mlstring>&#160;Create a new item in #(1)</xar:mlstring>
+                    <xar:mlvar>#$objectlabel#</xar:mlvar>
+                </xar:ml>
+            </a>
+            </xar:if>
+        </p>
+    </xar:if>
+    <xar:if condition="xarSecurityCheck('AdminDynamicData',0) and count($items) gt 20">
+        <div class="xar-form-footer">
+            <p class="esprite xs-item-list xar-displayinline" title="#xarML('List')#">&#160;<xar:mlstring>List Items</xar:mlstring></p>&#160;
+            <p class="esprite xs-display xar-displayinline" title="#xarML('Display')#">&#160;<xar:mlstring>Display</xar:mlstring></p>&#160;
+            <p class="esprite xs-modify xar-displayinline" title="#xarML('Edit')#">&#160;<xar:mlstring>Edit</xar:mlstring></p>&#160;
+            <p class="esprite xs-delete xar-displayinline" title="#xarML('Delete')#">&#160;<xar:mlstring>Delete</xar:mlstring></p>&#160;
+            <p class="sprite xs-document-properties xar-displayinline" title="#xarML('Properties')#">&#160;<xar:mlstring>Properties</xar:mlstring></p>&#160;
+            <p class="sprite xs-disabled xar-displayinline" title="#xarML('Disabled')#">&#160;<xar:mlstring>Disabled</xar:mlstring></p>
+         </div>
+    </xar:if>
+    <xar:comment>Array with field names where we want narrower columns. Give consideration for object and itemtype column names</xar:comment>
+    <xar:set name="thincolumn">array('default','id','objectid','itemtype','type','status','urlparam')</xar:set>
+    <xar:set name="widecolumn">array('label')</xar:set>
+    <table class="xar-items">
+        <xar:set name="item_no">0</xar:set>
+        <tr>
+            <xar:foreach in="$properties" key="$name">
+                <xar:set name="colclass">in_array($name,$thincolumn)?'xar-form-textshort':(in_array($name,$widecolumn)?'xar-form-textlong':'xar-form-textmedium')</xar:set>
+                <th class="#$colclass#">
+                    <a href="#$sorturl#=#$name#&amp;sortorder=#$dsort#" title="#xarML('Sort by '.$name)#">
+                        <xar:data-label property="$properties[$name]" />
+                    </a>
+                    <xar:if condition="$sortimage[$name] and !empty($sortimgclass)">
+                            <span class="#$sortimgclass# xar-noborder" title="#$sortimglabel#" ><span>#$sortimglabel#</span></span>
+                    </xar:if>
+                </th>
+            </xar:foreach>
+            <th class="xar-align-center" style="width:12%">
+                <xar:mlstring>Options</xar:mlstring>
+            </th>
+        </tr>
+        <xar:foreach in="$items" key="$itemid" value="$fields">
+            <xar:set name="item_no">++$item_no</xar:set>
+            <xar:set name="rowclass">'xar-norm'</xar:set>
+            <xar:if condition="$item_no % 2 eq 0">
+                <xar:set name="rowclass">'xar-alt'</xar:set>
+            </xar:if>
+            <tr>
+                <xar:foreach in="$properties" key="$name">
+                    <td  class="#$rowclass#">
+                        <xar:if condition="!empty($fields[$name])">
+                            <xar:data-output property="$properties[$name]" value="$fields[$name]" _itemid="$itemid" />
+                            <xar:else />
+                            &#160;
+                        </xar:if>
+                    </td>
+                </xar:foreach>
+
+                <xar:set name="colspan">count($properties)+2</xar:set>
+                <td class="#$rowclass# xar-align-center xar-nowrap" >
+                        <xar:foreach in="$links[$itemid]" value="$option">
+                            <xar:if condition="!empty($option['olink'])">
+                                <a href="#$option['olink']#" class="#$option['oclass']# xar-displayinline" title="#$option['otitle']#"><span>#$option['otitle']#</span></a>&#160;
+                            <xar:else />
+                                <p class="#$option['oclass']# xar-displayinline" title="#$option['otitle']#"><span>#$option['otitle']#</span></p>&#160;
+                            </xar:if>
+                    </xar:foreach>
+                </td>
+            </tr>
+        </xar:foreach>
+    </table>
+    <xar:if condition="xarSecurityCheck('AdminDynamicData',0)">
+    <div class="xar-form-footer">
+        <p class="esprite xs-item-list xar-displayinline" title="#xarML('List')#">&#160;<xar:mlstring>List Items</xar:mlstring></p>&#160;
+        <p class="esprite xs-display xar-displayinline" title="#xarML('Display')#">&#160;<xar:mlstring>Display</xar:mlstring></p>&#160;
+        <p class="esprite xs-modify xar-displayinline" title="#xarML('Edit')#">&#160;<xar:mlstring>Edit</xar:mlstring></p>&#160;
+        <p class="esprite xs-delete xar-displayinline" title="#xarML('Delete')#">&#160;<xar:mlstring>Delete</xar:mlstring></p>&#160;
+        <p class="sprite xs-document-properties xar-displayinline" title="#xarML('Properties')#">&#160;<xar:mlstring>Properties</xar:mlstring></p>&#160;
+        <p class="sprite xs-disabled xar-displayinline" title="#xarML('Disabled')#">&#160;<xar:mlstring>Disabled</xar:mlstring></p>
+     </div>
+    </xar:if>
+</div>

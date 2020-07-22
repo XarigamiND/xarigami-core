@@ -1,0 +1,3 @@
+Version 3.25 (18-JAN-2013)
+http://malsup.com/jquery/form/
+https://github.com/malsup/form

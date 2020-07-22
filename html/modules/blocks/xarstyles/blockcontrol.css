@@ -1,0 +1,79 @@
+/* Block Controls */
+div.xar-block-control {
+    position: relative;
+    z-index: 98;
+    margin-right: 5px;
+    font-size: 0.8em;
+    vertical-align: text-top;
+    float: right;
+}
+div.xar-block-title div.xar-block-control, div.xar-block-title-right div.xar-block-control {
+    margin-top: 5px;
+}
+div.xar-block-control ul {
+    list-style-type: none;
+
+}
+div.xar-block-control ul li a.clicker{
+    list-style-type: none;
+    background: transparent url(../xarimages/gear.png) no-repeat 0 0;
+    height: 20px;
+    margin: 0;
+    padding:0;
+    float:right;
+    width: 28px;
+    overflow: hidden;
+    -khtml-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    z-index:200;
+}
+div.xar-block-control ul li:hover a.clicker{
+     background: transparent url(../xarimages/gear.png) no-repeat 0 -18px;
+       z-index:200;
+        height: 20px;
+        margin:0; padding:0; border-radius: 4px;
+}
+div.xar-block-control ul li a span.clickerhide {
+    display: none !important;
+}
+div.xar-block-control ul li a,
+div.xar-block-control ul li a:visited {
+    display:block;
+    text-align:left;
+    text-decoration:none;
+    line-height:1;
+    font-size:11px;
+    overflow:hidden;
+    width: 50px;
+}
+/* common styling */
+div.xar-block-control ul li ul {display: none;}
+
+/* specific to non IE browsers */
+div.xar-block-control ul li:hover ul {
+    display:block;
+    position:absolute;
+    width: 45px;
+    padding: 2px;
+    border: 1px #ccc solid;
+    right: 0;
+    margin: 0;
+    margin-top: 1.3em;
+    background: #efefef;
+    -khtml-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+      z-index:200;
+}
+
+div.xar-block-control ul.actionlinks li a:link  {
+    line-height:1;
+}
+div.xar-block-control ul li a, div.xar-block-control ul li a:hover {
+                                         border-bottom: none;
+                                           z-index:200;
+
+}

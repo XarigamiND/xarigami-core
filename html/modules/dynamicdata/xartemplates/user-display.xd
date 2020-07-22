@@ -1,0 +1,41 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="referertype">isset($referertype) ? $referertype : 'user'</xar:set>
+<xar:set name="layout">isset($layout)?$layout:'default'</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="dynamicdata" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <div class="xar-mod-content">
+            <xar:if condition="!empty($object)">
+                 <!-- here we retrieve the complete object in the function, and we only pass a reference of it to the data-display tag -->
+                <h2><xar:mlstring>Display </xar:mlstring> <xar:data-label object="$object" /></h2>
+
+                <p class="xar-align-right">
+                    <xar:if condition="$referertype eq 'admin' and xarSecurityCheck('AdminDynamicData',0)">
+                        <xar:if condition="isset($table) and !empty($table)">
+                            <xar:mlstring>Return to: </xar:mlstring><a href="&xar-modurl-dynamicdata-admin-view;&amp;itemid=#$object:objectid#&amp;table=#$table#&amp;template=#$template#s"><xar:mlstring>Table Operations - Item List View</xar:mlstring></a>
+                        <xar:else />
+                            <a href="#xarModURL('dynamicdata','admin','view',array('itemid'=>$objectid,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                        </xar:if>
+                    <xar:else />
+                        <a href="#xarModURL('dynamicdata','user','view',array('itemtype'=>$itemtype,'template'=>$template))#"><xar:mlstring>Return to item list</xar:mlstring></a>
+                    </xar:if>
+                </p>
+                <xar:data-display object="$object" />
+            <xar:else />
+                <!-- here we only retrieve the parameters in the function, and we let the data-display tag retrieve the complete object -->
+                <h2>#$label#</h2>
+                <xar:data-display module="$module" itemtype="$itemtype" itemid="$itemid" layout="$layout"/>
+            </xar:if>
+
+            <xar:if condition="!empty($hooks)">
+                <xar:foreach in="$hooks" key="$module" value="$output">
+                    #$output#
+                </xar:foreach>
+            </xar:if>
+        </div>
+    </div>
+</div>

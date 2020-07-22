@@ -1,0 +1,91 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The <em>floatbox</em> (Number Box - float)  property provides an input box for entry
+        of float type numeric input. This means you can enter positive or negative numbers, with or without decimal points.
+    </p>
+    <p>
+        The output display for <em>integerbox</em> displays the input value plus any other display configurations you have set.
+         This can include a prefix or suffix for the number, decimal separator, group separator or number of decimal points.
+    </p>
+    <p>
+        The value saved in the database is the value as entered, without any other display characters. 
+        If precision is defined, the number saved will be that number value after precision is applied with a decimal point (.) replacing any other defined decimal separator.</p>
+    <h2>Attributes</h2>
+
+    <ul>
+        <li>
+            <strong>min</strong>: [default = '']
+            <br />This is the minimum value of the number required for input.
+        </li>
+        <li>
+            <strong>max</strong>: [default = '']
+            <br />This is the maximum value of the number required for input.
+        </li>
+        <li>
+            <strong>default</strong>: [default = '']
+            <br />This is default number at item creation.
+        </li>
+        <li>
+            <strong>precision</strong>: [default = '']
+            <br />This is number precision here used as number of significant digits after the decimal point. Numbers with more than the specific precision will be rounded down.
+        </li>
+        <li>
+            <strong>prefix</strong>: [default = '']
+            <br />This prefix will be displayed before the value on output display.
+        </li>
+         <li>
+            <strong>suffix</strong>: [default = '']
+            <br />This suffix will be displayed after the value on output display.
+        </li>
+        <li>
+            <strong>decimal_sep</strong>: [default = '']
+            <br />This is the Decimal separator which will be used for the number.
+            Note that if you use a decimal separator, all numbers entered by the user will be forced to the number of decimal points given by the prevision value, and either rounded or padded with zeros as necessary. 
+            If you do not supply a decimal separator, the user can enter numbers with and without numbers after the decimal point and the numbers will be displayed and saved  as such
+        </li>
+        
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent Textbox property as well as common attributes such as
+        class, placeholder and so on.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>integerbox</em> type in forms without the need to define a property
+        to capture data.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="integerbox" default="$defaultnumber" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <h4>In the Dynamic Data Configuration:</h4>
+    <ul>
+        <li>
+            you can add a default value in the 'Default' input box.
+            Enter other configuration values as required such as a minimum (min) or maximum (max) value for this property.
+        </li>
+        <li>
+            if you check the 'Allow empty' checkbox, this will permit users to skip entry of data in this input box.
+            If the 'Allow empty' checkbox is unchecked, users will have to enter a value. Zero (0) is considered a valid integer and not empty.
+        
+        </li>
+        </ul>
+        <p
+            <strong>In your template forms:</strong> you can use the data-input tag to capture data for this property.
+        </p>     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['integerbox']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="integerbox" id="myfield" name="myfield"
+        min="12" max="99" default="18" /&gt;
+    </pre>
+</div>

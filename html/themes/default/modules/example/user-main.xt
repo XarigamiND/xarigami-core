@@ -1,0 +1,29 @@
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:comment>
+            Common user menu.
+            The variables used in this menu come from example_admin_getmenulinks()
+        </xar:comment>
+        <xar:comment>Only show the menus if this is NOT an ajax request</xar:comment>
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <xar:comment> the specific template for the current admin function comes here </xar:comment>
+    <div class="xar-mod-body">
+        <!-- the specific template for the current function comes here -->
+        <!-- some variable filled in by the function using this template -->
+        <h1><xar:mlstring>Example</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <p class="xar-alert">
+              <xar:ml>
+                <xar:mlstring>This is an over-ridden template. See #(1)/modules/example/user-main.xt for the example</xar:mlstring>
+                <xar:mlvar>#xarTplGetThemeDir()#</xar:mlvar>
+              </xar:ml>
+            </p>
+            <div class="xar-align-center">
+              <strong><xar:var name="welcome"/></strong>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+        </div>
+    <div class="xar-mod-body">
+        <h1>
+            <xar:mlstring>Modify configuration</xar:mlstring>
+        </h1>
+        <div class="xar-mod-content">
+            <h2>
+                <xar:mlstring>Clear user account theme vars</xar:mlstring>
+            </h2>
+             <form action="&xar-modurl-themes-admin-clearuservars;" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                   <legend><xar:mlstring>Confirmation required</xar:mlstring></legend>
+
+                    <div class="xar-form-input-wrapper">
+                        <p>
+                           <xar:mlstring>
+                               If you switch off the option for 'Allow users to choose their own theme', users will still
+                                be able to use a personal theme if they have set one in their User Account and that theme is active.
+                           </xar:mlstring>
+                        </p>
+                        <p>
+                           <xar:mlstring>
+                               This option enables you to remove all user themes currently in use.
+                           </xar:mlstring>
+                        </p>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="xar-form-input-wrapper">
+                                <label for="confirm">
+                                    <xar:mlstring>Do you wish to remove all user personal theme settings?</xar:mlstring>
+                                </label>
+                                <xar:data-input type="checkbox" name="confirm" id="confirm" value="" tabindex="$tabindex++"/>
+                    </div>
+                    <div class="xar-align-center">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="submit" value="#xarML('Yes, remove personal theme settings!')#" tabindex="#$tabindex++#"/>
+                    </div>
+                    <div class="xar-form-input-wrapper-before">
+                        <p>
+                            <a href="#$returnurl#"> <xar:mlstring>NO, CANCEL</xar:mlstring></a>
+                                 <xar:mlstring> and return me to Themes Modify Configuration page</xar:mlstring>
+                            </p>
+                        <p style="font-size:small;">
+                            <em>
+                            <xar:mlstring>
+                                Note: To prevent users from using a specific theme, deactivate and remove the theme from the Theme List.
+                            </xar:mlstring>
+                            </em>
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

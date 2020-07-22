@@ -1,0 +1,65 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="compare">xarServerGetCurrentURL()</xar:set>
+<xar:set name="account">#xarModURL('roles','user','account')#</xar:set>
+<xar:set name="userid">xarUserGetVar('uid')</xar:set>
+<xar:set name="name">xarUserGetVar('name')</xar:set>
+
+<xar:set name="current">isset($current) ? $current : xarModURL('roles','user','display',array('uid'=>$userid))</xar:set>
+<xar:style scope="module" module="base" file="tabs" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="xarModGetVar('themes','showusermodheader')">
+            <div class="xar-mod-title">
+                  <xar:ml>
+                    <xar:mlstring>Profile page for #(1)</xar:mlstring>
+                    <xar:mlvar>#$name#</xar:mlvar>
+                    </xar:ml>
+            </div>
+        </xar:if>
+        <xar:template type="module" module="base" file="user-breadcrumb" />
+         #xarTplGetMessage()#
+         <xar:if condition="$readytoreset ne 1">
+                    <div>
+                        <ul class="xar-tabs">
+                            <li class="xar-tabs-label">
+                                &#160;
+                            </li>
+                            <xar:set name="tabclass">(($compare == $current) or ($compare == $account))?'xar-tab-active':'xar-tab'</xar:set>
+                             <li class="#$tabclass#">
+                                <a href="&xar-modurl-roles-user-account;">
+                                    <xar:mlstring>Display your profile</xar:mlstring>
+                                </a>
+                            </li>
+                            <xar:if condition="!empty($output)">
+                                <xar:foreach in="$output" key="$module" value="$hookoutput">
+                                    #$hookoutput#
+                                </xar:foreach>
+                            </xar:if>
+                            <li class="xar-tab">
+                                <a href="#xarModURL('authsystem','user','logout')#" ><xar:mlstring>Logout</xar:mlstring></a>
+                            </li>
+                        </ul>
+                    </div>
+                <xar:else />
+                    <h2><xar:mlstring>Password Reset</xar:mlstring></h2>
+                </xar:if>
+
+    </div>
+    <div class="xar-mod-body">
+        <h1>
+            #xarVarPrepForDisplay($name)#
+        </h1>
+       <div class="xar-mod-content">
+            <xar:if condition="!empty($message)">
+                #$message#
+            </xar:if>
+
+
+            <xar:if condition="$compare eq $account">
+                <xar:module main="false" module="roles" type="user" func="display" />
+            <xar:else />
+                <xar:module main="false" module="$moduleload" type="user" func="usermenu" phase="form" readytoreset="$readytoreset" invalid="$invalid"/>
+            </xar:if>
+        </div>
+    </div>
+</div>

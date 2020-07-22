@@ -1,0 +1,28 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Manage realms</xar:mlstring></h1>
+        <xar:template type="module" file="admin-realms" />
+        <div class="xar-mod-content">
+            <form action="&xar-modurl-privileges-admin-deleterealm;" method="post" enctype="application/x-www-form-urlencoded" >
+                <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="rid" id="rid" value="#$rid#" />
+                        <input type="hidden" name="confirmed" id="confirmed" value="1" />
+
+                        <p><xar:mlstring>Confirm the deletion of all instances of the realm</xar:mlstring>  '#$name#'</p>
+                        <br />
+
+                        <input type="submit" value="#xarML('Confirm')#"  tabindex="1" /><br />
+
+                        <p><a href="&xar-modurl-privileges-admin-viewrealms;"><xar:mlstring>Cancel the deletion</xar:mlstring></a></p>
+                </div>
+            </form>
+        </div>
+    </div> <!-- mod body -->
+</div>

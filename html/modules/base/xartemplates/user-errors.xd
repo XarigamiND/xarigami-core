@@ -1,0 +1,82 @@
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <div class="xar-mod-content">
+            <fieldset>
+                <legend><xar:mlstring>User Error</xar:mlstring></legend>
+                <img src="#xarTplGetImage('user-error.png','base')#" alt="#xarML('System Message')#" width="96" height="96" class="xar-module-icon"/>
+                <xar:if condition="!isset($errortype)">
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>No error message is available. </xar:mlstring>
+                    <br />
+                        <xar:mlstring>Please contact the system administrator.</xar:mlstring>
+                    </div>
+                <xar:elseif condition="$errortype eq 'caught'" />
+                    <div class="xar-padding-thick">
+                        <p><xar:mlstring>We tried to carry our your action but there was a major error.</xar:mlstring></p>
+                        <div>#$var1#</div>
+                        <p><xar:mlstring>Please forward this page to the site administrator for further action.</xar:mlstring></p>
+                    </div>
+                <xar:elseif condition="$errortype eq 'membership_required'" />
+                    <div class="xar-padding-thick">
+                        <p><xar:mlstring>Please upgrade your membership level to access this area.</xar:mlstring></p>
+                    </div>
+                <xar:elseif condition="$errortype eq 'not_writeable'" />
+                    <div class="xar-padding-thick">
+                        <p>
+                            <xar:ml>
+                            <xar:mlstring>'Location [#(1)] must be writeable by your server - please check permissions and try again!</xar:mlstring>
+                            <xar:mlvar>#$var1#</xar:mlvar>
+                            </xar:ml>
+                        </p>
+                    </div>
+                <xar:elseif condition= "$errortype eq 'not_readable'" />
+                    <div class="xar-padding-thick">
+                        <p>
+                            <xar:ml>
+                            <xar:mlstring>'Location [#(1)] can not be read - please check permissions and try again!</xar:mlstring>
+                            <xar:mlvar>#$var1#</xar:mlvar>
+                            </xar:ml>
+                        </p>
+                    </div>
+                <xar:elseif condition="$errortype eq 'contact_admin'" />
+                    <div class="xar-padding-thick">
+                        <xar:set name="adminmail">#xarModAPIFunc('mail','user','obfuemail',array(
+                                        'email'=>xarModGetVar('mail','adminemail'),
+                                        'text'=> xarML('site administrator'),
+                                        'obmethod'=>0
+                                        ))#</xar:set>
+                        <p>
+                            <xar:ml>
+                                <xar:mlstring>Please contact our #(1) for more information.</xar:mlstring>
+                                <xar:mlvar>#$adminmail['link']#</xar:mlvar>
+                            </xar:ml>
+                        </p>
+                    </div>
+                <xar:elseif condition="$errortype eq 'mail_failed'"/>
+                    <div class="xar-padding-thick">
+                        <xar:if condition="!empty($var1)">
+                            <xar:ml>
+                                <xar:mlstring>Could not send #(1) emails.</xar:mlstring>
+                                <xar:mlvar>#$var1#</xar:mlvar>
+                            </xar:ml>
+                        <xar:else />
+                            <xar:mlstring>One or more emails could not be sent.</xar:mlstring>
+                        </xar:if>
+                    </div>
+                <xar:else />
+                    <div class="xar-padding-thick">
+                        <xar:mlstring>No error message is available.</xar:mlstring>
+                        <br />
+                        <xar:mlstring>Please contact the system administrator.</xar:mlstring>
+                    </div>
+                </xar:if>
+            </fieldset>
+        </div>
+    </div>
+</div>

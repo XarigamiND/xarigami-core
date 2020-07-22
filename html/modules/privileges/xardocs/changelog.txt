@@ -1,0 +1,15 @@
+Ver 1.0.6 29 Oct 2009
+- Update the security levels of EDIT and MODERATE and swapped the level
+  Now EDIT is 400 and MODERATE is 500
+  Remove our experiment to use SUBMIT level instead of COMMENT - too much trouble to change at this time
+  Template changes:
+    - admin-modifyprivilege.xd : updated to use drop down list instead of hard coded levels
+    - admin-newprivilege.xd : updated to use drop down list instead of hard coded levels
+    - admin-displayprivilege.xd : updated for new tabs
+  
+Ver 1.0.5 
+- Correct the Realm privilege masks that were never correct.
+
+Version 1.0.4
+- Correct and update the privilege module masks
+

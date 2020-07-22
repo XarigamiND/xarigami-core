@@ -1,0 +1,205 @@
+/*admin sprites */
+.sprite{
+    background: url(../xarimages/xgamispritesa.png) no-repeat top left;
+}
+/* editor sprites */
+.esprite {
+    background: url(../xarimages/xgamispritese.png) no-repeat top left;
+}
+/* display and community sprites */
+.csprite {
+    background: url(../xarimages/xgamispritesc.png) no-repeat top left;
+}
+/* display  sprites */
+.dsprite {
+    background: url(../xarimages/xgamispritesd.png) no-repeat top left;
+}
+.sprite, .esprite, .csprite, .dsprite {
+    width: 16px;
+    height: 16px;
+    padding: 0 0 0 16px;
+    vertical-align:text-top;
+    margin: 0 0 0 0;
+    border: none;
+}
+a.sprite, a.esprite, a.csprite, a.dsprite {
+    padding-top:0px;
+    display:inline-block; /* inline shows no link under webkit with span hidden */
+    width:auto;
+    white-space:nowrap;
+    text-decoration:none;
+    margin: 0;
+    border: none;
+}
+/* catering for various uses other than button sprites */
+a.sprite span, p.sprite span, span.sprite span,
+a.esprite span, p.esprite span, span.esprite span,
+a.csprite span, p.csprite span, span.csprite span,
+a.dsprite span, p.dsprite span, span.dsprite span{
+    display: none;
+}
+ul li.sprite, ul li.sprite a,
+ul li.esprite, ul li.esprite a,
+ul li.csprite, ul li.csprite a,
+ul li.dsprite, ul li.dsprite a  {
+    list-style-type:none;
+}
+.xar-form-label .sprite, .xar-form-label .esprite, .xar-form-label .csprite, .xar-form-label .dsprite {
+    margin-right: 5px; /* For Property Info in DDs */
+}
+td li.sprite, td p.sprite, td span.sprite, td a.sprite,
+td li.esprite, td p.esprite, td span.esprite, td a.esprite,
+td li.csprite, td p.csprite, td span.csprite, td a.csprite,
+td li.dsprite, td p.dsprite, td span.dsprite, td a.dsprite {
+    vertical-align: text-top;
+    margin-top: 1px;
+    padding-bottom: 0;
+    border: none;
+    margin-right: 5px;
+}
+/* defined in core css but it may not be loaded */
+.xar-displayinline {
+    display:inline;
+}
+img.xar-icon-disabled, p.xar-icon-disabled, li.xar-icon-disabled, span.xar-icon-disabled, a.xar-icon-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+td.xar-item-actions a, td.xar-item-actions a:hover, a.xar-icon, a.xar-icon, a.xar-icon-disabled {
+    text-decoration: none;
+    border: none;
+    vertical-align: text-top;
+}
+img.xar-icon, img.xar-icon-disabled {
+    border: none;
+    vertical-align: text-top;
+}
+img.xar-icon, img.xar-icon-disabled, a.xar-icon img, a.xar-icon-disabled img {
+    padding: 0;
+    margin: 0;
+}
+
+/* Admin sprites .sprite */
+.xs-activate { background-position: 0 0; }
+.xs-blank { background-position: 0 -46px; }
+.xs-deactivate { background-position: 0 -92px; }
+.xs-dialog-error { background-position: 0 -138px; }
+.xs-dialog-warning { background-position: 0 -184px; }
+.xs-disabled { background-position: 0 -230px; }
+.xs-document-properties { background-position: 0 -276px; }
+.xs-go-down { background-position: 0 -322px; }
+.xs-go-up { background-position: 0 -368px; }
+.xs-hooks { background-position: 0 -414px; }
+.xs-info { background-position: 0 -460px; }
+.xs-initialize { background-position: 0 -506px; }
+.xs-mail-message-new { background-position: 0 -552px; }
+.xs-none { background-position: 0 -598px; }
+.xs-package-available { background-position: 0 -644px; }
+.xs-package-broken { background-position: 0 -690px; }
+.xs-package-inactive { background-position: 0 -736px; }
+.xs-package-installed { background-position: 0 -782px; }
+.xs-package-remove { background-position: 0 -828px; }
+.xs-package-upgrade { background-position: 0 -874px; }
+.xs-preferences-system { background-position: 0 -920px; }
+.xs-privileges { background-position: 0 -966px; }
+.xs-set-default { background-position: 0 -1012px; }
+.xs-software-install { background-position: 0 -1058px; }
+.xs-software-upgrade { background-position: 0 -1104px; }
+.xs-system-user-groups { background-position: 0 -1150px; }
+.xs-system-users { background-position: 0 -1196px; }
+.xs-user-password { background-position: 0 -1242px; }
+.xs-view-refresh { background-position: 0 -1288px; }
+
+/* Editors sprites */
+.xs-add { background-position: 0 0;  }
+.xs-approved { background-position: 0 -46px;  }
+.xs-color-picker { background-position: 0 -92px;  }
+.xs-delete { background-position: 0 -138px;  }
+.xs-display { background-position: 0 -184px;  }
+.xs-document-new { background-position: 0 -230px;  }
+.xs-document-save { background-position: 0 -276px;  }
+.xs-draft { background-position: 0 -322px;  }
+.xs-edit-duplicate { background-position: 0 -368px;  }
+.xs-export-xml { background-position: 0 -414px;  }
+.xs-item-list { background-position: 0 -460px;  }
+.xs-lock-open { background-position: 0 -506px;  }
+.xs-lock { background-position: 0 -552px;  }
+.xs-login { background-position: 0 -598px;  }
+.xs-modify-config { background-position: 0 -644px;  }
+.xs-modify { background-position: 0 -690px;  }
+.xs-move { background-position: 0 -736px;  }
+.xs-pending { background-position: 0 -782px;  }
+.xs-privilege-allowed { background-position: 0 -828px;  }
+.xs-privilege-disallowed { background-position: 0 -874px;  }
+.xs-rejected { background-position: 0 -920px;  }
+.xs-remove { background-position: 0 -966px;  }
+.xs-save { background-position: 0 -1012px;  }
+.xs-sort-asc { background-position: 0 -1058px;  }
+.xs-sort-desc { background-position: 0 -1104px;  }
+.xs-sorted-asc { background-position: 0 -1150px;  }
+.xs-sorted-desc { background-position: 0 -1196px;  }
+.xs-test { background-position: 0 -1242px;  }
+.xs-toggle { background-position: 0 -1288px;  }
+
+/* Display sprites */
+.xs-bug { background-position: 0 0; }
+.xs-comment { background-position: 0 -46px; }
+.xs-comments { background-position: 0 -92px; }
+.xs-dialog-information { background-position: 0 -138px; }
+.xs-document-print { background-position: 0 -184px; }
+.xs-enabled { background-position: 0 -230px; }
+.xs-feature { background-position: 0 -276px; }
+.xs-feed { background-position: 0 -322px; }
+.xs-go-bottom { background-position: 0 -368px; }
+.xs-go-first { background-position: 0 -414px; }
+.xs-go-home { background-position: 0 -460px; }
+.xs-go-jump { background-position: 0 -506px; }
+.xs-go-last { background-position: 0 -552px; }
+.xs-go-next { background-position: 0 -598px; }
+.xs-go-previous { background-position: 0 -644px; }
+.xs-go-top { background-position: 0 -690px; }
+.xs-help-browser { background-position: 0 -736px; }
+.xs-mail { background-position: 0 -782px; }
+.xs-office-calendar { background-position: 0 -828px; }
+.xs-report { background-position: 0 -874px; }
+.xs-reported { background-position: 0 -918px; }
+.xs-software-update-available { background-position: 0 -964px; }
+.xs-system-log-out { background-position: 0 -1010px; }
+.xs-system-search { background-position: 0 -1056px; }
+.xs-system-user-other { background-position: 0 -1102px; }
+.xs-system-user { background-position: 0 -1148px; }
+.xs-system-users-anon { background-position: 0 -1194px; }
+.xs-www-url { background-position: 0 -1240px; }
+
+/* Community sprites */
+.xs-accessories-calculator { background-position: 0 0; }
+.xs-book { background-position: 0 -46px; }
+.xs-clock { background-position: 0 -92px; }
+.xs-contact-aim { background-position: 0 -138px; }
+.xs-contact-icq { background-position: 0 -184px; }
+.xs-contact-jabber { background-position: 0 -230px; }
+.xs-contact-mail { background-position: 0 -276px; }
+.xs-contact-msnm { background-position: 0 -322px; }
+.xs-contact-new { background-position: 0 -368px; }
+.xs-contact-yahoo { background-position: 0 -414px; }
+.xs-forum { background-position: 0 -460px; }
+.xs-internet-group-chat { background-position: 0 -506px; }
+.xs-internet-mail { background-position: 0 -552px; }
+.xs-internet-news-reader { background-position: 0 -598px; }
+.xs-internet-web-browser { background-position: 0 -644px; }
+.xs-mail-attachment { background-position: 0 -690px; }
+.xs-mail-forward { background-position: 0 -736px; }
+.xs-mail-reply-all { background-position: 0 -782px; }
+.xs-mail-reply-sender { background-position: 0 -828px; }
+.xs-mail-total { background-position: 0 -874px; }
+.xs-mail-unread { background-position: 0 -920px; }
+.xs-preferences-desktop-locale { background-position: 0 -966px; }
+.xs-quote-multi { background-position: 0 -1012px; }
+.xs-quote { background-position: 0 -1058px; }
+.xs-subscribe-all { background-position: 0 -1104px; }
+.xs-subscribe { background-position: 0 -1150px; }
+.xs-unsubscribe-all { background-position: 0 -1196px; }
+.xs-unsubscribe { background-position: 0 -1242px; }
+.xar-move{
+    min-height: 2em;
+}

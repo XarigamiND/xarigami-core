@@ -1,0 +1,33 @@
+<xar:set name="base_reorder_warn">xarML('You must select an item to move')</xar:set>
+<xar:set name="blockscode">"
+jQuery(document).ready(function() {
+    var warn = \"$base_reorder_warn\";
+    var optionlist = '';
+    jQuery('#js_noscript').hide();
+    jQuery('#js_usescript').show();
+    jQuery('button[id]').click(function(){
+        var optionlist = '';
+        var move = jQuery(this).attr('id');
+        var index = jQuery('#group_instances option:selected').val();
+        if (!index) alert(warn);
+        jQuery('#group_instances option:selected').each(function(){
+            switch(move) {
+              case 'goup':
+                jQuery(this).insertBefore(jQuery(this).prev());
+                break;
+              case 'godown':
+                jQuery(this).insertAfter(jQuery(this).next());
+                break;
+            };
+            jQuery('#group_instances option').each(function(){
+             optionlist  += ';'+ jQuery(this).val();
+            });
+            optionlist = optionlist.substring(1, optionlist.length);
+            jQuery('input#group_instance_order').attr({value: optionlist});
+
+        });
+        return false;
+    });
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$blockscode" position="body"/>

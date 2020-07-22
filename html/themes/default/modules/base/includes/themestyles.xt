@@ -1,0 +1,143 @@
+        <ul class="xar-tabs">
+            <li class="xar-tab"><a>Tab 1</a></li>
+            <li class="xar-tab"><a>Tab 2</a></li>
+            <li class="xar-tab-active"><a>Tab 3 (active)</a></li>
+            <li class="xar-tab"><a>Tab 4</a></li>
+        </ul>
+         <section>
+            <p><h1>Character formats</h1></p>
+            <p>Text with <a href="#xarServerGetCurrentURL()#">internal links</a> and with <a href="http://xarigami.org" rel="external">external links</a> too</p>
+            <p><abbr>abbr</abbr></p>
+            <p><acronym>a.c.r.o.n.y.m</acronym></p>
+            <p><cite>This is cited.</cite></p>
+            <p><del>Deleted text</del></p>
+            <p><dfn>This is a definition.</dfn></p>
+            <p><ins>Inserted text</ins></p>
+            <p><em>With emphasis</em></p>
+            <p><strong>Strong (bold)</strong></p>
+            <p><code>Code text sample</code></p>
+             <p><sup>Superscript</sup> text and also <sub>subscript</sub> text</p>
+            <p class="xar-sub">small text with xar-sub class</p>
+            <p class="xar-error">error text with xar-error class</p>
+        </section>
+        <section>
+        <h1>Headings and Titles</h1>
+            <p>Samples of the heading text for this theme: </p>
+
+            <h1>This is a Heading 1 Element</h1>
+            <h2>This is a Heading 2 Element</h2>
+            <h3>This is a Heading 3 Element</h3>
+            <h4>This is a Heading 4 Element</h4>
+            <h5>This is a Heading 5 Element</h5>
+            <h6>This is a Heading 6 Element</h6>
+            <p class="xar-title">&lt;p class="xar-title" &gt;Text with a class&lt;/p&gt;</p>
+            <div class="xar-mod-title">&lt;div class="xar-mod-title"&gt;Module title&lt;/div&gt;</div>
+             <div class="xar-block-title">&lt;div class="xar-block-title"&gt;Block title&lt;/div&gt;</div>
+        </section>
+        <section>
+            <h1> List styles</h1>
+            <h5>Unordered lists</h5>
+            <ul>
+                <li>Unordered lists</li>
+                <li>With bullets only</li>
+            </ul>
+            <h5>Ordered lists</h5>
+            <ol>
+                <li>Ordered lists</li>
+                <li>With numbers</li>
+            </ol>
+            <h5>Definition list</h5>
+            <dl>
+              <dt>Xarigami</dt>
+                <dd>- web application framework</dd>
+              <dt>HTML5</dt>
+                <dd>- Hypertext markup language version 5</dd>
+            </dl>
+        </section>
+         <section>
+            <h1> Text and block elements</h1>
+            <h5>Simple paragraph</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium, leo ac hendrerit vulputate, libero libero congue ipsum, nec consectetur nunc arcu in tortor. Phasellus eu cursus nunc. Duis eros nulla, mollis eu molestie id, commodo gravida massa. Nullam mollis, nisl nec sodales hendrerit, diam nunc auctor arcu, eget suscipit lectus metus nec lacus.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium, leo ac hendrerit vulputate, libero libero congue ipsum, nec consectetur nunc arcu in tortor. Phasellus eu cursus nunc. Duis eros nulla, mollis eu molestie id, commodo gravida massa. Nullam mollis, nisl nec sodales hendrerit, diam nunc auctor arcu, eget suscipit lectus metus nec lacus.</p>
+            <h5>Block quotes</h5>
+
+         <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium, leo ac hendrerit vulputate, libero libero congue ipsum, nec consectetur nunc arcu in tortor. Phasellus eu cursus nunc. Duis eros nulla, mollis eu molestie id, commodo gravida massa. Nullam mollis, nisl nec sodales hendrerit, diam nunc auctor arcu, eget suscipit lectus metus nec lacus.</blockquote>
+ <h5>Predefined text:</h5>
+
+         <pre>
+    static $objectcache = array();
+    static $fieldforshorturl =  0;
+
+    // Get arguments from argument array
+    extract($args);
+    // check if we have something to work with
+    if (!isset($func)) {
+        return;
+    }</pre>
+
+        </section>
+
+        <section>
+        <h1> Tables</h1>
+        <table class="xar-items">
+            <thead>
+                <tr>
+                    <th> Column 1</th>
+                    <th>
+                        Column 2
+                    </th>
+                    <th class="xar-item-actions">
+                        Column3
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Item</td>
+                    <td>value / option</td>
+                    <td>value / option</td>
+                </tr>
+                <tr>
+                    <td>Item</td>
+                    <td>value / option</td>
+                    <td>value / option</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Item</td>
+                    <td>value / option</td>
+                    <td>value / option</td>
+                </tr>
+            </tfoot>
+        </table>
+        </section>
+        <section>
+            <h1>Forms</h1>
+
+            <form>
+
+                <fieldset>
+                    <legend>Test</legend>
+                     <div class="xar-form-input-wrapper">
+                       <xar:data-label  label="textbox"/>
+                      <xar:data-input type="textbox" id="foo" name="foo" title="Some tooltip help" help="Some help text"/>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                      <xar:data-input type="checkbox" id="foo1" name="foo1" value="1" title="Some tooltip help" help="Some help text"/>
+                                             <xar:data-label  label="checkbox"/>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <xar:set name="foo3">array('none','some','any')</xar:set>
+                      <xar:data-input type="radio" id="foo3" name="foo3" options="$foo3" title="Some tooltip help" help="Some help text"/>
+                    <xar:data-label  label="radiobuttons"/>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                    <xar:data-label label="textarea"/>
+                    <xar:data-input type="textarea_medium" name="foo4" id="foo4" value="Whatever text you like here" />
+                    </div>
+                     <input type="submit" value="#xarML('Submit')#" />
+                </fieldset>
+            </form>
+        </section>
+

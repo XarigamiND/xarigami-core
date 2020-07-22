@@ -1,0 +1,212 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="readytoreset">(isset($readytoreset) AND (($readytoreset == TRUE) OR ($readytoreset == 1))) ? 1:0;</xar:set>
+<xar:set name="tabindex">1</xar:set>
+<xar:set name="passhelptext">xarModGetVar('roles','passhelptext')?xarModGetVar('roles','passhelptext'):''</xar:set>
+<xar:if condition="$readytoreset ne 1">
+<!--
+        <h2>
+            <xar:mlstring>Edit User</xar:mlstring>&#160;#$uname#
+        </h2>
+    -->
+    </xar:if>
+    <form action="#xarModURL('roles','user','usermenu')#" method="post" id="post" enctype="multipart/form-data">
+
+        <xar:comment>Adv password reset - Somewhat inefficient but easier to see what to update in template for password reset changes</xar:comment>
+        <xar:if condition="$readytoreset eq 1">
+            <fieldset>
+                <h3 ><xar:mlstring>You must choose a new password to log in again. </xar:mlstring></h3>
+                <p><xar:mlstring>After successfully changing your password you will be returned to your account profile page.</xar:mlstring></p>
+                <div class="xar-form-input-wrapper">
+                    <label for="pass1" class="xar-form-label">
+                        <xar:mlstring>New Password</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <xar:data-input type="password" name="pass1" id="passr1" value="" size="20" maxlength="40" autocomplete="off" tabindex="$tabindex++"/>
+                     <xar:if condition="!empty($invalid['pass1'])">
+                        <span class="xar-error">#$invalid['pass1']#</span>
+                    </xar:if>
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="pass2" class="xar-form-label">
+                        <xar:mlstring>Confirm New Password</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <xar:data-input type="password" name="pass2" id="passr2" value="" size="20" maxlength="40" autocomplete="off" tabindex="$tabindex++" />
+                    <xar:if condition="!empty($invalid['pass2'])">
+                        <span class="xar-error">#$invalid['pass2']#</span>
+                    </xar:if>
+                </div>
+                <p class="xar-form-input-wrapper-after">#$passhelptext#</p>
+                 <xar:data-input type="hidden" name="dname" id="dnamer" value="$dname" />
+                 <xar:data-input type="hidden" name="readytoreset" id="readytoreset" value="$readytoreset" />
+            </fieldset>
+        <xar:else />
+                <div class="xar-form-input-wrapper">
+                    <label for="username" class="xar-form-label">
+                        <xar:mlstring>User Name</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <span id="username">
+                        #xarVarPrepForDisplay($uname)#
+                    </span>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="dname" class="xar-form-label">
+                        <xar:mlstring>Display Name</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <xar:data-input type="textbox" name="dname" id="dname" value="$dname" size="20" maxlength="60" autocomplete="off" tabindex="$tabindex++"/>
+                    <xar:if condition="!empty($invalid['dname'])">
+                        <span class="xar-error">#$invalid['dname']#</span>
+                    </xar:if>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="emailaddress" class="xar-form-label">
+                        <xar:mlstring>Email Address</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <span id="emailaddress">
+                        #xarVarPrepForDisplay($emailaddress)#
+                    </span>
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="email" class="xar-form-label">
+                        <xar:mlstring>New Email Address</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <xar:data-input type="email" name="email" id="email" value="$email" size="40" maxlength="60" autocomplete="off" tabindex="$tabindex++"/>
+
+                    <xar:if condition="!empty($invalid['email'])">
+                        <span class="xar-error">#$invalid['email']#</span>
+                    </xar:if>
+                </div>
+                <xar:if condition="xarModGetVar('roles', 'requirevalidation')">
+                    <div class="xar-form-input-wrapper-after">
+                        <label for="email">
+                            <xar:mlstring>
+                                 Only enter an email address if you want to change your existing one.
+                            </xar:mlstring>
+                        </label>
+                        <br />
+                        <xar:mlstring>Changing your email address will require you to revalidate your account. </xar:mlstring>
+                    </div>
+                </xar:if>
+                <xar:if condition="$usersendemails">
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:data-input type="checkbox" name="allowemail" id="allowemail" checked="$allowemail" tabindex="$tabindex++#"/>
+                        <label for="allowemail" title="#xarML('Allow users to send emails?')#">
+                           <xar:mlstring>Allow other users to send you an email via a form?</xar:mlstring>
+                        </label>
+                    </div>
+                    <p class="xar-form-input-wrapper-after">
+                        <xar:mlstring>Note: your email address is never disclosed or displayed in this process.</xar:mlstring>
+                    </p>
+                </xar:if>
+                <xar:if condition="xarModGetVar('roles','setuserhome') and xarModGetVar('roles','allowuserhomeedit')">
+                    <div class="xar-form-input-wrapper">
+                        <label for="home" class="xar-form-label">
+                            <xar:mlstring>User Home</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="home" id="home" value="$home" size="40" maxlength="100" tabindex="$tabindex++" />
+                    </div>
+                <xar:elseif condition="xarModGetVar('roles','setuserhome')" />
+                     <input type="hidden" name="home" id="home" value="#$home#" />
+                </xar:if>
+
+                <div class="xar-form-input-wrapper">
+                    <p class="xar-form-input-wrapper-after"><xar:mlstring>If you wish to change your password, please enter a new password below.</xar:mlstring></p>
+                    <label for="pass1" class="xar-form-label">
+                        <xar:mlstring>New Password</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <xar:data-input type="password" name="pass1" id="pass1" value="" size="20" maxlength="40" autocomplete="off" tabindex="$tabindex++"/>
+                     <xar:if condition="!empty($invalid['pass1'])">
+                        <span class="xar-error">#$invalid['pass1']#</span>
+                    </xar:if>
+                </div>
+
+                <div class="xar-form-input-wrapper">
+                    <label for="pass2" class="xar-form-label">
+                        <xar:mlstring>Confirm New Password</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                    </label>
+                    <xar:data-input type="password" name="pass2" id="pass2" value="" size="20" maxlength="40" autocomplete="off" tabindex="$tabindex++" />
+                    <xar:if condition="!empty($invalid['pass2'])">
+                        <span class="xar-error">#$invalid['pass2']#</span>
+                    </xar:if>
+                </div>
+                <p class="xar-form-input-wrapper-after">#$passhelptext#</p>
+                <br />
+                <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
+                        <div class="xar-form-input-wrapper">
+                            <label for="upasswordupdate" class="xar-form-label">
+                                <xar:mlstring>Password last updated</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                            </label>
+                            <xar:if condition="!empty($upasswordupdate)">
+                                #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
+                            <xar:else />
+                                <xar:mlstring>No update recorded</xar:mlstring>
+                            </xar:if>
+                        </div>
+                </xar:if>
+                <xar:if condition="xarModGetVar('roles','setuserlastlogin')">
+                    <xar:if condition="!empty($usercurrentlogin)">
+                        <div class="xar-form-input-wrapper">
+                            <label for="thislogin" class="xar-form-label">
+                                <xar:mlstring>Time of Last Visit</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                            </label>
+                                #xarLocaleGetFormattedDate('medium', $usercurrentlogin)#  #xarLocaleGetFormattedTime('medium', $usercurrentlogin)#
+                        </div>
+                    </xar:if>
+                    <xar:if condition="!empty($userlastlogin)">
+                        <div class="xar-form-input-wrapper">
+                            <label for="lastlogin" class="xar-form-label">
+                                <xar:mlstring>Time of Last Login</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                            </label>
+                                #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#
+                        </div>
+                    </xar:if>
+                </xar:if>
+
+                <xar:if condition="xarModGetVar('roles','setusertimezone')">
+                    <xar:if condition="!empty($usertimezone)">
+                        <div class="xar-form-input-wrapper">
+                            <label for="utimezone" class="xar-form-label">
+                                <xar:mlstring>Your Timezone</xar:mlstring><xar:mlstring>:&#160;</xar:mlstring>
+                            </label>
+                            <xar:data-input type="timezone" name="utimezone" id="utimezone" value="$usertimezone" tabindex="$tabindex++"/>
+                        </div>
+                    </xar:if>
+                </xar:if>
+
+                <div class="xar-form-input-wrapper">
+                    <xar:data-getitem name="$properties" module="roles" itemid="$uid" />
+                    <xar:if condition="isset($properties) and count($properties) gt 0">
+                        <xar:foreach in="$properties" key="$name" value="$property">
+                            <div class="xar-form-input-wrapper xar-clearleft">
+                                <xar:set name="formlabel">$properties[$name]->id</xar:set>
+                                <label for="dd_#$formlabel#" class="xar-form-label">
+                                    <xar:data-label property="$properties[$name]" /><xar:mlstring>:&#160;</xar:mlstring>
+                                </label>
+                                <xar:data-input property="$properties[$name]" value="$propertyvalues[$name]" tabindex="$tabindex++" />
+                                 <xar:if condition="!empty($invalid[$name])">
+                                    <span class="xar-error">#$invalid[$name]#</span>
+                                </xar:if>
+                            </div>
+                        </xar:foreach>
+                     </xar:if>
+                </div>
+
+                <xar:if condition="!empty($hooks) ">
+                    <div class="xar-form-input-wrapper">
+                        <xar:foreach in="$hooks" key="$module" value="$output">
+                            <xar:if condition="$module ne 'dynamicdata'">
+                               #$output#
+                            </xar:if>
+                        </xar:foreach>
+                    </div>
+                </xar:if>
+
+        </xar:if>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="uid" id="uid" value="#$uid#" />
+            <input type="hidden" name="phase" id="phase" value="updatebasic" />
+            <input type="submit" value="#xarML('Submit')#" tabindex="#$tabindex++#"/>
+        </div>
+
+    </form>

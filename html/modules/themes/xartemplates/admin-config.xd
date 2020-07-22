@@ -1,0 +1,246 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="vardel"><xar:mlstring>Delete</xar:mlstring></xar:set>
+<xar:set name="varrestore"><xar:mlstring>Restore default</xar:mlstring></xar:set>
+<xar:set name="varconfig"><xar:mlstring>Set configuration</xar:mlstring></xar:set>
+<xar:set name="varedit"><xar:mlstring>Edit</xar:mlstring></xar:set>
+<xar:set name="ortransform"><xar:mlstring>or for transform add </xar:mlstring></xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1 class="xar-floatleft">
+            <xar:mlstring>Configure themes</xar:mlstring>
+        </h1>
+        <p class="xar-align-right xar-valign-center"><a href="#xarModURL('base','admin','performance')#"><xar:mlstring>Manage Cache &amp; Dynamic CSS</xar:mlstring></a></p>
+        <xar:template type="module" file="theme-submenu" />
+        <div class="xar-mod-content">
+            <h2 class="xar-floatleft">
+                <xar:mlstring>Configure theme variables:</xar:mlstring> #$name#
+            </h2>
+            <div class="xar-floatright">
+                <xar:set name="options">#xarModAPIFunc('themes','user','dropdownlist')#</xar:set>
+                <form method="post" id="themelist" action="#xarModURL('themes','admin','config', array('themeid'=>$id),false)#">
+                        <xar:data-input type="dropdown" options="$options" name="themeid" id="themeidselect" value="$id" onchange="javascript:this.form.submit();" class="xar-displayinline"/>
+                        <input type="submit" value="#xarML('Select Theme')#" class="xar-displayinline" />
+                </form>
+            </div>
+            <p class="xar-clearleft"><xar:mlstring>You can use theme vars directly in your theme, or alternatively in skinvar and style tags to pass their value to dynamic css variables in your css files.</xar:mlstring></p>
+            <ul>
+                <li><xar:mlstring>Add a list of names of theme vars to your dynamic css tag to replace css skinvars eg</xar:mlstring><br />
+                    <code>&lt;xar:style scope="theme" file="skykiss" dynfile="skykiss-dyn" title="skykiss" themevars="bodycolor,lefttitle,righttitle" /&gt;</code>
+                </li>
+                <li> Add the value of the theme var, or it's output such as a logo in your template directly eg<br />   <code>
+                        ##xarThemeGetVar('themename','varname')##
+                    </code>
+                    #$ortransform#
+                    <code>
+                        ##xarThemeGetVar('themename','varname',1)##
+                    </code>
+                </li>
+            </ul>
+            <p>
+                <xar:mlstring>
+                A theme author may remove a system theme variable (deprecate it) but it will remain in your database until you delete it.
+                </xar:mlstring>
+            </p>
+            <xar:if condition="count($displayvars) gt 0">
+                <xar:if condition="count($invalid) gt 0">
+                    <h4 class="xar-error"><xar:mlstring>Some variables have invalid values and were not saved - please correct those marked </xar:mlstring><span style="font-type:superscript;">*</span></h4>
+                        <ul>
+                    <xar:foreach in="$invalid" key="$error" value="$errorinfo">
+                        <li><strong>#$error#</strong> - #$errorinfo['value']# : #$errorinfo['error']#</li>
+                    </xar:foreach>
+                    </ul>
+                </xar:if>
+
+                <h4 class="xar-floatleft xar-padding-thick"><xar:mlstring>System Theme variables (defined by theme author)</xar:mlstring></h4>
+                <p class="xar-floatright xar-padding-thick">
+                    <a href="#$restoreallurl#"><xar:mlstring>[Reset all system variables for this theme]</xar:mlstring></a>
+                </p>
+                <p class="xar-floatright xar-padding-thick">
+                    <a href="#$exporturl#"><xar:mlstring>[Export all variables to PHP code]</xar:mlstring></a>
+                </p>
+                <div class="xar-clearboth"></div>
+                <div class="xar-clearleft">
+                <table class="xar-items">
+                    <tr>
+                        <th style="width:10%"><xar:mlstring>Variable name</xar:mlstring></th>
+                        <th style="width:10%"><xar:mlstring>Label</xar:mlstring></th>
+                        <th style="width:30%"><xar:mlstring>Description</xar:mlstring></th>
+                        <th style="width:25%;word-wrap: break-word;"><xar:mlstring>Default</xar:mlstring></th>
+                        <th style="width:10%"><xar:mlstring>Var Type</xar:mlstring></th>
+                        <th style="width:5%"><xar:mlstring>Status</xar:mlstring></th>
+                        <th style="width:10%" class="xar-item-actions"><xar:mlstring>Actions</xar:mlstring></th>
+                    </tr>
+                    <xar:set name="systemvarcount">0</xar:set>
+                    <xar:loop name="$displayvars">
+                    <xar:if condition="$loop:item['prime'] eq 1">
+                        <tr>
+                            <td>
+                                <strong>#$loop:item['name']#</strong>
+                            </td>
+                            <td>
+                                 #$loop:item['config']['label']#
+                            </td>
+                            <td>
+                                 #$loop:item['description']#
+                            </td>
+
+                            <td>
+                                 <xar:if condition="isset($loop:item['config']['default']) AND !empty($loop:item['config']['default']) AND ($loop:item['config']['default'] ne $loop:item['value'])">
+                                <span class="xar-error">*</span>
+                                </xar:if>
+                                <xar:comment>If we do not add any space, some long default list will not wrap correctly.</xar:comment>
+                                <xar:set name="default">xarVarPrepForDisplay(str_replace(',', ', ', $loop->item['config']['default']))</xar:set>
+                                #$default#
+                            </td>
+                            <td>
+                                #$loop:item['config']['propertyname']#
+                            </td>
+                            <td>
+                               <xar:if condition="isset($loop:item['config']['status']) AND !empty($loop:item['config']['status'])">
+                                <xar:data-output type="fieldstatus" value="$loop-&gt;item['config']['status']" />
+                                <xar:else />
+                                    <xar:mlstring>Disabled</xar:mlstring>
+                                </xar:if>
+                            </td>
+                             <td class="xar-item-actions">
+                                <a href="#$loop:item['deleteurl']#" class="#$loop:item['deleteimg']# #$loop:item['deletestate']#" title="#xarML('Delete - this system var was removed from the theme definition but still exists in your database and possibly in your theme templates.')#"><span>#$vardel#</span></a>
+
+                                <xar:if condition="$loop:item['configurl'] ne ''">
+                                    <a class="xar-icon" href="#$loop:item['configurl']#" title="#$varconfig#"><img class="xar-icon" src="#xarTplGetImage('icons/document-properties.png','base')#" title="#$varconfig#"/></a>
+                                </xar:if>
+                                <a class="xar-icon" href="#$loop:item['restoreurl']#" title="#$varrestore#"><img class="xar-icon" src="#xarTplGetImage('icons/edit-undo.png','base')#" title="#$varrestore#"/> </a>
+                            </td>
+                        </tr>
+                        <xar:set name="systemvarcount">++$systemvarcount</xar:set>
+                    </xar:if>
+                    </xar:loop>
+                    <xar:if condition="$systemvarcount eq 0">
+                        <tr>
+                            <td colspan="7"><xar:mlstring>No system variables set</xar:mlstring></td>
+                        </tr>
+                    </xar:if>
+                </table>
+                </div>
+                <h4 class="xar-floatleft xar-padding-thick"><xar:mlstring>Site Theme variables</xar:mlstring></h4>
+                <p class="xar-floatright xar-padding-thick"><a href="#xarModURL('themes','admin','exportvars',array('themeid'=>$id,'format'=>'php','vartype'=>'user'))#"><xar:mlstring>Export site variables to PHP code</xar:mlstring></a></p>
+                <div class="xar-clearboth"></div>
+                <div class="xar-clearleft">
+                <table class="xar-items">
+                    <tr>
+                        <th style="width:10%"><xar:mlstring>Variable name</xar:mlstring></th>
+                        <th style="width:10%"><xar:mlstring>Label</xar:mlstring></th>
+                        <th style="width:30%"><xar:mlstring>Description</xar:mlstring></th>
+                        <th style="width:25%;word-wrap:break-word;"><xar:mlstring>Default</xar:mlstring></th>
+                        <th style="width:10%"><xar:mlstring>Var Type</xar:mlstring></th>
+                        <th style="width:5%"><xar:mlstring>Status</xar:mlstring></th>
+                        <th style="width:10%" class="xar-item-actions"><xar:mlstring>Actions</xar:mlstring></th>
+                    </tr>
+                    <xar:set name="uservarcount">0</xar:set>
+                    <xar:loop name="$displayvars">
+                        <xar:if condition="$loop:item['prime'] ne 1">
+                            <tr>
+                                <td>
+                                   #$loop:item['name']#
+                                </td>
+                                 <td>
+                                   #$loop:item['config']['label']#
+                                </td>
+                                <td>
+                                    #$loop:item['description']#
+                                </td>
+                                <td>
+                                    #$loop:item['config']['default']#
+                                </td>
+                                <td>
+                                     #$loop:item['config']['propertyname']#
+                                </td>
+                                <td>
+                                    <xar:if condition="isset($loop:item['config']['status']) AND !empty($loop:item['config']['status'])">
+                                        <xar:data-output type="fieldstatus" value="$loop-&gt;item['config']['status']" />
+                                    <xar:else />
+                                       <xar:mlstring>Disabled</xar:mlstring>
+                                    </xar:if>
+                                </td>
+                                <td class="xar-item-actions">
+                                    <a href="#$loop:item['deleteurl']#" class="#$loop:item['deleteimg']# " title="#$vardel#"><span>#$vardel#</span></a>
+                                    <xar:if condition="$loop:item['configurl'] ne ''">
+                                        <a href="#$loop:item['configurl']#" class="#$loop:item['configimg']# " title="#$varconfig#"><span>#$varconfig#</span></a>
+                                    </xar:if>
+
+                                </td>
+                            </tr>
+                              <xar:set name="uservarcount">++$uservarcount</xar:set>
+                        </xar:if>
+
+                    </xar:loop>
+                </table>
+                </div>
+                <xar:if condition="$uservarcount eq 0">
+                    <tr>
+                        <td colspan="6"><xar:mlstring>No user variables set</xar:mlstring></td>
+                    </tr>
+                </xar:if>
+           <xar:else />
+                <h4>
+                <xar:mlstring>This theme has no defined system or site variables.</xar:mlstring>
+            </h4>
+            </xar:if>
+                <p>&#160;</p>
+             <form action="#xarModURL('themes','admin','update')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Add a Site Theme Variable</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="newvarname" title="#xarML('Name of the new variable')#" class="xar-form-label">
+                            <xar:mlstring>Variable name:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="newvarname" id="newvarname" value="$newvar['name']" class="xar-form-textlong" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+
+                        <label for="newvartype" title="#xarML('Type of new variable')#" class="xar-form-label">
+                            <xar:mlstring>Variable type:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="fieldtype" name="newvartype" id="newvartype" value="$newvar['proptype']" class="xar-form-textlong" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+
+                        <label for="newvarvalue" title="#xarML('Value of the new variable')#" class="xar-form-label">
+                            <xar:mlstring>Default value:</xar:mlstring>
+                        </label>
+                        <input type="text" name="newvarvalue" id="newvarvalue" maxlength="64" value="#$newvar['value']#" class="xar-form-textlong" />
+                         <span class="xar-sub"><xar:mlstring>Note: default value is not checked for valid format.</xar:mlstring></span>
+
+                         <xar:if condition="isset($invalid['newvarname'])">
+                            <xar:set name="error">$invalid['newvarname']</xar:set>
+                            <span class="xar-error">#$error['error']#</span>
+                        </xar:if>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="newvardescription" title="#xarML('Description of the new variable')#" class="xar-form-label">
+                            <xar:mlstring>Description:</xar:mlstring>
+                        </label>
+                        <xar:data-input type="textbox" name="newvardescription" id="newvardescription" value="$newvar['desc']" class="xar-form-textxlong" />
+                    </div>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="themeid" id="id" value="#$themeid#" />
+                    <input type="hidden" name="action" id="actionid" value="newvar" />
+                    <input type="submit" value="#xarML('Save')#" />
+                </div>
+                <div class="xar-form-footer">
+                    <p class="esprite xs-delete xar-displayinline" title="#$vardel#">&#160;#$vardel#</p>&#160;
+                    <p class="sprite xs-document-properties xar-displayinline" title="#$varconfig#">&#160;#$varconfig#</p>&#160;
+                    <p class="xar-displayinline"><img class="xar-icon" src="#xarTplGetImage('icons/edit-undo.png','base')#" title="#$varrestore#" />&#160;#$varrestore#</p>&#160;
+                 </div>
+             </form>
+        </div>
+    </div>
+</div>

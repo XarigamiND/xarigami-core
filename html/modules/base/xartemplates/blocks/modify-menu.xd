@@ -1,0 +1,203 @@
+<xar:comment>
+    License: GPL http://www.gnu.org/copyleft/gpl.html
+</xar:comment>
+<xar:comment>
+    We know that blocks.css file is already included by admin-modify_instance.xd, so no need to do it twice
+</xar:comment>
+
+<h3><strong><xar:mlstring>Menu type</xar:mlstring></strong></h3>
+<div class="xar-form-input-wrapper">
+    <label class="xar-form-label xar-help" title="#xarML('Menu type')#"><xar:mlstring>Select Menu type</xar:mlstring></label>
+    <xar:data-input type="dropdown" options="$menutypes" value="$menutype" id="menutype" name="menutype" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label class="xar-form-label xar-help" title="#xarML('Use child links')#"><xar:mlstring>Display child links?</xar:mlstring></label>
+    <xar:data-input type="checkbox" value="$showchildren" id="showchildren" name="showchildren" checked="$showchildren"/> <span class="xar-sub"><xar:mlstring>One level deep only - module and specified child links</xar:mlstring></span>
+</div>
+
+<h3><strong><xar:mlstring>Custom menu items</xar:mlstring></strong></h3>
+<p class="xar-form-input-wrapper">
+    <xar:mlstring>You can use shortcut syntax with braces, and brackets to add home link [home], modules [modname], article pubtype {pubtypeid} or category links (catid).</xar:mlstring>
+</p>
+<div class="xar-form-input-wrapper">
+    <label class="xar-form-label xar-help" title="#xarML('Use article links')#"><xar:mlstring>Display pubtype articles?</xar:mlstring></label>
+    <xar:data-input type="checkbox" value="$showarticlelinks" id="showarticlelinks" name="showarticlelinks" checked="$showarticlelinks"/> <span class="xar-sub"><xar:mlstring>For {Pubtype id} link of $maxarticle number.</xar:mlstring></span>
+</div>
+<div class="xar-form-input-wrapper">
+    <label class="xar-form-label xar-help" title="#xarML('Maximum articles displayed')#"><xar:mlstring>Max article number?</xar:mlstring></label>
+    <xar:data-input type="integerbox" id="maxarticles" name="maxarticles" value="$maxarticles"/> <span class="xar-sub"><xar:mlstring>Per {pubtypeid} dropdown</xar:mlstring></span>
+</div>
+<xar:if condition="!empty($content)">
+<p class="xar-padding-thick"></p>
+    <table class="xar-items">
+
+        <tr>
+            <th>
+                <span class="help" title="#xarML('The text displayed as the menu item.')#"><xar:mlstring>Title</xar:mlstring></span>
+            </th>
+            <th>
+                <span class="help" title="#xarML('If a URL is not provided, this item will act as a section title.')#"><xar:mlstring>URL</xar:mlstring></span>
+            </th>
+            <th>
+                <span class="help" title="#xarML('Used on hover over the menu item, or other depending on the menu type.')#"><xar:mlstring>Description</xar:mlstring></span>
+            </th>
+            <th>
+                <xar:mlstring>Delete</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Child</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Insert Blank</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Order</xar:mlstring>
+            </th>
+        </tr>
+        <xar:loop name="$contentlines">
+            <tr>
+                <td>
+                    <input type="text" class="xar-form-textmedium" name="linkname[#$loop:index#]" id="linkname_#$loop:index#" maxlength="255" value="#xarVarPrepForDisplay($loop:item[1])#" />
+                </td>
+                <td>
+                    <input type="text" class="xar-form-textlong" name="linkurl[#$loop:index#]" id="linkurl_#$loop:index#" maxlength="255" value="#xarVarPrepForDisplay($loop:item[0])#" />
+                </td>
+                <td>
+                    <input type="text" class="xar-form-textlong" name="linkdesc[#$loop:index#]" id="linkdesc_#$loop:index#" maxlength="255" value="#xarVarPrepForDisplay($loop:item[2])#" />
+                </td>
+                <td class="xar-align-center">
+                    <input type="checkbox" name="linkdelete[#$loop:index#]" id="linkdelete_#$loop:index#" value="1" />
+                </td>
+                <td class="xar-align-center">
+                    <xar:if condition="empty($loop:item[3])">
+                        <input type="checkbox" name="linkchild[#$loop:index#]" id="linkchild_#$loop:index#" value="1" />
+                    <xar:else />
+                        <input type="checkbox" name="linkchild[#$loop:index#]" id="linkchild_#$loop:index#" value="1" checked="checked" />
+                    </xar:if>
+                </td>
+                <td class="xar-align-center">
+                    <input type="checkbox" name="linkinsert[#$loop:index#]" id="linkinsert_#$loop:index#" value="1" />
+                </td>
+                <td class="xar-align-center">
+                        <xar:if condition="empty($loop:item[4]['upurl'])">
+                            #$loop:item[4]['upurl']#
+                        <xar:else />
+                            <a href="#$loop:item[4]['upurl']#" class="sprite xs-go-up xar-displayinline" title="#xarML('Move up')#" ><span>#xarML('Move up')#</span></a>
+                        </xar:if>
+                        <xar:if condition="empty($loop:item[4]['downurl'])">
+                            #$loop:item[4]['downurl']#
+                        <xar:else />
+                            <a href="#$loop:item[4]['downurl']#" class="sprite xs-go-down xar-displayinline" title="#xarML('Move down')#" ><span>#xarML('Move down')#</span></a>
+                      </xar:if>
+                </td>
+            </tr>
+        </xar:loop>
+    </table>
+
+    <xar:comment>
+        <table class="fullwidth">
+            <caption>
+                <xar:mlstring>Modify Structure (TODO obviously)</xar:mlstring>
+            </caption>
+            <tr>
+                <th>
+                    <xar:mlstring>Edit</xar:mlstring>
+                </th>
+                <th>
+                    <xar:mlstring>Preview</xar:mlstring>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </xar:comment>
+</xar:if>
+
+
+<h4>
+    <strong><xar:mlstring>Add custom menu item</xar:mlstring></strong>
+</h4>
+
+
+<div class="xar-form-input-wrapper">
+    <label for="new_linkname" title="#xarML('Item title')#" class="xar-form-label help">
+        <xar:mlstring>Title:</xar:mlstring>
+    </label>
+    <input type="text" name="new_linkname" id="new_linkname" maxlength="255" class="xar-form-textmedium" />
+</div>
+
+<div class="xar-form-input-wrapper">
+    <label for="new_linkurl" title="#xarML('Item URL - you can also use shortcut links here. eg [modname], {article aid}, (category cid)')#" class="xar-form-label help">
+        <xar:mlstring>URL:</xar:mlstring>
+    </label>
+    <input type="text" name="new_linkurl" id="new_linkurl" maxlength="255" class="xar-form-textlong" />
+</div>
+
+<div class="xar-form-input-wrapper">
+    <label for="new_linkdesc" title="#xarML('Item description - defaults to Title value if empty')#" class="xar-form-label help">
+        <xar:mlstring>Description (optional):</xar:mlstring>
+    </label>
+    <input type="text" name="new_linkdesc" id="new_linkdesc" maxlength="255" class="xar-form-textlong" />
+</div>
+<p class="xar-padding-thick"></p>
+<h3 >
+    <strong><xar:mlstring>Menu Extras</xar:mlstring></strong>
+</h3>
+
+<div class="xar-form-input-wrapper">
+    <label for="allmods#$blockid#" class="xar-form-label" title="#xarML('Uncheck this box to select modules for your menu links.')#">
+        <xar:mlstring>Display All Modules?</xar:mlstring>
+    </label>
+    <xar:data-input type="checkbox" name="allmods" id="allmods#$blockid#" checked="$allmods" />
+
+    <xar:mlstring>To display selected modules uncheck and select modules.</xar:mlstring>
+</div>
+<div class="xar-form-input-wrapper">
+    <div class="xar-form-container-after">
+         <xar:data-input type="checkboxlist" name="modlist" id="modlist" value="$modlist" layout="column" validation="$activemods" />
+    </div>
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="showlogout" id="showlogout" checked="$showlogout" />
+    <label for="showlogout" class="help" title="#xarML('Select if you would like Xarigami to generate a logout link for users at the bottom of the menu.')#">
+        <xar:mlstring>Display User Log out</xar:mlstring>
+    </label>
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="showlogin" id="showlogin" checked="$showlogin" />
+    <label for="showlogin" class="help" title="#xarML('Select if you would like Xarigami to generate a login link at the bottom of the menu.')#">
+        <xar:mlstring>Display User Log in</xar:mlstring>
+    </label>
+</div>
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="displayprint" id="displayprint" checked="$displayprint" />
+    <label for="displayprint" class="help" title="#xarML('Select if you would like Xarigami to generate a link to your print page at the bottom of the menu.')#">
+        <xar:mlstring>Display Print Link</xar:mlstring>
+    </label>
+</div>
+
+<div class="xar-form-input-wrapper-after">
+    <xar:data-input type="checkbox" name="displayrss" id="displayrss" checked="$displayrss" />
+    <label for="displayrss" class="help" title="#xarML('Select if you would like Xarigami to generate a link to your RSS at the bottom of the menu.')#">
+        <xar:mlstring>Display RSS Link</xar:mlstring>
+    </label>
+</div>
+    <div class="xar-form-input-wrapper">
+        <label for="modtitle" title="#xarML('Text used as section title for the module list.')#" class="xar-form-label help">
+            <xar:mlstring>Module section title:</xar:mlstring>
+        </label>
+    <input type="text" name="modtitle" id="modtitle" value="#xarVarPrepForDisplay($modtitle)#" maxlength="50" class="xar-form-textmedium" />
+    </div>
+<xar:if condition="!empty($allmods)">
+    <div class="xar-form-input-wrapper">
+        <label for="marker" title="#xarML('When Xarigami is generating the menu, we can mark the current page.  Use this to configure the marker for that display.')#" class="xar-form-label">
+            <xar:mlstring>Marker:</xar:mlstring>
+        </label>
+    <input type="text" name="marker" id="marker" value="#xarVarPrepForDisplay($marker)#" maxlength="255" class="xar-form-textshort" />
+    </div>
+</xar:if>
+

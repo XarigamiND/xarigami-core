@@ -1,0 +1,93 @@
+<xar:comment>
+    License: GPL http://www.gnu.org/copyleft/gpl.html
+</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify configuration</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form method="post" action="#xarModURL('authsystem','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>General Options</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="shorturls" class="xar-form-label" title="#xarML('Enable short URLS?')#">
+                            <xar:mlstring>Enable short URLs?</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="shorturls" id="shorturls" value="$shorturlschecked" checked="$shorturlschecked" />
+                     </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for = "modulealias" class="xar-form-label" title="#xarML('Use an alias instead of the module name')#">
+                            <xar:mlstring>Use a module alias</xar:mlstring>
+                        </label>
+                         <xar:data-input type="checkbox" name="modulealias" id="modulealias" value="1" checked="$usealiasname" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="aliasname" class="xar-form-label" title="#xarML('The name of module alias to be used.')#">
+                            <xar:mlstring>Module Alias Name</xar:mlstring>
+                        </label>
+                        <input type="text" name="aliasname" id="aliasname" value="#$aliasname#" size="32" maxlength="100" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for = "hidemoduleurl" class="xar-form-label" title="#xarML('Prevent the module URL being used for login')#">
+                            <xar:mlstring>Hide the module URL?</xar:mlstring>
+                        </label>
+                         <xar:data-input type="checkbox" name="hidemoduleurl" id="hidemoduleurl" value="1" checked="$hidemoduleurl" />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Login Security Options
+                        </xar:mlstring>
+                    </legend>
+                        <div class="xar-form-input-wrapper-after">
+                            <xar:data-input type="checkbox" name="uselockout" id="uselockout" value="1" checked="$uselockout" />
+                            <label for="uselockout">
+                                <xar:mlstring>
+                                    Use lockout time on incorrect login attempts?
+                                </xar:mlstring>
+                            </label>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="lockouttries" class="xar-form-label">
+                                <xar:mlstring>
+                                    Number of attempts before lockout
+                                </xar:mlstring>
+                                :
+                            </label>
+                            <input type="text" name="lockouttries" id="lockouttries" value="#xarModGetVar('authsystem', 'lockouttries')#" size="2" maxlength="2" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="lockouttime" class="xar-form-label">
+                                <xar:mlstring>
+                                    Length of time for lockout (minutes)
+                                </xar:mlstring>
+                                :
+                            </label>
+                            <input type="text" name="lockouttime" id="lockouttime" value="#xarModGetVar('authsystem', 'lockouttime')#" size="2" maxlength="2" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                         <xar:data-input type="checkbox" name="useauthcheck" id="useauthcheck"  value="1" checked="$useauthcheck" />
+
+                        <label for = "useauthcheck" class="xar-form-label" title="#xarML('Check the form is authorised on this site for submission')#">
+                            <xar:mlstring>Check form is authorised?</xar:mlstring>
+                        </label>
+                     </div>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="submit" value="#xarML('Update Authentication Configuration')#" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

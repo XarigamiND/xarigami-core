@@ -1,0 +1,44 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+    <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-breadcrumb" />
+        </xar:if>
+
+    </div>
+    <div class="xar-mod-body">
+
+      <form action="#$loginurl#" method="post" enctype="application/x-www-form-urlencoded">
+        <fieldset>
+          <legend><xar:mlstring>Login</xar:mlstring></legend>
+
+          <input type="hidden" name="redirecturl" id="returnurl" value="#$redirecturl#" />
+
+          <div class="xar-form-input-wrapper">
+            <label for="username" class="xar-form-label"><xar:mlstring>Username</xar:mlstring></label>
+            <xar:data-input type="textbox" name="uname" id="username" maxlength="255" size="20" tabindex="$tabindex++" autocomplete="off"/>
+          </div>
+          <div class="xar-form-input-wrapper">
+            <label for="password" class="xar-form-label"><xar:mlstring>Password</xar:mlstring></label>
+            <xar:data-input type="password" name="pass" id="password" maxlength="64" size="20" tabindex="$tabindex++" autocomplete="off"/>
+          </div>
+          <p class="xar-form-input-wrapper-after">
+            <a href="&xar-modurl-roles-user-lostpassword;"><xar:mlstring>Forget your password?</xar:mlstring></a>
+          </p>
+          <div class="xar-form-input-wrapper-after">
+            <xar:data-input type="checkbox" name="rememberme" id="remembermeform" checked="checked" value="1" tabindex="$tabindex++" />
+            <label for="rememberme"><xar:mlstring>Remember me</xar:mlstring></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="xar-align-center">
+          <xar:comment>The following will only work if you have 'useauthcheck' set to ON in the Authsystem modifyconfig page</xar:comment>
+          <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="submit" value="#$loginlabel#" tabindex="#$tabindex++#" />
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="tabindex">1</xar:set>
+<xar:base-include-javascript module="base" filename="formcheck.js" />
+<script type="text/javascript">
+<!--
+    // Enter name of mandatory fields
+    //var blocks_fieldRequired = Array("modulename", "blockname");
+    // Enter field description to appear in the dialog box
+    //var blocks_fieldDescription = Array("Module Name", "Block Name");
+//-->
+</script>
+<xar:style scope="common" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Add New Block Type</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <p>
+                <strong><xar:mlstring>DEVELOPER OPTION: </xar:mlstring></strong>
+            </p>
+            <p>
+                <xar:mlstring>
+                    This utility function is useful for adding and testing new blocks types during their development,
+                    and should not be used in the normal set up or maintenance of your website. Block types
+                    will normally be installed and deleted at the time you install or remove a module.
+                </xar:mlstring>
+            </p>
+            <form action="#xarModURL('blocks', 'admin', 'new_type')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Add Block Type
+                        </xar:mlstring>
+                    </legend>
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="confirm" id="confirm" value="true" />
+                    <div class="xar-form-input-wrapper">
+                        <label for="modulename" title="#xarML('This is the name of the module that this block is to be associated with.  Blocks must be associated with modules.  When in doubt use the base module.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Module Name:
+                            </xar:mlstring>
+                        </label>
+                        <xar:data-input type="module" name="moduleid" id="moduleid" value="$moduleid" tabindex="$tabindex++" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="blockname" title="#xarML('This is the exact name of the block.  It must be case specific, otherwise the block will not function correctly.')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Block Name:
+                            </xar:mlstring>
+                        </label>
+                        <xar:if condition="!empty($type_list)">
+                            <xar:data-input type="dropdown" name="blockname" id="blockname1" value="" validation="$type_list" tabindex="$tabindex++" />
+                        <xar:else />
+                            <xar:data-input type="textbox" name="blockname" id="blockname" value="" maxlength="255" class="xar-form-textlong" tabindex="$tabindex++" />
+                        </xar:if>
+                        <input type="submit" name="scan" value="#xarML('Scan Module')#" tabindex="#$tabindex++#" />
+                    </div>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="submit" name="submit" value="#xarML('Add Block Type')#" class="xar-margin-thick" tabindex="#$tabindex++#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

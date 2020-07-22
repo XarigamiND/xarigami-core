@@ -1,0 +1,48 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:comment>Common Administration menu for Objects</xar:comment>
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="template">!isset($template)?'objects':$template</xar:set>
+
+<xar:sec mask="AdminDynamicData" catch="false">
+    <xar:if condition="$activetab ne 'showpropval'">
+        <xar:set name="identifier">isset($itemid) ? $itemid : $objectid</xar:set>
+    <xar:else />
+        <xar:set name="identifier">$objectid</xar:set>
+    </xar:if>
+    <ul class="xar-tabs">
+        <xar:set name="tabclass">$activetab=='view'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-admin-view;&amp;itemid=#$identifier#&amp;template=#$template#">
+               <xar:mlstring>View Items</xar:mlstring>
+            </a>
+        </li>
+        <xar:set name="tabclass">$activetab=='modify'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-admin-modify;&amp;itemid=#$identifier#">
+               <xar:mlstring>Modify Definition</xar:mlstring>
+            </a>
+        </li>
+        <xar:set name="tabclass">$activetab=='modifyprop'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-admin-modifyprop;&amp;itemid=#$identifier#">
+               <xar:mlstring>Modify Dynamic Properties</xar:mlstring>
+            </a>
+        </li>
+        <xar:if condition="isset($urlform)">
+        <xar:set name="tabclass">$activetab=='new'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#" id="preview_form">
+            <a href="#$urlform#">
+               <xar:mlstring>Preview Input Form</xar:mlstring>
+            </a>
+        </li>
+        </xar:if>
+        <xar:set name="tabclass">$activetab=='export'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+            <a href="&xar-modurl-dynamicdata-util-export;&amp;objectid=#$identifier#">
+               <xar:mlstring>Export Definition to XML</xar:mlstring>
+            </a>
+        </li>
+    </ul>
+</xar:sec>

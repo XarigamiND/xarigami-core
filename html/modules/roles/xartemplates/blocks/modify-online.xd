@@ -1,0 +1,25 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:if condition="!empty($all_groups)">
+<div class="xar-form-input-wrapper">
+    <label for="groups_block_#$bid#" title="#xarML('Select the groups to display')#" class="xar-form-label">
+        <xar:mlstring>User Groups (roles):</xar:mlstring>
+    </label>
+    <select name="groups[]" id="groups_block_#$bid#" multiple="multiple">
+        <xar:loop name="$all_groups">
+            <xar:if condition="in_array($loop:item.uid, $groups)">
+                <option id="groups_block_#$bid#_#$loop:item.uid#" value="#$loop:item.uid#" selected="selected">#xarVarPrepForDisplay($loop:item.name)#</option>
+            <xar:else/>
+                <option id="groups_block_#$bid#_#$loop:item.uid#" value="#$loop:item.uid#">#xarVarPrepForDisplay($loop:item.name)#</option>
+            </xar:if>
+        </xar:loop>
+    </select>
+</div>
+</xar:if>
+
+<div class="xar-form-input-wrapper">
+    <label for="custom_format" title="#xarML('Maximum number of users to show')#" class="xar-form-label">
+        <xar:mlstring>Maximum Users:</xar:mlstring>
+    </label>
+    <input type="text" name="max_users" id="max_users" value="#xarVarPrepForDisplay($max_users)#" maxlength="20" class="xar-form-textmedium" />
+</div>

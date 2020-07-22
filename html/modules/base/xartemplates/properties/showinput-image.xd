@@ -1,0 +1,62 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:if condition="isset($display) and ($display eq 1) and $image_source eq 'local'">
+<xar:base-include-javascript libname="jquery" libfile="jquery.min" position="head"/>
+<xar:set name="imageselect">"
+jQuery(document).ready(function() {
+    jQuery('#local_$id').change(function() {
+         var isrc = $(this).val();
+        $('#"."imagepreview_$id').html(isrc? '".chr(60)."img  alt=\"$value\"  style=\"width:{$width}px\" src=\"$basedir' + isrc  + '\"/".chr(62)."':'');
+
+    });
+});
+"</xar:set>
+<xar:set name="codeindex">'index_'.$id</xar:set>
+<xar:base-include-javascript code="$imageselect" index="$codeindex" position="body"  />
+</xar:if>
+<xar:set name="class">!empty($class)? "$class" :'xar-form-textlong'</xar:set>
+<xar:set name="showlabel"><xar:mlstring>Show</xar:mlstring></xar:set>
+<xar:if condition="$image_source eq 'url'">
+    <xar:data-input type="url" name="$name" id="url_'.$id.'" value="$value" class="$class"/>
+<xar:elseif condition="$image_source eq 'upload'" />
+<xar:comment>we're using a hidden field to keep track of any previously uploaded file here</xar:comment>
+    <xar:base-include-javascript libname="jquery" libfile="jquery.min" position="head" />
+    <xar:set name="confirm_text"><xar:mlstring>Are you sure you want to remove this file?</xar:mlstring></xar:set>
+    <xar:set name="imagedeletecode">"
+    jQuery(function() {
+            jQuery('#{$name}_clearimagebutton').click(function() {
+                var answer = confirm('{$confirm_text}');
+                if (answer) {
+                    jQuery('#{$id}_imagehidden').val('');
+                    jQuery('#{$name}_imgthumb').hide();
+                    jQuery('#{$id}_text').val('');
+                    jQuery(this).closest('form').children('input:first[type=\'submit\']').trigger('click');
+                }
+            });
+        });"
+    </xar:set>
+    <xar:base-include-javascript type="code" code="$imagedeletecode" position="body" />
+    <input type="button" id="#$name#_clearimagebutton" value="#xarML('Clear')#" />
+    <input type="text" name="#$name#" value="#$value#" size="#$size#" maxlength="#$maxlength#" id="#$id#_text" tabindex="#$tabindex#" class="#$class#"#$html5##$evts#/>&#160;
+    <xar:data-input type="fileupload" name="$name"  id="upload_'.$id.'" extensions="$extensions" basedir="$basedir" display="$display" maxsize="$maxsize" />
+    <input type="hidden" name="#$name#" id="#$id#_imagehidden" value="#xarVarPrepForDisplay($fileName)#" />
+
+<xar:else />
+    <xar:set name="firstline">array('id' => '', 'name' => xarML('Select image'))</xar:set>
+    <xar:data-input type="filelist" name="$name" id="local_'.$id.'" value="$value" basedir="$basedir" extensions="$extensions" longname="$longname" firstline="$firstline" class="$class" />
+    <xar:if condition="!empty($value) and ($value ne 'http://')">
+        [<a href="#$srcpath#" target="preview">#$showlabel#</a>]
+    </xar:if>
+</xar:if>
+    <input type="hidden" name="#$name#_source"  id="#$id#_source" value="#$image_source#"/>
+ <xar:if condition="isset($display) and ($display eq 1)">
+        <div class="xar-form-input-wrapper-after" id="imagepreview_#$id#">
+             <xar:if condition="!empty($srcpath) and !empty($value)">
+            <img src="#$srcpath#" title="#$value#" alt="#$value#" style="width:#$width#px" />
+            </xar:if>
+        </div>
+</xar:if>
+<xar:if condition="!empty($invalid)">
+<div class="xar-form-input-wrapper-after">
+    <span class="xar-error">#$invalid#</span>
+</div>
+</xar:if>

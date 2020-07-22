@@ -1,0 +1,189 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript libname="jquery" libfile="jquery.min.js" position="body"/>
+<xar:set name="mailcode">"
+jQuery(document).ready(function() {
+    jQuery('#"."mailtype').change(function() { this.form.submit(); });
+    jQuery('#"."settemplate').hide();
+});
+"</xar:set>
+<xar:base-include-javascript type="code" module="mail" code="$mailcode" position="body" />
+<xar:set name="messagetitle">
+    #xarML('Write this string in the message body or subject to display the corresponding information')#
+</xar:set>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Configure notification template</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:if condition="!empty($settings)">
+               <p>
+                    <xar:set name="hookurl">xarModURL('modules','admin','hooks', array('hook' => 'mail'))</xar:set>
+                    <xar:set name="hooktitle"><xar:mlstring>Configure mail hooks</xar:mlstring></xar:set>
+                    <xar:set name="hooklinktext"><xar:mlstring>Hook the mail module to content types </xar:mlstring></xar:set>
+                    <xar:ml>
+                        <xar:mlstring>
+                            <a href="#(1)" title="#(2)">#(3)</a> to receive notifications on add, edit or delete.
+                        </xar:mlstring>
+                        <xar:mlvar>#$hookurl#</xar:mlvar>
+                        <xar:mlvar>#$hooktitle#</xar:mlvar>
+                        <xar:mlvar>#$hooklinktext#</xar:mlvar>
+                    </xar:ml>
+                </p>
+                <p>
+                    <xar:mlstring>The mail module is currently hooked to the following modules:</xar:mlstring>
+                </p>
+                <ul>
+                    <xar:foreach in="$settings" key="$modname" value="$config">
+                        <li>
+                            <a href="#$config.link#">
+                                #$config.modname#
+                                <xar:if condition="!empty($config.type)">
+                                    : #$config.type#
+                                </xar:if>
+                            </a>
+                        </li>
+                    </xar:foreach>
+                </ul>
+                <xar:else />
+                <p>
+                    <xar:mlstring>The mail module is currently not hooked to any module</xar:mlstring>
+                </p>
+            </xar:if>
+            <form method="post" action="#xarModURL('mail','admin','template')#">
+                <div class="xar-form-input-wrapper">
+                    <label for="mailtype" title="#xarML('Select the template to edit')#" class="xar-form-label">
+                        <xar:mlstring>Template Name:</xar:mlstring>
+                    </label>
+                    <select name="mailtype" id="mailtype">
+                        <xar:loop name="$templates">
+                            <xar:if condition="$mailtype eq $loop:item['key']">
+                                <option value="#$loop:item['key']#" selected="selected">
+                                    #$loop:item['value']#
+                                </option>
+                            <xar:else />
+                                <option value="#$loop:item['key']#">
+                                    #$loop:item['value']#
+                                </option>
+                            </xar:if>
+                        </xar:loop>
+                    </select>
+                    <input type="submit" id="settemplate" value="#xarML('Load template')#" class="xar-margin-thickright" />
+                </div>
+
+                <p>
+                    <xar:if condition="$mailtype eq 'createhook'">
+                        <xar:ml>
+                            <xar:mlstring>This email will be sent to #(1) [ #(2) ] when a hooked item is created.</xar:mlstring>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminname')#</xar:mlvar>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminmail')#</xar:mlvar>
+                        </xar:ml>
+                    <xar:elseif condition="$mailtype eq 'changehook'" />
+                        <xar:ml>
+                            <xar:mlstring>This email will be sent to #(1) [ #(2) ] when a hooked item is updated.</xar:mlstring>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminname')#</xar:mlvar>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminmail')#</xar:mlvar>
+                        </xar:ml>
+                    <xar:elseif condition="$mailtype eq 'deletehook'" />
+                        <xar:ml>
+                            <xar:mlstring>This email will be sent to #(1) [ #(2) ] when a hooked item is deleted.</xar:mlstring>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminname')#</xar:mlvar>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminmail')#</xar:mlvar>
+                        </xar:ml>
+                    <xar:else />
+                        <xar:ml>
+                            <xar:mlstring>This email will be sent to #(1) [ #(2) ].</xar:mlstring>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminname')#</xar:mlvar>
+                            <xar:mlvar>#xarModGetVar('mail', 'adminmail')#</xar:mlvar>
+                        </xar:ml>
+                    </xar:if>
+                </p>
+                <input type="hidden" name="authid" id="authid1" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase1" value="modify" />
+            </form>
+            <form id="mailtemplates" action="#xarModURL('mail','admin','template')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Template Details</xar:mlstring>
+                    </legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="subject" title="#xarML('Title of the notification')#" class="xar-form-label">
+                            <xar:mlstring>Subject:</xar:mlstring>
+                        </label>
+                        <input type="text" name="subject" id="subject" value="#xarVarPrepForDisplay($subject)#" maxlength="150" class="xar-form-textxlong" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="message" title="#xarML('Body of the notification')#" class="xar-form-label">
+                            <xar:mlstring>Message:</xar:mlstring>
+                        </label>
+                        <div class="xar-form-container-after">
+                            <xar:set name="message">#$message#</xar:set>
+                            <xar:data-input type="textarea_medium" name="message" id="message" class="xar-form-textareaxlarge" value="$message" />
+                        </div>
+                    </div>
+
+                    <p>
+                        <xar:mlstring>The following variables will be replaced in the text with specific information:</xar:mlstring>
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $sitename
+                        </span>
+                        <xar:mlstring>Name of the site</xar:mlstring>
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $siteslogan
+                        </span>
+                        <xar:mlstring>Slogan of the site</xar:mlstring>
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $siteurl
+                        </span>
+                        <xar:mlstring>URL of the site</xar:mlstring>
+                        ( #xarServerGetBaseURL()# )
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $siteadmin
+                        </span>
+                        <xar:mlstring>Name of the administrator</xar:mlstring>
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $adminmail
+                        </span>
+                        <xar:mlstring>Email address of the administrator</xar:mlstring>
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $modulename
+                        </span>
+                        <xar:mlstring>Name of the module</xar:mlstring>
+                    </p>
+                    <p>
+                        <span class="xar-form-label" title="#$messagetitle#">
+                            $objectid
+                        </span>
+                        <xar:mlstring>ID of the created/updated/deleted item</xar:mlstring>
+                    </p>
+                    <p class="xar-align-center">
+                        <xar:mlstring>
+                            Note: other variables may be available depending on the module
+                        </xar:mlstring>
+                    </p>
+                </fieldset>
+                <div class="xar-form-footer">
+                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                        <input type="hidden" name="phase" id="phase" value="update" />
+                        <input type="hidden" name="mailtype" id="mailtype2" value="#$mailtype#" />
+                        <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

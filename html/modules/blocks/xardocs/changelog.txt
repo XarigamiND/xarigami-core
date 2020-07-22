@@ -1,0 +1,60 @@
+Version 1.0.3 - 2007-09-25 jojodee
+----------------------------------
+Minor change with addition of an extra blockgroup mask
+
+Version 1.0.2 - 2007-06-04 jojodee MAJOR UPGRADE
+------------------------------------------------
+Block security has changed with all block security controlled from
+the blocks module. This has major ramifications for those with security checks
+in theme templates, or additional blocks on site with special privileges.
+
+Upgrading: - DenyBlocks privilege is removed (if it exists)
+           - a new set of privileges is assigned to Everybody in ReadNonCoreBlocks priv set including:
+             View All Base Blocks
+             View Authsystem Blocks (login)
+             View Theme Blocks
+             Deny AdminMenu block
+             
+1.  You must upgrade your privileges for blocks in your privilege GUI and templates
+
+2.  Module developers no longer need include block or block group instances or masks
+    in their module xarinit.php routines as this is handled by the blocks module.
+
+3.  Block developers no longer need include security checks in block code as this is handled
+    by the blocks module.
+    
+4. To create a new privilege in the Privilege Admin GUIfor  a Block (or Blockgroup)
+   Choose Blocks as the module,
+   Set Block (or Blockgroup) as the component
+   Enter the module related to the block, the type and name of the block as requested.
+
+5. To update existing block privileges in the Admin GUI edit the privilege and choose
+    - Blocks as the module
+    - set block or Blockgroup as the component
+    - select the module related to the block, and the type, name as required
+    
+    No need to change the Name of the privilege when modifying it.
+
+6. Make sure you update any security mask checks in your templates and change them to a
+   relevant mask as indicated below:
+
+xarSecurityCheck('EditArticles',0,'Block', '{$title}') would now be
+
+xarSecurityCheck('EditBlock',0,'Block', '{$module}:{$type}:{$name}')
+
+with the instances added (module, type, name) as required.
+
+The full registered block masks are now:
+'ViewBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW'
+'ReadBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_READ'
+'ModerateBlock','All', 'blocks', 'Block', 'All:All:All', 'ACCESS_MODERATE'
+'EditBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_EDIT'
+'AddBlock',     'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADD'
+'DeleteBlock',  'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_DELETE'
+'AdminBlock',   'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADMIN'
+ 
+'ReadBlockGroup',  'All', 'blocks', 'Blockgroup', 'All:All', 'ACCESS_READ'
+'EditBlockGroup',  'All', 'blocks', 'Blockgroup', 'All:All', 'ACCESS_EDIT'
+'AddBlockGroup',   'All', 'blocks', 'Blockgroup', 'All:All', 'ACCESS_ADD'
+'DeleteBlockGroup','All', 'blocks', 'Blockgroup', 'All:All', 'ACCESS_DELETE'
+'AdminBlockGroup', 'All', 'blocks', 'Blockgroup', 'All:All', 'ACCESS_ADMIN'

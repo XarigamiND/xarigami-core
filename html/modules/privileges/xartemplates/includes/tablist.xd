@@ -1,0 +1,30 @@
+<xar:style scope="module" module="base" file="tabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+
+<ul class="xar-tabs">
+    <li class="xar-tabs-label" title="#xarML('Choose the privileges to display')#">
+        <xar:mlstring>Show privileges:</xar:mlstring>
+    </li>
+    <xar:set name="tabclass">$show=='assigned'?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-viewprivileges;&amp;show=assigned">
+        <xar:mlstring>Assigned</xar:mlstring>
+      </a>
+    </li>
+
+    <xar:set name="tabclass">$show=='unassigned'?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-viewprivileges;&amp;show=unassigned">
+        <xar:mlstring>Unassigned</xar:mlstring>
+      </a>
+    </li>
+
+    <xar:set name="tabclass">$show=='all'?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+      <a href="&xar-modurl-privileges-admin-viewprivileges;&amp;show=all" >
+        <xar:mlstring>All</xar:mlstring>
+      </a>
+    </li>
+</ul>
+

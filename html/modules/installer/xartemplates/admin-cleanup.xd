@@ -1,0 +1,64 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div id="install">
+    <div id="step" class="complete">
+        <h1>
+            <xar:mlstring>Installation Complete</xar:mlstring>
+        </h1>
+
+        <h3>
+            <xar:mlstring>Congratulations, you have successfully installed</xar:mlstring>
+            #xarConfigGetVar('System.Core.VersionId')# #xarConfigGetVar('System.Core.VersionNum')# ("#xarConfigGetVar('System.Core.VersionSub')#")!
+        </h3>
+        <h4>
+                <xar:mlstring>Security note:</xar:mlstring>
+        </h4>
+        <ul>
+             <li><xar:mlstring>Remove write access to your <strong>var/config.system.php</strong> file now that install has completed.
+             This can be done on UNIX using the command</xar:mlstring>
+
+            "<code>chmod 444 config.system.php</code>"
+            <xar:mlstring>from within the html/var directory.</xar:mlstring>
+            </li>
+            <li>
+                <xar:mlstring>Remove or rename the <strong>install.php</strong> file. Leaving it in place is a security risk.</xar:mlstring>
+            </li>
+            <li>
+                <xar:mlstring>If your are even more security conscious, remove read access from those who don't need it:</xar:mlstring>
+
+                <xar:mlstring>For example on an apache web server, (substitute "apache" for the group your webserver runs as, probably one of apache, web, www or www-data)</xar:mlstring>
+                <br />
+                <code>chgrp apache config.system.php</code>
+                <br />
+                <code>chmod 440 config.system.php</code>
+            </li>
+       </ul>
+
+        <p>
+            <xar:mlstring>When you are ready to customise your site to your needs, you can start with the following: </xar:mlstring>
+            <xar:set name="blockadmin">'<a href="index.php?module=blocks&amp;type=admin&amp;func=view_instances">'.xarML("Blocks administration").'</a>'</xar:set>
+            <xar:set name="modadmin">'<a href="index.php?module=modules&amp;type=admin&amp;func=list">'.xarML("Modules administration").'</a>'</xar:set>
+            <ul>
+                <li>
+                    <xar:ml>
+                        <xar:mlstring>Go to the #(1) to install additional features.</xar:mlstring>
+                        <xar:mlvar>#$modadmin#</xar:mlvar>
+                    </xar:ml>
+                </li>
+               <li>
+                    <xar:ml>
+                        <xar:mlstring>Go to the #(1) to adjust the look of your sidebars.</xar:mlstring>
+                        <xar:mlvar>#$blockadmin#</xar:mlvar>
+                    </xar:ml>
+                </li>
+                <li>
+                    <a href="#$finalurl#">
+                        <xar:mlstring>Just launch the site!</xar:mlstring>
+                    </a>
+                </li>
+            </ul>
+        </p>
+        <h2 style="text-align:center;">
+            <xar:mlstring>Thank you for using Xarigami.</xar:mlstring>
+        </h2>
+    </div>
+</div>

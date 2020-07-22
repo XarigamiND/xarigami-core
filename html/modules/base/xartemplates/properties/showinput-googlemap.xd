@@ -1,0 +1,10 @@
+<div class="xar-form-container-after">
+<xar:foreach in="$props" key="$key" value="$info">
+    <div class="xar-form-input-wrapper">
+        <label for="#$info['fieldname']#" title="#$info['description']#" class="xar-form-label help">
+            #$info['fieldlabel']#
+        </label>
+        #$info['inputtag']# &#160; <span class="xar-sub">#$info['configinfo']#</span>
+    </div>
+</xar:foreach>
+</div>

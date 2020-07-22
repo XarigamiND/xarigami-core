@@ -1,0 +1,5 @@
+ <xar:if condition="$permitted">
+    <a href="#$leafitemurl#" title="#$leafitemtitle#" id="deletetree_#$leafitemid#_#$leafitemhash#" class="#$leafitemimage#" ><span>#$leafitemtitle#</span></a>
+<xar:else />
+    <p title="" style="padding-right:0.3em;" id="deletetree_#$leafitemid#_#$leafitemhash#" class="xar-icon-disabled xar-displayinline #$leafitemimage#"><span><xar:mlstring>Disabled</xar:mlstring></span></p>
+</xar:if>

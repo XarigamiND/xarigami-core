@@ -1,0 +1,42 @@
+<xar:set name="toggleall"><xar:mlstring>&#160;Toggle all module details</xar:mlstring></xar:set> 
+<xar:set name="detail"><xar:mlstring>Hook details</xar:mlstring></xar:set> 
+<xar:set name="hookdetail"><xar:mlstring>Details of all hooks provided by this module</xar:mlstring></xar:set>
+<xar:set name="legendtitle"><xar:mlstring>Enable/disable hooks for this module</xar:mlstring></xar:set> 
+<xar:set name="hookscode">"
+jQuery(document).ready(function() {
+    var toggledetail = \"$detail\"; 
+    var toggleall = \"$toggleall\"; 
+    var hookdetail = \"$hookdetail\";
+    var legendtitle = \"$legendtitle\";
+    jQuery('.detailcontrols').append('<a href=\"#\" title=\"' +hookdetail+ '\" class=\"detail_checktoggle\">'+toggledetail+'</a>');
+    jQuery('div.fullhookdetail').css('display','none');
+    jQuery('a.detail_checktoggle').click(function() { 
+        jQuery(this).parent().parent().find('div.fullhookdetail').toggle();
+        return false;
+    });
+    jQuery('.checkcontrols').append('<a href=\"#\" class=\"items_checktoggle esprite xs-toggle\" >'+toggleall+'</a>');
+    jQuery('a.items_checktoggle').click(function() { 
+        jQuery(this).parent().parent().find('div.fieldwrapper').toggle();
+        return false;
+    });
+    jQuery('form#moduleselect select#hook').change(function() {
+        this.form.submit();
+    });
+    
+    jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() {
+    jQuery(this).parent().children('div.fieldwrapper').toggle();
+    }).hover(function() {
+        jQuery(this).css('cursor', 'pointer');
+        jQuery(this).attr('title', legendtitle);
+    });
+    jQuery('input[type=radio][id^=NOT_hooked]').add('input[type=radio][id^=ALL_hooked]').click(function() {
+        jQuery(this).parent().children('div').hide();
+    });
+    jQuery('input[type=radio][id^=SOME_hooked]').click(function() {
+        jQuery(this).parent().children('div').show();
+    });
+    jQuery('input[type=radio][id^=NOT_hooked]:checked').add('input[type=radio][id^=ALL_hooked]:checked').parent().children('div').hide();
+  
+});
+"</xar:set>
+<xar:base-include-javascript type="code" code="$hookscode" position="body"/>

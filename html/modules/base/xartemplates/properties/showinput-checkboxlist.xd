@@ -1,0 +1,80 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:set name="layout">!isset($layout)?'default':$layout;</xar:set>
+<xar:set name="columns">isset($columns)?$columns:2;</xar:set>
+<xar:set name="optionnum">count($options)</xar:set>
+<xar:if condition="$optionnum gt 0">
+    <div class="xar-form-container-after">
+        <xar:if condition="$layout eq 'column' and $columns gt 0">
+            <xar:set name="optioncount">round(count($options)/$columns)</xar:set>
+            <xar:set name="width">(96/$columns).'%'</xar:set>
+            <xar:set name="currentcount">0</xar:set>
+            <ul style="list-style-type:none;float:left; max-width: #$width#; margin-right: 2px;">
+                <xar:set name="currentcount">0</xar:set>
+                <xar:foreach in="$options" value="$option" key="$key">
+                    <xar:if condition="$key == 0">
+                        <xar:set name="theID">$id</xar:set>
+                    <xar:else />
+                        <xar:set name="theID">$id.'_'.$key</xar:set>
+                    </xar:if>
+                    <li>
+                        <xar:if condition="in_array($option['id'],$value)">
+                            <input type="checkbox" name="#$name#[]" id="#$theID#" value="#$option['id']#" checked="checked"#$html5##$evts# />
+                        <xar:else />
+                            <input type="checkbox" name="#$name#[]" id="#$theID#" value="#$option['id']#"#$html5##$evts# />
+                        </xar:if>
+                        <label for="#$theID#">#$option['name']# </label>
+                    </li>
+                    <xar:set name="currentcount">++$currentcount</xar:set>
+            <xar:if condition="$currentcount eq $optioncount ">
+            </ul>
+            <ul style="list-style-type:none; float:left; max-width: #$width#; margin-right: 2px;">
+                <xar:set name="currentcount">0</xar:set>
+            </xar:if>
+                </xar:foreach>
+            </ul>
+
+        <xar:elseif condition="empty($layout) or $layout eq 'default' or $layout eq 'horizontal'"/>
+            <xar:comment>Single unformatted row default</xar:comment>
+            <xar:foreach in="$options" value="$option" key="$key">
+                <xar:if condition="$key == 0">
+                    <xar:set name="theID">$id</xar:set>
+                <xar:else />
+                    <xar:set name="theID">$id.'_'.$key</xar:set>
+                </xar:if>
+
+                <xar:if condition="in_array($option['id'],$value)">
+                      <input type="checkbox" name="#$name#[]" id="#$theID#" tabindex="#$tabindex#" value="#$option['id']#" checked="checked"#$html5##$evts#/>
+                <xar:else />
+                    <input type="checkbox" name="#$name#[]" id="#$theID#" tabindex="#$tabindex#" value="#$option['id']#"#$html5##$evts# />
+                </xar:if>
+
+                <label for="#$theID#">#$option['name']# </label>
+            </xar:foreach>
+         <xar:elseif condition="$layout eq 'vertical'"/>
+            <xar:foreach in="$options" value="$option" key="$key">
+                <div>
+                    <xar:if condition="$key == 0">
+                        <xar:set name="theID">$id</xar:set>
+                    <xar:else />
+                        <xar:set name="theID">$id.'_'.$key</xar:set>
+                    </xar:if>
+
+                    <xar:if condition="in_array($option['id'],$value)">
+                        <input type="checkbox" name="#$name#[]" id="#$theID#" value="#$option['id']#" checked="checked"#$html5##$evts#/>
+                    <xar:else />
+                        <input type="checkbox" name="#$name#[]" id="#$theID#" value="#$option['id']#"#$html5##$evts#/>
+                    </xar:if>
+                    &#160;
+                    <label for="#$theID#">#$option['name']#</label>
+                </div>
+            </xar:foreach>
+     </xar:if>
+    </div>
+<xar:else />
+    <xar:mlstring>No options specified for CheckBox List in validation field.</xar:mlstring>
+</xar:if>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

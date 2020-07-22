@@ -1,0 +1,6 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-form-input-wrapper">
+<label class="xar-form-label" for="#$name#">#$label#</label>
+
+#$showinput#
+</div>

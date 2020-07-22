@@ -1,0 +1,56 @@
+<div class="xar-padding-thick">
+
+    <h2>Description</h2>
+    <p>
+        The Static property does not provide any input options when used in a form.
+        You may enter a default value which is displayed on input and output display.
+    </p>
+    <p>
+        The output display function shows the text as input in the default value.
+    </p>
+    <p>
+        The value stored in the default value configuration field is stored in the database.
+    </p>        
+    <h2>Attributes</h2>
+
+    <ul>
+        <li>
+            <strong>default</strong>: [default = '']
+            <br />This is the value of the static text displayed in both input and
+            output display.
+
+        </li>
+    </ul>
+    <p>
+        Other attributes may be inherited from the parent property.
+    </p>
+
+    <h2>Usage</h2>
+
+    <h3>Standalone</h3>
+    <p>
+        You can use the <em>static</em> type in forms without the need to define a property
+        to capture data.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input type="static" default="$defaulttext" name="myfield"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+    <h3>Defined Data Property</h3>
+    <p>
+        When you define this property you can add the static text in the 'Default' input box.
+    </p>
+    <p>
+        You cannot capture data in forms. The Static property will only output the static text display.
+    </p>
+     <pre style="font-size:smaller">
+        &lt;xar:data-input property="$properties['static']"
+            <i>[attr1="value1",...]</i> /&gt;
+    </pre>
+
+    <h2>Example</h2>
+    <pre style="font-size:smaller">
+        &lt;xar:data-input type="static" id="mystatic"
+            name="mystatic" default="Any text" /&gt;
+    </pre>
+</div>
