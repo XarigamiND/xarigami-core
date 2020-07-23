@@ -59,7 +59,8 @@
 * xarCore_GetCached()
 * xarCore_DelCached()
 * xarCore_FlushCached()
-* /
+*/
+require_once("structures/descriptor.php"); 
 
 // Prefix Add
 function xarGetStatusMsg()
@@ -93,7 +94,6 @@ function xarBlockTypeExists($modName, $blockType)
     $args = array('modName'=>$modName, 'blockType'=>$blockType);
     return xarMod::apiFunc('blocks', 'admin', 'block_type_exists', $args);
 }
-
 /**
  * get the user's language
  *
@@ -437,7 +437,7 @@ function xarCoreIsApiAllowed($apiType)
  * Deprecated Object, DataContainer, ObjectDescriptor classes replaced by xarXXXXXX in core 1.5
  */
  
-class_alias('xarObject', 'Object');
+#class_alias('xarObject', 'Object');
 class_alias('xarObjectDescriptor', 'ObjectDescriptor');
 class_alias('xarDataContainer', 'DataContainer');
 
