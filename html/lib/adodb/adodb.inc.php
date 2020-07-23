@@ -264,7 +264,7 @@
 	
 		var $createdir = true; // requires creation of temp dirs
 		
-		function ADODB_Cache_File()
+		function __construct()
 		{
 		global $ADODB_INCLUDED_CSV;
 			if (empty($ADODB_INCLUDED_CSV)) include_once(ADODB_DIR.'/adodb-csvlib.inc.php');
@@ -998,7 +998,8 @@
 				foreach($inputarr as $arr) {
 					$sql = ''; $i = 0;
 					//Use each() instead of foreach to reduce memory usage -mikefedyk
-					while(list(, $v) = each($arr)) {
+					#while(list(, $v) = each($arr)) {
+					foreach($arr as $k__ => $v) {
 						$sql .= $sqlarr[$i];
 						// from Ron Baldwin <ron.baldwin#sourceprose.com>
 						// Only quote string types	
