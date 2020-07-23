@@ -3,6 +3,52 @@ please keep this file up to date when making changes to the library
 so we have an easy cheatsheet when upgrading and have a document ready
 when we want things merged into the upstream code.
 
+=============================================================
+Diff of all Xarigami changes from 5.18a /Lion
+
+1. Deleted from ADOdb distro
+    ./server.php
+    ./replicate (dir)
+    ./drivers/adodb-text.inc.php
+    ./pear/auth_adodb_example.php
+3. Add empty "index.html" file to all dirs
+4. Move docs files to "docs" subdir from root
+6. Xaraya's own drivers were added
+    ./drivers: adodb-xarmssql.inc.php
+    ./drivers: adodb-xarmysqli.inc.php
+    ./drivers: adodb-xarmysql.inc.php
+    ./drivers: adodb-xaroci8.inc.php
+    ./drivers: adodb-xarpostgres64.inc.php
+    ./drivers: adodb-xarpostgres7.inc.php
+    ./drivers: adodb-xarpostgres8.inc.php
+    ./drivers: adodb-xarpostgres.inc.php
+    ./drivers: adodb-xarsqlite.inc.php
+7. Xaraya only files
+    xartests dir
+    xarchanges.txt (this file)
+8. Differing files:
+    ./adodb.inc.php
+    ./drivers/adodb-mysqli.inc.php
+    ./drivers/adodb-mysql.inc.php
+    ./drivers/adodb-postgres64.inc.php
+    ./drivers/adodb-postgres9.inc.php (whitespace change only)
+    ./drivers/adodb-sqlite.inc.php
+
+./adodb.inc.php
+    - Just what's added to Lion's branch already 
+    - (constructor name be __construction(), deprecated each() function removed)
+    
+./drivers/adodb-mysql.inc.php
+    - changed MetaDatabases() function because it was deprecated
+
+./drivers/adodb-mysqli.inc.php
+    - MetaColumns() function fix: "makes sure the database is selected"
+
+./drivers/adodb-postgres64.inc.php
+    - Added: set bytea_output='escape' (whatever that is)
+
+./drivers/adodb-sqlite.inc.php
+    - MetaIndexes() "to fix return values of indexes in Metaindexes"
 
 =============================================================
 Changes made to ADOdb library in this Xarigami 1.4.x series onward

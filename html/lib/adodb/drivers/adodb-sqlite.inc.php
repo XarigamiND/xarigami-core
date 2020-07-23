@@ -298,13 +298,7 @@ class ADODB_sqlite extends ADOConnection {
 			  */
 			$cols = explode("(",$row[1]);
 			$cols = explode(")",$cols[1]);
-            array_pop($cols);
-            /* Xarigami fix */
-			if (isset($cols[0]) && is_string($cols[0])){
-			    $cols = explode(",",$cols[0]);
-			}
-			/* End Xarigami fix */
-
+			array_pop($cols);
 			$indexes[$row[0]]['columns'] = $cols;
 		}
 		if (isset($savem)) { 

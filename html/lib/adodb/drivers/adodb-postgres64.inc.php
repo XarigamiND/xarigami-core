@@ -697,11 +697,8 @@ WHERE (c2.relname=\'%s\' or c2.relname=lower(\'%s\'))';
 			$this->_connectionID = pg_connect($str);
 		}
 		if ($this->_connectionID === false) return false;
-        //start Xarigami change
-        //$this->Execute("set datestyle='ISO'");
-        $this->Execute("set datestyle='ISO';set bytea_output='escape'");
-        //end Xarigami change
-
+		$this->Execute("set datestyle='ISO'");
+		
 		$info = $this->ServerInfo();
 		$this->pgVersion = (float) substr($info['version'],0,3);
 		if ($this->pgVersion >= 7.1) { // good till version 999
