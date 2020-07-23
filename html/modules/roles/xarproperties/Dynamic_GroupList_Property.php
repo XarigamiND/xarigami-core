@@ -136,7 +136,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
     public function getOptions()
     {
         $select_options = array();
-        if (count($this->options) == 0 ) {
+        if (!isset($this->options) || count($this->options) == 0 ) {
             if (!empty($this->xv_ancestorgrouplist) && is_array($this->xv_ancestorgrouplist)) {
                 $select_options['ancestor'] = implode(',',$this->xv_ancestorgrouplist);
             }
@@ -155,7 +155,9 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
                     $options[] = array('id' => $group['uid'], 'name' => $group['name']);
                  //}
             }
-        }
+        } else {
+			$options = array();
+		}
         return $options;
     }
 

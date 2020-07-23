@@ -195,7 +195,7 @@ class Dynamic_Object_Master extends xarObject
     {
         $properties = $this->properties;
         $fields = array();
-        if(count($fieldlist) != 0) {
+        if(isset($fieldlist) && count($fieldlist) != 0) {
             foreach($fieldlist as $field)
             {
                 // Ignore those disabled AND those that don't exist

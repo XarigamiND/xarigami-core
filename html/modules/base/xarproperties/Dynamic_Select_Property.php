@@ -246,14 +246,14 @@ class Dynamic_Select_Property extends Dynamic_Property
     {
         $firstline = $this->getFirstline();
         if (is_array($firstline)) $options = $firstline;
-        if (count($this->options) > 0 ) {
+        if (isset($this->options) && count($this->options) > 0 ) {
             if (!empty($firstline) && is_array($firstline)) $this->options =array_merge($firstline,$this->options);
             return $this->options;
         } else {
           //  if (!isset($this->options)) $this->options = array();
         }
 
-        if (!empty($file)) $filepath = sys::code() . $this->xv_file;
+        if (!empty($this->xv_file)) $filepath = sys::code() . $this->xv_file;
 
         if (!empty($this->xv_func)) {
             // we have some specific function to retrieve the options here

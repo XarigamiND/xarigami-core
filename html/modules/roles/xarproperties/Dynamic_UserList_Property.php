@@ -63,7 +63,7 @@ class Dynamic_UserList_Property extends Dynamic_Select_Property
         $this->template = 'userlist';
         $this->filepath   = 'modules/roles/xarproperties';
 
-        if (count($this->options) == 0) {
+        if (!isset($this->options) || count($this->options) == 0) {
             $select_options = array();
             if (($this->xv_userstate <> ROLES_STATE_ALL)) $select_options['state'] = $this->xv_userstate;
             if (!empty($this->xv_orderlist)) $select_options['order'] = implode(',', $this->xv_orderlist);

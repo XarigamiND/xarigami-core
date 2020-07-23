@@ -33,8 +33,8 @@ class Dynamic_DataSource_Property extends Dynamic_Select_Property
     {
 
         parent::__construct($args);
-         $this->filepath   = 'modules/dynamicdata/xarproperties';
-        if (count($this->options) == 0) {
+        $this->filepath   = 'modules/dynamicdata/xarproperties';
+        if (!isset($this->options) || count($this->options) == 0) {
             $datastoreMaster = new Dynamic_DataStore_Master($args);
             $sources = $datastoreMaster->getDataSources($args);
             if (!isset($sources)) {

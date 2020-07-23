@@ -34,7 +34,7 @@ class Dynamic_FieldStatus_Property extends Dynamic_Select_Property
         $this->tplmodule  =  'base';
         $this->template   =  'dropdown';
 
-        if (count($this->options) == 0) {
+        if (!isset($this->options) || count($this->options) == 0) {
             $this->getOptions();
         }
     }
