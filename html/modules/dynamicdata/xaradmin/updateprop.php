@@ -34,7 +34,7 @@ function dynamicdata_admin_updateprop()
     if(!xarVarFetch('dd_default',    'isset', $dd_default,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('dd_source',     'isset', $dd_source,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('dd_status',     'isset', $dd_status,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('dd_validation', 'isset', $dd_validation,  '', XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('dd_validation', 'isset', $dd_validation,  NULL, XARVAR_DONT_SET)) {return;}
 
 
     // Confirm authorisation code.
