@@ -334,8 +334,9 @@ class xarMasks
             // <mikespub> this gets set in xarBlock_render, to replace the xarModSetVar /
             // xarModVars::get combination you used before (although $module will generally
             // not be 'blocks', so I have no idea why this is needed anyway)
-            if ($module == 'blocks' && xarCoreCache::isCached('Security.Variables','currentmodule'))
-            $module = xarCoreCache::getCached('Security.Variables','currentmodule');
+            if ($module == 'blocks' && xarCoreCache::isCached('Security.Variables','currentmodule')) {
+	            $module = xarCoreCache::getCached('Security.Variables','currentmodule');
+			}
 
             if (empty($component)) {
                 $msg = xarML('Did not find mask #(1) registered for an unspecified component in module #(2)', $maskname, $module);
@@ -1736,7 +1737,7 @@ class xarMask
             }
             // instead of calling 5 times or more strtolower, use serialization.
             $serialized = serialize($normalform);
-            $serializednocaps = strtolower($serialized);
+            $serializednocaps = str_replace(";n;", ";N;", strtolower($serialized));
             if ($serialized !== $serializednocaps) $normalform = unserialize($serializednocaps);
         }
 
@@ -2577,7 +2578,8 @@ class xarPrivilege extends xarMask
 
         if (!empty($children)) {
             //Get the child field for each child
-            while (list($key, $child) = each($children)) {
+            #while (list($key, $child) = each($children)) {
+            foreach($children as $key => $child) {
                 $descendants = xarCoreCache::getCached('Privileges.getChildren', $child->pid);
                 if (!empty($descendants)) {
                     foreach ($descendants as $descendant) {
