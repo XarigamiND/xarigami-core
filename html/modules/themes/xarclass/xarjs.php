@@ -682,9 +682,9 @@ class xarJs extends xarObject
 
     private function _orderJsWeight($jslist)
     {
-        $jstype = '';
-        $jsweight= '';
-        $jsoriginal = '';
+        $jstype = [];
+        $jsweight= [];
+        $jsoriginal = [];
         $i = 0;
         //set up an original sort order first so we do not loose original load order
         //this will take priority if we sort on it first
