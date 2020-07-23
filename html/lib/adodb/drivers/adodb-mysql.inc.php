@@ -310,15 +310,22 @@ class ADODB_mysql extends ADOConnection {
 	
   	function MetaDatabases()
 	{
-		$qid = mysql_list_dbs($this->_connectionID);
+		//start xarigami change for deprecated functions
+		//$qid = mysql_list_dbs($this->_connectionID);
+        $qid = mysql_query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA",$this->_connectionID);
 		$arr = array();
 		$i = 0;
 		$max = mysql_num_rows($qid);
-		while ($i < $max) {
-			$db = mysql_tablename($qid,$i);
+		/*while ($i < $max) {
+			$db = mysql_tablename($qid,$i); //deprecated
 			if ($db != 'mysql') $arr[] = $db;
 			$i += 1;
+		}*/
+		while ($db = mysql_fetch_assoc($qid))
+		{
+		    if ($db != 'mysql') $arr[] = $db['SCHEMA_NAME'];
 		}
+        //end xarigami change for deprecated functions
 		return $arr;
 	}
 	
