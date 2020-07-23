@@ -1,0 +1,3 @@
+/html/var/cache/templates/*.php
+/html/var/cache/templates/CACHEKEYS
+/html/var/config.system.php
