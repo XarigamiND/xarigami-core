@@ -388,7 +388,7 @@ class xarServer extends xarServerBone
             }
 
             // Iteratively remove all NULL elements.
-            if (!isset($callback_isset)) $callback_isset = create_function('$x', 'return !is_NULL($x);');
+            if (!isset($callback_isset)) $callback_isset = function($x) { return !is_NULL($x); };
             $parsed_query = array_filter($parsed_query, $callback_isset);
 
             // TODO: convert the array back into a query string and insert back into the URL.
