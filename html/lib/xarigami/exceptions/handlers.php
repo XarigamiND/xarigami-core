@@ -17,7 +17,8 @@ sys::import('xarigami.variables.system');
 
 interface IExceptionHandlers
 {
-    public static function defaulthandler(Exception $e);
+    // $e is Exception in PHP 5, Throwable in PHP 7, so must remove type definition for compatibility
+    public static function defaulthandler($e);
     public static function phperrors($errorType, $errorString, $file, $line, array $errorContext=array());
 }
 
@@ -40,7 +41,7 @@ class ExceptionHandlers extends xarObject implements IExceptionHandlers
      * @todo Get rid of the redundant parts
      * @return void
      */
-    public static function defaulthandler(Exception $e)
+    public static function defaulthandler($e)
     {
         $isdev = TRUE;
         $opmode = 'developer';
@@ -178,7 +179,8 @@ class ExceptionHandlers extends xarObject implements IExceptionHandlers
     }
 
     // Handler with more information, for instance for the designated site admin
-    public static function debughandler(Exception $e)
+    // @todo: this is unused -Lion
+    public static function debughandler($e)
     {
         $trace = str_replace(sys::root(),'',$e->getTraceAsString());
         self::$data = array_merge( self::$data,
@@ -193,7 +195,7 @@ class ExceptionHandlers extends xarObject implements IExceptionHandlers
     }
 
     // Lowest level handler, should always work, no assumptions whatsoever
-    public static function bone(Exception $e)
+    public static function bone($e)
     {
         echo ExceptionHandlers::RenderRaw($e);
     }
@@ -346,7 +348,7 @@ class ExceptionHandlers extends xarObject implements IExceptionHandlers
     }
 
     // Private methods
-    private static function RenderRaw(Exception $e)
+    private static function RenderRaw($e)
     {
         // @todo how many assumptions can we make about the rendering capabilities of the client here?
         $out="<pre>";
