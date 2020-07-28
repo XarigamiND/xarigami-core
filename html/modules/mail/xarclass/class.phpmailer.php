@@ -34,15 +34,10 @@
  * @author Andy Prevost
  * @author Marcus Bointon
  * @copyright 2004 - 2009 Andy Prevost
- * @version $Id: class.phpmailer.php 447 2009-05-25 01:36:38Z codeworxtech $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
- /* 
- * Changes for xarigami and php5.3
- * @copyright (C) 2009-2010 2skies.com
- * @link http://xarigami.com/project/xarigami_core
- * @author Xarigami Team 
- */
+
 if (version_compare(PHP_VERSION, '5.0.0', '<') ) exit("Sorry, this version of PHPMailer will only run on PHP version 5 or greater!\n");
 
 class PHPMailer {
@@ -469,20 +464,20 @@ class PHPMailer {
       echo $this->Lang('invalid_address').': '.$address;
       return false;
     }
-  if ($kind != 'ReplyTo') {
-    if (!isset($this->all_recipients[strtolower($address)])) {
+    if ($kind != 'ReplyTo') {
+      if (!isset($this->all_recipients[strtolower($address)])) {
         array_push($this->$kind, array($address, $name));
         $this->all_recipients[strtolower($address)] = true;
-    return true;
+        return true;
       }
-  } else {
-    if (!array_key_exists(strtolower($address), $this->ReplyTo)) {
+    } else {
+      if (!array_key_exists(strtolower($address), $this->ReplyTo)) {
         $this->ReplyTo[strtolower($address)] = array($address, $name);
-    return true;
+      return true;
     }
   }
-    return false;
-  }
+  return false;
+}
 
 /**
  * Set the From and FromName properties
@@ -654,21 +649,9 @@ class PHPMailer {
     $to = implode(', ', $toArr);
 
     $params = sprintf("-oi -f %s", $this->Sender);
-
-    //DEPRECATED 5.3 REMOVE AT PHP6.0
-    //XARIGAMI MODIFICATION start
-    if (version_compare(PHP_VERSION,'5.3.0','<')) {
-        $inisafe= strlen(ini_get('safe_mode'));
-    } else {
-        $inisafe=-0;
-    }
-    if ($this->Sender != '' && $inisafe< 1) {
-    //XARIGAMI MODIFICATION end
-       $old_from = ini_get('sendmail_from');
-      // ini_set('sendmail_from', $this->Sender);
-      //XARIGAMI MODIFICATION -- Start
-      if (!xarFuncIsDisabled('ini_set')) ini_set("sendmail_from", $this->Sender);
-      //XARIGAMI MODIFICATION -- End
+    if ($this->Sender != '' && strlen(ini_get('safe_mode'))< 1) {
+      $old_from = ini_get('sendmail_from');
+      ini_set('sendmail_from', $this->Sender);
       if ($this->SingleTo === true && count($toArr) > 1) {
         foreach ($toArr as $key => $val) {
           $rt = @mail($val, $this->EncodeHeader($this->SecureHeader($this->Subject)), $body, $header, $params);
@@ -698,10 +681,7 @@ class PHPMailer {
       }
     }
     if (isset($old_from)) {
-      //ini_set('sendmail_from', $old_from);
-       //XARIGAMI MODIFICATION -- Start
-       if (!xarFuncIsDisabled('ini_set')) ini_set("sendmail_from", $old_from);
-       //XARIGAMI MODIFICATION -- End         
+      ini_set('sendmail_from', $old_from);
     }
     if(!$rt) {
       throw new phpmailerException($this->Lang('instantiate'), self::STOP_CRITICAL);
@@ -767,6 +747,7 @@ class PHPMailer {
         $this->doCallback($isSent,'','',$bcc[0],$this->Subject,$body);
       }
     }
+
 
     if (count($bad_rcpt) > 0 ) { //Create error message for any bad addresses
       $badaddresses = implode(', ', $bad_rcpt);
@@ -1142,18 +1123,6 @@ class PHPMailer {
     if($this->Mailer != 'mail') {
       $result .= $this->HeaderLine('Subject', $this->EncodeHeader($this->SecureHeader($this->Subject)));
     }
-    //XARIGAMI MODIFICATION
-    // Get  client IP addr
-        //
-        $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
-        if (!empty($forwarded)) {
-            $ipAddress = preg_replace('/,.*/', '', $forwarded);
-        } else {
-            $ipAddress = xarServer::getVar('REMOTE_ADDR');
-        }
-    $result .= $this->HeaderLine("Received", "from [$ipAddress] by " . xarServer::getVar('HTTP_HOST') . "; " . date('r'));    
-
-    //END XARIGAMI MODIFICATION    
 
     if($this->MessageID != '') {
       $result .= $this->HeaderLine('Message-ID',$this->MessageID);
@@ -1161,10 +1130,8 @@ class PHPMailer {
       $result .= sprintf("Message-ID: <%s@%s>%s", $uniq_id, $this->ServerHostname(), $this->LE);
     }
     $result .= $this->HeaderLine('X-Priority', $this->Priority);
-    //$result .= $this->HeaderLine('X-Mailer', 'PHPMailer '.$this->Version.' (phpmailer.sourceforge.net)');
-    //XARIGAMI MODIFICATION
-    $result .= $this->HeaderLine('X-Mailer', 'PHPMailer '.$this->Version.' (phpmailer.sourceforge.net xarigami revised)');
-    //END XARIGAMI MODIFICATION
+    $result .= $this->HeaderLine('X-Mailer', 'PHPMailer '.$this->Version.' (phpmailer.sourceforge.net)');
+
     if($this->ConfirmReadingTo != '') {
       $result .= $this->HeaderLine('Disposition-Notification-To', '<' . trim($this->ConfirmReadingTo) . '>');
     }
@@ -2216,6 +2183,7 @@ class PHPMailer {
     $this->sign_key_file = $key_filename;
     $this->sign_key_pass = $key_pass;
   }
+
   /**
    * Set the private key file and password to sign the message.
    *
