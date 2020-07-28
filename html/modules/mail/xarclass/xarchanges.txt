@@ -1,5 +1,17 @@
 Xarigami Changes
 
+PHPMailer 5.2.27
+Original release added - will need to reimplement Xarigami changes to the 5.1.
+
+PHPMailer 5.2.9 
+Note:
+"The autoloader is no longer autoloaded automatically, and the PHPMailer
+class does not require the SMTP class explicitly, so you must either load
+the autoloader yourself (as all the docs and examples have done for the 
+last year), or load the SMTP class yourself. This fixes the inability to
+substitute your own SMTP subclass, and also improves interoperability with
+other autoloaders."
+
 - All xarigami changes are marked with XARIGAMI MODIFICATION start and end 
 Changes as of xarigami cumulus 1.1.8:
 - Updated to latest php mailier for php5/6 V5.1
