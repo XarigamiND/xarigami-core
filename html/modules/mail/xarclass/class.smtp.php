@@ -35,7 +35,7 @@
  * @author Marcus Bointon
  * @copyright 2004 - 2008 Andy Prevost
  * @license http://www.gnu.org/copyleft/lesser.html Distributed under the Lesser General Public License (LGPL)
- * @version $Id: class.smtp.php 444 2009-05-05 11:22:26Z coolbru $
+ * @version $Id$
  */
 
 /**
@@ -132,7 +132,6 @@ class SMTP {
                                  $tval);   // give up after ? secs
     // verify we connected properly
     if(empty($this->smtp_conn)) {
-
       $this->error = array("error" => "Failed to connect to server",
                            "errno" => $errno,
                            "errstr" => $errstr);
