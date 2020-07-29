@@ -48,7 +48,8 @@ class MxCheckValidation extends ValueValidations
         // $Domain : ebeecomm.com
         // list function reference : http://www.php.net/manual/en/function.list.php
         // split function reference : http://www.php.net/manual/en/function.split.php
-        list ( $Username, $Domain ) = split ("@", $subject);
+        // explode function reference: https://www.php.net/manual/en/function.explode.php
+        list ( $Username, $Domain ) = explode ("@", $subject);
 
         // That MX(mail exchanger) record exists in domain check .
         // checkdnsrr function reference : http://www.php.net/manual/en/function.checkdnsrr.php
