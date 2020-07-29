@@ -1657,7 +1657,15 @@ class xarMLS_ParseBrowserLanguage extends xarMLS_ParseBrowserLocaleBase
     {
         $this->element = trim($this->element);
         // Reformat the locale to the same standard used in Xarigami. xx_XX or xx
-        $this->element = preg_replace("/([a-z]{2})[_-]([a-zA-Z]{2})/e", "'\\1'.'-'.strtoupper('\\2')", $this->element);
+        // @todo: this does not return the format mentioned in previous comment but separated with dash.
+        $this->element = preg_replace_callback("/([a-z]{2})[_-]([a-zA-Z]{2})/", function($matches) {
+            if(count($matches) == 3) {
+                return $matches[1].'-'.strtoupper($matches[2]);
+            } else if(count($matches) == 2) {
+                return $matches[1];
+            }
+            return $matches[0];
+        }, $this->element);
     }
 
     protected function AdjustRate()
