@@ -89,16 +89,6 @@ class xarCache_Storage extends xarObject
                 }
                 break;
 
-            case 'eaccelerator':
-                if (function_exists('eaccelerator')) {
-                    sys::import('xarigami.caching.storage.eaccelarator');
-                    $classname = 'xarCache_eAccelerator_Storage';
-                } else {
-                    sys::import('xarigami.caching.storage.filesystem');
-                    $classname = 'xarCache_FileSystem_Storage';
-                }
-                break;
-
             case 'xcache':
                 if (function_exists('xcache_get')) {
                     sys::import('xarigami.caching.storage.xcache');
