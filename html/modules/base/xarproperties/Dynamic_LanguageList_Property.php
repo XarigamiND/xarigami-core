@@ -32,7 +32,7 @@ class Dynamic_LanguageList_Property extends Dynamic_Select_Property
     function getOptions()
     {
         $options = $this->getFirstline();
-        if (count($this->options) > 0) {
+        if (isset($this->options) && count($this->options) > 0) {
             if (!empty($firstline)) $this->options = array_merge($options,$this->options);
             return $this->options;
         }

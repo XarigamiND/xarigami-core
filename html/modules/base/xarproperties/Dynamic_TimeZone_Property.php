@@ -120,7 +120,7 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
 
     function getOptions()
     {
-       if (count($this->options) > 0) {
+       if (isset($this->options) && count($this->options) > 0) {
             return $this->options;
         }
         $zones = DateTimeZone::listIdentifiers();
