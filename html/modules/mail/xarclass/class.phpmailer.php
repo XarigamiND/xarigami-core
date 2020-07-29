@@ -17,6 +17,13 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+/*
+ * Changes for xarigami
+ * @copyright (C) 2009-2010 2skies.com
+ * @link http://xarigami.com/project/xarigami_core
+ * @author Xarigami Team
+ */
+
 /**
  * PHPMailer - PHP email creation and transport class.
  * @package PHPMailer
@@ -1505,7 +1512,11 @@ class PHPMailer
         }
         if (!empty($this->Sender) and !ini_get('safe_mode') and $this->validateAddress($this->Sender)) {
             $old_from = ini_get('sendmail_from');
-            ini_set('sendmail_from', $this->Sender);
+            //XARIGAMI MODIFICATION -- Start - Adding a xarFuncIsDisabled wrapper to ini_set
+            if (!xarFuncIsDisabled('ini_set')) {
+                ini_set('sendmail_from', $this->Sender);
+            }
+            //XARIGAMI MODIFICATION -- End
         }
         $result = false;
         if ($this->SingleTo and count($toArr) > 1) {
@@ -1518,7 +1529,11 @@ class PHPMailer
             $this->doCallback($result, $this->to, $this->cc, $this->bcc, $this->Subject, $body, $this->From);
         }
         if (isset($old_from)) {
-            ini_set('sendmail_from', $old_from);
+            //XARIGAMI MODIFICATION -- Start // Adding a xarFuncIsDisabled wrapper to ini_set
+            if (!xarFuncIsDisabled('ini_set')) {
+                ini_set('sendmail_from', $old_from);
+            }
+            //XARIGAMI MODIFICATION -- End
         }
         if (!$result) {
             throw new phpmailerException($this->lang('instantiate'), self::STOP_CRITICAL);
@@ -2090,6 +2105,17 @@ class PHPMailer
         if ($this->Mailer != 'mail') {
             $result .= $this->headerLine('Subject', $this->encodeHeader($this->secureHeader($this->Subject)));
         }
+
+        //XARIGAMI MODIFICATION - Start - Adding a Received header with visitors's IP (direct or proxy forwarded)
+        // Get  client IP addr
+        $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
+        if (!empty($forwarded)) {
+            $ipAddress = preg_replace('/,.*/', '', $forwarded);
+        } else {
+            $ipAddress = xarServer::getVar('REMOTE_ADDR');
+        }
+        $result .= $this->HeaderLine("Received", "from [$ipAddress] by " . xarServer::getVar('HTTP_HOST') . "; " . date('r'));
+        //XARIGAMI MODIFICATION - End
 
         // Only allow a custom message ID if it conforms to RFC 5322 section 3.6.4
         // https://tools.ietf.org/html/rfc5322#section-3.6.4

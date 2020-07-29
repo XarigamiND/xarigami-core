@@ -1,18 +1,21 @@
 Xarigami Changes
 
-PHPMailer 5.2.27
-Original release added - will need to reimplement Xarigami changes to the 5.1.
+All xarigami changes are marked with XARIGAMI MODIFICATION
 
-PHPMailer 5.2.9 
-Note:
-"The autoloader is no longer autoloaded automatically, and the PHPMailer
-class does not require the SMTP class explicitly, so you must either load
-the autoloader yourself (as all the docs and examples have done for the 
-last year), or load the SMTP class yourself. This fixes the inability to
-substitute your own SMTP subclass, and also improves interoperability with
-other autoloaders."
+PHPMailer 5.2.28
 
-- All xarigami changes are marked with XARIGAMI MODIFICATION start and end 
+Currently active changes:
+- Two ini_set() calls are wrapped with xarFuncIsDisabled
+  TODO: check whether this is really needed, if not default in PHPMailer itself.
+- Adds an extra "Received:" header with the visitors's IP (or IP forwarded by his Proxy)
+
+Removed previous Xarigami changes:
+- Won't modify the "X-Mailer" to add Xarigami
+  ---> not so important, less modifications to track
+- Won't check PHP version before reading outdated ini_get("safe_mode") setting
+  ---> reading it will return FALSE so the code will work fine
+
+-----------
 Changes as of xarigami cumulus 1.1.8:
 - Updated to latest php mailier for php5/6 V5.1
 Changes as of xarigami cumulus 1.1.7:
