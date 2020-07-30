@@ -25,7 +25,7 @@ function xarDB__mysqliCreateTable($tableName, $fields, $charset='utf8')
     $primary_key = array();
     $increment_start = false;
 
-    while (list($field_name, $parameters) = each($fields)) {
+    foreach($fields as $field_name => $parameters) {
         $parameters['command'] = 'create';
         $this_field = xarDB__mysqliColumnDefinition($field_name, $parameters);
 

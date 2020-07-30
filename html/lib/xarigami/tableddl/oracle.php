@@ -31,7 +31,7 @@ function xarDB__oracleCreateTable($tableName, $fields, $charset='utf8')
     $sql_fields = array();
     $primary_key = array();
 
-    while (list($field_name, $parameters) = each($fields)) {
+    foreach ($fields as $field_name => $parameters) {
         $parameters['command'] = 'create';
         $this_field = xarDB__oracleColumnDefinition($field_name, $parameters);
 

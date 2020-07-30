@@ -104,7 +104,7 @@ function xarDBCreateTable($tableName, $fields, $databaseType="",$charset="utf8")
     $metaTable = $systemPrefix . '_tables';
     if ($tableName != $metaTable) {
         $dbconn = xarDB::$dbconn;
-        while (list($field_name, $parameters) = each($fields)) {
+        foreach($fields as $field_name => $parameters) {
             $nextId = $dbconn->GenId($metaTable);
             $query = "INSERT INTO $metaTable (
                       xar_tableid, xar_table, xar_field,  xar_type,

@@ -2469,7 +2469,7 @@ class xarPrivilege extends xarMask
 
 //Get the parent field for each parent
         $masks = new xarMasks();
-        while (list($key, $parent) = each($parents)) {
+        foreach ($parents as $key => $parent) {
             $ancestors = $parent->getParents();
             foreach ($ancestors as $ancestor) {
                 $parents[] = $ancestor;
@@ -2578,7 +2578,6 @@ class xarPrivilege extends xarMask
 
         if (!empty($children)) {
             //Get the child field for each child
-            #while (list($key, $child) = each($children)) {
             foreach($children as $key => $child) {
                 $descendants = xarCoreCache::getCached('Privileges.getChildren', $child->pid);
                 if (!empty($descendants)) {

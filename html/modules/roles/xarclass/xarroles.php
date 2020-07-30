@@ -913,7 +913,7 @@ class xarRole
         $inherited = array();
         foreach ($ancestors as $ancestor) {
             $perms = $ancestor->getAssignedPrivileges();
-            while (list($key, $perm) = each($perms)) {
+            foreach ($perms as $key => $perm) {
                 $inherited[] = $perm;
             }
         }
@@ -1185,7 +1185,7 @@ class xarRole
         //Reset the array pointer - else in some cases we may miss getting all ancestors
         reset($parents);
         // Get the parent field for each parent
-        while (list($key, $parent) = each ($parents)) {
+        foreach ($parents as $key => $parent) {
             $plevel = $parent->parentlevel + 1;
             $ancestors = $parent->getParents();
             foreach ($ancestors as $key1 => $ancestor) {
@@ -1390,7 +1390,7 @@ class xarRole
             $parents = $part->getParents();
 
     //Get the parent field for each parent
-            while (list($key, $parent) = each($parents)) {
+            foreach ($parents as $key => $parent) {
                 $ancestors = $parent->getParents();
                 foreach ($ancestors as $ancestor) {
 
