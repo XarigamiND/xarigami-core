@@ -78,6 +78,8 @@ class MxCheckValidation extends ValueValidations
             // fgets function reference : http://www.php.net/manual/en/function.fgets.php
             if ( mb_ereg ( "^220", $Out = fgets ( $Connect, 1024 ) ) ) {
 
+                $Email = $Username."@".$Domain;
+
                 // Inform client's reaching to server who connect.
                 fputs ( $Connect, "HELO $HTTP_HOST\r\n" );
                 $Out = fgets ( $Connect, 1024 ); // Receive server's answering cord.

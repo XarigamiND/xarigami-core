@@ -101,7 +101,7 @@ class DateValidation extends ValueValidations
             $subject = strftime($store_format, $timestamp);
         } else {
             $msg = xarML('Invalid date format');
-            if (!$suppress)  throw new VariableValidationException(null, $msg);
+            throw new VariableValidationException(null, $msg);
         }
         return true;
     }
