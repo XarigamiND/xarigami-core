@@ -1,6 +1,8 @@
+articles
 authemail
 autolinks
 bbcode
+categories
 changelog
 comments
 crispbb
@@ -20,6 +22,7 @@ pdfgen
 polls
 ratings
 recommend
+registration
 scheduler
 search
 sharecontent
@@ -27,8 +30,10 @@ sitecontact
 sitetools
 smilies
 sniffer
+tinymce
 translations
 uploads
 wiki
 xarbb
 xarcachemanager
+xarpages
