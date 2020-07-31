@@ -418,7 +418,7 @@ class xarServerBone extends xarObject
      */
     final static public function initOnce()
     {
-        if (!sys::isInit()) self::fail();
+        if (!sys::isInit()) sys::fail();
         self::$__arrvars = array();
         self::$__webRootPath = '';
         self::$__webRootPathReal = '';
@@ -532,7 +532,7 @@ class xarRequestBone extends xarObject
      */
     final static public function initOnce()
     {
-        if (!sys::isInit()) xarServerBone::fail();
+        if (!sys::isInit()) sys::fail();
         self::$__bScriptValid = FALSE;
         self::$__objFile = NULL;
         self::$__stack = array();
