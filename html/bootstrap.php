@@ -508,7 +508,7 @@ class xarServerBone extends xarObject
      */
      final public static function hasSymlinkRoot()
      {
-        if (empty(self::$__webRootPath) || empty(self::$__webRootPathReal)) self::getWebRoot();
+        if (empty(self::$__webRootPath) || empty(self::$__webRootPathReal)) self::getWebRootPath();
         return self::$__webRootPath !== self::$__webRootPathReal;
      }
 }
