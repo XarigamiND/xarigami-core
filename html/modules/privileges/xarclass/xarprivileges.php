@@ -1221,7 +1221,7 @@ class xarPrivileges extends xarMasks
             $components[] = array('id' => -2,
                                'name' => 'All');
         }
-        elseif(count($result->fields) == 0) {
+        elseif($result->fields === FALSE || count($result->fields) == 0) {
             $components[] = array('id' => -1,
                                'name' => 'All');
 //          $components[] = array('id' => 0,
