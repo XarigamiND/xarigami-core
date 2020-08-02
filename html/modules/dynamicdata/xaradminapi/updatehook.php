@@ -121,7 +121,7 @@ function dynamicdata_adminapi_updatehook($args)
                 }
             }
         }
-        xarLogMessage("DYNAMIC DATA UPDATEHOOK - field with invalid data for #(1)",$msg);
+        xarLogMessage("DYNAMIC DATA UPDATEHOOK - field with invalid data for ".$modname.",".$itemtype.",".$itemid.".");
        // throw new BadParameterException(null,$msg);
         // we *must* return $extrainfo for now, or the next hook will fail
         //return false;
