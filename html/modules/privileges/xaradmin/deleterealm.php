@@ -49,7 +49,7 @@ function privileges_admin_deleterealm()
      xarTplSetMessage($msg,'error');
     } else {
         // Hmm... what do we do about hooks?
-        //xarMod::callHooks('item', 'delete', $pid, '');
+        //xarMod::callHooks('item', 'delete', $pid);
         $msg = xarML('Realm "#(1)" has been deleted.', $name);
                  xarTplSetMessage($msg,'status');
         xarLogMessage('PRIVILEGES: A realm with RID '.$rid.' and name '.$name.' was deleted by user '.xarSession::getVar('uid'),XARLOG_LEVEL_AUDIT);

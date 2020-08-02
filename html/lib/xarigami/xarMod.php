@@ -886,7 +886,7 @@ class xarMod extends xarObject implements IxarMod
      * @todo <marco> <mikespub> re-evaluate how GUI / API hooks are handled
      * @todo add itemtype (in extrainfo or as additional parameter)
      */
-    static function callHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerModName = NULL, $callerItemType = '')
+    static function callHooks($hookObject, $hookAction, $hookId, $extraInfo = array(), $callerModName = NULL, $callerItemType = '')
     {
 
         // allow override of current module if necessary (e.g. modules admin, blocks, API functions, ...)

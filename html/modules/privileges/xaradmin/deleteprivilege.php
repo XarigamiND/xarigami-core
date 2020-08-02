@@ -55,7 +55,7 @@ function privileges_admin_deleteprivilege()
 //Try to remove the privilege and bail if an error was thrown
     if (!$priv->remove()) return;
 
-    xarMod::callHooks('item', 'delete', $pid, '');
+    xarMod::callHooks('item', 'delete', $pid);
      xarLogMessage('PRIVILEGES: A privilege with PID '.$pid.' and name '.$name.' was deleted by user '.xarSession::getVar('uid'),XARLOG_LEVEL_AUDIT);
     $msg = xarML('The privilege "#(1)" was successfully removed.',$name);
     xarTplSetMessage($msg,'status');
