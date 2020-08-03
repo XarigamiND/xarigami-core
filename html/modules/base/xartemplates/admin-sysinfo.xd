@@ -74,10 +74,10 @@
                     </div>
                     <xar:if condition="!empty($XARCORE_VERSION_REV)">
                         <div class="xar-form-input-wrapper">
-                            <label title="#xarML('Monotone Revision')#" class="xar-form-label">
-                                <xar:mlstring>Monotone Revision:</xar:mlstring>
+                            <label title="#xarML('Code Revision')#" class="xar-form-label">
+                                <xar:mlstring>Code Revision:</xar:mlstring>
                             </label>
-                             MTN #$XARCORE_VERSION_REV#
+                             #$XARCORE_VERSION_REV#
                         </div>
                     </xar:if>
                     <div class="xar-form-input-wrapper">

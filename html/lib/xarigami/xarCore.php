@@ -20,12 +20,11 @@
  */
 //start mtn revision inclusion
 $rev = 'unknown';
-try { // Openbasedir restriction may raise an E_WARNING alert.
-    if (file_exists('../_MTN/revision')) {
-        $t= file('../_MTN/revision');
-        if (isset($t[4]))
-            $rev = str_replace(array('old_revision [',']'),'',$t[4]);
-            $rev = trim($rev);
+try { // "revision" file should be generated based on source code system by dist-build tools
+    if (file_exists('revision')) {
+        $t= file('revision');
+        if (isset($t[0]))
+            $rev = trim($t[0]);
     }
 } catch (Exception $e) {}
 define('XARCORE_GENERATION',1);
