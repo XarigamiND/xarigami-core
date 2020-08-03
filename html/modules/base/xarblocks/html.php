@@ -66,10 +66,9 @@ function base_htmlblock_display($blockinfo)
             return;
         }
     }
+    $blockinfo['content'] = Array();
     if(isset($vars['html_content'])) {
-        $blockinfo['content'] = $vars['html_content'];
-    } else {
-        $blockinfo['content'] = '';
+		$blockinfo['content']['usercontent'] = $vars['html_content'];
     }
     return $blockinfo;
 }
