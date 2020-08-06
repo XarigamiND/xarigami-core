@@ -489,6 +489,37 @@ function xarVarPrepForDisplay()
 }
 
 /**
+ * Prepare string for use within a single quoted JS string
+ *
+ * When called with one string, it prepares that. With more
+ * parameters it returns an array each parameter prepared.
+ * Escapes single quote and backslash, so the value can be used
+ * within JS code string.
+ *
+ * @access public
+ * @return mixed prepared string if only one variable passed
+ * in, otherwise an array of prepared variables
+ */
+function xarVarPrepForJS()
+{
+    $resarray = array();
+    foreach (func_get_args() as $var) {
+        // Prepare var
+        $var = str_replace("\\", "\\\\", $var);
+        $var = str_replace("'", "\\'", $var);
+        // Add to array
+        array_push($resarray, $var);
+    }
+
+    // Return vars
+    if (func_num_args() == 1) {
+        return $resarray[0];
+    } else {
+        return $resarray;
+    }
+}
+
+/**
  * Ready HTML output
  *
  * Gets a variable, cleaning it up such that the text is
