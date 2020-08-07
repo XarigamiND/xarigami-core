@@ -174,7 +174,7 @@ function dynamicdata_adminapi_showlist($args)
         $itemcount = $object->countItems();
     }
     $object->getItems();
-    if (empty($pagerurl)) $pagerurl = xarServer::getCurrentURL(array('startnum'=>'%%'));
+    if (empty($pagerurl)) $pagerurl = xarServer::getCurrentURL();
 
     $pager = xarTplGetPager($startnum,$itemcount,$pagerurl,$numitems);
 
