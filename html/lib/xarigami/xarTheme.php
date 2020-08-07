@@ -99,7 +99,7 @@ function xarThemeGetConfig($args)
                 if ( $throw === TRUE) {
                     $msg = xarML('THEME CONFIG - Deleting bad theme variable "#(1)" in the database for theme "#(2)"',$name,$themename);
 
-                    throw new VariableNotFounException($varname,$msg);
+                    throw new VariableNotFoundException($name,$msg);
                 } else {
                     $msg = xarML('THEME CONFIGS: Bad theme variable "#(1)" in the database for theme #(2)',$name,$themename);
                     xarLogMessage($msg);
@@ -150,13 +150,13 @@ function xarThemeGetConfig($args)
         $themedir = xarThemeGetDirFromName($themename);
         $xarinitfilename = $sitethemedir.'/'. $themedir .'/xartheme.php';
         if (!file_exists($xarinitfilename) && $throw === TRUE) {
-           throw new FileNotFounException($xarinitfilename);
+           throw new FileNotFoundException($xarinitfilename);
         }
         try {
             include $xarinitfilename;
         } catch (Exception $e) {
             if ( $throw === TRUE) {
-              throw new FileNotFounException($xarinitfilename);
+              throw new FileNotFoundException($xarinitfilename);
             } else {
                 $msg = xarML('Could not find the xartheme.php file for theme #(1)',$themename);
                 xarTpl::setMessage($msg,'error');
@@ -172,7 +172,7 @@ function xarThemeGetConfig($args)
 
                 if ( $throw === TRUE)
                 {
-                    throw new VariableNotFounException($name,$msg);
+                    throw new VariableNotFoundException($name);
                 } else {
 
                 $msg = xarML('Malformed theme variable named "#(1)" in xartheme.php file for "#(2)". Please remove it.', $name, $themename);
