@@ -276,8 +276,7 @@ class xarMod extends xarObject implements IxarMod
     static function getId($modName, $type = 'module', $system=FALSE)
     {
         if (empty($modName)) {
-            $msg = xarML('Module or Theme Name #(1) is empty.', '$modName');
-             throw new EmptyParameterException($msg);
+            throw new EmptyParameterException('modName');
         }
 
         switch($type) {
@@ -312,8 +311,7 @@ class xarMod extends xarObject implements IxarMod
     static function getDirFromName($modName, $type = 'module')
     {
         if (empty($modName)) {
-            $msg = xarML('Module or Theme Name #(1) is empty.', '$modName');
-             throw new EmptyParameterException($msg);
+            throw new EmptyParameterException('modName');
         }
 
         switch($type) {
@@ -628,7 +626,7 @@ class xarMod extends xarObject implements IxarMod
              return xarResponse::NotFound();
         }
         if (empty($funcName)) {
-            throw new EmptyParameterExceptions('funcName');
+            throw new EmptyParameterException('funcName');
         }
 
         // good thing this information is cached :)
@@ -914,7 +912,7 @@ class xarMod extends xarObject implements IxarMod
 
         // TODO: #2
         if (!isset($hooklist) ) {
-            throw new EmptyParameterExceptions($hooklist);
+            throw new EmptyParameterException('hooklist');
         }
 
         $output = array();
@@ -981,7 +979,7 @@ class xarMod extends xarObject implements IxarMod
         static $hookListCache = array();
 
         if (empty($callerModName)) {
-            throw new EmptyParameterExceptions('callerModName');
+            throw new EmptyParameterException('callerModName');
         }
 
         // Eventually $callerItemType gets an array. Implicit type cast is not working well in PHP5.4.
@@ -1061,7 +1059,7 @@ class xarMod extends xarObject implements IxarMod
         static $modHookedCache = array();
         if (!self::isAvailable($hookModName)) return;
         if (empty($hookModName)) {
-            throw new EmptyParameterExceptions('hookModName');
+            throw new EmptyParameterException('hookModName');
         }
         if (empty($callerModName)) {
             list($callerModName) = xarRequest::getInfo();
@@ -1141,8 +1139,7 @@ class xarMod extends xarObject implements IxarMod
     static function getFileInfo($modOsDir, $type = 'module')
     {
         if (empty($modOsDir)) {
-            $msg = xarML('Directory information #(1) is empty.', '$modOsDir');
-            throw new EmptyParameterException($msg);
+            throw new EmptyParameterException('modOsDir');
         }
 
         if (empty($GLOBALS['xarMod_noCacheState']) && xarCoreCache::isCached('Mod.getFileInfos', $modOsDir)) {
@@ -1249,8 +1246,7 @@ class xarMod extends xarObject implements IxarMod
     static function getBaseInfo($modName, $type = 'module')
     {
         if (empty($modName)) {
-            $msg = xarML('Module or Theme Name #(1) is empty.', '$modName');
-            throw new EmptyParameterException($msg);
+            throw new EmptyParameterException('modName');
         }
 
         if ($type != 'module' && $type != 'theme') {
@@ -1415,8 +1411,7 @@ class xarMod extends xarObject implements IxarMod
     static function getVarsByName($varName, $type = 'module')
     {
         if (empty($varName)) {
-            $msg = xarML('Empty Theme or Module variable name (#(1)).', '$varName');
-            throw new EmptyParameterExceptions($msg);
+            throw new EmptyParameterException('varName');
         }
 
         $dbconn = xarDB::$dbconn;
@@ -1481,7 +1476,7 @@ class xarMod extends xarObject implements IxarMod
         if($type == 'theme') return TRUE; // sigh.
 
         if (empty($modName)) {
-            throw new EmptyParameterExceptions('modName');
+            throw new EmptyParameterException('modName');
         }
         // Check to ensure we aren't doing this twice
         if (isset($loadedDbInfoCache[$modName])) {

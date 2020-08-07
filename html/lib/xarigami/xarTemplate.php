@@ -1140,7 +1140,7 @@ class xarTpl extends xarObject
             $blCompiler = xarTpl__getCompilerInstance();
             $templateCode = $blCompiler->compileFile($sourceFileName);
             if (!isset($templateCode) ) {
-                throw new EmptyParameterException($templateCode,'Template Code does not exist "#(1)" ');
+                throw new EmptyParameterException($sourceFileName,'Template Code resulted empty "#(1)" ');
             }
             if (self::$_cacheTemplates) {
                 $fd = fopen($cachedFileName, 'w');
