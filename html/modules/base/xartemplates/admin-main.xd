@@ -21,7 +21,7 @@
             <p><xar:mlstring>The Administration menu allows you to have control over various global aspects on your site and includes:</xar:mlstring></p>
                 <ol>
                     <li><xar:mlstring>System Information: Allows you to view your server and php set-up for trouble shooting.</xar:mlstring></li>
-                    <li><xar:mlstring>Extension Releases: View recently released extensions from the xarigami.com Extension and Release RSS feed.</xar:mlstring></li>
+                    <li><xar:mlstring>Extension Releases: View recently released extensions from the xarigami.org Extension and Release RSS feed.</xar:mlstring></li>
                     <li><xar:mlstring>Modify Config: Allows you to change some of the key settings controlling the core behaviour of the site.</xar:mlstring>
                          <ul>
                             <li><xar:mlstring>Default module providing display on your site's front page</xar:mlstring></li>
@@ -72,8 +72,9 @@
                         <li><xar:mlstring>Manual listing of modules for display of user menu items.</xar:mlstring></li>
                     </ul>
 
-                    <p><xar:mlstring>You can use </xar:mlstring><a href="http://xaraya.com/index.php/documentation/522"><xar:mlstring>Xarigami shortcut URL syntax</xar:mlstring></a><xar:mlstring> for menu links that will automatically be
-                       converted to full or short friendly urls, or use module aliases, depending on your overall Xarigami site install settings.</xar:mlstring></p>
+                    <p><xar:mlstring>You can use </xar:mlstring><a href="http://xarigami.org/"><xar:mlstring>Xarigami shortcut URL syntax</xar:mlstring></a><xar:mlstring> for menu links that will automatically be
+                       converted to full or short friendly urls, or use module aliases, depending on your overall Xarigami site install settings.</xar:mlstring>
+                       (http://xaraya.com/index.php/documentation/522)</p>
                 </li>
                 <li><p><xar:mlstring><strong>php</strong>: Execute PHP code in a block.</xar:mlstring></p></li>
                 <li><p><xar:mlstring><strong>text</strong>: Include plain text in a block.</xar:mlstring></p></li>
@@ -134,16 +135,10 @@
             <h3>
                 <xar:mlstring>Further Information</xar:mlstring>
             </h3>
-            <p>
-                <xar:mlstring>Further information on the Base module can be found at</xar:mlstring>
-            </p>
-               <ul>
-                      <li><xar:mlstring>Base Module Extension page at</xar:mlstring> <a title="#xarML('Base Module - Xarigami Extension 68')#" href="http://www.xaraya.com/index.php/release/68.html">Xarigami Extension and Releases</a>.
-                      <xar:mlstring> Click on Version History tab at the bottom to get the latest release information.</xar:mlstring>
-                      </li>
-                      <li><xar:mlstring>Related tutorials and documentation on Base Module found at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/base/" title="#xarML('Related documentation on Base')#"><xar:mlstring>Xarigami Documentation.</xar:mlstring></a>
-                      </li>
-                 </ul>
+            <ul>
+                <li><a href="http://xarigami.org/project/xarigami_core"><xar:mlstring>Xarigami Core page</xar:mlstring></a></li>
+                <li><a href="http://xarigami.org/contrails/displayproject/xgami"><xar:mlstring>Xarigami Core issue tracker</xar:mlstring></a></li>
+            </ul>
                  <p class="xar-sub">
                      <strong>&#160;<xar:mlstring>Base Module Overview</xar:mlstring></strong><br />&#160;<xar:mlstring>Version</xar:mlstring> 1.0.3&#160;2006-11-12
                  </p>

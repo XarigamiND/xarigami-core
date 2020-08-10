@@ -69,15 +69,10 @@
             <xar:mlstring>None</xar:mlstring>
         </p>
        <h3><xar:mlstring>Further Information</xar:mlstring></h3>
-       <p>
-          <xar:mlstring>Further information on the Authsystem Authentication module can be found at:</xar:mlstring>
-       </p>
        <ul>
-          <li><xar:mlstring>Authsystem Module Extension page at</xar:mlstring> <a title="#xarML('Authsystem Module - Xarigami Extension 42')#" href="http://www.xaraya.com/index.php/release/42.html">Xarigami Extension and Releases</a>.
-          <xar:mlstring> Click on Version History tab at the bottom to get the latest release information.</xar:mlstring>
-          </li>
-          <li><xar:mlstring>Related tutorials and documentation on Authsystem module at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/authsystem/" title="#xarML('Related documentation on Authsystem')#"><xar:mlstring>Xarigami Documentation.</xar:mlstring></a>
-          </li>
+          <li><xar:mlstring>Authsystem Extension page</xar:mlstring> <xar:mlstring>(there is no project page yet)</xar:mlstring></li>
+          <li><a href="http://xarigami.org/project/xarigami_core"><xar:mlstring>Xarigami Core page</xar:mlstring></a></li>
+          <li><a href="http://xarigami.org/keywords/authentication"><xar:mlstring>Authentication related articles</xar:mlstring></a></li>
        </ul>
       <p class="xar-sub">
         <strong>&#160;<xar:mlstring>Authentication Module - Overview</xar:mlstring></strong><br />&#160;<xar:mlstring>Version</xar:mlstring> 1.0.0&#160; 2006-02-04

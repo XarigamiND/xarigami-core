@@ -210,12 +210,10 @@
             <h3>
                 <xar:mlstring>Further Information</xar:mlstring>
             </h3>
-            <p>
-               <xar:mlstring>Further information on the DynamicData module:</xar:mlstring>
-            </p>
             <ul>
-                 <li><xar:mlstring>Related tutorials and documentation on DynamicData module at</xar:mlstring> <a href="http://xarigami.com/resources/" title="#xarML('Related documentation on DynamicData')#"><xar:mlstring>Xarigami Documentation.</xar:mlstring></a>
-               </li>
+                 <li><a href="http://xarigami.org/project/xarigami_core"><xar:mlstring>Xarigami Core page</xar:mlstring></a></li>
+                 <li><a href="http://xarigami.org/contrails/displayproject/xgami"><xar:mlstring>Xarigami Core issue tracker</xar:mlstring></a></li>
+                 <li><a href="http://xarigami.org/keywords/dynamic%20data"><xar:mlstring>Dynamic data related articles</xar:mlstring></a></li>
            </ul>
            <p class="xar-sub">
              <strong>&#160;<xar:mlstring>DynamicData Module - Overview</xar:mlstring></strong><br />&#160;<xar:mlstring>Revision</xar:mlstring> 2.0.3&#160; 2011-03-17
