@@ -1,0 +1,5 @@
+# This setting requires AllowOverride Limit
+<FilesMatch ".*">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

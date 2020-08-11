@@ -1,8 +1,10 @@
 /html/var/cache/templates/*.php
+/html/var/cache/templates/*.gz
 /html/var/cache/templates/CACHEKEYS
 /html/var/config.system.php
 /html/var/cache/config.caching.php
 /html/var/cache/output/
 /html/var/logs/log.txt
+/html/var/logs/vardump/*.txt
 html/var/locales/hu_HU.utf-8/
 *.swp

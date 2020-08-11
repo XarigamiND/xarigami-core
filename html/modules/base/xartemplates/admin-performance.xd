@@ -168,8 +168,9 @@
                         <xar:data-input type="checkbox" name="var_dump" id="var_dump" checked="$var_dump" tabinex="$tabindex++" />
                         <label for="var_dump">
                             <xar:mlstring>
-                                by displaying variables available in the page
+                                by logging all variables available in the templates
                             </xar:mlstring>
+                            <em><xar:mlstring>(Please make sure var/logs/vardump folder exists and writeable)</xar:mlstring></em>
                         </label>
                     </div>
 
