@@ -1,8 +1,4 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:set name="relateddocurl">'http://www.xaraya.com/index.php/keywords/blocks/'</xar:set>
-<xar:set name="relateddocurltext"><xar:mlstring>Related documentation on Blocks</xar:mlstring></xar:set>
-<xar:set name="moduledocurl">'http://www.xaraya.com/index.php/release/13.html'</xar:set>
-<xar:set name="moduledocurltext"><xar:mlstring>Blocks Module - Xarigami Extension 13</xar:mlstring></xar:set>
 
 <div class="xar-mod-page">
     <div class="xar-mod-head">
@@ -61,7 +57,7 @@
                 place and display them and the block instances already assigned to them. In the case of the default block groups
                 their name reflects the position where they are located in the default theme. You can rename these block groups as the names are not significant in themselves</xar:mlstring>
             </p>
-            <xar:set name="rfcblocklink">'http://xaraya.com/documentation/rfcs/rfc0010.html#block'</xar:set>
+            <xar:set name="rfcblocklink">'http://www.xaraya.hu/index.php/xarpages/documentation/rfcindex'</xar:set>
             <p><xar:ml>
                 <xar:mlstring>Note: you do not have to allocated a block instance to a blockgroup. You can place the block instance display directly
                 into your theme templates using a <strong>block</strong> tag. Please check <a href="#(1)">RFC0010</a> for details on using this tag.</xar:mlstring>
@@ -143,26 +139,11 @@
 
 
               <h3><xar:mlstring>Further Information</xar:mlstring></h3>
-              <p>
-                  <xar:mlstring>Further information on the Blocks module can be found at</xar:mlstring>
-              </p>
               <ul>
-                  <li>
-                      <xar:ml>
-                         <xar:mlstring>Blocks Module Extension page at <a href="#(1)" title="#(2)" >Xarigami Extension and Releases</a>.
-                             Click on Version History tab at the bottom to get the latest release information.</xar:mlstring>
-                          <xar:mlvar>#$moduledocurl#</xar:mlvar>
-                          <xar:mlvar>#$moduledocurltext#</xar:mlvar>
-                      </xar:ml>
-                  </li>
-                  <li>
-                      <xar:ml>
-                          <xar:mlstring>Related tutorials and documentation on Blocks found at <a href="#(1)" title="#(2)">Xarigami Documentation.</a></xar:mlstring>
-                          <xar:mlvar>#$relateddocurl#</xar:mlvar>
-                          <xar:mlvar>#$relateddocurltext#</xar:mlvar>
-                      </xar:ml>
-                  </li>
-              </ul>
+                  <li><a href="http://xarigami.org/project/xarigami_core"><xar:mlstring>Xarigami Core page</xar:mlstring></a></li>
+                  <li><a href="http://xarigami.org/contrails/displayproject/xgami"><xar:mlstring>Xarigami Core issue tracker</xar:mlstring></a></li>
+                  <li><a href="http://xarigami.org/keywords/blocks"><xar:mlstring>Blocks related articles</xar:mlstring></a></li>
+                </ul>
               <p class="xar-sub">
                  <strong>&nbsp;<xar:mlstring>Blocks Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.1.1&nbsp; 2006-07-20
               </p>

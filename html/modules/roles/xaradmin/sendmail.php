@@ -61,7 +61,7 @@ function roles_admin_sendmail()
     if ($uid != 0 && ($includesubgroups == 1)) {
         $descendants = $parentgroup->getDescendants($state);
 
-        while (list($key, $user) = each($descendants)) {
+        foreach ($descendants as $key => $user) {
             $subgroupid = $user->getID();
             if (xarSecurityCheck('AdminRole',0,'Roles',$subgroupid) || xarSecurityCheck('MailRoles',0,'Mail',$subgroupid) || xarSecurityCheck('AdminGroupRoles',1,'Group',$subgroupid)) {        
                 $users[$user->getID()] = array('uid' => $user->getID(),

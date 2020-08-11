@@ -47,7 +47,7 @@ function modules_adminapi_removemissing($args)
         // (notice we're using the module name as object id, and adding an
         // extra parameter telling xarModCallHooks for *which* module we're
         // calling hooks here)
-        xarMod::callHooks('module','remove',$modinfo['name'],'',$modinfo['name']);
+        xarMod::callHooks('module','remove',$modinfo['name'],array(),$modinfo['name']);
 
         // Delete any hooks assigned for that module, or by that module
         $query = "DELETE FROM $tables[hooks]

@@ -205,7 +205,6 @@ class xarModUserVars extends xarModVars implements IxarModUserVars
         $modsetting = xarModVars::get($scope, $name);
 
         // We need the variable id
-        unset($modvarid);
         $modvarid = xarModVars::getId($scope, $name);
 
         if(!$modvarid) return FALSE;

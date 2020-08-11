@@ -418,7 +418,7 @@ class xarServerBone extends xarObject
      */
     final static public function initOnce()
     {
-        if (!sys::isInit()) self::fail();
+        if (!sys::isInit()) sys::fail();
         self::$__arrvars = array();
         self::$__webRootPath = '';
         self::$__webRootPathReal = '';
@@ -508,7 +508,7 @@ class xarServerBone extends xarObject
      */
      final public static function hasSymlinkRoot()
      {
-        if (empty(self::$__webRootPath) || empty(self::$__webRootPathReal)) self::getWebRoot();
+        if (empty(self::$__webRootPath) || empty(self::$__webRootPathReal)) self::getWebRootPath();
         return self::$__webRootPath !== self::$__webRootPathReal;
      }
 }
@@ -532,7 +532,7 @@ class xarRequestBone extends xarObject
      */
     final static public function initOnce()
     {
-        if (!sys::isInit()) xarServerBone::fail();
+        if (!sys::isInit()) sys::fail();
         self::$__bScriptValid = FALSE;
         self::$__objFile = NULL;
         self::$__stack = array();
@@ -1232,7 +1232,7 @@ class xarPath extends xarObject
      */
      final public function getParent($parentLevel=1, $osSpec=FALSE)
      {
-        $parent = _getParentArray($parentLevel);
+        $parent = $this->_getParentArray($parentLevel);
         return implode($osSpec ? DIRECTORY_SEPARATOR : '/', $parent);
      }
 
@@ -1242,7 +1242,7 @@ class xarPath extends xarObject
      */
      final public function getParentPath($parentLevel=1)
      {
-        $parent = _getParentArray($parentLevel);
+        $parent = $this->_getParentArray($parentLevel);
         return self::make($parent, $this->_mode);
      }
 
@@ -1256,9 +1256,9 @@ class xarPath extends xarObject
 
         // Get the dir array
         if ($this->_isAbsolute) {
-            $arr = self::$_arrAbsPath;
+            $arr = $this->_arrAbsPath;
         } else {
-            $arr = self::$_arrRelPath;
+            $arr = $this->_arrRelPath;
         }
 
         // Eventually remove the trailing slash
@@ -2135,6 +2135,7 @@ final class xarFileSigned extends xarFileBone
     }
     /**
      * Quick method to check the file
+     * @todo $mId undefined varible. Might want to refer to sys::$__mId but that is private. This is probably never called.
      */
     public function check($mode, $afm, $ext = NULL)
     {

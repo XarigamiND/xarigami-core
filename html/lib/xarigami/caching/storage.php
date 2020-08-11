@@ -89,16 +89,6 @@ class xarCache_Storage extends xarObject
                 }
                 break;
 
-            case 'eaccelerator':
-                if (function_exists('eaccelerator')) {
-                    sys::import('xarigami.caching.storage.eaccelarator');
-                    $classname = 'xarCache_eAccelerator_Storage';
-                } else {
-                    sys::import('xarigami.caching.storage.filesystem');
-                    $classname = 'xarCache_FileSystem_Storage';
-                }
-                break;
-
             case 'xcache':
                 if (function_exists('xcache_get')) {
                     sys::import('xarigami.caching.storage.xcache');
@@ -153,7 +143,7 @@ class xarCache_Storage extends xarObject
             $this->logsize = $args['logsize'];
         }
         // the namespace must be usable as a filename prefix here !
-        if (!empty($args['namespace']) && preg_match('/^[a-zA-Z0-9 _.-/]+$/', $args['namespace'])) {
+        if (!empty($args['namespace']) && preg_match('/^[a-zA-Z0-9 _.-\/]+$/', $args['namespace'])) {
             $this->namespace = $args['namespace'];
         }
         // the default prefix for the cache keys will be 'type/namespace', except in filesystem (for now)

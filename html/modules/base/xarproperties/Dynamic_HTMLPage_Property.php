@@ -117,7 +117,7 @@ class Dynamic_HTMLPage_Property extends Dynamic_Select_Property
     public function getOptions()
     {
          $options = parent::getOptions();
-        if (count($options) == 0 && !empty($this->xv_basedir)) {
+        if ((!isset($options) || count($options) == 0) && !empty($this->xv_basedir)) {
             $files = xarMod::apiFunc('dynamicdata','admin','browse',
                                    array('basedir' => $this->xv_basedir,
                                          'filetype' => $this->xv_file_ext));

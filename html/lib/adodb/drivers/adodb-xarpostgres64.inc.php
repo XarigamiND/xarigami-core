@@ -40,7 +40,7 @@ class ADODB_xarpostgres64 extends ADODB_postgres64
         }
 
         // Execute the standard driver.
-        $result = ADODB_postgres64::_Execute($sql, $inputar);
+        $result = ADODB_postgres64::_Execute($sql, $inputarr);
 
         if (xarCore::isDebugFlagSet(XARDBG_SQL)) {
             $lmtime = explode(' ', microtime());

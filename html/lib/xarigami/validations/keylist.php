@@ -52,8 +52,7 @@ class KeyListValidation extends ValueValidations
             if ($subject === NULL) {
                 return false;
             }
-            if (!$suppress) throw new VariableValidationException(null, $msg);
-            $return = false;
+            throw new VariableValidationException(null, $msg);
         }
 
         if (isset($parameters[0]) && trim($parameters[0]) != '') {

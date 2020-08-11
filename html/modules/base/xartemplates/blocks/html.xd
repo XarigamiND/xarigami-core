@@ -1,0 +1,4 @@
+<xar:if condition="$usercontent">
+	#$usercontent#
+</xar:if>
+

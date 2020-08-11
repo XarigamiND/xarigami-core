@@ -11,11 +11,11 @@
 
 /**
  * Validate a Canadian Postal Code
- * @return bool true if email, false if not
+ * @return bool true if postal code, false if not
  */
 class CAPostalCodeValidation extends ValueValidations
 {
-    function validate($subject, Array $parameters)
+    function validate(&$subject, Array $parameters)
     {
          if (!preg_match('/^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$/', $subject)) {
             $msg = xarML("Not a postal code type: '#(1)'",$subject);

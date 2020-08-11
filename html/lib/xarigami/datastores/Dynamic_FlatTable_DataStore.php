@@ -533,6 +533,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         // Get meta info on the table
+        $table = $this->name;
         $columns = xarMod::apiFunc(
             'dynamicdata', 'util', 'getmeta',
             array('db' => '', 'table' => $table)

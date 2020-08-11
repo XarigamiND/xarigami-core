@@ -174,18 +174,10 @@
             </p>
 
            <h3><xar:mlstring>Further Information</xar:mlstring></h3>
-           <p>
-              <xar:mlstring>Further information on the Roles module can be found at:</xar:mlstring>
-           </p>
            <ul>
-              <li><xar:mlstring>Roles Module Extension page at</xar:mlstring> <a title="#xarML('Roles Module - Xarigami Extension 27')#" href="http://www.xaraya.com/index.php/release/27.html">Xarigami Extension and Releases</a>.
-              <xar:mlstring> Click on Version History tab at the bottom to get the latest release information.</xar:mlstring>
-              </li>
-              <li><xar:mlstring>Related tutorials and documentation on Roles module at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/roles/" title="#xarML('Related documentation on Roles')#"><xar:mlstring>Xarigami Documentation.</xar:mlstring></a>
-              </li>
-              <li><xar:mlstring>Extended information for Developers at</xar:mlstring> <a href="http://www.xaraya.com/documentation/rfcs/rfc0030.html" title="#xarML('RFC 30')#"><xar:mlstring>Xarigami RFC-30</xar:mlstring></a>
-              </li>
-
+            <li><a href="http://xarigami.org/project/xarigami_core"><xar:mlstring>Xarigami Core page</xar:mlstring></a></li>
+            <li><a href="http://xarigami.org/contrails/displayproject/xgami"><xar:mlstring>Xarigami Core issue tracker</xar:mlstring></a></li>
+            <li><a href="http://xarigami.org/keywords/roles"><xar:mlstring>Roles related articles</xar:mlstring></a></li>
           </ul>
           <p class="xar-sub">
             <strong>&nbsp;<xar:mlstring>Roles Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.1.2&nbsp; 2006-04-30

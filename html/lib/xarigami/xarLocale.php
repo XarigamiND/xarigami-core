@@ -61,6 +61,7 @@ function xarMLSLoadLocaleData($locale = NULL)
         }
     }
 
+    // @todo PHP based locale.php files. Is that something from the past and now using XML, so this code should be deleted until "ELSE"?
     $fileName = sys::varpath() . '/locales/$locale/locale.php';
     if (!$parsedLocale = xarMLS__parseLocaleString($locale)) return false;
     $siteCharset = $parsedLocale['charset'];

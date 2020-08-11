@@ -48,7 +48,8 @@ class MxCheckValidation extends ValueValidations
         // $Domain : ebeecomm.com
         // list function reference : http://www.php.net/manual/en/function.list.php
         // split function reference : http://www.php.net/manual/en/function.split.php
-        list ( $Username, $Domain ) = split ("@", $subject);
+        // explode function reference: https://www.php.net/manual/en/function.explode.php
+        list ( $Username, $Domain ) = explode ("@", $subject);
 
         // That MX(mail exchanger) record exists in domain check .
         // checkdnsrr function reference : http://www.php.net/manual/en/function.checkdnsrr.php
@@ -76,6 +77,8 @@ class MxCheckValidation extends ValueValidations
             // Judgment is that service is preparing though begin by 220 getting string after connection .
             // fgets function reference : http://www.php.net/manual/en/function.fgets.php
             if ( mb_ereg ( "^220", $Out = fgets ( $Connect, 1024 ) ) ) {
+
+                $Email = $Username."@".$Domain;
 
                 // Inform client's reaching to server who connect.
                 fputs ( $Connect, "HELO $HTTP_HOST\r\n" );

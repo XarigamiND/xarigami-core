@@ -429,7 +429,7 @@ class xarXmlDefaultHandler extends xarAbstractXmlHandler
      *
      * @param integer $indexstart where to start counting
      */
-    function xarXmlDefaultHandler($indexstart=1)
+    function __construct($indexstart=1)
     {
         $this->_tagindex=$indexstart;
     }

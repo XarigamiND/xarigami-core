@@ -46,8 +46,8 @@
                 A theme author may remove a system theme variable (deprecate it) but it will remain in your database until you delete it.
                 </xar:mlstring>
             </p>
-            <xar:if condition="count($displayvars) gt 0">
-                <xar:if condition="count($invalid) gt 0">
+            <xar:if condition="isset($displayvars) && count($displayvars) gt 0">
+                <xar:if condition="isset($invalid) && count($invalid) gt 0">
                     <h4 class="xar-error"><xar:mlstring>Some variables have invalid values and were not saved - please correct those marked </xar:mlstring><span style="font-type:superscript;">*</span></h4>
                         <ul>
                     <xar:foreach in="$invalid" key="$error" value="$errorinfo">

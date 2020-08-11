@@ -33,7 +33,7 @@ function xarDB__postgresqlCreateTable($tableName, $fields, $charset='utf8')
     $sql_fields = array();
     $seq_sql = '';
 
-    while (list($field_name, $parameters) = each($fields)) {
+    foreach ($fields as $field_name => $parameters) {
         $parameters['command'] = 'create';
         $this_field = xarDB__postgresColumnDefinition($field_name, $parameters);
         $sql_fields[] = implode(' ', $this_field);
@@ -55,7 +55,7 @@ function xarDB__postgresqlCreateTable($tableName, $fields, $charset='utf8')
     $primary_key = array();
 
 
-    while (list($field_name, $parameters) = each($fields)) {
+    foreach ($fields as $field_name => $parameters) {
         $parameters['command'] = 'create';
         $this_field = xarDB__postgresColumnDefinition($field_name, $parameters);
 

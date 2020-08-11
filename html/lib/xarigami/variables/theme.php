@@ -145,7 +145,7 @@ class xarThemeVars extends xarVars implements IxarThemeVars
         if (empty($scope)) throw new EmptyParameterException('themeName');
 
         if ($transform == TRUE) {
-            $args = array('themename'=> $scope, 'varname'=>$name, 'transform'=>1, 'throw'=>$throw);
+            $args = array('themename'=> $scope, 'transform'=>1, 'throw'=>$throw);
             return xarThemeGetConfig( $args);
         }
         // Preload per module, once
@@ -1131,7 +1131,7 @@ class xarSkinGenerator extends xarSkinVar
             if (!empty($skinvars)) xarSkinVars::setarray(xarTpl::getThemeName(), $skinvars, $args['source']);
             $this->_content = xarProcessCss::getInstance()->generate($args['file'], $args['altfile'], $args['source']);
         } else {
-            $this->content = ''; // That's a null generator
+            $this->_content = ''; // That's a null generator
         }
     }
 

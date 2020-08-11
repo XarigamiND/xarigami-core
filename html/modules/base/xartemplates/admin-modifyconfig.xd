@@ -96,7 +96,7 @@ jQuery().ready(function() {
                              </xar:ml>
 
                              <xar:if condition="!empty($XARCORE_VERSION_REV)">
-                                MTN #$XARCORE_VERSION_REV#
+                                #$XARCORE_VERSION_REV#
                              </xar:if>
                         </div>
                         <div class="xar-form-input-wrapper">

@@ -74,7 +74,7 @@ function privileges_admin_updateprivilege()
 //Try to update the privilege to the repository and bail if an error was thrown
     if (!$priv->update()) {return;}
 
-    xarMod::callHooks('item', 'update', $pid, '');
+    xarMod::callHooks('item', 'update', $pid);
         xarLogMessage('PRIVILEGES: A privilege with PID '.$pid.' and name '.$name.' was modified by user '.xarSession::getVar('uid'),XARLOG_LEVEL_AUDIT);
     $msg = xarML('Privilege "#(1)" was successfully updated.',$name);
     xarTplSetMessage($msg,'status');

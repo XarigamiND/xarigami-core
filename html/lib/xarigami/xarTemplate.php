@@ -536,6 +536,8 @@ class xarTpl extends xarObject
      */
     public static function module($modName, $modType, $funcName, $tplData = array(), $templateName = NULL)
     {
+        static $logCount = 1;
+
         if (!empty($templateName)) {
             $templateName = xarVarPrepForOS($templateName);
         }
@@ -553,16 +555,16 @@ class xarTpl extends xarObject
         $tpl->pageTitle = self::getPageTitle();
         $tplData['tpl'] = $tpl;
 
-        // TODO: make this work different, for example:
-        // 1. Only create a link somewhere on the page, when clicked opens a page with the variables on that page
-        // 2. Create a page in the themes module with an interface
-        // 3. Use 1. to link to 2.
-        if (self::$_varDump){
-            if (function_exists('var_export')) {
-                $pre = var_export($tplData, true);
-                echo "<pre>$pre</pre>";
-            } else {
-                echo '<pre>',var_dump($tplData),'</pre>';
+        // Dump all template variables to log files if configured by admin
+        if (self::$_varDump && is_dir("var/logs/vardump")) {
+            $pre = var_export($tplData, true);
+            // Var dump files will be named like articles-user-display-news.8.txt
+            // Number of files will stay in a reasonable limit even if run forever
+            $dumpfile = "var/logs/vardump/".$modName."-".$modType."-".$funcName.(!empty($templateName) ? "-".$templateName : "").".".$logCount++.".txt";
+            try {
+                file_put_contents($dumpfile, $pre);
+            } catch (Exception $ex) {
+                // Must continue if debug dump fails
             }
         }
 
@@ -1140,7 +1142,7 @@ class xarTpl extends xarObject
             $blCompiler = xarTpl__getCompilerInstance();
             $templateCode = $blCompiler->compileFile($sourceFileName);
             if (!isset($templateCode) ) {
-                throw new EmptyParameterException($templateCode,'Template Code does not exist "#(1)" ');
+                throw new EmptyParameterException($sourceFileName,'Template Code resulted empty "#(1)" ');
             }
             if (self::$_cacheTemplates) {
                 $fd = fopen($cachedFileName, 'w');

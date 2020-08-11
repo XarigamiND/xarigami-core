@@ -167,7 +167,7 @@ class Dynamic_Array_Property extends Dynamic_Property
         }
         // Allow overriding of the field keys from the template
         if (isset($data['fields'])) $this->fields = $data['fields'];
-        if (count($this->fields) > 0) {
+        if (isset($this->fields) && count($this->fields) > 0) {
             $fieldlist = $this->fields;
         } elseif (is_array($value)) {
             $fieldlist = array_keys($value);
@@ -246,7 +246,7 @@ class Dynamic_Array_Property extends Dynamic_Property
         } else {
             //if (empty($value)) $value = NULL;
 
-            if (count($this->fields) > 0) {
+            if (isset($this->fields) && count($this->fields) > 0) {
                 $fieldlist = $this->fields;
             } else {
                 $fieldlist = array_keys($value);

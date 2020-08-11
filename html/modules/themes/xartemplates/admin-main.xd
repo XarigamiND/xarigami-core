@@ -210,12 +210,11 @@
               <li><xar:mlstring>Scroll down to the Roles module and check the checkbox to activate the Themes hook for the roles module</xar:mlstring></li>
             </ul>
            <h2><xar:mlstring>Further Information</xar:mlstring></h2>
-           <p>
-              <xar:mlstring>Further information on the Themes module can be found at</xar:mlstring>
-           </p>
            <ul>
-              <li><xar:mlstring>Related tutorials and documentation on Themes module found at the Xarigami Core project </xar:mlstring> <a href="http://http://xarigami.com/project/xarigami_core" title="#xarML('Related documentation on Themes')#"><xar:mlstring>Resources Page.</xar:mlstring></a>
-              </li>
+                <li><a href="http://xarigami.org/project/xarigami_core"><xar:mlstring>Xarigami Core page</xar:mlstring></a></li>
+                <li><a href="http://xarigami.org/contrails/displayproject/xgami"><xar:mlstring>Xarigami Core issue tracker</xar:mlstring></a></li>
+                <li><a href="http://xarigami.org/project/c67/"><xar:mlstring>Download more themes</xar:mlstring></a></li>
+                <li><a href="http://xarigami.org/keywords/theme"><xar:mlstring>Theme related articles</xar:mlstring></a></li>
           </ul>
         </div>
         <div class="xar-mod-footer">
