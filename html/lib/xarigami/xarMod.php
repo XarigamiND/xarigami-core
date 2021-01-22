@@ -183,7 +183,7 @@ function xarModIsHooked($hookModName, $callerModName = NULL, $callerItemType = '
     { return xarMod::isHooked($hookModName, $callerModName, $callerItemType);}
 function xarModGetHookList($callerModName, $hookObject, $hookAction, $callerItemType = '')
     { return xarMod::getHookList($callerModName, $hookObject, $hookAction, $callerItemType);}
-function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerModName = NULL, $callerItemType = '')
+function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo = array(), $callerModName = NULL, $callerItemType = '')
     { return xarMod::callHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerModName, $callerItemType);}
 function xarModGetAlias($var)  { return xarMod::getAlias($var);}
 function xarModSetAlias($alias, $modName) { return xarMod::setAlias($alias, $modName);}
