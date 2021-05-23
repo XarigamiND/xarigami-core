@@ -108,6 +108,8 @@ class Dynamic_FileList_Property extends Dynamic_Select_Property
         $dir = new RelativeDirectoryIterator( $filepath);
         if ($dir == false) return array();
 
+        // Collect matching files in a simple array and sort it
+        $names = [];
         for($dir->rewind();$dir->valid();$dir->next()) {
             if($dir->isDir()) continue; // no dirs
 
@@ -117,6 +119,12 @@ class Dynamic_FileList_Property extends Dynamic_Select_Property
             $id = $name;
             if (!$this->xv_longname) $name = substr($name, 0, strlen($name) - strlen($dir->getExtension()) - 1);
             if(!empty($this->xv_matches) && (strpos($this->xv_matches,$name) === false)) continue;
+            $names[$id] = $name;
+        }
+        asort($names, SORT_NATURAL);
+
+        // Rearrange to structure required by this Dyn property
+        foreach($names as $id => $name) {
             $options[] = array('id' => $id, 'name' => $name);
         }
 
