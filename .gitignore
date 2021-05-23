@@ -1,6 +1,7 @@
 /html/var/cache/templates/*.php
 /html/var/cache/templates/*.gz
 /html/var/cache/templates/CACHEKEYS
+/html/var/cache/rss/
 /html/var/config.system.php
 /html/var/cache/config.caching.php
 /html/var/cache/output/
