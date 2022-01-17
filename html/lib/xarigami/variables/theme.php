@@ -583,9 +583,9 @@ class xarSkinColor extends xarSkinVar
                     $this->b = hexdec(substr($hex, -2));
                     break;
                 case 3:
-                    $this->r = hexdec($hex{0}.$hex{0});
-                    $this->g = hexdec($hex{1}.$hex{1});
-                    $this->b = hexdec($hex{2}.$hex{2});
+                    $this->r = hexdec($hex[0].$hex[0]);
+                    $this->g = hexdec($hex[1].$hex[1]);
+                    $this->b = hexdec($hex[2].$hex[2]);
                     break;
             }
             $this->mode = isset($a) ? self::MODE_RGBA : self::MODE_RGB;
