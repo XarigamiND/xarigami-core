@@ -29,3 +29,24 @@ xarigami-core, xarigami-base and xarigami-full releases originally.
 Some of the 1.5.5-full modules are not included here, because they are so much outdated,
 contain unmaintained exernal libraries and functionality is not generally useful. Deleted modules
 are: crispbb, dphighlight, netquery, pdfgen.
+
+## Download
+
+Until there is a release, clone these repos to try a basic setup
+```
+git clone https://github.com/XarigamiND/xarigami-core.git xarigami
+git clone https://github.com/XarigamiND/xarigami-modules-articles.git xarigami/html/modules/articles
+git clone https://github.com/XarigamiND/xarigami-modules-categories.git xarigami/html/modules/categories
+git clone https://github.com/XarigamiND/xarigami-modules-comments.git xarigami/html/modules/comments
+git clone https://github.com/XarigamiND/xarigami-modules-html.git xarigami/html/modules/html
+git clone https://github.com/XarigamiND/xarigami-modules-images.git xarigami/html/modules/images
+git clone https://github.com/XarigamiND/xarigami-modules-registration.git xarigami/html/modules/registration
+git clone https://github.com/XarigamiND/xarigami-modules-search.git xarigami/html/modules/search
+git clone https://github.com/XarigamiND/xarigami-modules-sitecontact.git xarigami/html/modules/sitecontact
+git clone https://github.com/XarigamiND/xarigami-modules-tinymce.git xarigami/html/modules/tinymce
+git clone https://github.com/XarigamiND/xarigami-modules-uploads.git xarigami/html/modules/uploads
+git clone https://github.com/XarigamiND/xarigami-modules-xarcachemanager.git xarigami/html/modules/xarcachemanager
+git clone https://github.com/XarigamiND/xarigami-modules-xarpages.git xarigami/html/modules/xarpages
+```
+
+Then direct your browser to ``install.php``
