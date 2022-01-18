@@ -1392,8 +1392,8 @@ class xarTpl__ExpressionTransformer extends xarObject
     {
         /* If the expression is enclosed in # s, ignore them */
         if(empty($expr)) return $expr;
-        if( $expr{0} == XAR_TOKEN_CI_DELIM &&
-            $expr{strlen($expr)-1} == XAR_TOKEN_CI_DELIM) {
+        if( $expr[0] == XAR_TOKEN_CI_DELIM &&
+            $expr[strlen($expr)-1] == XAR_TOKEN_CI_DELIM) {
             $expr = substr($expr,1,-1);
         }
         return $expr;
