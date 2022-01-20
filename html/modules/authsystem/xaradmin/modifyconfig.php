@@ -98,8 +98,8 @@ function authsystem_admin_modifyconfig()
             $data['aliasname']        = xarModGetVar('authsystem',  'aliasname');
             $data['hidemoduleurl']    = xarModGetVar('authsystem',  'hidemoduleurl');
             $data['uselockout']       = xarModGetVar('authsystem', 'uselockout') ;
-            $data['lockouttime']      = xarModGetVar('authsystem', 'lockouttime')? xarModGetVar('authsystem,', 'lockouttime'): 15; //minutes
-            $data['lockouttries']     = xarModGetVar('authsystem', 'lockouttries') ? xarModGetVar('authsystem,', 'lockouttries'): 3;
+            $data['lockouttime']      = xarModGetVar('authsystem', 'lockouttime')? xarModGetVar('authsystem', 'lockouttime'): 15; //minutes
+            $data['lockouttries']     = xarModGetVar('authsystem', 'lockouttries') ? xarModGetVar('authsystem', 'lockouttries'): 3;
             $data['useauthcheck']     = xarModGetVar('authsystem', 'useauthcheck');
      
             break;
