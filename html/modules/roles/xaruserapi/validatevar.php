@@ -231,10 +231,8 @@ function roles_userapi_validatevar($args)
                     // check for duplicate email address
                     $user = xarMod::apiFunc('roles', 'user', 'get',
                                array('email' => $email));
-                    $useruid = $user['uid'];
-                    if (($user != FALSE) && (isset($uid) && $uid !=$useruid)) { //must pass uid if the user is registered
+                    if (($user != FALSE) && (isset($uid) && $uid != $user['uid'])) { //must pass uid if the user is registered
                         unset($user);
-                        unset($useruid);
                         $invalid = xarML('That email address is already registered.');
                     }
                 }
