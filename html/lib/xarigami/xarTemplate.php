@@ -822,7 +822,7 @@ class xarTpl extends xarObject
                 // This eval is only used for cases like xarTplString, which is quite rare, and should probably not exist
                 // TODO: consider writing it to a temp file and using include here too, so the bytecacher can use it (risky?)
                 // and we can get rid of the eval alltogether.
-                eval('?>' . $templateCode);
+                eval('?'.'>' . $templateCode);
             } else {
                 // Otherwise use an include, much better :-)
                 assert('file_exists($cachedFileName); /* Compiled templated disappeared in mid air, race condition? */');
