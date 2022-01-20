@@ -1167,7 +1167,7 @@ class xarMod extends xarObject implements IxarMod
 
         if (!file_exists($fileName) || !is_readable($fileName)) {
             // Don't raise an exception, it is too harsh, but log it tho (bug #295)
-            xarLogMessage("xarMod_getFileInfo: Could not find xarversion.php, skipping $modOsDir");
+            xarLogMessage("xarMod_getFileInfo: Could not find $fileName, skipping $modOsDir");
             return;
         }
 
