@@ -434,12 +434,6 @@ class xarMod extends xarObject implements IxarMod
         }
         $result->Close();
 
-        //jojo - supplement with the module file info not kept in the database
-        // Grab the info once instead of using the xarModGetDisplayable--- functions
-        $modfileinfo = self::getFileInfo($modInfo['name'],$type);
-        $modBaseInfo['displayname'] = $modfileinfo['displayname'];
-        $modBaseInfo['description'] = $modfileinfo['description'];
-
         // Shortcut for os prepared directory
         $modInfo['osdirectory'] = xarVarPrepForOS($modInfo['directory']);
 
@@ -1306,13 +1300,6 @@ class xarMod extends xarObject implements IxarMod
         $modBaseInfo['name']        = $name;
         $modBaseInfo['directory']   = $directory;
         $modBaseInfo['class']   = $class;
-        //Jojo Better to leave it out, and call this function and additional xarMod_getFileInfo
-        //by calling function - if required
-        /*
-        $modfileinfo = xarMod::getFileInfo($name,$type);
-        $modBaseInfo['displayname'] = $modfileinfo['displayname'];
-        $modBaseInfo['description'] = $modfileinfo['description'];
-        */
         // Shortcut for os prepared directory
         $modBaseInfo['osdirectory'] = xarVarPrepForOS($directory);
 
