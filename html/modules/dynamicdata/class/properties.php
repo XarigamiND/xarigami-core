@@ -1550,7 +1550,7 @@ class PropertyRegistration extends xarDataContainer
         $propdefTable = $tables['dynamic_properties_def'];
 
 
-        assert('count($this->reqmodules)==1; /* The reqmodules registration should only contain the name of the owning module */');
+        assert(count($this->reqmodules)==1, 'The reqmodules registration should only contain the name of the owning module');
        if (is_array($this->reqmodules)) $this->reqmodules = $this->reqmodules[0];
 
        if (!isset($this->reqmodules) || empty($this->reqmodules)) $this->reqmodules = 'base';

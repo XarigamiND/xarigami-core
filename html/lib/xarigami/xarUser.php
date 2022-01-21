@@ -273,7 +273,7 @@ function xarUserGetNavigationThemeName()
  */
 function xarUserSetNavigationThemeName($themeName)
 {
-    assert('$themeName != ""');
+    assert($themeName != "");
     // uservar system takes care of dealing with anynomous
     xarModSetUserVar('themes', 'default', $themeName);
 }
@@ -692,7 +692,7 @@ function xarUser__isVarDefined($name)
 function xarUser__syncUsersTableFields()
 {
     $userId = xarSession::getVar('uid');
-    assert('$userId != _XAR_ID_UNREGISTERED');
+    assert($userId != _XAR_ID_UNREGISTERED);
 
 // TODO: configurable one- or two-way re-synchronisation of core + dynamic fields ?
 

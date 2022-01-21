@@ -61,7 +61,7 @@ function modules_adminapi_checknew()
         }
 
         // If this is a new module, i.e. not in the db list, add it
-        assert('$modinfo["regid"] != 0; /* Reg id for the module is 0, something seriously wrong, probably corruption of files */');
+        assert($modinfo["regid"] != 0, 'Reg id for the module is 0, something seriously wrong, probably corruption of files');
         if (empty($dbModules[$name])) {
             xarLogMessage("modules-checknew: adding new module ".$name);
             // New module - might as well set the status here

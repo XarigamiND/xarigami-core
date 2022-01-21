@@ -400,7 +400,7 @@ function xarMLS_setCurrentLocale($locale)
 {
     static $called = 0;
 
-    assert('$called == 0; // Can only be called once during a page request');
+    assert($called == 0, 'Can only be called once during a page request');
     $called++;
 
     $mode = xarMLSGetMode();
@@ -423,7 +423,7 @@ function xarMLS_setCurrentLocale($locale)
 
     $curCharset = xarMLSGetCharsetFromLocale($locale);
     if ($mode == XARMLS_UNBOXED_MULTI_LANGUAGE_MODE) {
-        assert('$curCharset == "utf-8"; // Resetting MLS Mode to BOXED');
+        assert($curCharset == "utf-8", 'Resetting MLS Mode to BOXED');
         // To be able to continue, we set the mode to BOXED
         if ($curCharset != "utf-8") {
             xarLogMessage("Resetting MLS mode to BOXED");

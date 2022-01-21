@@ -23,21 +23,21 @@ class xarTpl__XarOtherNode extends xarTpl__TplTagNode
     
     function render()
     {
-        assert('isset($this->tagobject); /* The tagobject should have been set when constructing */');
+        assert(isset($this->tagobject), new BadParameterException('tagobject'));
         if (!xarTplCheckTagAttributes($this->tagName, $this->attributes)) return;
         return $this->tagobject->callHandler($this->attributes,'render');
     }
     
     function renderBeginTag()
     {
-        assert('isset($this->tagobject); /* The tagobject should have been set when constructing */');
+        assert(isset($this->tagobject), new BadParameterException('tagobject'));
         if (!xarTplCheckTagAttributes($this->tagName, $this->attributes)) return;
         return $this->tagobject->callHandler($this->attributes,'renderbegintag');
     }
     
     function renderEndTag()
     {
-        assert('isset($this->tagobject); /* The tagobject should have been set when constructing */');
+        assert(isset($this->tagobject), new BadParameterException('tagobject'));
         return $this->tagobject->callHandler($this->attributes,'renderendtag');
     }
     

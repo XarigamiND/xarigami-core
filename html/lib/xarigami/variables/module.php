@@ -93,7 +93,7 @@ class xarModVars extends xarVars implements IxarModVars
 
         // Still no luck, let's do the hard work then
         $modBaseInfo = xarMod::getBaseInfo($scope);
-        assert('isset($scope)');
+        assert(isset($scope));
 
         $query = 'SELECT xar_id, xar_name, xar_value FROM '.self::$__modvarTable.' WHERE xar_modid = ? AND xar_name = ?';
         $bindvars = array((int)$modBaseInfo['systemid'], $name);
@@ -176,7 +176,7 @@ class xarModVars extends xarVars implements IxarModVars
     {
         if (empty($scope)) throw new EmptyParameterException('modName');
         if (empty($name)) throw new EmptyParameterException('name');
-        //assert('!is_null($value); /* Not allowed to set a variable to NULL value */');
+        //assert(!is_null($value), new BadParameterException('value', null, 'Not allowed to set a variable to NULL value'));
 
         if (!self::$__initDone) self::init();
 

@@ -349,7 +349,7 @@ class xarTpl__CodeGenerator extends xarTpl__PositionInfo
 
                 // Recursively do the children
                 $childCode = $this->generateNode($child);
-                assert('isset($childCode); /* The rendering code for a node is not working properly */');
+                assert(isset($childCode), 'The rendering code for a node is not working properly');
 
                 $code .= $childCode;
 
@@ -366,7 +366,7 @@ class xarTpl__CodeGenerator extends xarTpl__PositionInfo
                 $code .= $this->setPHPBlock(true);
             }
             $endCode = $node->renderEndTag();
-            assert('isset($endCode); /* The end rendering code for a node is not working properly */');
+            assert(isset($endCode), 'The end rendering code for a node is not working properly');
 
             $code .= $endCode;
 
@@ -376,7 +376,7 @@ class xarTpl__CodeGenerator extends xarTpl__PositionInfo
             $code = $node->render();
             if(!isset($code)) ;//xarLogVariable('offending node:', $node);
             // Either code must have a value
-            assert('isset($code); /* The rendering code for a node is not working properly */');
+            assert(isset($code), 'The rendering code for a node is not working properly');
         }
         return $code;
     }
@@ -1074,7 +1074,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
      */
     function windTo($needle)
     {
-       // assert('strlen($needle) > 0; /* The search needle in parser->windTo has zero length */');
+       // assert(strlen($needle) > 0, 'The search needle in parser->windTo has zero length');
 
         // Take a peek first, raise exception explicitly, cos peek* doesnt
         $peek = $this->peekTo($needle);
@@ -1096,7 +1096,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
      */
     function peekTo($needle)
     {
-        assert('strlen($needle) > 0; /* The search needle in parser->peekTo has zero length */');
+        assert(strlen($needle) > 0, 'The search needle in parser->peekTo has zero length');
 
         // Get a buffer of the size of what we are searching
         $offset = $this->pos; $needleSize = strlen($needle);
@@ -1115,7 +1115,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
 
     function peek($len = 1, $start = 0)
     {
-       // assert('$start >= 0; /* The start position for peeking needs to be zero or greater, a call to parser->peek was wrong */');
+       // assert($start >= 0, 'The start position for peeking needs to be zero or greater, a call to parser->peek was wrong');
         if($start == 0) $start = $this->pos; // can't do this in param init
 
         $token = substr($this->templateSource, $start, $len);

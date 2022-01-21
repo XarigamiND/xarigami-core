@@ -22,7 +22,7 @@ function authsystem_userapi_has_capability($args)
 {
     extract($args);
 
-    assert('isset($capability)');
+    assert(isset($capability));
 
     switch($capability) {
         case XARUSER_AUTH_AUTHENTICATION:

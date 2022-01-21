@@ -807,7 +807,7 @@ class xarTpl extends xarObject
      */
     private static function __execute($templateCode, $tplData, $sourceFileName = '', $cachedFileName = null)
     {
-        assert('is_array($tplData); /* Template data should always be passed in an array */');
+        assert(is_array($tplData), new BadParameterException('tplData'));
 
         //POINT of ENTRY for cleaning variables
         // We need to be able to figure what is the template output type: RSS, XHTML, XML or whatever
@@ -825,7 +825,7 @@ class xarTpl extends xarObject
                 eval('?'.'>' . $templateCode);
             } else {
                 // Otherwise use an include, much better :-)
-                assert('file_exists($cachedFileName); /* Compiled templated disappeared in mid air, race condition? */');
+                assert(file_exists($cachedFileName), new FileNotFoundException($cachedFileName)); /* Compiled template disappeared in mid air, race condition? */
                 $res = include($cachedFileName);
             }
 
@@ -862,7 +862,7 @@ class xarTpl extends xarObject
      */
     private static function __executeFromFile($sourceFileName, $tplData)
     {
-        assert('is_array($tplData); /* Template data should always be passed in an array */');
+        assert(is_array($tplData), new BadParameterException('tplData'));
         // Load up translations for the files
         xarMLSLoadTranslations($sourceFileName);
 
@@ -998,7 +998,7 @@ class xarTpl extends xarObject
         }
         // Subpart may have been empty,
         $sourceFileName = str_replace('//','/',$sourceFileName);
-        // assert('isset($sourceFileName); /* The source file for the template has no value in xarTplModule */');
+        // assert(isset($sourceFileName), new EmptyParameterException('sourceFileName'));
 
         // Load the appropriate translations
         if($use_internal) {
@@ -2297,7 +2297,7 @@ class xarTemplateTag
         // Add the type to the args
         $args['handler_type'] = $handler_type;
         $code = xarMod::apiFunc($this->_module, $this->_type, $this->_func, $args);
-        assert('is_string($code); /* A custom tag should return a string with the code to put into the compiled template */');
+        assert(is_string($code), new VariableValidationException('code', 'A custom tag should return a string with the code to put into the compiled template'));
         // Make sure the code has UNIX line endings too
         $code = str_replace(array("\r\n","\r"),"\n",$code);
         return $code;

@@ -1176,7 +1176,11 @@ class xarMod extends xarObject implements IxarMod
         $version = array_merge($themeinfo, $modversion);
 
         // name and id are required, assert them, otherwise the module is invalid
-        assert('isset($version["name"]) && isset($version["id"]) && !empty($version["name"]) && !empty($version["id"]); /* Both name and id need to be present in xarversion.php */');
+        assert(isset($version["name"]) && !empty($version["name"]),
+            new VariableNotFoundException('name', 'Value for \'name\' needs to be present in xarversion.php'));
+        assert(isset($version["id"]) && !empty($version["id"]),
+            new VariableNotFoundException('id', 'Value for \'id\' needs to be present in xarversion.php'));
+
         //jojo - do not use xarML calls in this function - add where required in modules
         //we want to ensure 'name' is the short name, not display name but many modules an themes don't abide by this, esp. themes
 

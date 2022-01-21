@@ -357,7 +357,7 @@ function xarPage_httpCacheHeaders($cache_file)
  */
 function xarTplAddJavaScriptCode($position, $owner, $code)
 {
-    assert('$position == "head" || $position == "body"');
+    assert($position == "head" || $position == "body");
     return xarTplAddJavaScript($position, 'code', "<!-- JavaScript code from {$owner} -->\n" . $code);
 }
 
