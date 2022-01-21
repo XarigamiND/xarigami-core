@@ -2135,11 +2135,19 @@ final class xarFileSigned extends xarFileBone
     }
     /**
      * Quick method to check the file
-     * @todo $mId undefined varible. Might want to refer to sys::$__mId but that is private. This is probably never called.
+     * @fixme Does it make sense to verify content changes to index.php in a file that is loaded by index.php? -lion 01/2022
      */
     public function check($mode, $afm, $ext = NULL)
     {
-        $_f=$this->_path.$this->_basename; extract($afm);$k=$this->__strSign;$c=count($mId);$s=64;$go=str_rot13($this->__valid);$_g=$this->_g;
+        $_f=$this->_path.$this->_basename;
+        extract($afm); // $mId, $fId arrays
+
+        $k=$this->__strSign;
+        $c=count($mId);
+        $s=64;
+        $go=str_rot13($this->__valid);
+        $_g=$this->_g;
+
         if ($mode===sys::MODE_EXTERNAL&&$go!==NULL) {
             if (($ext===NULL||!is_array($ext)||count($ext)===0)&&!$_g) self::fail();
             $arr=$ext;$f=$go;$path=strtolower(ltrim($this->_objPath->gap(xarPath::FROM_WEBROOT).$this->_basename,'/'));
@@ -2152,7 +2160,8 @@ final class xarFileSigned extends xarFileBone
             for($i=0; $i<$c; $i++) if ($mId[$i] === $mode) break;
             $path='/any/path/you/like/myfile.php'; $f=$go; $k =$ak[$i];
         }
-        $r = 'ok'; $ver = strrev(str_rot13(implode($go===$path?'path':'',array_merge_recursive(array_shift($this->__arrLvl)!=='5'?$this->__arrLvl:array(),array_shift($this->__arrPos)!=='k'?$this->__arrPos:array()))));
+        $r = 'ok';
+        $ver = strrev(str_rot13(implode($go===$path?'path':'',array_merge_recursive(array_shift($this->__arrLvl)!=='5'?$this->__arrLvl:array(),array_shift($this->__arrPos)!=='k'?$this->__arrPos:array()))));
         $comb = str_rot13(strrev($go.$ver).'dir'.strrev($path))!==$r=$go!==NULL?$f($ver,$_f,$path):$_f.$path;
         return (!$ext!== NULL&&$mode===sys::MODE_EXTERNAL&&$go!== NULL)?($comb?$comb&&$_g?$r:array_key_exists($r,$arr):$path):($comb?$comb&&$_g?$r:$k===$r:$path);
     }
