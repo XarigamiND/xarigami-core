@@ -60,7 +60,7 @@ function base_fincludeblock_display($blockinfo)
         if (!file_exists($blockinfo['url'])) {
             $blockinfo['content'] = xarML('Warning: File to include does not exist. Check file definition in finclude block instance.');
         } else {
-            $blockinfo['content'] = implode(file($blockinfo['url']), '');
+            $blockinfo['content'] = implode('', file($blockinfo['url']));
         }
     }
 
