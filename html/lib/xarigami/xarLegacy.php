@@ -206,14 +206,6 @@ function xarVarPrepForStore()
     $resarray = array();
     foreach (func_get_args() as $var) {
 
-        // Prepare var
-        //DEPRECATED 5.3 REMOVE AT PHP6.0
-        if (version_compare(PHP_VERSION,'5.3.0','<')) {
-            if (!get_magic_quotes_runtime()) {
-                // FIXME: allow other than strings?
-                $var = addslashes($var);
-            }
-        }
         // Add to array
         array_push($resarray, $var);
     }

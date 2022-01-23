@@ -526,12 +526,7 @@ class xarRequest extends xarRequestBone
         }
 
         $value = xarMLS_convertFromInput($value, $method);
-        //DEPRECATED 5.3 REMOVE AT PHP6.0
-        if (version_compare(PHP_VERSION,'5.3.0','<')) {
-            if (get_magic_quotes_gpc()) {
-                xarVar_stripSlashes($value);
-            }
-        }
+
         return $value;
     }
 
