@@ -2,6 +2,13 @@ Xarigami Changes
 
 All xarigami changes are marked with XARIGAMI MODIFICATION
 
+PHPMailser 6.5.3
+
+- The below mentioned changes (5.2.28) have not been reproduced
+  in this upgrade, to avoid tampering with foreign code for small
+  benefit.
+  ORIGINAL 6.5.3 is included
+
 PHPMailer 5.2.28
 
 Currently active changes:
