@@ -153,11 +153,10 @@ function mail_admin_sendtest()
 
     if (!xarMod::apiFunc('mail','admin', 'sendmail', $args)) {
         xarTplSetMessage(xarML('The test email was not successful. Mail send method had problems.'),'error');
-        return;
+    } else {
+        xarLogMessage('MAIL: A test mail message was sent by '.xarSession::getVar('uid'),XARLOG_LEVEL_AUDIT);
+        xarTplSetMessage(xarML('Test email was successfully queued.'),'status');
     }
-      xarLogMessage('MAIL: A test mail message was sent by '.xarSession::getVar('uid'),XARLOG_LEVEL_AUDIT);
-    // let's update status and display updated configuration
-    xarTplSetMessage(xarML('Test email was successfully queued.'),'status');
     xarResponseRedirect(xarModURL('mail', 'admin', 'compose'));
     // Return
     return true;
