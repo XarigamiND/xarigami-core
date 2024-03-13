@@ -253,7 +253,7 @@ class xarTpl__Compiler extends xarObject implements IxarTPLCompiler
 class xarTpl__PositionInfo extends ParserError
 {
     public $fileName = '';
-    public $line = 1;
+    //public $line = 1;
     public $column = 1;
     public $lineText = '';
 
