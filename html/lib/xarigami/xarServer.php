@@ -640,13 +640,12 @@ class xarRequest extends xarRequestBone
 
         if (sys::isInstall()) return self::$__defaultRequestInfo;
 
-        if (strlen(xarSystemVars::get(NULL,'BaseModURL',TRUE))==0) {
+        $basemodurl = xarSystemVars::get(NULL,'BaseModURL',TRUE);
+        if ($basemodurl === null || $basemodurl === '') {
             $basemodurl='index.php';
-        } else {
-            $basemodurl=xarSystemVars::get(NULL,'BaseModURL',TRUE);
         }
 
-        if ($path == '') $path = substr(xarServerBone::getVar('REDIRECT_URL'),strlen(xarSystemVars::get(NULL,'BaseURI',TRUE)));
+        if ($path == '') $path = substr(xarServerBone::getVar('REDIRECT_URL') ?? '',strlen(xarSystemVars::get(NULL,'BaseURI',TRUE) ?? ''));
 
         $basefix = str_replace($path,'',xarServerBone::getVar('SCRIPT_NAME')); //Fix for win-apache
 

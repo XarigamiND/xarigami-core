@@ -23,10 +23,10 @@ class RegExpValidation extends ValueValidations
             // CHECK: this is probably better a BadParameterException ?
             throw new VariableValidationException(null, $msg);
 
-        } elseif (preg_match($parameters[0], $subject)) {
+        } elseif (preg_match($parameters[0], $subject ?? '')) {
             return true;
         }
-        $msg = xarML("'#(1) Does not match pattern '#(2)'",$subject,$parameters[0]);
+        $msg = xarML("'#(1) Does not match pattern '#(2)'",$subject ?? '',$parameters[0]);
         throw new VariableValidationException(null,$msg);
     }
 }

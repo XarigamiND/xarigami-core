@@ -1564,7 +1564,7 @@ class xarMLS_ParseBrowserLocaleBase
     private function hasRating($str)
     {
         // Seek expression like ;q=0.3
-        return preg_match('#;q=[01]\.[0-9]#', $str) > 0;
+        return preg_match('#;q=[01]\.[0-9]#', $str ?? '') > 0;
     }
 
     protected function isRating()
@@ -1600,7 +1600,7 @@ class xarMLS_ParseBrowserLocaleBase
         }
         else {
             // We need to give better rates to elements in first positions
-            $splitArr = preg_split('/[,;]/', $this->str, -1, PREG_SPLIT_NO_EMPTY);
+            $splitArr = preg_split('/[,;]/', $this->str ?? '', -1, PREG_SPLIT_NO_EMPTY);
             $total = count($splitArr);
             for($i = 0; $i < $total; $i++) {
                 $rate = round(1.0 - $this->DecCoef()*$i, 1);

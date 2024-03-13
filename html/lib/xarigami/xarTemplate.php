@@ -967,7 +967,7 @@ class xarTpl extends xarObject
         xarLogMessage("TPL: 3. $tplThemesDir/$tplBaseDir/{$subpart}$tplBase.xt");
         xarLogMessage("TPL: 4. $tplBaseDir/xartemplates/{$subpart}$tplBase.xd");
 
-        $canTemplateName = strtr($templateName, "-", "/");
+        $canTemplateName = strtr($templateName ?? '', "-", "/");
         $canonical = ($canTemplateName == $templateName) ? false : true;
 
         if(!empty($templateName) &&
