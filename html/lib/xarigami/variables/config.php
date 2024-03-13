@@ -152,7 +152,7 @@ class xarConfigVars extends xarVars implements IxarVars
        // }
         if (!$result) return NULL;
 
-        if ($result) {
+        if ($result && $result->fields) {
             list($name, $value) = $result->fields;
             // Found it, retrieve and cache it
             $cache[$name] = $value;
