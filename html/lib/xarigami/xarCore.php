@@ -627,7 +627,7 @@ class xarCore extends xarCoreCache
             assert_options(ASSERT_ACTIVE,    1);    // Activate when debugging
             assert_options(ASSERT_WARNING,   1);    // Issue a php warning
             assert_options(ASSERT_BAIL,      0);    // Stop processing?
-            assert_options(ASSERT_QUIET_EVAL,0);    // Quiet evaluation of assert condition?
+            // PHP 8.0 removed this assert_options(ASSERT_QUIET_EVAL,0);    // Quiet evaluation of assert condition?
             xarDebug::$sqlCalls = 0;
         }
     }
