@@ -2707,7 +2707,7 @@ It may mean that your site has not been installed correctly.'.$installnotes);
         self::$__has[$dp] = TRUE;
     }
     
-    final private static function __importFail()
+    private static function __importFail()
     {
         $file = self::$__web . self::FILE_FAIL;
         if (!class_exists('xarFailure')) include_once($file);
@@ -2812,7 +2812,7 @@ It may mean that your site has not been installed correctly.'.$installnotes);
         return self::$__var;
     }
 
-    final static private function __getExpMode($f)
+    static private function __getExpMode($f)
     {
         $c = count(self::$__fId);
         for($i=0; $i < $c; $i++) $arr[self::$__fId[$i]] = self::$__mId[$i];
@@ -2821,7 +2821,7 @@ It may mean that your site has not been installed correctly.'.$installnotes);
         return $arr[$f];
     }
 
-    final private static function __getfm() { return array('mId' => self::$__mId, 'fId' => self::$__fId); }
+    private static function __getfm() { return array('mId' => self::$__mId, 'fId' => self::$__fId); }
 
     final static public function getfm()
     {
