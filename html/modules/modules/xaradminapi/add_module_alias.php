@@ -44,7 +44,7 @@ function modules_adminapi_add_module_alias($args)
     if (!xarMod::getBaseInfo($modName)) return;
 
     // Get the list of current aliases
-    $aliases = xarConfigVars::get('System.ModuleAliases', false);
+    $aliases = xarConfigVars::get(null, 'System.ModuleAliases', false);
     if (!$aliases) {
         $aliases = array();
     }

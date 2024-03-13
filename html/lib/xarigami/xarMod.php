@@ -215,7 +215,7 @@ class xarMod extends xarObject implements IxarMod
     {
         self::$genShortUrls = $args['enableShortURLsSupport'];
         self::$genXmlUrls   = $args['generateXMLURLs'];
-        self::$MLSEnabled = xarConfigVars::get('Site.MLS.Enabled', true);
+        self::$MLSEnabled = xarConfigVars::get(null, 'Site.MLS.Enabled', true);
         // Register the events for this subsystem
         xarEvents::register('ModLoad');
         xarEvents::register('ModAPILoad');
