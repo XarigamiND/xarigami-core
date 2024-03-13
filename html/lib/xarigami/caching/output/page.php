@@ -365,7 +365,7 @@ class xarPageCache extends xarObject
             // if request, modify the end of the file with a time stamp
             if (self::$cacheShowTime == 1) {
                 $now = xarML('Last updated on #(1)',
-                             strftime('%a, %d %B %Y %H:%M:%S %Z', time()));
+                             date('D, d F Y H:i:s T'));
                 $value = preg_replace('#</body>#',
                                       // TODO: set this up to be templated
                                       '<div class="xar-sub" style="text-align: center; padding: 8px; ">'.$now.'</div></body>',

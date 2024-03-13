@@ -433,9 +433,9 @@ function xarLocaleFormatUTCDate($format = null, $time = null, $addoffset = false
  * Format a date/time according to the current locale (and/or user's preferences)
  *
  * @access public
- * @param time mixed timestamp or date string (default now)
- * @param format strftime() format to use (TODO: default locale-dependent or configurable ?)
- * @param addoffset bool add user timezone offset (default true)
+ * @param string $format Format string to use, based on date() and gmdate()
+ * @param mixed $timestamp timestamp or date string (default now)
+ * @param bool $addoffset add user timezone offset (default true)
  * @return date string
  *
  */
@@ -466,35 +466,26 @@ function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = tru
 }
 
 /**
- *  Used in place of strftime() for locale translation.
- *  This function uses gmstrftime() so it should be passed
+ *  Used in place of date() formatting function for locale translation.
+ *  This function uses gmdate() so it should be passed
  *  a timestamp that has been modified for the user's current
  *  timezone setting.
  *
  *  @access protected
- *  @param string $format valid format params from strftime() function\
+ *  @param string $format valid format params like the date() function, strftime() values are also accepted
  *  @param int $timestamp optional unix timestamp to translate
  *  @return string datetime string with locale translations
  *
- *  // supported strftime() format rules
- *  %a - abbreviated weekday name according to the current locale
- *  %A - full weekday name according to the current locale
- *  %b - abbreviated month name according to the current locale
- *  %B - full month name according to the current locale
- *  %c - preferred date and time representation for the current locale
- *  %D - same as %m/%d/%y (abbreviated date according to locale)
- *  %h - same as %b
- *  %p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale
- *  %r - time in a.m. and p.m. notation
- *  %R - time in 24 hour notation (for windows compatibility)
- *  %T - current time, equal to %H:%M:%S (for windows compatibility)
- *  %x - preferred date representation for the current locale without the time (same at %D)
- *  %X - preferred time representation for the current locale without the date
- *  %e - day of the month as a decimal number, a single digit is NOT preceded by a space (range ' 1' to '31')
+ *  // supported format rules:
+ *  https://www.php.net/manual/en/datetime.format.php
+ *  But if a "%" appears in the text, it upgrades the string from:
+ *  https://www.php.net/manual/en/function.strftime
  *
- *  @todo unsupported strftime() format rules
- *  %Z - time zone or name or abbreviation - we should use the user or site's info for this
- *  %z - time zone or name or abbreviation - we should use the user or site's info for this
+ *  The following values are taken from Xarigami locale system translations:
+ *  short and long weekday names,
+ *  short and long month names,
+ *  AM/PM symbols,
+ *  complete short date formats (some)
  */
 function xarMLS_strftime($format=null,$timestamp=null)
 {
@@ -511,103 +502,85 @@ function xarMLS_strftime($format=null,$timestamp=null)
 
     // we need to get the correct timestamp format if we do not have one
     if(!isset($format)) {
-         $format = '%c';
-     }
+        $format = 'r';
+    }
+    if(strpos($format, '%') !== false) {
+        sys::import('xarigami.xarDate');
+        $format = XarDateTime::upgradeFormat($format);
+    }
 
     // the locale data should already be a static var in the main loader script
     // so we no longer need to make it a static in this function
     $localeData = xarMLSLoadLocaleData();
 
+    $res = '';
+
     // parse the format string
-    preg_match_all('/%[a-z]/i',$format,$modifiers);
     // replace supported format rules
-    foreach($modifiers[0] as $modifier) {
+    for($i=0; $i < strlen($format); $i++) {
+        $modifier = $format[$i];
         switch($modifier) {
-            case '%a' :
-                // figure out what weekday it is
-                $w = (int) gmstrftime('%w',$timestamp);
+            case 'D' :
+                // short day name, figure out what weekday it is
+                $w = (int) gmdate('w',$timestamp);
                 // increment because the locales start at 1
                 $w++;
                 // replace the weekeday in the format string
-                $format = str_replace($modifier,$localeData["/dateSymbols/weekdays/$w/short"],$format);
+                $res .= $localeData["/dateSymbols/weekdays/$w/short"];
                 // clean up
                 unset($w);
                 break;
 
-            case '%A' :
-                // figure out what weekday it is
-                $w = (int) gmstrftime('%w',$timestamp);
+            case 'l' :
+                // full day name, figure out what weekday it is
+                $w = (int) gmdate('w',$timestamp);
                 // increment because the locales start at 1
                 $w++;
                 // replace the weekeday in the format string
-                $format = str_replace($modifier,$localeData["/dateSymbols/weekdays/$w/full"],$format);
+                $res .= $localeData["/dateSymbols/weekdays/$w/full"];
                 // clean up
                 unset($w);
                 break;
 
-            case '%b' :
-            case '%h' :
-                // figure out what month it is
-                $m = (int) gmstrftime('%m',$timestamp);
+            case 'M' :
+                // short month name, figure out what month it is
+                $m = (int) gmdate('m',$timestamp);
                 // replace the month in the format string
-                $format = str_replace($modifier,$localeData["/dateSymbols/months/$m/short"],$format);
+                $res .= $localeData["/dateSymbols/months/$m/short"];
                 // clean up
                 unset($m);
                 break;
 
-            case '%B' :
-                // figure out what month it is
-                $m = (int) gmstrftime('%m',$timestamp);
+            case 'F' :
+                // full month name, figure out what month it is
+                $m = (int) gmdate('m',$timestamp);
                 // replace the month in the format string
-                $format = str_replace($modifier,$localeData["/dateSymbols/months/$m/full"],$format);
+                $res .= $localeData["/dateSymbols/months/$m/full"];
                 // clean up
                 unset($m);
                 break;
 
-            case '%c' :
+            case 'r' :
                 // TODO: we want to display the user or site's timezone not the servers
                 $fdate = xarLocaleGetFormattedUTCDate('medium',$timestamp);
                 $ftime = xarLocaleGetFormattedUTCTime('medium',$timestamp);
-                $format = str_replace($modifier,$fdate.' '.$ftime,$format);
+                $res .= $fdate.' '.$ftime;
                 break;
 
-            case '%D' :
-            case '%x' :
-                $format = str_replace($modifier,xarLocaleGetFormattedUTCDate('short',$timestamp),$format);
-                break;
+            //FIXME: updateFormat changes these to m/d/y
+            //case '%D' :
+            //case '%x' :
+            //    $format = str_replace($modifier,xarLocaleGetFormattedUTCDate('short',$timestamp),$format);
+            //   break;
 
-            case '%e' :
-                // implement %e for windows - grab the day number and remove the preceding zero
-                $e = sprintf('%1d',gmstrftime('%d',$timestamp));
-                // pad with a space if necessary
-                //if(strlen($e) < 2) {
-                //    $e = '&nbsp;'.$e;
-                //}
-                $format = str_replace($modifier,$e,$format);
-                break;
+            // FIXME: updateFormat changes this to H:i:s
+            //case '%X' :
+            //    // TODO: we want to display the user or site's timezone not the servers
+            //    $format = str_replace($modifier,xarLocaleGetFormattedUTCTime('short',$timestamp),$format);
+            //    break;
 
-            case '%r' :
-                // recursively call the xarMLS_strftime function
-                $format = str_replace($modifier,xarMLS_strftime('%I:%M %p',$timestamp),$format);
-                break;
-
-            case '%R' :
-                // 24 hour time for windows compatibility
-                $format = str_replace($modifier,gmstrftime('%H:%M',$timestamp),$format);
-                break;
-
-            case '%T' :
-                // current time for windows compatibility
-                $format = str_replace($modifier,gmstrftime('%H:%M:%S',$timestamp),$format);
-                break;
-
-            case '%X' :
-                // TODO: we want to display the user or site's timezone not the servers
-                $format = str_replace($modifier,xarLocaleGetFormattedUTCTime('short',$timestamp),$format);
-                break;
-
-            case '%Z' :
-            case '%z' :
+            case 'O' :
+            case 'T' :
                 $user_offset = (string) xarMLS_userOffset($timestamp);
                 // check to see if this is a negative or positive offset
                 $f_offset = strstr($user_offset,'-')  ? '-' : '+';
@@ -635,24 +608,34 @@ function xarMLS_strftime($format=null,$timestamp=null)
                     $f_offset .= "{$user_offset}:00";
                 }
 
-                $format = str_replace($modifier,$f_offset,$format);
+                $res .= $f_offset;
                 break;
 
-            case '%p' :
+            case 'a' :
+            case 'A' :
                 // figure out if it's am or pm
-                $h = (int)gmstrftime('%H',$timestamp);
+                $h = (int)gmdate('H',$timestamp);
                 if($h > 11) {
                     // replace with PM string
-                    $format = str_replace($modifier,$localeData["/dateSymbols/pm"],$format);
+                    $res .= $localeData["/dateSymbols/pm"];
                 } else {
                     // replace with AM string
-                    $format = str_replace($modifier,$localeData["/dateSymbols/am"],$format);
+                    $res .= $localeData["/dateSymbols/am"];
                 }
                 break;
+
+            default:
+                // Other date format characters or string literals
+                // This list contains above cases too, for flexible editing to the cases, all chars from gmdate()
+                if(strpos('dDjlNSwzWFmMntLoXxYyaABgGhHisuveIOPTZcrU', $modifier) !== false) {
+                    $res .= gmdate($modifier, $timestamp);
+                } else {
+                    $res .= $modifier; // strig literal parts
+                }
         }
     }
-    // convert the rest of the format string and return it
-    return gmstrftime($format,$timestamp);
+
+    return $res;
 }
 
 // MLS CLASSES

@@ -70,7 +70,7 @@ class xarLogger extends xarObject
     * @var string
     */
     // Note: before changing this, check windows support for the specifiers
-    private $_timeFormat = '%b %d %H:%M:%S';
+    private $_timeFormat = 'M d h:i:s';
 
     // Elapsed time.
     private $_elapsed = 0;
@@ -102,7 +102,12 @@ class xarLogger extends xarObject
         ///$this->_ident = '';
         // If a custom time format has been provided, use it.
         if (!empty($conf['timeFormat'])) {
-            $this->_timeFormat = $conf['timeFormat'];
+            if(strpos($conf['timeformat'], '%') === false) {
+                $this->_timeFormat = $conf['timeFormat'];
+            } else {
+                sys::import('xarigami.xarDate');
+                $this->_timeFormat = XarDateTime::upgradeFormat($conf['timeFormat']);
+            }
         }
     }
 
@@ -152,11 +157,7 @@ class xarLogger extends xarObject
 
         $secs = ((float)$microtime[0] + (float)$microtime[1]);
 
-        // Prevents E_NOTICE or E_STRICT for strftime - PHP > 5.2.0
-        if(function_exists("date_default_timezone_set") && function_exists("date_default_timezone_get"))
-            date_default_timezone_set(date_default_timezone_get());
-
-        return strftime($this->_timeFormat) . ' ' . $microtime[0] . ' +' . number_format(round($secs - $this->_elapsed, 3),3);
+        return date($this->_timeFormat) . ' ' . $microtime[0] . ' +' . number_format(round($secs - $this->_elapsed, 3),3);
     }
 }
 

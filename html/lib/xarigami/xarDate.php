@@ -171,6 +171,43 @@ class xarDateTime extends DateTime
     function addHours($x)   { $this->hour   += $x; $this->regenerate(); }
     function addMinutes($x) { $this->minute += $x; $this->regenerate(); }
     function addSeconds($x) { $this->second += $x; $this->regenerate(); }
+
+    /**
+     * Updates an old strftime() format string to date().
+     * Throws exception on a few unsupported format codes.
+     *
+     * @param string $format Old format string
+     * @return string New data() compatible format for same values.
+     */
+    public static function upgradeFormat($oldformat)
+    {
+        // From: https://stackoverflow.com/questions/22665959/using-php-strftime-using-date-format-string
+        $unsupported = ['%U', '%V', '%C', '%g', '%G'];
+        $foundunsupported = [];
+        foreach($unsupported as $unsup) {
+            if (strpos($oldformat, $unsup) !== false) {
+                $foundunsupported[] = $unsup;
+                }
+            }
+            if (!empty($foundunsupported)) {
+                throw new \Exception("Date format string conversion found these unsupported chars: ".implode(",", $foundunsupported).' in '.$oldformat);
+            }
+            // Note: Some do not translate accurately
+            // ie. lowercase L is supposed to convert to number with a
+            // preceding space if it is under 10, there is no accurate
+            // conversion so we just use 'g'
+            $phpdateformat = str_replace(
+                ['%a','%A','%d','%e','%u','%w','%W','%b','%h','%B',
+                '%m','%y','%Y','%D','%F','%x','%n','%t','%H','%k',
+                '%I','%l','%M','%p','%P','%r' /* %I:%M:%S %p */,'%R' /* %H:%M */,'%S','%T' /* %H:%M:%S */,'%X',
+                '%z', '%Z','%c', '%s','%%'],
+                ['D','l', 'd', 'j', 'N', 'w', 'W', 'M', 'M', 'F',
+                'm','y','Y','m/d/y','Y-m-d','m/d/y',"\n","\t",'H','G',
+                'h', 'g','i','A','a','h:i:s A','H:i','s','H:i:s','H:i:s',
+                'O', 'T','D M j H:i:s Y' /*Tue Feb 5 00:45:10 2009*/, 'U','%'],
+                $oldformat);
+        return $phpdateformat;
+    }
 }
 
 ?>

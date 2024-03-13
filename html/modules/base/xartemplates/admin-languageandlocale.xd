@@ -35,8 +35,8 @@
                         <xar:data-input type="timezone" name="systemtimezone" id="systemtimezone" value="$hosttime" tabindex="$tabindex++" />
                     </div>
 
-                        <xar:set name="strftime">strftime('%A, %H:%M');</xar:set>
-                        <xar:set name="gmstrftime">gmstrftime('%A, %H:%M');</xar:set>
+                        <xar:set name="datestr">date('l, H:i');</xar:set>
+                        <xar:set name="gmdatestr">gmdate('l, H:i');</xar:set>
                     <div class="xar-form-input-wrapper-after xar-padding-thick">
                         <table class="xar-items">
                             <tr>
@@ -44,16 +44,16 @@
                                 <th><xar:mlstring>Output</xar:mlstring></th>
                             </tr>
                             <tr>
-                                <td>strftime('%A, %H:%M')</td>
-                                <td>#$strftime#</td>
+                                <td>date('l, H:i')</td>
+                                <td>#$datestr#</td>
                             </tr>
                             <tr>
-                                <td>gmstrftime(...)</td>
-                                <td>#$gmstrftime#</td>
+                                <td>gmdate(...)</td>
+                                <td>#$gmdatestr#</td>
                             </tr>
                             <tr>
                                 <td>xarLocaleFormatDate(...)</td>
-                                <td>#xarLocaleFormatDate('%A, %H:%M')#</td>
+                                <td>#xarLocaleFormatDate('i, H:i')#</td>
                             </tr>
                             <tr>
                                 <td>xarLocaleGetFormattedUTCDate('shortdate')</td>

@@ -98,7 +98,11 @@ class DateValidation extends ValueValidations
 
         // If converted okay, convert it back to a string.
         if ($timestamp > 0) {
-            $subject = strftime($store_format, $timestamp);
+            if(strpos($store_format, '%') !== false) {
+                sys::import('xarigami.xarDate');
+                $store_format = XarDateTime::upgradeFormat($store_format);
+            }
+            $subject = date($store_format, $timestamp);
         } else {
             $msg = xarML('Invalid date format');
             throw new VariableValidationException(null, $msg);
