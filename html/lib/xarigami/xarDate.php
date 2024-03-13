@@ -138,7 +138,7 @@ class xarDateTime extends DateTime
                 );
     }
 
-    function getTimestamp()  {  return $this->timestamp; }
+    function getTimestamp() : int  {  return $this->timestamp; }
     function getDate($x)     {  return strtotime($x);    }
     function getYear()       {  return $this->year;      }
     function getYDay()
@@ -153,9 +153,10 @@ class xarDateTime extends DateTime
     function getMinute()      { return $this->minute;   }
     function getSecond()      { return $this->second;   }
 
-    function setTimestamp($x)
+    function setTimestamp($x) : DateTime
     {
-        $this->timestamp = $x; $this->extract();
+        $ret = parent::setTimestamp($x); $this->extract();
+        return $ret;
     }
 
     function setYear($x)   { $this->year   = $x; $this->regenerate(); }
