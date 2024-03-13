@@ -8,7 +8,6 @@
 );
 </xar:set>
 <xar:set name="versionnum">xarConfigGetVar('System.Core.VersionNum')</xar:set>
-<xar:set name="mtrev">xarConfigGetVar('System.Core.VersionRev')</xar:set>
 <xar:set name="versionsub">xarConfigGetVar('System.Core.VersionSub')</xar:set>
 <div class="xar-mod-page">
     <div class="xar-mod-head">
