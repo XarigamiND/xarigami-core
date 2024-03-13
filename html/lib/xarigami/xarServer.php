@@ -745,8 +745,8 @@ class xarRequest extends xarRequestBone
 
     static public function resolveModuleAlias($var)
     {
-        $aliasesMap = xarConfigGetVar('System.ModuleAliases');
-        return (!empty($aliasesMap[$var])) ? $aliasesMap[$var] : $var;
+        $aliasesMap = xarConfigVars::get(null,'System.ModuleAliases', false);
+        return ($aliasesMap && !empty($aliasesMap[$var])) ? $aliasesMap[$var] : $var;
     }
 
     /**

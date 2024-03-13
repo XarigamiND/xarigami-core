@@ -71,8 +71,7 @@ function base_admin_modifyconfig()
     $data['defaulttype'] = array('admin'=>'Admin','user'=>'User');
     $data['ThemesDirectory'] = xarConfigGetVar('Site.BL.ThemesDirectory');
     $data['EnableSecureServer'] = xarConfigGetVar('Site.Core.EnableSecureServer');
-    $port = xarConfigGetVar('Site.Core.SecureServerPort');
-    $data['SecureServerPort'] = empty($port) ? 443 : $port;
+    $data['SecureServerPort'] = xarConfigVars::get(null, 'Site.Core.SecureServerPort', 443);
 
     //Security and sessions
     $data['authmodules'] = xarConfigGetVar('Site.User.AuthenticationModules');

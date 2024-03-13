@@ -993,8 +993,7 @@ function xarMLS__SetVirtualPath($locale, $virtualpath = '')
  */
 function xarMLS__GetVirtualPath($locale)
 {
-    $path = xarConfigVars::get(null,xarMLS__GetVirtualPathConfigVarId($locale));
-    if(!isset($path)) return '';
+    $path = xarConfigVars::get(null,xarMLS__GetVirtualPathConfigVarId($locale), '');
     return $path;
 }
 
@@ -1308,8 +1307,8 @@ function xarMLSVirtualPathsIsEnabled()
     // http://xarigami.com/contrails/display/xgami/584
     if (!function_exists('xarConfigGetVar')) return false;
 
-    $bool = xarConfigVars::get(null,'Site.MLS.VirtualPaths.Enabled');
-    return isset($bool) ? $bool : false;
+    $bool = xarConfigVars::get(null,'Site.MLS.VirtualPaths.Enabled', false);
+    return $bool;
 }
 
 /**
@@ -1333,8 +1332,8 @@ function xarMLSSetEnforcedVirtualPaths($bool)
  */
 function xarMLSVirtualPathsIsEnforced()
 {
-    $bool = xarConfigVars::get(null,'Site.MLS.VirtualPaths.Enforced');
-    return isset($bool) ? $bool : false;
+    $bool = xarConfigVars::get(null,'Site.MLS.VirtualPaths.Enforced', false);
+    return $bool;
 }
 
 

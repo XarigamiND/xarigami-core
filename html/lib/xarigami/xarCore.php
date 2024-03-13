@@ -360,7 +360,7 @@ class xarCore extends xarCoreCache
                             'defaultTimeZone'     => xarConfigVars::get(NULL, 'Site.Core.TimeZone'),
                             'systemTimeZone'      => xarSystemVars::get(sys::CONFIG,'SystemTimeZone'),
                             'defaultTimeOffset'   => xarConfigVars::get(NULL, 'Site.MLS.DefaultTimeOffset'),
-                            'MLSEnabled'          => xarConfigVars::get(NULL, 'Site.MLS.Enabled')
+                            'MLSEnabled'          => xarConfigVars::get(NULL, 'Site.MLS.Enabled', true)
                             );
 
         xarMLS_init($systemArgs, $whatToLoad);
