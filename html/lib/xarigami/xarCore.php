@@ -500,7 +500,7 @@ class xarCore extends xarCoreCache
         xarTpl::setPageTitle(xarVarPrepForDisplay($SiteSlogan));
 
         // Set page template
-        if ($modType == 'admin') {
+        if (isset($modName) && isset($modType) && $modType == 'admin') {
             xarTpl::setAdminTheme($modName);
         }
 
@@ -531,15 +531,22 @@ class xarCore extends xarCoreCache
         if ($run) {
 
             // Load the module
-            if (!xarMod::load($modName, $modType)) return; // throw back
+            if(isset($modName)) {
+                if (!xarMod::load($modName, $modType)) return; // throw back
+            }
 
             // if the debugger is active, start it
             if (self::isDebuggerActive()) {
                 ob_start();
             }
 
-            // Call the main module function
-            $mainModuleOutput = xarMod::guiFunc($modName, $modType, $funcName);
+            if(isset($modName)) {
+                // Call the main module function
+                $mainModuleOutput = xarMod::guiFunc($modName, $modType, $funcName);
+            } else {
+                // Render a 404 page not found
+                $mainModuleOutput = xarResponse::NotFound();
+            }
 
             if (self::isDebuggerActive()) {
                 if (ob_get_length() > 0) {
@@ -559,7 +566,7 @@ class xarCore extends xarCoreCache
             xarEvents::trigger('ServerRequest');
 
             // Note : the page template may be set to something else in the module function
-            if (xarTpl::getPageTemplateName() == 'default' && $modType != 'admin') {
+            if (isset($modName) && xarTpl::getPageTemplateName() == 'default' && $modType != 'admin') {
                 // NOTE: we should fallback to the way we were handling this before
                 // (ie: use pages/$modName.xt if pages/user-$modName is not found)
                 // instead of just switching to the new way without a deprecation period

@@ -697,6 +697,8 @@ class xarRequest extends xarRequestBone
                                 self::$__shortUrlVariables = (array('module' => $modName,'type' => $modType,'func' => $funcName));
                             }
                         }
+                    } else {
+                        return null; // Page not found
                     }
                     $loopHole = NULL;
                 }
