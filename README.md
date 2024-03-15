@@ -3,9 +3,11 @@
 ## What is this?
 
 This is a fork of the old Xarigami CMS updated to work with PHP 7.2+. Xarigami was a fork of Xaraya CMS 1.x branch.
-Both of those are unmaintained nowadays.
+Both of those are unmaintained nowadays, however there seems to be development going
+on on the 2.x branch of Xaraya at https://github.com/xaraya/core .
 
-The CMS itself is old fashioned, but has very nice features. Please read on www.xarigami.org for more.
+The CMS itself is old fashioned, but has very nice features. ~~Please read on www.xarigami.org for more.~~ 
+Sorry, that site went down in 2022, please follow the Wiki on this GitHub page for updates or info.
 This XarigamiND (New Development) fork is **not** maintanied by the original Xarigami developers.
 
 ### Main changes in ND
@@ -13,6 +15,18 @@ This XarigamiND (New Development) fork is **not** maintanied by the original Xar
 * Updated many third party libraries to their latest release
 * Updated obsolete PHP commands and constructs
 * Updated using PHP code analyzers and migration helpers
+
+### Releases
+
+There is no real development going on on this project, just general maintenance and
+minor improvements. But the system is quite solid, so I would not worry on that.
+
+There is a tag called ``for-php7.2`` that contains all fixes needed to run on PHP 7.x.
+There is a ``develop`` branch in all module repos, where further maintenance takes
+place, that will be merged to ``master`` when PHP 8 compatibility is ready.
+
+I've not updated any module version numbers or other cosmetic changes, but so far
+you can simply overwrite a Xarigami 1.5.5 site with this code and it will work.
 
 ## Source code history
 
