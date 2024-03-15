@@ -349,7 +349,7 @@ class xarTagQueue extends xarObject
 
     // someone is bound to trip over that hack at some point
     // deprecated
-    public function queue($op='register', $args)
+    public function queue($op, $args)
     {
         switch($op) {
             case 'register':

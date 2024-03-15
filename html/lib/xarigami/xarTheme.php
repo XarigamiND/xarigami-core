@@ -29,7 +29,7 @@ function xarThemeGetVarDisplayed($themeName, $name)
     if (is_object($result) && method_exists($result, 'toString')) return $result->toString();
     return (string) $result; // Should we not thow an exception here!
 }
-function xarThemeSetVar($themeName, $name, $prime = NULL, $value, $description='') {   return xarThemeVars::set($themeName, $name, $prime, $value, $description); }
+function xarThemeSetVar($themeName, $name, $prime, $value, $description='') {   return xarThemeVars::set($themeName, $name, $prime, $value, $description); }
 function xarThemeDelVar($themeName, $name)                                         {   return xarThemeVars::delete($themeName, $name); }
 
 /**

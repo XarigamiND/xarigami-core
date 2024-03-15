@@ -292,7 +292,7 @@ class xarJs extends xarObject
  * @return boolean TRUE on success
  *
  */
-    public function addJs($position, $type, $data, $index = '', $weight, $aggregate = null, $comment='')
+    public function addJs($position, $type, $data, $index, $weight, $aggregate = null, $comment='')
     {
         if (empty($position) || empty($type) || empty($data)) {return;}
 

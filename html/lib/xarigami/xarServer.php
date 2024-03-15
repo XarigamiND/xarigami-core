@@ -829,7 +829,7 @@ class xarResponse extends xarResponseBone
      * @param string  $funcName
      * @param string  $templateName
      */
-    static protected function _sendError($statusCode, $msg = '', $modName, $modType, $funcName, $templateName)
+    static protected function _sendError($statusCode, $msg, $modName, $modType, $funcName, $templateName)
     {
         parent::sendStatusCode($statusCode);
         if (function_exists('xarTplSetPageTitle')) {

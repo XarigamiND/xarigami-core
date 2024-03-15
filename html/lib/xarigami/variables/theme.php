@@ -21,7 +21,7 @@ sys::import('xarigami.xarVar');
 interface IxarThemeVars
 {
     static function get       ($scope, $name, $transform = NULL, $throw = FALSE);
-    static function set       ($scope, $name, $prime = 0, $value, $description = '');
+    static function set       ($scope, $name, $prime, $value, $description = '');
     static function delete    ($scope, $name);
     static function delete_all($scope);
     static function signature ($scope);
@@ -214,7 +214,7 @@ class xarThemeVars extends xarVars implements IxarThemeVars
      * @throws EmptyParameterException
      *
      */
-    public static function set($scope, $name, $prime = 0, $value, $description = '')
+    public static function set($scope, $name, $prime, $value, $description = '')
     {
         if (empty($scope)) throw new EmptyParameterException('modName');
         if (empty($name)) throw new EmptyParameterException('name');

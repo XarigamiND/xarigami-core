@@ -742,7 +742,7 @@ class xarTpl extends xarObject
      * @param  array  $tplData      template variables
      * @return string
      */
-    public static function styleThemeTemplate($templateName = NULL, $tplData)
+    public static function styleThemeTemplate($templateName, $tplData)
     {
         $path = self::getThemeDir() .'/style/processing/';
         if ($templateName !== NULL) {
