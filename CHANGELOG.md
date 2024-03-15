@@ -21,6 +21,8 @@ _Xarigami 1.5.5 updated to work with PHP 8, plus some small improvements_
 
 _Original Xarigami 1.5.5 updated to work with PHP 7.x_
 
+This version is available as a tag ``for-php7.2`` in core and all modules.
+
 ### Added
 
 - Sort file names in Dynamic FileList Property
