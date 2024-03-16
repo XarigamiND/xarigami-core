@@ -14,7 +14,7 @@
 sys::import('xarigami.xarVar');
 
 function  xarConfigGetVar($name, $prep = NULL) { return xarConfigVars::get(NULL, $name); }
-function  xarConfigDelVar($name)               { return xarConfigVars::del(NULL, $name); }
+function  xarConfigDelVar($name)               { return xarConfigVars::delete(NULL, $name); }
 function  xarConfigSetVar($name, $value)       { return xarConfigVars::set(NULL, $name, $value); }
 
 /**
@@ -44,6 +44,7 @@ class xarConfigVars extends xarVars implements IxarVars
             self::$__dbConn = xarDB::$dbconn;
             self::$__initDone = TRUE;
         }
+        return true;
     }
 
     /**

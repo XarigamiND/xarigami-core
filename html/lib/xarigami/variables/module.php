@@ -58,6 +58,7 @@ class xarModVars extends xarVars implements IxarModVars
             self::$_cachedMod = array();
           //  self::$__useDbCache = xarSystemVars::get(null,'DB.UseADODBCache');
         }
+        return true;
     }
 
     /**

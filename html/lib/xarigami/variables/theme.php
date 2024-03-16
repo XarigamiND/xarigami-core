@@ -62,6 +62,7 @@ class xarThemeVars extends xarVars implements IxarThemeVars
             self::$__initDone = TRUE;
             //self::$__useDbCache = xarSystemVars::get(null,'DB.UseADODBCache');
         }
+        return true;
     }
 
     /**

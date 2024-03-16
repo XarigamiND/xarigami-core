@@ -33,6 +33,7 @@ It may mean that your site has not been installed correctly.
 <a href="http://xarigami.org/resources/installing_xarigami">Xarigami installation</a>
 documentation or <a href="http://xarigami.org/forums">Xarigami forums</a> for assistance.</p>');
         }
+        return true;
     }
 
     /**
