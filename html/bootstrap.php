@@ -462,7 +462,7 @@ class xarRequestBone extends xarObject
      */
     final static function getScriptFile()
     {
-        if (self::$__bScriptValid && is_object($__objFile)) return $__objFile;
+        if (self::$__bScriptValid && is_object(self::$__objFile)) { return self::$__objFile; }
         self::$__bScriptValid = FALSE;
         $scriptFileName = realpath(xarServerBone::getVar('SCRIPT_FILENAME')); // Be careful as the realpath of a file is not the same as the realpath of a dir (symlink for index.php only)
         $arrScriptFile = xarFileBone::pathinfo($scriptFileName, PATHINFO_DIRNAME | PATHINFO_EXTENSION | PATHINFO_BASENAME | PATHINFO_BASENAME);
