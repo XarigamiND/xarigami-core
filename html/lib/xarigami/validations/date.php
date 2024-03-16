@@ -100,7 +100,7 @@ class DateValidation extends ValueValidations
         if ($timestamp > 0) {
             if(strpos($store_format, '%') !== false) {
                 sys::import('xarigami.xarDate');
-                $store_format = XarDateTime::upgradeFormat($store_format);
+                $store_format = xarDateTime::upgradeFormat($store_format);
             }
             $subject = date($store_format, $timestamp);
         } else {

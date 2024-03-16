@@ -105,7 +105,7 @@ class xarLogger extends xarObject
                 $this->_timeFormat = $conf['timeFormat'];
             } else {
                 sys::import('xarigami.xarDate');
-                $this->_timeFormat = XarDateTime::upgradeFormat($conf['timeFormat']);
+                $this->_timeFormat = xarDateTime::upgradeFormat($conf['timeFormat']);
             }
         }
     }

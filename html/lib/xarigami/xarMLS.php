@@ -370,7 +370,7 @@ function xarMLS_userOffset($timestamp = null)
     static $usertz;
     sys::import('xarigami.xarDate');
 
-    $datetime = new XarDateTime();
+    $datetime = new xarDateTime();
     $datetime->setTimeStamp($timestamp);
     if ($usertz === NULL) {
         if (xarUserIsLoggedIn() && xarModGetVar('roles','setusertimezone')) {

@@ -506,7 +506,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
     }
     if(strpos($format, '%') !== false) {
         sys::import('xarigami.xarDate');
-        $format = XarDateTime::upgradeFormat($format);
+        $format = xarDateTime::upgradeFormat($format);
     }
 
     // the locale data should already be a static var in the main loader script
