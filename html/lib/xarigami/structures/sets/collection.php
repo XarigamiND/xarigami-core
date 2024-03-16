@@ -44,7 +44,7 @@ class BasicCollection extends xarDataContainer implements Collection
 }
 class BasicSet extends BasicCollection implements IteratorAggregate
 {
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         $arrayobj = new ArrayObject($this->elements);
         return $arrayobj->getIterator();

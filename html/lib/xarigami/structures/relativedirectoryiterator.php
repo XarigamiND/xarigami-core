@@ -9,7 +9,7 @@
             parent::__construct($realpath);
         }
 
-        public function getExtension()
+        public function getExtension(): string
         {
             $filename = $this->GetFilename();
             $extension = strrpos($filename, ".", 1) + 1;
