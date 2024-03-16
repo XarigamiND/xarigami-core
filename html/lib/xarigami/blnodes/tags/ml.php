@@ -7,6 +7,8 @@
  */
 class xarTpl__XarMlNode extends xarTpl__TplTagNode
 {
+    private $cachedOutput = null;
+
     function __construct($parser, $tagName, $parentTagName='', $parameters=array())
     {
         parent::__construct($parser, $tagName, $parentTagName, $parameters);
