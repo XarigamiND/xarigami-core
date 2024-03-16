@@ -17,7 +17,7 @@ if (!class_exists('Dynamic_DataStore_Master') || !class_exists('Dynamic_DataStor
 class Dynamic_Dummy_DataStore extends Dynamic_DataStore
 {
 
-    function getItem(Array $args = array())
+    function getItem($args)
     {
 
        if (empty($args['itemid']))
@@ -44,7 +44,7 @@ class Dynamic_Dummy_DataStore extends Dynamic_DataStore
         }
     }
 
-    function createItem(Array $args = array())
+    function createItem($args)
     {
         $itemid = $args['itemid'];
         foreach (array_keys($this->fields) as $field) {
@@ -54,7 +54,7 @@ class Dynamic_Dummy_DataStore extends Dynamic_DataStore
         }
     }
 
-    function updateItem(Array $args = array())
+    function updateItem($args)
     {
         $itemid = $args['itemid'];
         foreach (array_keys($this->fields) as $field) {
@@ -64,7 +64,7 @@ class Dynamic_Dummy_DataStore extends Dynamic_DataStore
         }
     }
 
-    function deleteItem(Array $args = array())
+    function deleteItem($args)
     {
         $itemid = $args['itemid'];
         foreach (array_keys($this->fields) as $field) {

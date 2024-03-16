@@ -85,7 +85,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
     }
 
     /* fetch a list of the values for all items in the datastore */
-    function getItems($args)
+    function getItems(Array $args = array())
     {
         /* don't bother if there are no item ids set */
         if (empty($this->_itemids)) {
