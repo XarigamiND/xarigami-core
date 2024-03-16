@@ -16,10 +16,8 @@ class xarAutoSessionCache extends xarObject
 {
     /**
      * Log the HIT / MISS status of URLs requested by first-time visitors
-     *
-     * @return none
      */
-    public static function logStatus($status = 'MISS', $autoCachePeriod)
+    public static function logStatus($status, $autoCachePeriod)
     {
         if (!empty($_SERVER['REQUEST_METHOD']) &&
             ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD') &&
