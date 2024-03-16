@@ -81,7 +81,6 @@ class xarLogger extends xarObject
      * @param array     $conf               Configuration options for the specific driver.
      *
      * @access public
-     * @return boolean
      */
     function setConfig(array $conf)
     {

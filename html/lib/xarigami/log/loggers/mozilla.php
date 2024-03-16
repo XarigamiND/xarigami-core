@@ -57,7 +57,6 @@ class xarLogger_mozilla extends xarLogger
      * Sets up the configuration specific parameters for each driver
      * @param array     $conf               Configuration options for the specific driver.
      * @access public
-     * @return boolean
      */
     function setConfig(array $conf)
     {
@@ -124,6 +123,7 @@ function mozConsole(msg, level)
         $logentry = strtr($logentry,$trans);
         $this->_buffer .= "mozConsole('$logentry', $level);\n";
         $this->writeOut();
+        return true;
     }
  }
 
