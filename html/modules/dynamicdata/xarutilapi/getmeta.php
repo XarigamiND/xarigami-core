@@ -30,7 +30,7 @@ function dynamicdata_utilapi_getmeta($args)
     }
 
     $dbtype = xarDBGetDefault()->databaseType;
-    $dbname =  xarDBGetDefault()->databaseName; //default database!! not current
+    $dbname =  xarDBGetDefault()->database; //default database!! not current
     if (!empty($table)) {
        $tabledata = explode('.',$table);
        if (isset($tabledata[0]) && isset($tabledata[1])) {

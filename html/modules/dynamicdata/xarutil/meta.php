@@ -35,7 +35,7 @@ function dynamicdata_util_meta($args)
     } else {
         $data['demomsg'] = '';
     }
-    $defaultdb = xarDBGetDefault()->databaseName;
+    $defaultdb = xarDBGetDefault()->database;
     if (empty($db)) $db = $defaultdb;
 
     if ($defaultdb != $db) {
