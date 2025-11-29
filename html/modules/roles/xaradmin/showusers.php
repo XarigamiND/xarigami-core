@@ -205,6 +205,8 @@ function roles_admin_showusers()
         $selection .= " OR (xar_email LIKE '" . $likesearch . "')";
         $selection .=')';
         $args['selection'] = $selection;
+    } else {
+        $data['search'] = '';
     }
     $userlist = xarMod::apiFunc('roles','user','getall', $args);
 
