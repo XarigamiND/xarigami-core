@@ -284,7 +284,7 @@ class xarEvents extends xarObject implements IxarEvents
             return xarCoreCache::getCached('Evt.Handlers', 'list');
         }
         if (function_exists('xarConfigGetVar')) {
-            $handlers = xarConfigGetVar('Site.Evt.Handlers');
+            $handlers = xarConfigVars::get(NULL, 'Site.Evt.Handlers', array());
         } else {
             $dbconn = xarDB::$dbconn;
             $sitetabpre = xarDB::$prefix;

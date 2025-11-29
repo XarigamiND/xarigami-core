@@ -369,7 +369,7 @@ class xarCore extends xarCoreCache
          * We deal with users through the sessions subsystem
          *
          */
-        $anonuid = xarConfigVars::get(NULL,'Site.User.AnonymousUID');
+        $anonuid = xarConfigVars::get(NULL,'Site.User.AnonymousUID', '');
         // fall back to default uid 2 during installation (cfr. bootstrap function)
         $anonuid = !empty($anonuid) ? $anonuid : 2;
         define('_XAR_ID_UNREGISTERED', $anonuid);
