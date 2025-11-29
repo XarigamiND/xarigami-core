@@ -200,7 +200,7 @@ function installer_admin_phase5()
 
     if (isset($removetables) && $removetables) {
         $dbconn = xarDB::$dbconn;
-        $result = $dbconn->Execute($dbconn->metaTablesSQL);
+        $result = $dbconn->Execute($dbconn->metaTablesSQL.'?', [ $dbName ]);
         if(!$result) return;
         $tables = array();
         while(!$result->EOF) {
@@ -227,7 +227,7 @@ function installer_admin_phase5()
             }
         }
         //now do the metatable
-        $result = $dbconn->Execute($dbconn->metaTablesSQL);
+        $result = $dbconn->Execute($dbconn->metaTablesSQL.'?', [ $dbName ]);
         if($result) { //we have tables still
             $tables = array();
             while(!$result->EOF) {
