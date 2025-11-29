@@ -55,6 +55,11 @@ function installer_admin_phase4()
             $data['database_username']   = '';
             $data['database_name']       = 'xarigami.sqlite';
             $data['database_type']       = 'sqlite';
+        } else {
+            // Defaults, to avoid undefined variable
+            $data['database_host']       = "localhost";
+            $data['database_username']   = '';
+            $data['database_name']       = 'xarigami';
         }
 
         $data['database_charset']    = 'utf8';
