@@ -53,7 +53,7 @@ class ExceptionHandlers extends xarObject implements IExceptionHandlers
                     $user =$userrole->getRole(xarSessionGetVar('uid'));
                     $role= new xarRoles();
                     $parent = $role->getRole($debuggroup);
-                    $isdev = xarIsParent($parent->uname,$user->uname);
+                    $isdev = $parent && $user && xarIsParent($parent->uname,$user->uname);
                 }
                 $opmode = xarSystemVars::get(null,'Operation.Mode',true)?xarSystemVars::get(null,'Operation.Mode',true):'developer';
 
@@ -229,7 +229,7 @@ class ExceptionHandlers extends xarObject implements IExceptionHandlers
                     $user =$userrole->getRole(xarSessionGetVar('uid'));
                     $role= new xarRoles();
                     $parent = $role->getRole($debuggroup);
-                    $isdev = xarIsParent($parent->uname,$user->uname);
+                    $isdev = $parent && $user && xarIsParent($parent->uname,$user->uname);
                 }
                 $opmode = xarSystemVars::get(null,'Operation.Mode',true)?xarSystemVars::get(null,'Operation.Mode',true):'developer';
 
