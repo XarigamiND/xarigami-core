@@ -79,7 +79,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 xarMod::apiLoad('categories','user');
                 $xartable = &xarDB::$tables;
                 if (empty($xartable['categories_linkage'])) {
-                    continue;
+                    continue 2;
                 }
                 $table = $xartable['categories_linkage'];
                 $modfield = 'xar_modid';
@@ -96,7 +96,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 xarMod::apiLoad($tohook,'user');
                 $xartable = &xarDB::$tables;
                 if (empty($xartable[$tohook])) {
-                    continue;
+                    continue 2;
                 }
                 $table = $xartable[$tohook];
                 $modfield = 'xar_moduleid';
@@ -109,7 +109,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 xarMod::apiLoad('comments','user');
                 $xartable = &xarDB::$tables;
                 if (empty($xartable['comments'])) {
-                    continue;
+                    continue 2;
                 }
                 $table = $xartable['comments'];
                 $modfield = 'xar_modid';
@@ -120,7 +120,7 @@ function dynamicdata_utilapi_updatehooks($args)
             case 'dynamicdata':
                 // already done via field mapping
                 $table = '';
-                continue;
+                continue 2;
                 break;
 
             case 'polls':
@@ -128,7 +128,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 xarMod::apiLoad('polls','user');
                 $xartable = &xarDB::$tables;
                 if (empty($xartable['polls'])) {
-                    continue;
+                    continue 2;
                 }
                 $table = $xartable['polls'];
                 // Note: assuming fixed column names here (version 1.4.0)
@@ -141,7 +141,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 // TODO: retrieve old/new subitems objects from subitems_ddobjects, then
                 //       copy DD from old to new object, and update dd_id in subitems_ddids
                 $table = '';
-                continue;
+                continue 2;
                 break;
 
             case 'uploads':
@@ -149,7 +149,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 xarMod::apiLoad('uploads','user');
                 $xartable = &xarDB::$tables;
                 if (empty($xartable['file_associations'])) {
-                    continue;
+                    continue 2;
                 }
                 $table = $xartable['file_associations'];
                 $modfield = 'xar_modid';
@@ -161,7 +161,7 @@ function dynamicdata_utilapi_updatehooks($args)
                 // not possible to migrate this without knowing the processes,
                 // and especially what kind of information they store about items
                 $table = '';
-                continue;
+                continue 2;
                 break;
 
             default:

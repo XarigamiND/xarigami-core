@@ -84,7 +84,7 @@ function modules_adminapi_getfilemodules($args)
                     // no xarversion.php, no module
                     $modFileInfo = xarMod::getFileInfo($modOsDir);
                     if (!isset($modFileInfo)) {
-                        continue;
+                        continue 2;
                     }
 
                     // Found a directory
@@ -115,7 +115,7 @@ function modules_adminapi_getfilemodules($args)
                     //jojo - checking here - hope this is somehow handled later
                     if (!isset($regId)) {
                         xarSession::setVar('errormsg', "Module '$name' doesn't seem to have a registered module ID defined in xarversion.php - skipping...\nPlease register your module at http://www.xaraya.com");
-                        continue;
+                        continue 2;
                     }
                   
                     //Check for duplicates
