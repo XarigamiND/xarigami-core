@@ -396,7 +396,7 @@ function modules_admin_list()
     $data['menulinks'] = xarMod::apiFunc('modules','admin','getmenulinks');
     $data['return_url'] = xarServer::getCurrentURL();
     $pagerdata= array();
-    $pagerdata['startnum'] = '%%';
+    $pagerdata['startnum'] = 0;
     $pagerdata['numitems'] = $numitems;
     $pagerdata['order']    = $data['order'];
     $pagerdata['sort']     = $data['sort'];

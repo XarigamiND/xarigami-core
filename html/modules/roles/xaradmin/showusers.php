@@ -413,7 +413,7 @@ function roles_admin_showusers()
 
     $data['removeurl']  = xarModURL('roles', 'admin','deleterole', array('roleid' => $uid, 'authid'=>$data['authid']));
 
-    $filter['startnum'] = '%%';
+    $filter['startnum'] = '0';
     $filter['numitems'] = $numitems;
     $filter['group']      = isset($uid) && !empty($uid)? $uid: NULL;
     $filter['uid']      = $uid;

@@ -380,7 +380,7 @@ function roles_user_view($args)
     $pagerfilter['sort'] = $sort;
     $pagerfilter['letter'] = $letter;
     $pagerfilter['search'] = $search;
-    $pagerfilter['startnum'] = '%%';
+    $pagerfilter['startnum'] = 0;
 
     $data['pager'] = xarTplGetPager(
             $startnum,
