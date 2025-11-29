@@ -163,6 +163,7 @@ class Dynamic_DataStore extends xarObject
     public $where;
     public $groupby;
     public $join;
+    public $extra;    // extra fields from joins
 
     public $_itemids;  // reference to itemids in Dynamic_Object_List
 

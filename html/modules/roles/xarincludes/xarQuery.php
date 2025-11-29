@@ -47,6 +47,7 @@ class xarQuery
     public $bindvars;
     public $bindstring;
     public $limits = 1;
+    public $bstring;
     public $cstring;
 
 // Flags

@@ -56,6 +56,8 @@ class Dynamic_Object_Master extends xarObject
 
     public $upload = false;             // flag indicating if this object has some property that provides file upload
     public $visibility = 'public';
+    public $isgrouped;                  // flag indicating if query uses GROUP BY
+
    /**
      * Default constructor to set the object variables, retrieve the dynamic properties
      * and get the corresponding data stores for those properties
@@ -1674,6 +1676,8 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
     public $items = array();             // the result array of itemid => (property name => value)
     public $itemcount = null;       // the number of items given by countItems()
+    public $pagerurl;               // URL for pager
+    public $sorturl;                // URL for sorting
 
     // optional URL style for use in xarModURL() (defaults to itemtype=...&...)
     public $urlstyle = 'itemtype'; // TODO: table or object, or wrapper for all, or all in template, or...

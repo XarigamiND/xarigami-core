@@ -100,6 +100,10 @@ class xarCss extends xarObject
     public $overridden          = FALSE;            // TRUE == stylesheet has been overridden in theme or elsewhere
     public $alternatedir        = '';               // alternative directory for overridden css file
 
+    public $module;                                 // module name for module/block scope
+    public $alternate;                              // alternate stylesheet flag
+    public $tagdata;                                // array of tag data for output
+
     /**
      * constructor
      */
