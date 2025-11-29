@@ -1655,6 +1655,8 @@ class xarMask
     public $dbconn;
     public $privilegestable;
     public $privmemberstable;
+    public $rolestable;
+    public $acltable;
 
 /**
  * xarMask: constructor for the class
@@ -2028,6 +2030,8 @@ class xarPrivilege extends xarMask
     public $dbconn;
     public $privilegestable;
     public $privmemberstable;
+    public $rolestable;
+    public $acltable;
 
 /**
  * xarPrivilege: constructor for the class

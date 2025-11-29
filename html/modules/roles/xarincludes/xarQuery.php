@@ -28,6 +28,7 @@ class xarQuery
     public $version = "1.3";
     public $id;
     public $type;
+    public $key;
     public $tables;
     public $fields;
     public $conditions;
@@ -46,6 +47,7 @@ class xarQuery
     public $bindvars;
     public $bindstring;
     public $limits = 1;
+    public $cstring;
 
 // Flags
 // Set to true to use binding variables supported by some dbs

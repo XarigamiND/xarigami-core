@@ -397,6 +397,9 @@ class xarTpl__Parser extends xarTpl__PositionInfo
     public $tagNamesStack;
     public $tagIds;
     public $tagRootSeen;
+    public $templateSource;
+    public $pos;
+    public $tplVars;
 
     function parse($templateSource)
     {
