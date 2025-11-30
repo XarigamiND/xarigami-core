@@ -399,8 +399,8 @@ class xarBaseObject extends xarBase
     {
         if (empty($args)) { 
             $this->mydbconn = self::$dbconn;
-            $this->$mytables = &self::$tables;
-            $this->$myprefix = self::$prefix;
+            $this->mytables = &self::$tables;
+            $this->myprefix = self::$prefix;
         }
         
     }
