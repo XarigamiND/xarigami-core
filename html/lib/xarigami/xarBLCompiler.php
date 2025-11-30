@@ -130,29 +130,6 @@ class BLParserException extends BLCompilerException
 }
 
 /**
- * ParserError
- *
- * class to hold parser errors
- *
- * @package blocklayout
- * @access private
- * @throws BLParserException
- * @todo ML for the error message?
- */
-class ParserError extends Exception
-{
-    function raiseError($type, $msg)
-    {
-        $out  = "Template error in file '#(1)' at line #(2), column #(3):\n\n";
-        $out .= $msg."\n\n";
-        $out .= "Line contents before the parsing error occurred:\n";
-        $out .= "#(4) <== Error position\n";
-        $vars = array($this->fileName,$this->line,$this->column,$this->lineText);
-        // throw a generic exception for now, this probably should not do this, but i dunno yet
-        throw new BLParserException($vars,$out);
-    }
-}
-/**
  *  Interface definition for the blocklayout compiler, these are the things
  *  it offers, no more, no less
  *
@@ -249,8 +226,10 @@ class xarTpl__Compiler extends xarObject implements IxarTPLCompiler
  * @package core
  * @subpackage blocklayout
  * @access private
+ * @throws BLParserException
+ * @todo ML for the error message?
  */
-class xarTpl__PositionInfo extends ParserError
+class xarTpl__PositionInfo extends Exception
 {
     public $fileName = '';
     //public $line = 1;
@@ -264,6 +243,16 @@ class xarTpl__PositionInfo extends ParserError
     function getFileName()
     {
         return $this->fileName;
+    }
+    function raiseError($type, $msg)
+    {
+        $out  = "Template error in file '#(1)' at line #(2), column #(3):\n\n";
+        $out .= $msg."\n\n";
+        $out .= "Line contents before the parsing error occurred:\n";
+        $out .= "#(4) <== Error position\n";
+        $vars = array($this->fileName,$this->line,$this->column,$this->lineText);
+        // throw a generic exception for now, this probably should not do this, but i dunno yet
+        throw new BLParserException($vars,$out);
     }
 }
 
@@ -1133,8 +1122,9 @@ class xarTpl__Parser extends xarTpl__PositionInfo
  * @package core
  * @subpackage blocklayout
  * @access private
+ * @todo This derived from ParserError, but is this really an error? Changing to parent class now.
  */
-class xarTpl__NodesFactory extends ParserError
+class xarTpl__NodesFactory extends Exception
 {
 
     static function createTplTagNode($tagName, $attributes, $parentTagName, $parser)
