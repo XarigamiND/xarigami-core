@@ -1325,7 +1325,7 @@ class xarMod extends xarObject implements IxarMod
     {
         if (empty($modName)) {
             $msg = xarML('Empty theme or module name (#(1)).', '$modName');
-            throw new EmtpyParameterExceptions($msg);
+            throw new EmptyParameterException($msg);
         }
         switch($type) {
             case 'module':
