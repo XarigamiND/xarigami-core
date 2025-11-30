@@ -27,7 +27,7 @@ interface IxarBlock
     public static function renderGroup($groupname, $template=null);
 }
 
-class xarBlock extends xarBase implements IxarBlock
+class xarBlock extends xarDB implements IxarBlock
 {
     const BLOCK_STATE_INACTIVE  = 0;  // Inactive blocks don't execute and don't rende
     const BLOCK_STATE_HIDDEN    = 1;   // Hidden blocks still execute but do not render

@@ -378,34 +378,6 @@ class xarDB extends xarObject
     }
 }
 
-/**
- * Base class supporting db operations for xar static classes
- */ 
-class xarBase extends xarDB
-{
-
-}
-
-/**
- * Base object class support db operations for xar instanciated classes
- */
-class xarBaseObject extends xarBase
-{
-    protected $mydbconn = NULL;
-    protected $mytables = NULL;
-    protected $myprefix = '';
-    
-    public function __construct($args = NULL)
-    {
-        if (empty($args)) { 
-            $this->mydbconn = self::$dbconn;
-            $this->mytables = &self::$tables;
-            $this->myprefix = self::$prefix;
-        }
-        
-    }
-}
-
 class xarFactory extends xarObject 
 {
     protected $_classname = 'xarObject';
