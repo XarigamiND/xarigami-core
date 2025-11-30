@@ -23,7 +23,7 @@ unset($_lib_);
 class xarDB extends xarObject
 {
     public static $count = 0;
-    // shared db current static connection (used in xarBase)
+    // shared db current static connection
     public static $dbconn = NULL;
     // current table name mapping
     public static $tables = array();
