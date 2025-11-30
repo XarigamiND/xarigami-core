@@ -1279,7 +1279,7 @@ function xarMLSGetVirtualPath($locale = '', $safecheck = 'true')
         if (!in_array($locale, $locales)) return;
     }
     // locale exists then proceed and return the mapped virtual path if it exists
-    return xarMLS__GetVirtualPath($locale, $virtualpath);
+    return xarMLS__GetVirtualPath($locale);
 }
 
 /**
