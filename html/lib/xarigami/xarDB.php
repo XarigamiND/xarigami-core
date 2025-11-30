@@ -378,28 +378,6 @@ class xarDB extends xarObject
     }
 }
 
-class xarFactory extends xarObject 
-{
-    protected $_classname = 'xarObject';
-    protected $_master = NULL;
-    
-    protected function setClass($classname)
-    {
-        $this->_classname = $classname;
-    }
-    
-    protected function createMaster($args = NULL)
-    {
-        $this->_master = new $_classname($args);
-    }
-}
-
-class xarDeepFactory extends xarFactory
-{
-    
-}
-
-
 
 /**
  * xarDB Function wrappers
