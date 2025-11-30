@@ -823,7 +823,7 @@ class xarMod extends xarObject implements IxarMod
 
         if (empty($modName)) {
             $msg = xarML('Empty Module or Theme Name (#(1)).', '$modName');
-            throw new BadParameterExceptions($msg);
+            throw new BadParameterException($msg);
         }
 
         // Get the real module details.
