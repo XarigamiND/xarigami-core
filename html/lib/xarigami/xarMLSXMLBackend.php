@@ -61,7 +61,7 @@ class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend implement
     {
         if (!isset($this->transKeyEntries[$key])) {
             if ($type == 1) {
-                return $string;
+                return $key;
             }
             else {
                 return "";
